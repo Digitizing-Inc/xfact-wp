@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Template">
+	<description>WordPress coding standards for the starter template.</description>
+
+	<!-- Scan paths -->
+	<file>wp-content/themes/starter-theme</file>
+	<file>wp-content/mu-plugins</file>
+	<file>wp-content/plugins</file>
+
+	<!-- Exclude paths -->
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+
+	<!-- Use WordPress Coding Standards -->
+	<rule ref="WordPress"/>
+
+	<!-- Allow short array syntax (common in modern PHP) -->
+	<rule ref="Generic.Arrays.DisallowShortArraySyntax">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+	<!-- Text domain for i18n -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="starter-theme"/>
+				<element value="starter-mu-plugin"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Minimum supported WordPress version -->
+	<config name="minimum_wp_version" value="6.9"/>
+
+	<!-- PHP compatibility -->
+	<rule ref="PHPCompatibilityWP"/>
+	<config name="testVersion" value="8.0-"/>
+
+	<!-- Show progress and use colors -->
+	<arg value="sp"/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+</ruleset>

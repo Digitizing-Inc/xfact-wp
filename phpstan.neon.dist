@@ -1,0 +1,14 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 6
+    paths:
+        - wp-content/themes/starter-theme
+        - wp-content/mu-plugins
+    excludePaths:
+        analyseAndScan:
+            - vendor
+            - node_modules (?)
+    ignoreErrors: []
+    # Uncomment to use a baseline for legacy code:
+    # baseline: phpstan-baseline.neon

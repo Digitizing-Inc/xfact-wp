@@ -1,0 +1,73 @@
+# ===========================================
+# WordPress Template .gitignore
+# ===========================================
+
+# --- WordPress Core ---
+# WordPress core files are provided by the Docker image.
+# Do NOT commit them to the repo.
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/license.txt
+/readme.html
+/xmlrpc.php
+
+# --- Dependencies ---
+/vendor/
+/node_modules/
+
+# --- Environment ---
+.env
+.env.local
+.env.*.local
+
+# --- Database ---
+*.sql
+*.sql.gz
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- IDE/Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Docker ---
+# docker-compose.override.yml is tracked for the template.
+# For production, delete it or rename it.
+
+# --- WordPress Uploads ---
+# Uploads are typically managed separately (S3, persistent volume).
+# Uncomment to track uploads in git:
+# wp-content/uploads/
+
+# --- WordPress Bundled Content ---
+# Ignore everything Docker syncs in, keep only first-party code.
+wp-content/plugins/*
+!wp-content/plugins/README.md
+wp-content/themes/*
+!wp-content/themes/starter-theme/
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+wp-content/object-cache.php
+
+# --- Build Artifacts ---
+wp-content/themes/starter-theme/build/
+
+# --- Logs ---
+*.log
+wp-content/debug.log
+
+# --- Composer ---
+composer.lock
+
+# --- PHPStan ---
+phpstan-baseline.neon

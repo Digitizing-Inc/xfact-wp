@@ -1,0 +1,153 @@
+services:
+  wordpress:
+    build:
+      context: ./docker/wordpress
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
+      WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: ${WP_DEBUG:-false}
+      WORDPRESS_CONFIG_EXTRA: |
+        /* Redis Object Cache */
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PORT', 6379);
+        define('WP_REDIS_TIMEOUT', 1);
+        define('WP_REDIS_READ_TIMEOUT', 1);
+        define('WP_REDIS_DATABASE', 0);
+
+        /* Performance */
+        define('WP_POST_REVISIONS', ${WP_POST_REVISIONS:-5});
+        define('AUTOSAVE_INTERVAL', ${AUTOSAVE_INTERVAL:-120});
+        define('EMPTY_TRASH_DAYS', ${EMPTY_TRASH_DAYS:-30});
+
+        /* Security */
+        define('DISALLOW_FILE_EDIT', true);
+        define('FORCE_SSL_ADMIN', ${FORCE_SSL_ADMIN:-false});
+
+        /* Updates — managed via Docker image rebuilds */
+        define('AUTOMATIC_UPDATER_DISABLED', true);
+        define('WP_AUTO_UPDATE_CORE', false);
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes:/var/www/html/wp-content/themes
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-cli.yml:/var/www/html/wp-cli.yml:ro
+      - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    networks:
+      - wp_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MARIADB_DATABASE: ${DB_NAME:-wordpress}
+      MARIADB_USER: ${DB_USER:-wordpress}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-wordpress}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp_network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-buffer-pool-size=256M
+      --innodb-log-file-size=64M
+      --innodb-flush-log-at-trx-commit=2
+      --max-connections=150
+      --query-cache-type=1
+      --query-cache-size=32M
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - wp_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+
+  wp-setup:
+    build:
+      context: ./docker/wp-cli
+      dockerfile: Dockerfile
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
+      WP_SITE_URL: ${WP_SITE_URL:-http://localhost:8080}
+      WP_SITE_TITLE: ${WP_SITE_TITLE:-WordPress Template}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-admin}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:-admin}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-admin@example.com}
+      WP_THEME_SLUG: ${WP_THEME_SLUG:-starter-theme}
+      WP_TIMEZONE: ${WP_TIMEZONE:-UTC}
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes:/var/www/html/wp-content/themes
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-cli.yml:/var/www/html/wp-cli.yml:ro
+      - ./docker/scripts/setup.sh:/usr/local/bin/wp-setup.sh:ro
+    networks:
+      - wp_network
+    restart: "no"
+    command: ["sh", "/usr/local/bin/wp-setup.sh"]
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    ports:
+      - "${NGINX_PORT:-8888}:80"
+    volumes:
+      - wordpress_data:/var/www/html:ro
+      - ./wp-content/themes:/var/www/html/wp-content/themes:ro
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - wp_network
+
+volumes:
+  wordpress_data:
+  db_data:
+  redis_data:
+
+networks:
+  wp_network:
+    driver: bridge

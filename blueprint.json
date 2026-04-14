@@ -1,0 +1,53 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "meta": {
+    "title": "WordPress Template Preview",
+    "author": "seyLu"
+  },
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "login": true,
+  "steps": [
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "git:directory",
+        "url": "https://github.com/seyLu/wordpress-template",
+        "ref": "main",
+        "refType": "branch",
+        "path": "/wp-content/themes/starter-theme"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "writeFiles",
+      "writeToPath": "/wordpress/wp-content/mu-plugins/",
+      "filesTree": {
+        "resource": "git:directory",
+        "url": "https://github.com/seyLu/wordpress-template",
+        "ref": "main",
+        "refType": "branch",
+        "path": "/wp-content/mu-plugins"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "WordPress Template",
+        "blogdescription": "A modern WordPress template"
+      }
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp rewrite structure '/%postname%/' --hard"
+    }
+  ]
+}

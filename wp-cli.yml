@@ -1,0 +1,11 @@
+# WP-CLI configuration
+# Mounted into the WordPress container via Docker Compose.
+# Centralizes defaults so individual commands don't need repeated flags.
+# See: https://make.wordpress.org/cli/handbook/config/
+
+path: /var/www/html
+color: true
+
+# Ensure mod_rewrite detection works inside Apache containers
+apache_modules:
+  - mod_rewrite

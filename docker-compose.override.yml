@@ -1,0 +1,38 @@
+# Development overrides — automatically loaded by Docker Compose.
+# This file enables debug mode, exposes ports, and adds Xdebug.
+# For production, rename or remove this file and use docker-compose.yml alone.
+
+services:
+  wordpress:
+    environment:
+      WORDPRESS_DEBUG: "true"
+      WORDPRESS_CONFIG_EXTRA: |
+        /* Redis Object Cache */
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PORT', 6379);
+        define('WP_REDIS_TIMEOUT', 1);
+        define('WP_REDIS_READ_TIMEOUT', 1);
+        define('WP_REDIS_DATABASE', 0);
+
+        /* Performance */
+        define('WP_POST_REVISIONS', 5);
+        define('AUTOSAVE_INTERVAL', 120);
+        define('EMPTY_TRASH_DAYS', 30);
+
+        /* Security */
+        define('DISALLOW_FILE_EDIT', true);
+        define('FORCE_SSL_ADMIN', false);
+
+        /* Updates — managed via Docker image rebuilds */
+        define('AUTOMATIC_UPDATER_DISABLED', true);
+        define('WP_AUTO_UPDATE_CORE', false);
+
+        /* Debug — dev only */
+        /* Note: WP_DEBUG itself is set by WORDPRESS_DEBUG env var above. */
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', true);
+        define('SCRIPT_DEBUG', true);
+        define('SAVEQUERIES', true);
+  db:
+    ports:
+      - "3306:3306"

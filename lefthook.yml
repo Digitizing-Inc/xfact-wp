@@ -1,0 +1,24 @@
+# ===========================================
+# Lefthook — Git Hooks Configuration
+# ===========================================
+# Install: lefthook install
+# Run manually: lefthook run pre-commit
+
+pre-commit:
+  parallel: false
+  commands:
+    phpcbf-format:
+      glob: "*.php"
+      run: vendor/bin/phpcbf --standard=phpcs.xml.dist {staged_files}
+      exclude: "^(vendor|node_modules)/"
+      stage_fixed: true
+
+    phpcs-lint:
+      glob: "*.php"
+      run: vendor/bin/phpcs --standard=phpcs.xml.dist {staged_files}
+      exclude: "^(vendor|node_modules)/"
+
+    phpstan-check:
+      glob: "*.php"
+      run: vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress
+      exclude: "^(vendor|node_modules)/"
