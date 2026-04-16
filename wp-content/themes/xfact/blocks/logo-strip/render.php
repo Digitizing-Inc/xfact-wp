@@ -13,11 +13,13 @@ $heading = $attributes['heading'] ?? '';
 $logos   = $attributes['logos'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-logo-strip xfact-bg-alt xfact-section-border' )
+	array(
+		'class' => 'xfact-logo-strip xfact-bg-alt xfact-section-border',
+	)
 );
 ?>
 
-<section <?php echo wp_kses_post( $wrapper_attributes ); ?> style="padding: 2.5rem 0;">
+<section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="xfact-container">
 		<div class="xfact-fade-in" style="text-align: center;">
 			<?php if ( $heading ) : ?>
@@ -26,7 +28,13 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 			<div class="xfact-logo-strip__logos">
 				<?php foreach ( $logos as $logo ) : ?>
-					<span class="xfact-logo-strip__logo" aria-label="<?php echo esc_attr( $logo['name'] ?? '' ); ?>">
+					<span class="xfact-logo-strip__logo" aria-label="
+					<?php
+					echo esc_attr(
+						$logo['name'] ?? '',
+					);
+					?>
+	">
 						<?php if ( ! empty( $logo['svgContent'] ) ) : ?>
 							<?php
 							$svg = $logo['svgContent'];
@@ -67,9 +75,15 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							);
 							?>
 						<?php elseif ( ! empty( $logo['imageUrl'] ) ) : ?>
-							<img src="<?php echo esc_url( $logo['imageUrl'] ); ?>" alt="<?php echo esc_attr( $logo['name'] ?? '' ); ?>" class="xfact-logo-strip__logo-img" loading="lazy" />
+							<img src="<?php echo esc_url( $logo['imageUrl'] ); ?>" alt="
+							<?php
+							echo esc_attr(
+								$logo['name'] ?? '',
+							);
+							?>
+										" class="xfact-logo-strip__logo-img" loading="lazy" />
 						<?php else : ?>
-							<?php echo esc_html( $logo['text'] ?? $logo['name'] ?? '' ); ?>
+							<?php echo esc_html( $logo['text'] ?? ( $logo['name'] ?? '' ) ); ?>
 						<?php endif; ?>
 					</span>
 				<?php endforeach; ?>

@@ -15,9 +15,14 @@ $body       = $attributes['body'] ?? '';
 $badge_text = $attributes['badgeText'] ?? '';
 $tags       = $attributes['tags'] ?? array();
 
-$wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-text-section xfact-bg xfact-section xfact-section-border' )
-);
+$wrapper_args = array( 'class' => 'xfact-text-section xfact-bg xfact-section xfact-section-border' );
+
+$anchor = $attributes['anchor'] ?? '';
+if ( $anchor ) {
+	$wrapper_args['id'] = $anchor;
+}
+
+$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 ?>
 
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?>>

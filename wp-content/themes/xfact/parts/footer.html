@@ -1,40 +1,68 @@
-<!-- wp:html -->
-<footer class="xfact-footer">
-	<div class="xfact-footer__inner">
-		<div class="xfact-footer__grid">
+<!-- wp:group {"tagName":"footer","className":"xfact-footer","layout":{"type":"default"}} -->
+<footer class="wp-block-group xfact-footer">
+	<!-- wp:group {"className":"xfact-footer__inner","layout":{"type":"default"}} -->
+	<div class="wp-block-group xfact-footer__inner">
 
-			<!-- Brand column -->
-			<div class="xfact-footer__brand">
-				<a href="/" class="xfact-footer__logo-link">
-					<img src="/wp-content/themes/xfact/assets/images/xfact-wordmark-white.png" alt="xFact" class="xfact-footer__logo" width="130" height="33" loading="lazy" />
-				</a>
+		<!-- wp:columns {"className":"xfact-footer__grid"} -->
+		<div class="wp-block-columns xfact-footer__grid">
+
+			<!-- wp:column {"className":"xfact-footer__brand"} -->
+			<div class="wp-block-column xfact-footer__brand">
+			<!-- wp:html -->
+			<a href="/" class="xfact-footer__logo-link">
+				<img
+					src="/wp-content/themes/xfact/assets/images/xfact-wordmark-white.png"
+					alt="xFact"
+					class="xfact-footer__logo"
+					width="130"
+					height="auto"
+					loading="lazy"
+				/>
+			</a>
+			<!-- /wp:html -->
+				<!-- wp:paragraph {"className":"xfact-footer__tagline"} -->
 				<p class="xfact-footer__tagline">Technology services that deliver results for public-sector organizations.</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:paragraph {"className":"xfact-footer__note"} -->
 				<p class="xfact-footer__note">DataServ is an xFact solution.</p>
+				<!-- /wp:paragraph -->
 			</div>
+			<!-- /wp:column -->
 
-			<!-- Company links -->
-			<div class="xfact-footer__section">
-				<h3 class="xfact-footer__heading">Company</h3>
-				<ul class="xfact-footer__links">
+			<!-- wp:column {"className":"xfact-footer__section"} -->
+			<div class="wp-block-column xfact-footer__section">
+				<!-- wp:heading {"level":3,"className":"xfact-footer__heading"} -->
+				<h3 class="wp-block-heading xfact-footer__heading">Company</h3>
+				<!-- /wp:heading -->
+				<!-- wp:list {"className":"xfact-footer__links"} -->
+				<ul class="wp-block-list xfact-footer__links">
 					<li><a href="/solutions" class="xfact-footer__link">Solutions</a></li>
 					<li><a href="/support" class="xfact-footer__link">Support</a></li>
 					<li><a href="/careers" class="xfact-footer__link">Careers</a></li>
 					<li><a href="/contact" class="xfact-footer__link">Contact</a></li>
 				</ul>
+				<!-- /wp:list -->
 			</div>
+			<!-- /wp:column -->
 
-			<!-- Legal links -->
-			<div class="xfact-footer__section">
-				<h3 class="xfact-footer__heading">Legal</h3>
-				<ul class="xfact-footer__links">
+			<!-- wp:column {"className":"xfact-footer__section"} -->
+			<div class="wp-block-column xfact-footer__section">
+				<!-- wp:heading {"level":3,"className":"xfact-footer__heading"} -->
+				<h3 class="wp-block-heading xfact-footer__heading">Legal</h3>
+				<!-- /wp:heading -->
+				<!-- wp:list {"className":"xfact-footer__links"} -->
+				<ul class="wp-block-list xfact-footer__links">
 					<li><a href="/privacy" class="xfact-footer__link">Privacy Policy</a></li>
 					<li><a href="/terms" class="xfact-footer__link">Terms of Service</a></li>
 				</ul>
+				<!-- /wp:list -->
 			</div>
+			<!-- /wp:column -->
 
 		</div>
+		<!-- /wp:columns -->
 
-		<!-- Bottom bar -->
+		<!-- wp:html -->
 		<div class="xfact-footer__bottom">
 			<p class="xfact-footer__copyright">&copy; <span class="xfact-footer__year"></span> xFact. All rights reserved.</p>
 			<div class="xfact-footer__bottom-right">
@@ -54,12 +82,15 @@
 				</button>
 			</div>
 		</div>
+		<script>
+		(function() {
+			var yearEl = document.querySelector('.xfact-footer__year');
+			if (yearEl) yearEl.textContent = new Date().getFullYear();
+		})();
+		</script>
+		<!-- /wp:html -->
+
 	</div>
+	<!-- /wp:group -->
 </footer>
-<script>
-(function() {
-	var yearEl = document.querySelector('.xfact-footer__year');
-	if (yearEl) yearEl.textContent = new Date().getFullYear();
-})();
-</script>
-<!-- /wp:html -->
+<!-- /wp:group -->

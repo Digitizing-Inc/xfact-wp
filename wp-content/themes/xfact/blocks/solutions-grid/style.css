@@ -5,7 +5,7 @@
     overflow: hidden;
     border-radius: 1rem;
     border: 1px solid var(--xfact-border);
-    background-color: white;
+    background-color: var(--xfact-bg-alt);
 }
 
 @media (min-width: 640px) {

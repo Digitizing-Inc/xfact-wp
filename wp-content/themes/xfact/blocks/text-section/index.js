@@ -55,6 +55,8 @@
 			var tags = attr.tags || [];
 
 			var controls = [
+				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } ),
+				el( 'hr', { key: 'anchor-sep', style: { margin: '12px 0', opacity: 0.15 } } ),
 				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
 				el( h.TextControl, { key: 'sectionIcon', label: 'Section Icon (Lucide name)', value: attr.sectionIcon || '', onChange: function ( v ) { set( { sectionIcon: v } ); }, help: 'e.g. Shield, Landmark, GraduationCap, HeartPulse, ServerCog' } ),
 				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),

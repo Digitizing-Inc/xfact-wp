@@ -18,7 +18,7 @@
 		"sectionImage": { "type": "string", "default": "" },
 		"sectionImageAlt": { "type": "string", "default": "" }
 	},
-	"supports": { "html": false },
+	"supports": { "html": false, "anchor": true },
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

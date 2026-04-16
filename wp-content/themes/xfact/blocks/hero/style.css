@@ -41,12 +41,13 @@
 	pointer-events: none;
 }
 
-/* Color overlays */
+/* Color overlays — light mode (default) */
 .xfact-hero__overlay {
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
 	background: linear-gradient(135deg, rgba(13, 45, 107, 0.50) 0%, rgba(18, 62, 153, 0.33) 100%);
+	transition: background 0.5s ease;
 }
 
 .xfact-hero__text-gradient {
@@ -54,6 +55,15 @@
 	inset: 0;
 	pointer-events: none;
 	background: linear-gradient(90deg, rgba(13, 45, 107, 0.45) 0%, rgba(13, 45, 107, 0.18) 45%, rgba(13, 45, 107, 0) 75%);
+}
+
+/* Color overlays — dark mode */
+[data-xfact-dark="true"] .xfact-hero__overlay {
+	background: linear-gradient(135deg, rgba(9, 23, 47, 0.50) 0%, rgba(13, 45, 107, 0.28) 100%);
+}
+
+[data-xfact-dark="true"] .xfact-hero__text-gradient {
+	background: linear-gradient(90deg, rgba(9, 23, 47, 0.58) 0%, rgba(9, 23, 47, 0.22) 45%, rgba(9, 23, 47, 0) 75%);
 }
 
 /* Content */
@@ -186,4 +196,32 @@
 @keyframes bounce {
 	0%, 100% { transform: translateX(-50%) translateY(0); }
 	50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+/* ── Floating Icon Animation ── */
+
+@keyframes xfact-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
+}
+
+/* ── Ken Burns ── */
+
+@keyframes xfact-ken-burns {
+	from { transform: scale(1); }
+	to { transform: scale(1.08); }
+}
+
+/* ── Motion preferences ── */
+
+@media (prefers-reduced-motion: no-preference) {
+	.xfact-icon-float {
+		animation: xfact-float 4s ease-in-out infinite;
+		will-change: transform;
+	}
+
+	.xfact-ken-burns {
+		animation: xfact-ken-burns 20s ease-out forwards;
+		will-change: transform;
+	}
 }

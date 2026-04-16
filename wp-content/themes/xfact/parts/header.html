@@ -1,54 +1,112 @@
-<!-- wp:html -->
-<header class="xfact-header">
-	<div class="xfact-header__inner">
+<!-- wp:group {"tagName":"header","className":"xfact-header","layout":{"type":"default"}} -->
+<header class="wp-block-group xfact-header">
+    <!-- wp:group {"className":"xfact-header__inner","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+    <div class="wp-block-group xfact-header__inner">
+        <!-- wp:site-logo {"width":300,"className":"xfact-header__logo-block"} /-->
 
-		<!-- Logo -->
-		<a href="/" class="xfact-header__logo-link">
-			<img src="/wp-content/themes/xfact/assets/images/xfact-lockup-white.png" alt="xFact" class="xfact-header__logo" height="56" />
-		</a>
+        <!-- wp:group {"className":"xfact-desktop-nav","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
+        <div class="wp-block-group xfact-desktop-nav">
+            <!-- wp:navigation {"overlayMenu":"never","className":"xfact-desktop-nav__links","style":{"spacing":{"blockGap":"2.5rem"}},"fontSize":"small"} -->
+            <!-- wp:navigation-link {"label":"Solutions","url":"/solutions","className":"xfact-desktop-nav__link"} /-->
+            <!-- wp:navigation-link {"label":"Support","url":"/support","className":"xfact-desktop-nav__link"} /-->
+            <!-- wp:navigation-link {"label":"Careers","url":"/careers","className":"xfact-desktop-nav__link"} /-->
+            <!-- /wp:navigation -->
+            <!-- wp:buttons -->
+            <div class="wp-block-buttons">
+                <a class="wp-block-button__link wp-element-button" href="/contact"
+                    >Contact</a
+                >
+            </div>
+            <!-- /wp:buttons -->
+        </div>
+        <!-- /wp:group -->
 
-		<!-- Desktop nav + CTA -->
-		<div class="xfact-desktop-nav">
-			<nav class="xfact-desktop-nav__links">
-				<a href="/solutions" class="xfact-desktop-nav__link">Solutions</a>
-				<a href="/support" class="xfact-desktop-nav__link">Support</a>
-				<a href="/careers" class="xfact-desktop-nav__link">Careers</a>
-			</nav>
-			<a href="/contact" class="xfact-desktop-nav__cta">Contact</a>
-		</div>
+        <!-- wp:html -->
+        <button
+            class="xfact-mobile-toggle"
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+        >
+            <svg
+                class="xfact-mobile-toggle__icon-open"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+            </svg>
+            <svg
+                class="xfact-mobile-toggle__icon-close"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                />
+            </svg>
+        </button>
+        <!-- /wp:html -->
+    </div>
+    <!-- /wp:group -->
 
-		<!-- Mobile hamburger -->
-		<button class="xfact-mobile-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-			<svg class="xfact-mobile-toggle__icon-open" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-			</svg>
-			<svg class="xfact-mobile-toggle__icon-close" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-			</svg>
-		</button>
-
-	</div>
-
-	<nav class="xfact-mobile-nav" aria-label="Mobile navigation">
-		<div class="xfact-mobile-nav__links">
-			<a href="/solutions" class="xfact-mobile-nav__link">Solutions</a>
-			<a href="/support" class="xfact-mobile-nav__link">Support</a>
-			<a href="/careers" class="xfact-mobile-nav__link">Careers</a>
-		</div>
-		<div class="xfact-mobile-nav__bottom">
-			<a href="/contact" class="xfact-mobile-nav__cta">Contact</a>
-			<div class="xfact-mobile-nav__theme">
-				<span class="xfact-mobile-nav__theme-label">Theme</span>
-				<button class="xfact-theme-toggle" type="button" aria-label="Switch theme">
-					<span class="xfact-theme-toggle__track">
-						<span class="xfact-theme-toggle__thumb">
-							<svg class="xfact-theme-toggle__icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
-							<svg class="xfact-theme-toggle__icon-sun" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" /></svg>
-						</span>
-					</span>
-				</button>
-			</div>
-		</div>
-	</nav>
+    <!-- wp:html -->
+    <nav class="xfact-mobile-nav" aria-label="Mobile navigation">
+        <div class="xfact-mobile-nav__links">
+            <a href="/solutions" class="xfact-mobile-nav__link">Solutions</a>
+            <a href="/support" class="xfact-mobile-nav__link">Support</a>
+            <a href="/careers" class="xfact-mobile-nav__link">Careers</a>
+        </div>
+        <div class="xfact-mobile-nav__bottom">
+            <a href="/contact" class="xfact-mobile-nav__cta">Contact</a>
+            <div class="xfact-mobile-nav__theme">
+                <span class="xfact-mobile-nav__theme-label">Theme</span>
+                <button
+                    class="xfact-theme-toggle"
+                    type="button"
+                    aria-label="Switch theme"
+                >
+                    <span class="xfact-theme-toggle__track">
+                        <span class="xfact-theme-toggle__thumb">
+                            <svg
+                                class="xfact-theme-toggle__icon-moon"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                                />
+                            </svg>
+                            <svg
+                                class="xfact-theme-toggle__icon-sun"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- /wp:html -->
 </header>
-<!-- /wp:html -->
+<!-- /wp:group -->
