@@ -9,6 +9,7 @@
 	"description": "Text section with label, heading, body, optional badge and tags.",
 	"textdomain": "xfact",
 	"attributes": {
+		"anchor": { "type": "string", "default": "" },
 		"sectionLabel": { "type": "string", "default": "" },
 		"sectionIcon": { "type": "string", "default": "" },
 		"heading": { "type": "string", "default": "" },
