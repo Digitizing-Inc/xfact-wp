@@ -1,72 +1,79 @@
 .xfact-solutions-grid__grid {
-	margin-top: 3rem;
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 1px;
-	overflow: hidden;
-	border-radius: 1rem;
-	border: 1px solid var(--xfact-border);
-	background-color: var(--xfact-border);
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--xfact-border);
+    background-color: white;
 }
 
-@media (min-width: 640px) { .xfact-solutions-grid__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .xfact-solutions-grid__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) {
+    .xfact-solutions-grid__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1024px) {
+    .xfact-solutions-grid__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 .xfact-solutions-grid__card {
-	display: block;
-	padding: 1.5rem 2rem;
-	text-decoration: none;
-	transition: background-color 0.2s;
+    display: block;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
 
 .xfact-solutions-grid__card:hover {
-	background-color: rgba(92, 138, 230, 0.05);
+    background-color: rgba(92, 138, 230, 0.05);
 }
 
 .xfact-solutions-grid__icon {
-	margin-bottom: 1rem;
-	width: 1.5rem;
-	height: 1.5rem;
-	color: var(--xfact-accent, #5C8AE6);
-	transition: transform 0.2s;
+    margin-bottom: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--xfact-accent, #5c8ae6);
+    transition: transform 0.2s;
 }
 
 .xfact-solutions-grid__card:hover .xfact-solutions-grid__icon {
-	transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .xfact-solutions-grid__title {
-	font-size: 1rem;
-	font-weight: 600;
-	color: var(--xfact-text);
-	margin: 0;
-	transition: color 0.2s;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--xfact-text);
+    margin: 0;
+    transition: color 0.2s;
 }
 
 .xfact-solutions-grid__card:hover .xfact-solutions-grid__title {
-	color: var(--xfact-accent);
+    color: var(--xfact-accent);
 }
 
 .xfact-solutions-grid__desc {
-	margin-top: 0.5rem;
-	font-size: 0.875rem;
-	color: var(--xfact-text-muted);
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--xfact-text-muted);
 }
 
 .xfact-solutions-grid__link {
-	display: inline-block;
-	margin-top: 0.75rem;
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: var(--xfact-accent);
-	opacity: 0;
-	transition: opacity 0.2s;
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--xfact-accent);
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .xfact-solutions-grid__card:hover .xfact-solutions-grid__link {
-	opacity: 1;
+    opacity: 1;
 }
 
 .xfact-solutions-grid__cta {
-	margin-top: 2.5rem;
+    margin-top: 2.5rem;
 }
