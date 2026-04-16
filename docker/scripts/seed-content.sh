@@ -10,8 +10,10 @@ set -eu
 
 echo "📝 Seeding page content..."
 
+: "${WP_SITE_URL:?missing}"
+
 # Theme assets base URL — used for image attributes.
-SITE_URL=$(wp option get siteurl 2>/dev/null || echo "http://localhost:8080")
+SITE_URL=$(wp option get siteurl 2>/dev/null || echo "$WP_SITE_URL")
 ASSETS="${SITE_URL}/wp-content/themes/xfact/assets/images"
 
 # ── Home ──────────────────────────────────────────────────────

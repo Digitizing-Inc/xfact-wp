@@ -1039,3 +1039,34 @@ button:focus-visible,
 .entry-content > * + * {
 	margin-block-start: 0 !important;
 }
+
+/* ── Root padding responsive overrides ──────────── */
+/* Match source template: px-4 sm:px-6 lg:px-8      */
+
+@media (min-width: 640px) {
+	body {
+		--wp--style--root--padding-right: 1.5rem;
+		--wp--style--root--padding-left: 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	body {
+		--wp--style--root--padding-right: 2rem;
+		--wp--style--root--padding-left: 2rem;
+	}
+}
+
+/* ── Full-width block padding fix ───────────────── */
+/* Our full-width blocks (hero, cta, page-hero, metrics)
+   already contain .xfact-container with correct padding.
+   Strip WP's root padding from the block wrapper to
+   prevent double-padding. */
+
+.xfact-hero.alignfull,
+.xfact-cta-section.alignfull,
+.xfact-page-hero.alignfull,
+.xfact-metrics-strip.alignfull {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}

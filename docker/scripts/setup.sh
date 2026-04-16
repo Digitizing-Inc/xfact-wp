@@ -7,6 +7,10 @@ set -eu
 #
 # Note: --path is set in wp-cli.yml (mounted at /var/www/html).
 
+: "${WORDPRESS_DB_NAME:?missing}"
+: "${WORDPRESS_DB_USER:?missing}"
+: "${WORDPRESS_DB_PASSWORD:?missing}"
+
 SITE_URL="${WP_SITE_URL:-http://localhost:8080}"
 SITE_TITLE="${WP_SITE_TITLE:-WordPress Template}"
 ADMIN_USER="${WP_ADMIN_USER:-admin}"
@@ -32,6 +36,18 @@ until wp db check --quiet 2>/dev/null; do
 done
 echo "✅ Database connected."
 
+if ! wp config path >/dev/null 2>&1; then
+    echo "🧩 Creating wp-config.php..."
+
+    wp config create \
+        --dbname="$WORDPRESS_DB_NAME" \
+        --dbuser="$WORDPRESS_DB_USER" \
+        --dbpass="$WORDPRESS_DB_PASSWORD" \
+        --dbhost="db:3306" \
+        --allow-root \
+        --skip-check
+fi
+
 # Install WordPress if not already installed
 if ! wp core is-installed 2>/dev/null; then
     echo "📦 Installing WordPress..."
@@ -49,7 +65,7 @@ fi
 
 # Activate the theme
 echo "🎨 Activating theme: $THEME_SLUG..."
-wp theme activate "$THEME_SLUG" 2>/dev/null || \
+wp theme activate "$THEME_SLUG" 2>/dev/null ||
     echo "⚠️  Theme '$THEME_SLUG' not found. Using default."
 
 # Install and activate Redis Object Cache plugin
@@ -81,9 +97,9 @@ wp option update timezone_string "${WP_TIMEZONE:-UTC}" 2>/dev/null || true
 
 # Remove default content
 echo "🧹 Cleaning up default content..."
-wp post delete 1 --force 2>/dev/null || true  # Hello World
-wp post delete 2 --force 2>/dev/null || true  # Sample Page
-wp comment delete 1 --force 2>/dev/null || true  # Default comment
+wp post delete 1 --force 2>/dev/null || true    # Hello World
+wp post delete 2 --force 2>/dev/null || true    # Sample Page
+wp comment delete 1 --force 2>/dev/null || true # Default comment
 
 # Delete default plugins (keeping Akismet as a reference)
 wp plugin delete hello 2>/dev/null || true
