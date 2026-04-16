@@ -1,0 +1,1041 @@
+/* ===========================================
+ * xFact — Global Styles
+ * ===========================================
+ * Animations, utilities, and design tokens that
+ * extend theme.json beyond what it can express.
+ * =========================================== */
+
+/* ── CSS Custom Properties (Light Mode) ──────────────── */
+
+:root {
+	--xfact-bg: #f5f7fa;
+	--xfact-bg-alt: #ffffff;
+	--xfact-bg-card: #ffffff;
+	--xfact-border: #e2e8f0;
+	--xfact-text: #1a202c;
+	--xfact-text-secondary: #4a5568;
+	--xfact-text-muted: #718096;
+	--xfact-dark-section: #0d2d6b;
+	--xfact-dark-section-text: #ffffff;
+	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.75);
+	--xfact-dark-section-muted: rgba(255, 255, 255, 0.55);
+	--xfact-accent: #5c8ae6;
+	--xfact-accent-dark: #3a6bd4;
+	--xfact-accent-darkest: #123e99;
+	--xfact-btn-from: #123e99;
+	--xfact-btn-to: #2a5bb8;
+	--xfact-btn-hover-from: #1a4fb3;
+	--xfact-btn-hover-to: #3a6bd4;
+	--xfact-spacing-section: 5.625rem;
+	--xfact-spacing-section-lg: 7rem;
+	--xfact-spacing-hero-top: 10rem;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--xfact-bg);
+	color: var(--xfact-text);
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Focus Styles ──────────────────────────────────────── */
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+	outline: 2px solid var(--xfact-accent);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* ── Skip to Content ───────────────────────────────────── */
+
+.skip-to-content {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	z-index: 100;
+	padding: 0.75rem 1.5rem;
+	background: var(--xfact-accent);
+	color: #ffffff;
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.skip-to-content:focus {
+	left: 0.5rem;
+	top: 0.5rem;
+	border-radius: 0.25rem;
+}
+
+/* ── Theme Utility Classes ─────────────────────────────── */
+
+.xfact-bg { background-color: var(--xfact-bg); }
+.xfact-bg-alt { background-color: var(--xfact-bg-alt); }
+.xfact-bg-card { background-color: var(--xfact-bg-card); }
+.xfact-border { border-color: var(--xfact-border); }
+.xfact-text { color: var(--xfact-text); }
+.xfact-text-secondary { color: var(--xfact-text-secondary); }
+.xfact-text-muted { color: var(--xfact-text-muted); }
+
+.xfact-dark-section { background-color: var(--xfact-dark-section); }
+.xfact-dark-section-text { color: var(--xfact-dark-section-text); }
+.xfact-dark-section-secondary { color: var(--xfact-dark-section-secondary); }
+.xfact-dark-section-muted { color: var(--xfact-dark-section-muted); }
+
+/* ── Card Patterns ─────────────────────────────────────── */
+
+.xfact-card {
+	border: 1px solid var(--xfact-border);
+	background-color: var(--xfact-bg-alt);
+	transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.xfact-card-interactive {
+	border: 1px solid var(--xfact-border);
+	background-color: var(--xfact-bg-alt);
+	transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.xfact-card-interactive:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	transform: translateY(-1px);
+}
+
+/* ── Gradient Button ───────────────────────────────────── */
+
+.xfact-gradient-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	transition: all 0.2s;
+	border-radius: 0;
+	background: linear-gradient(90deg, var(--xfact-btn-from) 0%, var(--xfact-btn-to) 100%);
+	color: #ffffff;
+	position: relative;
+	overflow: hidden;
+	z-index: 0;
+	text-decoration: none;
+}
+
+.xfact-gradient-button::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, var(--xfact-btn-hover-from) 0%, var(--xfact-btn-hover-to) 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: -1;
+}
+
+.xfact-gradient-button:hover::after {
+	opacity: 1;
+}
+
+.xfact-gradient-button:hover {
+	box-shadow: 0 4px 12px rgba(92, 138, 230, 0.2);
+	color: #ffffff;
+}
+
+.xfact-btn-default {
+	height: 2.75rem;
+	padding: 0 1.25rem;
+	font-size: 0.875rem;
+}
+
+.xfact-btn-lg {
+	height: 3rem;
+	padding: 0 1.5rem;
+	font-size: 0.875rem;
+}
+
+/* ── Secondary Button ──────────────────────────────────── */
+
+.xfact-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	transition: all 0.2s;
+	border-radius: 0;
+	border: 1px solid rgba(26, 32, 44, 0.2);
+	color: #1a202c;
+	background: transparent;
+	text-decoration: none;
+}
+
+.xfact-btn-secondary:hover {
+	border-color: var(--xfact-accent);
+	color: var(--xfact-accent-dark);
+}
+
+/* ── Outline Light Button ──────────────────────────────── */
+
+.xfact-btn-outline-light {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	transition: all 0.2s;
+	border-radius: 0;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	color: #ffffff;
+	background: transparent;
+	text-decoration: none;
+}
+
+.xfact-btn-outline-light:hover {
+	background: #ffffff;
+	color: var(--xfact-accent-darkest);
+	border-color: #ffffff;
+}
+
+/* ── Gradient Divider ──────────────────────────────────── */
+
+.xfact-gradient-divider {
+	background: linear-gradient(
+		90deg,
+		transparent 0%,
+		var(--xfact-border) 50%,
+		transparent 100%
+	);
+	height: 1px;
+}
+
+/* ── Nav Link Underline ────────────────────────────────── */
+
+.xfact-nav-link {
+	position: relative;
+	color: rgba(255, 255, 255, 0.7);
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: color 0.2s;
+	text-decoration: none;
+}
+
+.xfact-nav-link::after {
+	content: "";
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 1.5px;
+	background: var(--xfact-accent);
+	transition: width 0.25s ease;
+}
+
+.xfact-nav-link:hover {
+	color: #ffffff;
+}
+
+.xfact-nav-link:hover::after {
+	width: 100%;
+}
+
+/* ── Scroll-Triggered Fade-In (Progressive Enhancement) ─── */
+/*
+ * DEFAULT: Elements are fully visible.
+ * JS adds .xfact-has-fade to <html> to enable the hidden→visible animation.
+ * If JS fails or the observer doesn't fire, content stays visible.
+ */
+
+.xfact-has-fade .xfact-fade-in {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.xfact-fade-in.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.xfact-has-fade .xfact-stagger-child {
+	opacity: 0;
+	transform: translateY(16px);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.xfact-fade-in.is-visible > .xfact-stagger-child {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.xfact-fade-in.is-visible > .xfact-stagger-child:nth-child(1) { transition-delay: 0ms; }
+.xfact-fade-in.is-visible > .xfact-stagger-child:nth-child(2) { transition-delay: 100ms; }
+.xfact-fade-in.is-visible > .xfact-stagger-child:nth-child(3) { transition-delay: 200ms; }
+.xfact-fade-in.is-visible > .xfact-stagger-child:nth-child(4) { transition-delay: 300ms; }
+.xfact-fade-in.is-visible > .xfact-stagger-child:nth-child(5) { transition-delay: 400ms; }
+
+/* ── Floating Icon Animation ───────────────────────────── */
+
+@keyframes xfact-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
+}
+
+/* ── Hero Ken Burns ────────────────────────────────────── */
+
+@keyframes xfact-ken-burns {
+	from { transform: scale(1); }
+	to { transform: scale(1.08); }
+}
+
+/* ── Motion media queries ──────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+	.xfact-icon-float {
+		animation: xfact-float 4s ease-in-out infinite;
+		will-change: transform;
+	}
+
+	.xfact-ken-burns {
+		animation: xfact-ken-burns 20s ease-out forwards;
+		will-change: transform;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.xfact-has-fade .xfact-fade-in {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.xfact-has-fade .xfact-stagger-child {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.xfact-card-interactive:hover {
+		transform: none;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+/* ── Mobile-responsive section spacing ─────────────────── */
+
+@media (max-width: 640px) {
+	:root {
+		--xfact-spacing-section: 3rem;
+		--xfact-spacing-section-lg: 4rem;
+	}
+}
+
+@media (min-width: 640px) {
+	.xfact-btn-default {
+		height: 3rem;
+		padding: 0 1.5rem;
+	}
+
+	.xfact-btn-lg {
+		height: 3.5rem;
+		padding: 0 2rem;
+		font-size: 1rem;
+	}
+}
+
+/* ── Section spacing utility ───────────────────────────── */
+
+.xfact-section {
+	padding-top: var(--xfact-spacing-section);
+	padding-bottom: var(--xfact-spacing-section);
+}
+
+.xfact-section-lg {
+	padding-top: var(--xfact-spacing-section-lg);
+	padding-bottom: var(--xfact-spacing-section-lg);
+}
+
+/* ── Container ─────────────────────────────────────────── */
+
+.xfact-container {
+	max-width: 80rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+	.xfact-container {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.xfact-container {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+
+/* ── Section border ────────────────────────────────────── */
+
+.xfact-section-border {
+	border-bottom: 1px solid var(--xfact-border);
+}
+
+/* ── Print styles ──────────────────────────────────────── */
+
+@media print {
+	header, footer, nav,
+	.skip-to-content,
+	.xfact-dark-mode-toggle,
+	button:not([type="submit"]) {
+		display: none !important;
+	}
+
+	body {
+		background: white !important;
+		color: black !important;
+		font-size: 12pt;
+	}
+
+	main {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	h1 { font-size: 18pt; margin-bottom: 12pt; }
+	h2 { font-size: 14pt; margin-top: 16pt; margin-bottom: 6pt; }
+	p { orphans: 3; widows: 3; }
+
+	a[href]::after {
+		content: " (" attr(href) ")";
+		font-size: 0.8em;
+		color: #666;
+	}
+
+	a[href^="/"]::after {
+		content: " (https://xfact.com" attr(href) ")";
+	}
+
+	a[href^="#"]::after {
+		content: "";
+	}
+}
+
+/* ── Section Images ────────────────────────────────── */
+
+.xfact-section-image {
+	margin: 2rem 0 0;
+	padding: 0;
+}
+
+.xfact-section-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 0.75rem;
+	object-fit: cover;
+}
+
+/* ── Logo Images ───────────────────────────────────── */
+
+.xfact-logo-strip__logo-img {
+	max-height: 2rem;
+	width: auto;
+	object-fit: contain;
+	filter: grayscale(100%) opacity(0.5);
+	transition: filter 0.3s;
+}
+
+.xfact-logo-strip__logo:hover .xfact-logo-strip__logo-img {
+	filter: grayscale(0%) opacity(1);
+}
+
+/* ── Header ───────────────────────────────────────── */
+
+.xfact-header {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	width: 100%;
+	background: transparent !important;
+	border-bottom: 1px solid transparent;
+	transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.3s ease;
+}
+
+/* Admin bar offset — WP adds a 32px bar at the top when logged in */
+.admin-bar .xfact-header {
+	top: 32px;
+}
+
+@media (max-width: 782px) {
+	.admin-bar .xfact-header {
+		top: 46px;
+	}
+}
+
+.xfact-header--scrolled {
+	background: #0d2d6b !important;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.wp-site-blocks {
+	padding-top: 0 !important;
+}
+
+/* ── Header Inner Container ──────────────────────── */
+
+.xfact-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 80rem;
+	margin: 0 auto;
+	height: 4rem;
+	padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+	.xfact-header__inner {
+		height: 5rem;
+		padding: 0 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.xfact-header__inner {
+		padding: 0 2rem;
+	}
+}
+
+/* ── Header Logo ──────────────────────────────────── */
+
+.xfact-header__logo-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	padding: 0.5rem 0;
+}
+
+@media (min-width: 640px) {
+	.xfact-header__logo-link {
+		padding: 0.75rem 0;
+	}
+}
+
+.xfact-header__logo {
+	height: 3rem;
+	width: auto;
+	transition: all 0.3s;
+}
+
+@media (min-width: 640px) {
+	.xfact-header__logo {
+		height: 3.5rem;
+	}
+}
+
+/* ── Desktop Nav ─────────────────────────────────── */
+
+.xfact-desktop-nav {
+	display: none;
+	align-items: center;
+	gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+	.xfact-desktop-nav {
+		display: flex;
+	}
+}
+
+.xfact-desktop-nav__links {
+	display: flex;
+	align-items: center;
+	gap: 2.5rem;
+}
+
+.xfact-desktop-nav__link {
+	position: relative;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.xfact-desktop-nav__link:hover {
+	color: #fff;
+}
+
+.xfact-desktop-nav__link::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 1.5px;
+	background: var(--xfact-accent, #5C8AE6);
+	transition: width 0.25s ease;
+}
+
+.xfact-desktop-nav__link:hover::after {
+	width: 100%;
+}
+
+.xfact-desktop-nav__cta {
+	display: inline-block;
+	padding: 0.5rem 1.25rem;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 0.375rem;
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+
+.xfact-desktop-nav__cta:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: #fff;
+}
+
+/* ── Mobile Hamburger Toggle ──────────────────────── */
+
+.xfact-mobile-toggle {
+	display: none !important;
+	align-items: center;
+	justify-content: center;
+	width: 3rem;
+	height: 3rem;
+	padding: 0;
+	margin-right: -0.5rem;
+	background: none;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	color: #fff;
+	transition: color 0.2s;
+}
+
+.xfact-mobile-toggle:focus-visible {
+	outline: 2px solid var(--xfact-accent);
+	outline-offset: 2px;
+}
+
+.xfact-mobile-toggle__icon-close {
+	display: none !important;
+}
+
+.xfact-mobile-toggle--open .xfact-mobile-toggle__icon-open {
+	display: none !important;
+}
+
+.xfact-mobile-toggle--open .xfact-mobile-toggle__icon-close {
+	display: block !important;
+}
+
+@media (max-width: 767px) {
+	.xfact-mobile-toggle {
+		display: flex !important;
+	}
+
+	.xfact-desktop-nav {
+		display: none !important;
+	}
+}
+
+/* ── Mobile Nav Overlay ───────────────────────────── */
+
+.xfact-mobile-nav {
+	display: none !important;
+	max-height: 0;
+	overflow: hidden;
+	border-top: 0 solid transparent;
+	background: #0d2d6b;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	transition: max-height 0.3s ease, opacity 0.3s ease, border-top-width 0.3s ease;
+	opacity: 0;
+}
+
+@media (max-width: 767px) {
+	.xfact-mobile-nav {
+		display: block !important;
+	}
+
+	.xfact-mobile-nav--open {
+		max-height: 24rem;
+		opacity: 1;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+}
+
+.xfact-mobile-nav__links {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: 1.5rem 1.5rem 0;
+}
+
+.xfact-mobile-nav__link {
+	display: flex;
+	align-items: center;
+	min-height: 3rem;
+	font-size: 1rem;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.xfact-mobile-nav__link:hover {
+	color: #fff;
+}
+
+.xfact-mobile-nav__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 0.5rem;
+	padding: 1rem 1.5rem 1.5rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.xfact-mobile-nav__cta {
+	flex: 1;
+	display: inline-block;
+	padding: 0.625rem 1.25rem;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 0.375rem;
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-align: center;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+
+.xfact-mobile-nav__cta:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: #fff;
+}
+
+.xfact-mobile-nav__theme {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-left: 1rem;
+}
+
+.xfact-mobile-nav__theme-label {
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Theme Toggle Switch ─────────────────────────── */
+
+.xfact-theme-toggle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	width: 3rem;
+	height: 1.75rem;
+	padding: 0;
+	border: none;
+	border-radius: 9999px;
+	background: none;
+	cursor: pointer;
+}
+
+.xfact-theme-toggle:focus-visible {
+	outline: 2px solid var(--xfact-accent);
+	outline-offset: 2px;
+}
+
+.xfact-theme-toggle__track {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 9999px;
+	background: rgba(255, 255, 255, 0.2);
+	transition: background 0.3s;
+}
+
+[data-xfact-dark="true"] .xfact-theme-toggle__track {
+	background: var(--xfact-accent, #5C8AE6);
+}
+
+.xfact-theme-toggle__thumb {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	transform: translateX(4px);
+	transition: transform 0.3s;
+}
+
+[data-xfact-dark="true"] .xfact-theme-toggle__thumb {
+	transform: translateX(24px);
+}
+
+.xfact-theme-toggle__icon-moon,
+.xfact-theme-toggle__icon-sun {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+.xfact-theme-toggle__icon-moon {
+	display: none;
+	color: var(--xfact-accent, #5C8AE6);
+}
+
+.xfact-theme-toggle__icon-sun {
+	display: block;
+	color: #718096;
+}
+
+[data-xfact-dark="true"] .xfact-theme-toggle__icon-moon {
+	display: block;
+}
+
+[data-xfact-dark="true"] .xfact-theme-toggle__icon-sun {
+	display: none;
+}
+
+/* ── Footer ───────────────────────────────────────── */
+
+.xfact-footer {
+	border-top: 1px solid var(--xfact-border, #e2e8f0);
+	background: var(--xfact-bg-alt, #f5f7fa);
+}
+
+[data-xfact-dark="true"] .xfact-footer {
+	border-top-color: rgba(255, 255, 255, 0.1);
+	background: #09172f;
+}
+
+.xfact-footer__inner {
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 3rem 1rem 3rem;
+}
+
+@media (min-width: 640px) {
+	.xfact-footer__inner {
+		padding: 4rem 1.5rem 4rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.xfact-footer__inner {
+		padding: 4rem 2rem 4rem;
+	}
+}
+
+.xfact-footer__grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+}
+
+@media (min-width: 768px) {
+	.xfact-footer__grid {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+/* Brand column */
+.xfact-footer__brand {
+	grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+	.xfact-footer__brand {
+		grid-column: 1;
+	}
+}
+
+.xfact-footer__logo-link {
+	display: inline-block;
+	text-decoration: none;
+}
+
+.xfact-footer__logo {
+	width: 130px;
+	height: auto;
+	filter: brightness(0);
+	transition: opacity 0.2s;
+}
+
+[data-xfact-dark="true"] .xfact-footer__logo {
+	filter: brightness(0) invert(1);
+}
+
+.xfact-footer__tagline {
+	margin-top: 1rem;
+	max-width: 20rem;
+	font-size: 0.875rem;
+	line-height: 1.625;
+	color: #718096;
+}
+
+[data-xfact-dark="true"] .xfact-footer__tagline {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.xfact-footer__note {
+	margin-top: 0.75rem;
+	font-size: 0.875rem;
+	color: #718096;
+}
+
+[data-xfact-dark="true"] .xfact-footer__note {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* Link sections */
+.xfact-footer__heading {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #a0aec0;
+	margin: 0 0 1rem;
+}
+
+[data-xfact-dark="true"] .xfact-footer__heading {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.xfact-footer__links {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.xfact-footer__link {
+	font-size: 0.875rem;
+	color: #4a5568;
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.xfact-footer__link:hover {
+	color: var(--xfact-accent-darkest, #123e99);
+}
+
+[data-xfact-dark="true"] .xfact-footer__link {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+[data-xfact-dark="true"] .xfact-footer__link:hover {
+	color: var(--xfact-accent, #5C8AE6);
+}
+
+/* Bottom bar */
+.xfact-footer__bottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 2.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--xfact-border, #e2e8f0);
+}
+
+@media (min-width: 768px) {
+	.xfact-footer__bottom {
+		flex-direction: row;
+		margin-top: 4rem;
+		padding-top: 2rem;
+	}
+}
+
+[data-xfact-dark="true"] .xfact-footer__bottom {
+	border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.xfact-footer__copyright {
+	font-size: 0.875rem;
+	color: #a0aec0;
+	margin: 0;
+}
+
+[data-xfact-dark="true"] .xfact-footer__copyright {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.xfact-footer__bottom-right {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.xfact-footer__social {
+	color: #a0aec0;
+	transition: color 0.2s;
+	text-decoration: none;
+}
+
+.xfact-footer__social:hover {
+	color: var(--xfact-accent-darkest, #123e99);
+}
+
+[data-xfact-dark="true"] .xfact-footer__social {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+[data-xfact-dark="true"] .xfact-footer__social:hover {
+	color: var(--xfact-accent, #5C8AE6);
+}
+
+.xfact-footer__social-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.xfact-footer__theme-label {
+	font-size: 0.75rem;
+	color: #a0aec0;
+}
+
+[data-xfact-dark="true"] .xfact-footer__theme-label {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Remove WP Default Block Margins ──────────────── */
+/* WordPress adds default margins between blocks.
+   The source template has seamless section transitions. */
+
+.wp-site-blocks > * + * {
+	margin-block-start: 0 !important;
+}
+
+.wp-site-blocks > .xfact-header + * {
+	margin-block-start: 0 !important;
+}
+
+.entry-content > * + * {
+	margin-block-start: 0 !important;
+}

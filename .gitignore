@@ -52,7 +52,7 @@ Desktop.ini
 wp-content/plugins/*
 !wp-content/plugins/README.md
 wp-content/themes/*
-!wp-content/themes/starter-theme/
+!wp-content/themes/xfact/
 wp-content/uploads/
 wp-content/cache/
 wp-content/upgrade/
@@ -60,7 +60,7 @@ wp-content/backups/
 wp-content/object-cache.php
 
 # --- Build Artifacts ---
-wp-content/themes/starter-theme/build/
+wp-content/themes/xfact/build/
 
 # --- Logs ---
 *.log

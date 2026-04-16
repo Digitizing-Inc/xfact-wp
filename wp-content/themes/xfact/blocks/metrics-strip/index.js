@@ -1,0 +1,68 @@
+/**
+ * xFact Metrics Strip — editor script.
+ */
+( function () {
+	'use strict';
+
+	var h = window.xfactBlockHelpers;
+	var el = h.el;
+
+	function metricControls( metrics, i, set ) {
+		var m = metrics[ i ];
+		function update( key, value ) {
+			var arr = metrics.slice();
+			arr[ i ] = Object.assign( {}, arr[ i ] );
+			arr[ i ][ key ] = value;
+			set( { metrics: arr } );
+		}
+		function remove() {
+			var arr = metrics.slice();
+			arr.splice( i, 1 );
+			set( { metrics: arr } );
+		}
+
+		return [
+			el( 'hr', { key: 'sep-' + i, style: { margin: '16px 0', opacity: 0.3 } } ),
+			el( 'div', {
+				key: 'hdr-' + i,
+				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			},
+				el( 'strong', null, 'Metric ' + ( i + 1 ) ),
+				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
+			),
+			el( h.TextControl, { key: 'val-' + i, label: 'Value', value: m.value || '', onChange: function ( v ) { update( 'value', v ); } } ),
+			el( h.TextControl, { key: 'lbl-' + i, label: 'Label', value: m.label || '', onChange: function ( v ) { update( 'label', v ); } } ),
+		];
+	}
+
+	wp.blocks.registerBlockType( 'xfact/metrics-strip', {
+		edit: h.createEdit( 'xfact/metrics-strip', 'Metrics Settings', function ( props ) {
+			var attr = props.attributes;
+			var set = props.setAttributes;
+			var metrics = attr.metrics || [];
+
+			var controls = [
+				h.imageControl( 'Background Image', attr.backgroundImage,
+					function ( media ) { set( { backgroundImage: media.url } ); },
+					function () { set( { backgroundImage: '' } ); }, 'bgImage' ),
+			];
+
+			metrics.forEach( function ( _m, i ) {
+				controls = controls.concat( metricControls( metrics, i, set ) );
+			} );
+
+			controls.push(
+				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( h.Button, {
+					key: 'add',
+					onClick: function () { set( { metrics: metrics.concat( [ { value: '0', label: 'New Metric' } ] ) } ); },
+					variant: 'secondary',
+					style: { width: '100%', justifyContent: 'center' },
+				}, '+ Add Metric' )
+			);
+
+			return controls;
+		} ),
+		save: function () { return null; },
+	} );
+} )();

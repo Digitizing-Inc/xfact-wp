@@ -112,7 +112,7 @@ services:
       WP_ADMIN_USER: ${WP_ADMIN_USER:-admin}
       WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:-admin}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-admin@example.com}
-      WP_THEME_SLUG: ${WP_THEME_SLUG:-starter-theme}
+      WP_THEME_SLUG: ${WP_THEME_SLUG:-xfact}
       WP_TIMEZONE: ${WP_TIMEZONE:-UTC}
     volumes:
       - wordpress_data:/var/www/html
@@ -121,6 +121,7 @@ services:
       - ./wp-content/plugins:/var/www/html/wp-content/plugins
       - ./wp-cli.yml:/var/www/html/wp-cli.yml:ro
       - ./docker/scripts/setup.sh:/usr/local/bin/wp-setup.sh:ro
+      - ./docker/scripts/seed-content.sh:/usr/local/bin/wp-seed-content.sh:ro
     networks:
       - wp_network
     restart: "no"

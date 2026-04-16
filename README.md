@@ -1,11 +1,11 @@
-# WordPress Template
+# xFact WordPress
 
-A production-ready WordPress starter template with a custom block theme, Docker-based infrastructure, and automated code quality tooling. Clone, customize, and deploy anywhere.
+A production-ready WordPress site for [xFact](https://xfact.com) — technology services for public-sector organizations. Built as a custom block theme with Docker-based infrastructure and automated code quality tooling.
 
 ## Stack
 
 | Service | Image | Purpose |
-|---------|-------|---------|
+|---------|-------|---------| 
 | **WordPress** | `wordpress:6.9-php8.3-apache` + custom | PHP 8.3, WP-CLI, Redis extension, OPcache |
 | **MariaDB** | `mariadb:11` | Database with optimized InnoDB settings |
 | **Redis** | `redis:7-alpine` | Persistent object caching |
@@ -16,8 +16,8 @@ A production-ready WordPress starter template with a custom block theme, Docker-
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/seyLu/wordpress-template.git
-cd wordpress-template
+git clone https://github.com/seyLu/xfact-wp.git
+cd xfact-wp
 
 # 2. Create environment file
 cp .env.example .env
@@ -36,7 +36,7 @@ open http://localhost:8080
 ## Project Structure
 
 ```
-wordpress-template/
+xfact-wp/
 ├── .agents/skills/                 # AI agent skills (coding standards reference)
 ├── .editorconfig                   # Editor formatting rules (tabs for PHP, spaces for data files)
 ├── .env.example                    # Environment variable template
@@ -62,30 +62,58 @@ wordpress-template/
     ├── plugins/                    # Drop custom plugins here
     │   └── README.md
     └── themes/
-        └── starter-theme/          # ← The block theme described below
+        └── xfact/                  # ← The xFact block theme
 ```
 
 ## Theme Structure
 
-The **Starter Theme** is a [WordPress block theme](https://developer.wordpress.org/themes/block-themes/) targeting WordPress 6.9+ and PHP 8.0+. All visual configuration is centralized in `theme.json` v3 and editable through the **Site Editor** (`/wp-admin/site-editor.php`).
+The **xFact Theme** is a [WordPress block theme](https://developer.wordpress.org/themes/block-themes/) targeting WordPress 6.9+ and PHP 8.0+. All visual configuration is centralized in `theme.json` v3 and editable through the **Site Editor** (`/wp-admin/site-editor.php`).
 
 ```
-starter-theme/
+xfact/
 ├── style.css          # Theme metadata header (name, version, text domain, tags)
 ├── theme.json         # Global settings & styles — the design system source of truth
-├── functions.php      # Theme setup: block styles support, editor styles, style enqueue
-├── templates/         # Full-page layouts (block markup)
-│   ├── index.html     # Blog listing with query loop, pagination, and no-results fallback
-│   ├── single.html    # Single post: title, meta, featured image, content, comments
-│   ├── page.html      # Static page: title + content
-│   ├── archive.html   # Category/tag/date archives with query loop
-│   ├── search.html    # Search results with query loop and search form fallback
-│   └── 404.html       # Not-found page with search form
+├── functions.php      # Theme setup: block styles support, editor styles, asset enqueue
+├── inc/
+│   ├── blocks.php     # Auto-registers all blocks from blocks/*/block.json
+│   └── enqueue.php    # Frontend CSS/JS enqueueing
+├── assets/
+│   ├── css/           # Global CSS (animations, dark mode, utilities)
+│   ├── js/            # Dark mode toggle, fade-in, hero slideshow
+│   └── images/        # Hero images, logos, video
+├── blocks/            # 12 custom dynamic blocks (block.json + render.php + style.css)
+│   ├── hero/          # Full-screen hero with slideshow + video
+│   ├── page-hero/     # Subpage hero with Ken Burns background
+│   ├── section-heading/
+│   ├── solutions-grid/
+│   ├── capabilities-pipeline/
+│   ├── metrics-strip/
+│   ├── logo-strip/
+│   ├── cta-section/
+│   ├── text-section/
+│   ├── feature-cards/
+│   ├── contact-form/
+│   └── support-channels/
+├── templates/         # 13 full-page layouts (block markup)
+│   ├── front-page.html    # Homepage (8 sections)
+│   ├── page-solutions.html
+│   ├── page-contact.html
+│   ├── page-careers.html
+│   ├── page-support.html
+│   ├── page-privacy.html
+│   ├── page-terms.html
+│   ├── index.html         # Blog listing
+│   ├── single.html        # Single post
+│   ├── page.html          # Generic page
+│   ├── archive.html       # Category/tag/date archives
+│   ├── search.html        # Search results
+│   └── 404.html           # Not-found page
 ├── parts/             # Reusable template parts (must NOT be nested in subdirectories)
-│   ├── header.html    # Site title + navigation (Home, Blog, About, Contact)
-│   └── footer.html    # Copyright line + legal links (Privacy Policy, Terms)
+│   ├── header.html    # Sticky header with logo, navigation, CTA, dark mode toggle
+│   └── footer.html    # 3-column footer with social links + copyright pattern
 ├── patterns/          # Block patterns registered via PHP file headers
-│   └── hero.php       # Full-width hero: heading, description, two CTA buttons
+│   ├── footer-copyright.php  # Dynamic copyright with current year
+│   └── 404-content.php       # 404 error page content
 └── styles/            # Style variations (alternative color schemes)
     └── dark.json      # Dark mode: light text on dark surfaces
 ```
@@ -99,78 +127,75 @@ Each template is an HTML file containing [WordPress block markup](https://develo
 │  header (parts/header.html) │  ← wp:template-part
 ├─────────────────────────────┤
 │                             │
-│  main content area          │  ← wp:group + wp:query / wp:post-content
+│  main content area          │  ← wp:group + custom blocks / wp:post-content
 │                             │
 ├─────────────────────────────┤
 │  footer (parts/footer.html) │  ← wp:template-part
 └─────────────────────────────┘
 ```
 
+### Custom Blocks
+
+All 12 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersion: 3`, and follow WordPress coding standards:
+
+| Block | Description |
+|-------|-------------|
+| `xfact/hero` | Full-screen hero with image slideshow, video overlay, floating icon, CTA |
+| `xfact/page-hero` | Subpage hero with Ken Burns background image effect |
+| `xfact/section-heading` | Reusable section label + heading + subtitle |
+| `xfact/solutions-grid` | 5-card grid of sector solutions with hover effects |
+| `xfact/capabilities-pipeline` | Horizontal pipeline with arrow connectors |
+| `xfact/metrics-strip` | 4-metric stats row on dark background |
+| `xfact/logo-strip` | Partner logo display strip |
+| `xfact/cta-section` | Call-to-action with gradient accent line and watermark |
+| `xfact/text-section` | Content section with optional badge and tags |
+| `xfact/feature-cards` | Card grid for values/features |
+| `xfact/contact-form` | Contact form with email-based submission |
+| `xfact/support-channels` | Support channel cards with existing client CTA |
+
 ## Customizing the Theme
 
 ### Design Tokens (`theme.json`)
 
-The design system is declared entirely in `theme.json` v3. Change these values to rebrand the theme instantly:
+The design system is declared entirely in `theme.json` v3. Change these values to rebrand the theme:
 
-#### Colors (13-color palette)
+#### Colors (18-color palette)
 
 | Token | Default | Usage |
 |-------|---------|-------|
-| `primary` | `#1e40af` | Buttons, links, accents |
-| `primary-light` | `#3b82f6` | Hover/focus states |
-| `secondary` | `#7c3aed` | Secondary accents |
-| `accent` | `#06b6d4` | Highlights, badges |
-| `surface` | `#ffffff` | Page background |
-| `surface-alt` | `#f8fafc` | Code blocks, alt sections |
+| `navy-950` | `#09172f` | Darkest background |
+| `navy-900` | `#022038` | Dark background |
+| `navy-800` | `#06384f` | Elevated surfaces |
+| `navy-700` | `#0a4d6b` | Card backgrounds |
+| `navy-600` | `#32558f` | Accent backgrounds |
+| `accent` | `#5C8AE6` | Links, highlights |
+| `accent-dark` | `#3A6BD4` | Hover/focus states |
+| `accent-darkest` | `#123e99` | Buttons |
+| `surface` | `#f5f7fa` | Page background |
+| `surface-alt` | `#ffffff` | Cards, alt sections |
+| `surface-dark` | `#0d1f35` | Dark sections |
+| `surface-raised` | `#06384f` | Raised dark elements |
 | `border` | `#e2e8f0` | Borders, dividers |
-| `text-primary` | `#0f172a` | Body text, headings |
-| `text-secondary` | `#475569` | Excerpts, secondary text |
-| `text-muted` | `#94a3b8` | Captions, dates |
-| `success` | `#16a34a` | Success states |
-| `warning` | `#d97706` | Warning states |
-| `error` | `#dc2626` | Error states |
-
-To change the primary color, edit `theme.json`:
-
-```json
-{
-  "settings": {
-    "color": {
-      "palette": [
-        {
-          "slug": "primary",
-          "color": "#059669",
-          "name": "Primary"
-        }
-      ]
-    }
-  }
-}
-```
+| `text-primary` | `#1a202c` | Body text, headings |
+| `text-secondary` | `#4a5568` | Excerpts, descriptions |
+| `text-muted` | `#718096` | Captions, dates |
+| `dark-section` | `#0d2d6b` | Dark section backgrounds |
+| `white` | `#ffffff` | White text/elements |
 
 #### Typography
 
-- **Font**: Inter (Google Fonts, loaded via `fontFace` — no external stylesheet dependency)
+- **Font**: Inter (Google Fonts, loaded via `fontFace` — no external stylesheet)
 - **Fallback stack**: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ...`
-- **Monospace**: JetBrains Mono / Fira Code / Cascadia Code (system fallback chain)
-- **6 fluid font sizes**: `small` → `xxx-large` with `clamp()`-based fluid scaling
+- **Monospace**: JetBrains Mono / Fira Code / Cascadia Code (system fallback)
+- **6 fluid font sizes**: `small` → `hero` with `clamp()`-based fluid scaling
 
 #### Spacing
 
 A 7-step geometric scale (`1.5rem` base, `×1.5` multiplier) accessible as `var(--wp--preset--spacing--10)` through `var(--wp--preset--spacing--70)`.
 
-#### Borders
-
-| Preset | Size |
-|--------|------|
-| `small` | `4px` |
-| `medium` | `8px` |
-| `large` | `16px` |
-| `full` | `9999px` (pill shape) |
-
 #### Shadows
 
-Four presets: `small`, `medium`, `large`, `xl` — from subtle (`0 1px 2px`) to dramatic (`0 20px 25px`).
+Four presets: `small`, `medium`, `large`, `accent-glow` — from subtle to accent-colored.
 
 ### Adding a New Template
 
@@ -210,12 +235,12 @@ Create a PHP file in `patterns/` with the required header comment:
 <?php
 /**
  * Title: My Pattern
- * Slug: starter-theme/my-pattern
+ * Slug: xfact/my-pattern
  * Categories: featured
  * Keywords: keyword1, keyword2
  * Description: A short description of the pattern.
  *
- * @package starter-theme
+ * @package xfact
  */
 ?>
 
@@ -228,9 +253,22 @@ Create a PHP file in `patterns/` with the required header comment:
 
 Patterns appear automatically in the Block Editor inserter under their category.
 
+### Adding a New Block
+
+Create a new directory under `blocks/` with at minimum:
+
+```
+blocks/my-block/
+├── block.json      # Metadata (apiVersion 3, name, attributes, render, style)
+├── render.php      # Server-side render template
+└── style.css       # Block-specific styles
+```
+
+Blocks are auto-registered by `inc/blocks.php` — no additional PHP registration needed.
+
 ### Style Variations
 
-The theme ships with a **Dark** style variation (`styles/dark.json`). Users can switch between the default light theme and dark mode via **Appearance → Editor → Styles**.
+The theme ships with a **Dark** style variation (`styles/dark.json`). Users can switch via **Appearance → Editor → Styles**.
 
 To add a new style variation, create a JSON file in `styles/`:
 
@@ -241,14 +279,14 @@ To add a new style variation, create a JSON file in `styles/`:
   "settings": {
     "color": {
       "palette": [
-        { "slug": "primary", "color": "#059669", "name": "Primary" }
+        { "slug": "surface", "color": "#1a1a2e", "name": "Surface" }
       ]
     }
   },
   "styles": {
     "color": {
-      "background": "#ffffff",
-      "text": "#0f172a"
+      "background": "#1a1a2e",
+      "text": "#ffffff"
     }
   }
 }
@@ -313,7 +351,7 @@ Run `make help` to see all commands:
 ### Tools
 
 | Tool | Config | Purpose |
-|------|--------|---------|
+|------|--------|---------| 
 | **PHPCS** | `phpcs.xml.dist` | WordPress Coding Standards + PHPCompatibility |
 | **PHPStan** | `phpstan.neon.dist` | Static analysis (level 6) with WordPress stubs |
 | **Lefthook** | `lefthook.yml` | Git pre-commit hooks |
@@ -351,7 +389,7 @@ make playground
 npx @wp-playground/cli@latest server --blueprint=./blueprint.json --blueprint-may-read-adjacent-files
 ```
 
-The `blueprint.json` installs the starter theme, copies the mu-plugin, sets site options, and configures pretty permalinks.
+The `blueprint.json` installs the xFact theme, copies the mu-plugin, sets site options, and configures pretty permalinks.
 
 ## Deployment
 

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/solutions-grid",
+	"version": "1.0.0",
+	"title": "xFact Solutions Grid",
+	"category": "theme",
+	"icon": "grid-view",
+	"description": "Grid of sector/solution cards with icons and links.",
+	"textdomain": "xfact",
+	"attributes": {
+		"sectionLabel": { "type": "string", "default": "Solutions Overview" },
+		"heading": { "type": "string", "default": "Purpose-Built for Public-Sector Environments" },
+		"subtitle": { "type": "string", "default": "Serving the institutions communities depend on." },
+		"sectors": { "type": "array", "default": [] },
+		"buttonLabel": { "type": "string", "default": "Explore our solutions →" },
+		"buttonHref": { "type": "string", "default": "/solutions" },
+		"sectionImage": { "type": "string", "default": "" },
+		"sectionImageAlt": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

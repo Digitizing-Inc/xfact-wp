@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/hero",
+	"version": "1.0.0",
+	"title": "xFact Hero",
+	"category": "theme",
+	"icon": "format-video",
+	"description": "Full-width hero section with background image slideshow, video overlay, and CTA.",
+	"textdomain": "xfact",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "<accent>Your partner</accent> behind the systems communities rely on"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "xFact partners with public institutions to design, integrate, secure, and sustain mission-critical technology systems."
+		},
+		"ctaLabel": {
+			"type": "string",
+			"default": "Let's Talk"
+		},
+		"ctaHref": {
+			"type": "string",
+			"default": "/contact"
+		},
+		"videoUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"posterImage": {
+			"type": "string",
+			"default": ""
+		},
+		"slides": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"spacing": {
+			"padding": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

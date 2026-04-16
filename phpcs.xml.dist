@@ -3,7 +3,7 @@
 	<description>WordPress coding standards for the starter template.</description>
 
 	<!-- Scan paths -->
-	<file>wp-content/themes/starter-theme</file>
+	<file>wp-content/themes/xfact</file>
 	<file>wp-content/mu-plugins</file>
 	<file>wp-content/plugins</file>
 
@@ -16,6 +16,14 @@
 	<!-- Use WordPress Coding Standards -->
 	<rule ref="WordPress"/>
 
+	<!--
+		Exclude index.asset.php from the filename sniff.
+		WordPress block asset loader requires this exact naming convention.
+	-->
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>index\.asset\.php$</exclude-pattern>
+	</rule>
+
 	<!-- Allow short array syntax (common in modern PHP) -->
 	<rule ref="Generic.Arrays.DisallowShortArraySyntax">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
@@ -25,8 +33,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="starter-theme"/>
-				<element value="starter-mu-plugin"/>
+				<element value="xfact"/>
 			</property>
 		</properties>
 	</rule>

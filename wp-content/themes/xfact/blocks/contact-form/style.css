@@ -1,0 +1,131 @@
+.xfact-contact-form__layout {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+	.xfact-contact-form__layout {
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+	}
+}
+
+.xfact-contact-form__form {
+	margin-top: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.xfact-contact-form__row {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+}
+
+@media (min-width: 640px) { .xfact-contact-form__row { grid-template-columns: repeat(2, 1fr); } }
+
+.xfact-contact-form__field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.xfact-contact-form__label {
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--xfact-text);
+}
+
+.xfact-contact-form__required {
+	color: var(--xfact-accent, #5C8AE6);
+}
+
+.xfact-contact-form__input,
+.xfact-contact-form__textarea {
+	border: 1px solid var(--xfact-border);
+	border-radius: 0.5rem;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	background-color: var(--xfact-bg-alt);
+	color: var(--xfact-text);
+	transition: border-color 0.2s;
+	font-family: inherit;
+}
+
+.xfact-contact-form__input:focus,
+.xfact-contact-form__textarea:focus {
+	outline: none;
+	border-color: var(--xfact-accent);
+	box-shadow: 0 0 0 3px rgba(92, 138, 230, 0.1);
+}
+
+.xfact-contact-form__textarea { resize: vertical; }
+
+/* Assessment sidebar */
+.xfact-contact-form__assessment {
+	border-radius: 1rem;
+	padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+	.xfact-contact-form__assessment {
+		padding: 2rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.xfact-contact-form__assessment {
+		padding: 2.5rem;
+	}
+}
+
+.xfact-contact-form__assess-heading {
+	margin-top: 1rem;
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	color: var(--xfact-text);
+}
+
+@media (min-width: 768px) {
+	.xfact-contact-form__assess-heading {
+		font-size: 1.5rem;
+	}
+}
+
+.xfact-contact-form__assess-desc {
+	margin-top: 1rem;
+	font-size: 1rem;
+	line-height: 1.6;
+	color: var(--xfact-text-secondary);
+}
+
+.xfact-contact-form__checklist {
+	margin-top: 1.5rem;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.xfact-contact-form__checklist-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+}
+
+.xfact-contact-form__check-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+	flex-shrink: 0;
+	margin-top: 0.125rem;
+	color: var(--xfact-accent, #5C8AE6);
+}
+
+.xfact-contact-form__checklist-item span {
+	font-size: 0.875rem;
+	color: var(--xfact-text-secondary);
+}
+
+.xfact-contact-form__assess-btn {
+	margin-top: 2rem;
+}

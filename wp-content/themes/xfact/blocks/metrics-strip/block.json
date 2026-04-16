@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/metrics-strip",
+	"version": "1.0.0",
+	"title": "xFact Metrics Strip",
+	"category": "theme",
+	"icon": "chart-bar",
+	"description": "Row of key metric cards on dark background.",
+	"textdomain": "xfact",
+	"attributes": {
+		"metrics": {
+			"type": "array",
+			"default": [
+				{ "value": "25+", "label": "Years of Service" },
+				{ "value": "500+", "label": "Clients Served" },
+				{ "value": "99.9%", "label": "Uptime SLA" },
+				{ "value": "24/7", "label": "Support Coverage" }
+			]
+		},
+		"backgroundImage": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false, "align": ["full", "wide"] },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

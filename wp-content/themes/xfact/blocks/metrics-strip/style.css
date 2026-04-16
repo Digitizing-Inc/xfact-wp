@@ -1,0 +1,32 @@
+.xfact-metrics-strip__grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
+@media (min-width: 640px) { .xfact-metrics-strip__grid { gap: 1.5rem; } }
+@media (min-width: 768px) { .xfact-metrics-strip__grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
+
+.xfact-metrics-strip__card {
+	text-align: center;
+}
+
+.xfact-metrics-strip__value {
+	display: block;
+	font-size: 2.25rem;
+	font-weight: 700;
+	color: #ffffff;
+	letter-spacing: -0.025em;
+}
+
+@media (min-width: 768px) { .xfact-metrics-strip__value { font-size: 3rem; } }
+
+.xfact-metrics-strip__label {
+	display: block;
+	margin-top: 0.25rem;
+	font-size: 0.875rem;
+	color: rgba(255, 255, 255, 0.55);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 500;
+}

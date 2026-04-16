@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/support-channels",
+	"version": "1.0.0",
+	"title": "xFact Support Channels",
+	"category": "theme",
+	"icon": "sos",
+	"description": "Grid of support channel cards.",
+	"textdomain": "xfact",
+	"attributes": {
+		"channels": { "type": "array", "default": [
+			{ "title": "Help Desk", "description": "Submit and track support tickets for immediate assistance with your systems and services.", "iconName": "Ticket" },
+			{ "title": "Phone Support", "description": "Speak directly with our support team for urgent issues requiring immediate attention.", "iconName": "Phone" },
+			{ "title": "Knowledge Base", "description": "Browse documentation, guides, and FAQs to find answers and resolve common issues.", "iconName": "BookOpen" }
+		]},
+		"existingClientHeading": { "type": "string", "default": "Existing Client?" },
+		"existingClientDescription": { "type": "string", "default": "Access your support portal to submit tickets, track issues, and review service history." },
+		"existingClientButtonLabel": { "type": "string", "default": "Open Support Portal" },
+		"existingClientButtonHref": { "type": "string", "default": "https://support.dataserv.com" },
+		"sectionImage": { "type": "string", "default": "" },
+		"sectionImageAlt": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

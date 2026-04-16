@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/section-heading",
+	"version": "1.0.0",
+	"title": "xFact Section Heading",
+	"category": "theme",
+	"icon": "heading",
+	"description": "Section label, heading, and subtitle, matching xFact design language.",
+	"textdomain": "xfact",
+	"attributes": {
+		"sectionLabel": { "type": "string", "default": "" },
+		"heading": { "type": "string", "default": "" },
+		"subtitle": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

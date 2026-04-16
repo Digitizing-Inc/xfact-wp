@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/logo-strip",
+	"version": "1.0.0",
+	"title": "xFact Logo Strip",
+	"category": "theme",
+	"icon": "images-alt2",
+	"description": "Partner logo strip with heading.",
+	"textdomain": "xfact",
+	"attributes": {
+		"heading": { "type": "string", "default": "Working with leading technology providers to deliver proven solutions." },
+		"logos": { "type": "array", "default": [
+			{ "name": "Microsoft", "text": "Microsoft", "svgContent": "<svg viewBox=\"0 0 170 36\" aria-label=\"Microsoft\" role=\"img\"><text x=\"0\" y=\"27\" font-family=\"'Segoe UI', system-ui, sans-serif\" font-weight=\"400\" font-size=\"28\" fill=\"currentColor\" letter-spacing=\"-0.5\">Microsoft</text></svg>" },
+			{ "name": "Cisco", "text": "CISCO", "svgContent": "<svg viewBox=\"0 0 100 36\" aria-label=\"Cisco\" role=\"img\"><text x=\"0\" y=\"28\" font-family=\"'Arial', sans-serif\" font-weight=\"700\" font-size=\"30\" fill=\"currentColor\" letter-spacing=\"1\">CISCO</text></svg>" },
+			{ "name": "Pure Storage", "text": "PURE STORAGE", "svgContent": "<svg viewBox=\"0 0 250 36\" aria-label=\"Pure Storage\" role=\"img\"><text x=\"0\" y=\"27\" font-family=\"'Helvetica Neue', sans-serif\" font-weight=\"300\" font-size=\"26\" fill=\"currentColor\" letter-spacing=\"2\">PURE STORAGE</text></svg>" },
+			{ "name": "Fortinet", "text": "FORTINET", "svgContent": "<svg viewBox=\"0 0 150 36\" aria-label=\"Fortinet\" role=\"img\"><text x=\"0\" y=\"28\" font-family=\"'Arial', sans-serif\" font-weight=\"700\" font-size=\"28\" fill=\"currentColor\" letter-spacing=\"0.5\">FORTINET</text></svg>" },
+			{ "name": "Dell", "text": "DELL", "svgContent": "<svg viewBox=\"0 0 80 36\" aria-label=\"Dell\" role=\"img\"><text x=\"0\" y=\"28\" font-family=\"'Arial', sans-serif\" font-weight=\"700\" font-size=\"30\" fill=\"currentColor\" letter-spacing=\"1\">DELL</text></svg>" }
+		]}
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

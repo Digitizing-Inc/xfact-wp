@@ -1,0 +1,88 @@
+/* ===========================================
+ * xFact — Dark Mode Overrides
+ * =========================================== */
+
+[data-theme="dark"] {
+	--xfact-bg: #09172f;
+	--xfact-bg-alt: #022038;
+	--xfact-bg-card: #06384f;
+	--xfact-border: rgba(255, 255, 255, 0.1);
+	--xfact-text: #ffffff;
+	--xfact-text-secondary: rgba(255, 255, 255, 0.7);
+	--xfact-text-muted: rgba(255, 255, 255, 0.45);
+	--xfact-dark-section: #09172f;
+	--xfact-dark-section-text: #ffffff;
+	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.6);
+	--xfact-dark-section-muted: rgba(255, 255, 255, 0.45);
+}
+
+/* Override WP generated colors in dark mode */
+[data-theme="dark"] body {
+	background-color: var(--xfact-bg);
+	color: var(--xfact-text);
+}
+
+[data-theme="dark"] .wp-block-group,
+[data-theme="dark"] .wp-block-cover,
+[data-theme="dark"] .wp-site-blocks {
+	color: var(--xfact-text);
+}
+
+/* Secondary button dark mode */
+[data-theme="dark"] .xfact-btn-secondary {
+	border-color: rgba(255, 255, 255, 0.2);
+	color: #ffffff;
+}
+
+[data-theme="dark"] .xfact-btn-secondary:hover {
+	color: var(--xfact-accent);
+}
+
+/* Footer dark mode overrides */
+[data-theme="dark"] .xfact-footer {
+	border-color: rgba(255, 255, 255, 0.1);
+	background-color: #09172f;
+}
+
+/* Dark mode toggle button */
+.xfact-dark-mode-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.6);
+	cursor: pointer;
+	border-radius: 0.375rem;
+	transition: color 0.2s, background-color 0.2s;
+}
+
+.xfact-dark-mode-toggle:hover {
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.xfact-dark-mode-toggle svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	fill: currentColor;
+}
+
+.xfact-dark-mode-toggle .icon-sun {
+	display: none;
+}
+
+.xfact-dark-mode-toggle .icon-moon {
+	display: block;
+}
+
+[data-theme="dark"] .xfact-dark-mode-toggle .icon-sun {
+	display: block;
+}
+
+[data-theme="dark"] .xfact-dark-mode-toggle .icon-moon {
+	display: none;
+}

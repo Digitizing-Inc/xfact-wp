@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/text-section",
+	"version": "1.0.0",
+	"title": "xFact Text Section",
+	"category": "theme",
+	"icon": "text",
+	"description": "Text section with label, heading, body, optional badge and tags.",
+	"textdomain": "xfact",
+	"attributes": {
+		"sectionLabel": { "type": "string", "default": "" },
+		"sectionIcon": { "type": "string", "default": "" },
+		"heading": { "type": "string", "default": "" },
+		"body": { "type": "string", "default": "" },
+		"badgeText": { "type": "string", "default": "" },
+		"tags": { "type": "array", "default": [] },
+		"sectionImage": { "type": "string", "default": "" },
+		"sectionImageAlt": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}
