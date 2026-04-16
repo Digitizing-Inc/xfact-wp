@@ -40,7 +40,7 @@ fi
 # ── Solutions ─────────────────────────────────────────────────
 SOL_ID=$(wp post list --post_type=page --name=solutions --field=ID 2>/dev/null)
 if [ -n "$SOL_ID" ]; then
-    wp post update "$SOL_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"Reliable Systems. Stronger Communities.","subtitle":"xFact supports mission-critical systems across complex public-sector environments. A single accountable partner improves reliability and reduces complexity.","backgroundImage":"'"${ASSETS}"'/hero-solutions.jpg","imageAlt":"Healthcare workers collaborating","align":"full"} /-->
+    wp post update "$SOL_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Solutions","heading":"Reliable Systems. Stronger Communities.","subtitle":"xFact supports mission-critical systems across complex public-sector environments. A single accountable partner improves reliability and reduces complexity.","backgroundImage":"'"${ASSETS}"'/hero-solutions.jpg","imageAlt":"Healthcare workers collaborating","align":"full"} /-->
 
 <!-- wp:xfact/text-section {"sectionIcon":"Shield","sectionLabel":"Public Safety \u0026 Justice","heading":"Strengthening Systems That Cannot Fail","body":"Public safety agencies operate in environments where technology reliability is critical to real-time operations. Communications infrastructure and secure information environments must remain continuously available while meeting stringent security and compliance requirements. xFact helps public safety organizations maintain resilient and secure technology environments that support mission-critical operations and ensure systems remain dependable in high-consequence situations.","tags":[{"label":"Public Safety Data Broker Solution"},{"label":"License Management System"},{"label":"Cloud Migration Strategic Roadmap"}]} /-->
 
@@ -59,7 +59,7 @@ fi
 # ── Support ───────────────────────────────────────────────────
 SUP_ID=$(wp post list --post_type=page --name=support --field=ID 2>/dev/null)
 if [ -n "$SUP_ID" ]; then
-    wp post update "$SUP_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"Access assistance for your systems and services.","subtitle":"Ongoing support maintains system reliability. Our structured processes enable efficient response and timely issue resolution.","backgroundImage":"'"${ASSETS}"'/hero-support.jpg","imageAlt":"Police officer on duty","align":"full"} /-->
+    wp post update "$SUP_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Support","heading":"Access assistance for your systems and services.","subtitle":"Ongoing support maintains system reliability. Our structured processes enable efficient response and timely issue resolution.","backgroundImage":"'"${ASSETS}"'/hero-support.jpg","imageAlt":"Police officer on duty","align":"full"} /-->
 
 <!-- wp:xfact/support-channels /-->'
     echo "  ✅ Seeded: Support"
@@ -68,7 +68,7 @@ fi
 # ── Careers ───────────────────────────────────────────────────
 CAR_ID=$(wp post list --post_type=page --name=careers --field=ID 2>/dev/null)
 if [ -n "$CAR_ID" ]; then
-    wp post update "$CAR_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"Work behind the systems communities rely on.","subtitle":"Join a team that supports mission-critical technology for public-sector organizations. Build systems that must work every day.","backgroundImage":"'"${ASSETS}"'/hero-careers.jpg","imageAlt":"Volunteers working together","align":"full"} /-->
+    wp post update "$CAR_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Careers","heading":"Work behind the systems communities rely on.","subtitle":"Join a team that supports mission-critical technology for public-sector organizations. Build systems that must work every day.","backgroundImage":"'"${ASSETS}"'/hero-careers.jpg","imageAlt":"Volunteers working together","align":"full"} /-->
 
 <!-- wp:xfact/feature-cards {"sectionLabel":"Why xFact","heading":"What it means to work here","cards":[{"title":"Mission-Driven Work","description":"Every project supports systems critical to public services — from public safety to education to healthcare.","iconName":"Target"},{"title":"High-Accountability Environments","description":"Our teams operate in environments where reliability matters. The work we do must function every day.","iconName":"ShieldCheck"},{"title":"Real Impact","description":"Employees contribute directly to systems that serve communities and support essential public operations.","iconName":"Zap"},{"title":"Growth \u0026 Development","description":"Work alongside experienced professionals across infrastructure, security, applications, and strategy.","iconName":"TrendingUp"}]} /-->
 
@@ -79,7 +79,7 @@ fi
 # ── Contact ───────────────────────────────────────────────────
 CON_ID=$(wp post list --post_type=page --name=contact --field=ID 2>/dev/null)
 if [ -n "$CON_ID" ]; then
-    wp post update "$CON_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"Start the Conversation","subtitle":"Complex environments require thoughtful evaluation.","backgroundImage":"'"${ASSETS}"'/hero-contact.jpg","imageAlt":"Kids using technology in the classroom","align":"full"} /-->
+    wp post update "$CON_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Contact","heading":"Start the Conversation","subtitle":"Complex environments require thoughtful evaluation.","backgroundImage":"'"${ASSETS}"'/hero-contact.jpg","imageAlt":"Kids using technology in the classroom","align":"full"} /-->
 
 <!-- wp:xfact/contact-form {"heading":"Get in Touch","subtitle":"Tell us about your organization and what you'\''re looking to accomplish. We'\''ll connect you with the right team."} /-->
 

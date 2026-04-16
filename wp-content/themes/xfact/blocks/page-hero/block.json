@@ -9,6 +9,7 @@
 	"description": "Subpage hero with background image, heading, and subtitle.",
 	"textdomain": "xfact",
 	"attributes": {
+		"sectionLabel": { "type": "string", "default": "" },
 		"heading": { "type": "string", "default": "" },
 		"subtitle": { "type": "string", "default": "" },
 		"backgroundImage": { "type": "string", "default": "" },

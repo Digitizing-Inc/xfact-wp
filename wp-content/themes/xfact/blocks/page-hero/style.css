@@ -51,6 +51,16 @@
 	margin: 0;
 }
 
+/* When heading follows a section label, add spacing */
+.xfact-section-label + .xfact-page-hero__heading {
+	margin-top: 1rem;
+}
+
+/* Section label inside dark hero — use white text */
+.xfact-page-hero .xfact-section-label {
+	color: var(--xfact-accent, #5C8AE6);
+}
+
 @media (min-width: 768px) { .xfact-page-hero__heading { font-size: 3rem; } }
 @media (min-width: 1024px) { .xfact-page-hero__heading { font-size: 3.75rem; } }
 

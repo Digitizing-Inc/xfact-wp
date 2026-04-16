@@ -11,6 +11,7 @@
 
 declare(strict_types=1);
 
+$section_label    = $attributes['sectionLabel'] ?? '';
 $heading          = $attributes['heading'] ?? '';
 $subtitle         = $attributes['subtitle'] ?? '';
 $background_image = $attributes['backgroundImage'] ?? '';
@@ -48,6 +49,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 	<div class="xfact-page-hero__content xfact-container">
 		<div class="xfact-page-hero__text">
+			<?php if ( $section_label ) : ?>
+				<span class="xfact-section-label"><?php echo esc_html( $section_label ); ?></span>
+			<?php endif; ?>
 			<?php if ( $heading ) : ?>
 				<h1 class="xfact-page-hero__heading"><?php echo esc_html( $heading ); ?></h1>
 			<?php endif; ?>

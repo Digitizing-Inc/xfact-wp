@@ -17,7 +17,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 );
 ?>
 
-<section <?php echo wp_kses_post( $wrapper_attributes ); ?> style="padding: 2.5rem 0 4rem;">
+<section <?php echo wp_kses_post( $wrapper_attributes ); ?> style="padding: 2.5rem 0;">
 	<div class="xfact-container">
 		<div class="xfact-fade-in" style="text-align: center;">
 			<?php if ( $heading ) : ?>
