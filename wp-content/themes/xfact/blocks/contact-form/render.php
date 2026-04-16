@@ -9,15 +9,15 @@
 
 declare(strict_types=1);
 
-$heading              = $attributes['heading'] ?? '';
-$subtitle             = $attributes['subtitle'] ?? '';
-$recipient_email      = $attributes['recipientEmail'] ?? 'info@xfact.com';
-$assess_label         = $attributes['assessmentLabel'] ?? '';
-$assess_heading       = $attributes['assessmentHeading'] ?? '';
-$assess_desc          = $attributes['assessmentDescription'] ?? '';
-$assess_checklist     = $attributes['assessmentChecklist'] ?? array();
-$assess_btn_label     = $attributes['assessmentButtonLabel'] ?? '';
-$assess_btn_href      = $attributes['assessmentButtonHref'] ?? '#';
+$heading          = $attributes['heading'] ?? '';
+$subtitle         = $attributes['subtitle'] ?? '';
+$recipient_email  = $attributes['recipientEmail'] ?? 'info@xfact.com';
+$assess_label     = $attributes['assessmentLabel'] ?? '';
+$assess_heading   = $attributes['assessmentHeading'] ?? '';
+$assess_desc      = $attributes['assessmentDescription'] ?? '';
+$assess_checklist = $attributes['assessmentChecklist'] ?? array();
+$assess_btn_label = $attributes['assessmentButtonLabel'] ?? '';
+$assess_btn_href  = $attributes['assessmentButtonHref'] ?? '#';
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array( 'class' => 'xfact-contact-form xfact-bg xfact-section xfact-section-border' )

@@ -1066,7 +1066,24 @@ button:focus-visible,
 .xfact-hero.alignfull,
 .xfact-cta-section.alignfull,
 .xfact-page-hero.alignfull,
-.xfact-metrics-strip.alignfull {
+.xfact-metrics-strip.alignfull,
+.wp-block-xfact-hero.alignfull,
+.wp-block-xfact-cta-section.alignfull,
+.wp-block-xfact-page-hero.alignfull,
+.wp-block-xfact-metrics-strip.alignfull {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* Also strip from has-global-padding on full-width custom blocks */
+.wp-site-blocks > .alignfull.wp-block-xfact-hero,
+.wp-site-blocks > .alignfull.wp-block-xfact-cta-section,
+.wp-site-blocks > .alignfull.wp-block-xfact-page-hero,
+.wp-site-blocks > .alignfull.wp-block-xfact-metrics-strip,
+.wp-site-blocks > .alignfull:where(.xfact-hero),
+.wp-site-blocks > .alignfull:where(.xfact-cta-section),
+.wp-site-blocks > .alignfull:where(.xfact-page-hero),
+.wp-site-blocks > .alignfull:where(.xfact-metrics-strip) {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 }

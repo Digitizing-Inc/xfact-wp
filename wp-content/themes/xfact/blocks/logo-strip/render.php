@@ -35,10 +35,34 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							echo wp_kses(
 								$svg,
 								array(
-									'svg'  => array( 'class' => true, 'viewbox' => true, 'xmlns' => true, 'width' => true, 'height' => true, 'aria-label' => true, 'role' => true, 'fill' => true ),
-									'text' => array( 'x' => true, 'y' => true, 'font-family' => true, 'font-weight' => true, 'font-size' => true, 'fill' => true, 'letter-spacing' => true ),
-									'path' => array( 'd' => true, 'fill' => true, 'stroke' => true ),
-									'g'    => array( 'class' => true, 'transform' => true ),
+									'svg'  => array(
+										'class'      => true,
+										'viewbox'    => true,
+										'xmlns'      => true,
+										'width'      => true,
+										'height'     => true,
+										'aria-label' => true,
+										'role'       => true,
+										'fill'       => true,
+									),
+									'text' => array(
+										'x'              => true,
+										'y'              => true,
+										'font-family'    => true,
+										'font-weight'    => true,
+										'font-size'      => true,
+										'fill'           => true,
+										'letter-spacing' => true,
+									),
+									'path' => array(
+										'd'      => true,
+										'fill'   => true,
+										'stroke' => true,
+									),
+									'g'    => array(
+										'class'     => true,
+										'transform' => true,
+									),
 								)
 							);
 							?>
