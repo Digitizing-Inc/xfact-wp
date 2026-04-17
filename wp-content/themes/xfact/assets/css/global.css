@@ -504,6 +504,13 @@ button:focus-visible,
         top 0.3s ease;
 }
 
+/* Editor canvas: make header visible (not transparent) and non-fixed */
+.editor-styles-wrapper .xfact-header {
+    position: relative !important;
+    background: #0d2d6b !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Admin bar offset — WP adds a 32px bar at the top when logged in */
 .admin-bar .xfact-header {
     top: 32px;
@@ -823,8 +830,15 @@ button:focus-visible,
 }
 
 @media (max-width: 767px) {
-    .xfact-mobile-toggle {
+    .xfact-header .xfact-mobile-toggle {
         display: flex !important;
+        position: absolute !important;
+        top: 0 !important;
+        right: 1rem !important;
+        height: 4rem !important;
+        align-items: center !important;
+        z-index: 10;
+        margin-right: 0;
     }
 
     .xfact-desktop-nav {
@@ -1001,8 +1015,8 @@ button:focus-visible,
 /* ── Footer ───────────────────────────────────────── */
 
 .xfact-footer {
-    border-top: 1px solid var(--xfact-border, #e2e8f0);
-    background: var(--xfact-bg-alt, #f5f7fa);
+    border-top: 1px solid var(--xfact-border, #e5e7eb);
+    background: var(--xfact-bg-alt, #f9fafb);
 }
 
 [data-xfact-dark="true"] .xfact-footer {
@@ -1010,26 +1024,29 @@ button:focus-visible,
     background: #09172f;
 }
 
+/* Editor canvas: footer uses its natural light-mode styling by default.
+   Dark mode is applied via [data-xfact-dark="true"] on the frontend. */
+
 .xfact-footer__inner {
     max-width: 80rem;
     margin: 0 auto;
-    padding: 3rem 1rem 3rem;
+    padding: 3rem 1rem;
 }
 
 @media (min-width: 640px) {
     .xfact-footer__inner {
-        padding: 4rem 1.5rem 4rem;
+        padding: 4rem 1.5rem;
     }
 }
 
 @media (min-width: 1024px) {
     .xfact-footer__inner {
-        padding: 4rem 2rem 4rem;
+        padding: 4rem 2rem;
     }
 }
 
 .xfact-footer__grid {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
@@ -1056,6 +1073,12 @@ button:focus-visible,
     text-decoration: none;
 }
 
+/* wp:image block logo */
+.xfact-footer__logo-block {
+    margin: 0 !important;
+}
+
+.xfact-footer__logo-block img,
 .xfact-footer__logo {
     width: 130px;
     height: auto;
@@ -1065,6 +1088,7 @@ button:focus-visible,
         filter 0.3s;
 }
 
+[data-xfact-dark="true"] .xfact-footer__logo-block img,
 [data-xfact-dark="true"] .xfact-footer__logo {
     filter: none;
 }
@@ -1074,7 +1098,7 @@ button:focus-visible,
     max-width: 20rem;
     font-size: 0.875rem;
     line-height: 1.625;
-    color: #718096;
+    color: #6b7280;
 }
 
 [data-xfact-dark="true"] .xfact-footer__tagline {
@@ -1084,7 +1108,7 @@ button:focus-visible,
 .xfact-footer__note {
     margin-top: 0.75rem;
     font-size: 0.875rem;
-    color: #718096;
+    color: #6b7280;
 }
 
 [data-xfact-dark="true"] .xfact-footer__note {
@@ -1097,7 +1121,7 @@ button:focus-visible,
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #a0aec0;
+    color: #9ca3af;
     margin: 0 0 1rem;
 }
 
@@ -1114,9 +1138,25 @@ button:focus-visible,
     gap: 0.75rem;
 }
 
+/* Paragraph-based link group (replaces wp:list for editor consistency) */
+.xfact-footer__links-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.xfact-footer__link-item {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
 .xfact-footer__link {
     font-size: 0.875rem;
-    color: #4a5568;
+    color: #4b5563;
     text-decoration: none;
     transition: color 0.2s;
 }
@@ -1133,7 +1173,7 @@ button:focus-visible,
     color: var(--xfact-accent, #5c8ae6);
 }
 
-/* Bottom bar */
+/* Bottom bar — now inside __inner, inherits max-width/padding */
 .xfact-footer__bottom {
     display: flex;
     flex-direction: column;
@@ -1142,14 +1182,19 @@ button:focus-visible,
     gap: 1rem;
     margin-top: 2.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--xfact-border, #e2e8f0);
+    border-top: 1px solid var(--xfact-border, #e5e7eb);
+}
+
+@media (min-width: 640px) {
+    .xfact-footer__bottom {
+        margin-top: 4rem;
+        padding-top: 2rem;
+    }
 }
 
 @media (min-width: 768px) {
     .xfact-footer__bottom {
         flex-direction: row;
-        margin-top: 4rem;
-        padding-top: 2rem;
     }
 }
 
@@ -1159,7 +1204,7 @@ button:focus-visible,
 
 .xfact-footer__copyright {
     font-size: 0.875rem;
-    color: #a0aec0;
+    color: #9ca3af;
     margin: 0;
 }
 
@@ -1174,7 +1219,7 @@ button:focus-visible,
 }
 
 .xfact-footer__social {
-    color: #a0aec0;
+    color: #9ca3af;
     transition: color 0.2s;
     text-decoration: none;
 }
@@ -1196,9 +1241,46 @@ button:focus-visible,
     height: 1.25rem;
 }
 
+/* wp:social-links block in footer */
+.xfact-footer__social-block {
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.xfact-footer__social-block .wp-social-link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.xfact-footer__social-block .wp-social-link a {
+    color: #9ca3af !important;
+    padding: 0 !important;
+    transition: color 0.2s;
+}
+
+.xfact-footer__social-block .wp-social-link a:hover {
+    color: var(--xfact-accent-darkest, #123e99) !important;
+    transform: none;
+}
+
+.xfact-footer__social-block .wp-social-link svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+[data-xfact-dark="true"] .xfact-footer__social-block .wp-social-link a {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+[data-xfact-dark="true"] .xfact-footer__social-block .wp-social-link a:hover {
+    color: var(--xfact-accent, #5c8ae6) !important;
+}
+
 .xfact-footer__theme-label {
     font-size: 0.75rem;
-    color: #a0aec0;
+    color: #9ca3af;
+    margin: 0 !important;
 }
 
 [data-xfact-dark="true"] .xfact-footer__theme-label {
@@ -1267,4 +1349,161 @@ button:focus-visible,
 .wp-site-blocks > .alignfull:where(.xfact-metrics-strip) {
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+/* ── Editor: Footer overrides ────────────────────── */
+/* The Site Editor canvas doesn't inherit all frontend styles.
+   These overrides ensure the footer matches the source in the editor. */
+
+.editor-styles-wrapper .xfact-footer {
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.editor-styles-wrapper .xfact-footer__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+/* Force CSS grid on columns in the editor */
+.editor-styles-wrapper .xfact-footer__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 2rem !important;
+}
+
+/* Brand column: full row on its own in grid */
+.editor-styles-wrapper .xfact-footer__brand {
+    grid-column: 1;
+    max-width: none !important;
+    flex-basis: auto !important;
+}
+
+.editor-styles-wrapper .xfact-footer__section {
+    max-width: none !important;
+    flex-basis: auto !important;
+}
+
+/* Logo */
+.editor-styles-wrapper .xfact-footer__logo-block {
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__logo-block img {
+    width: 130px;
+    height: auto;
+    filter: brightness(0);
+}
+
+/* Tagline and note spacing */
+.editor-styles-wrapper .xfact-footer__tagline {
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+    max-width: 20rem;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: #6b7280;
+}
+
+.editor-styles-wrapper .xfact-footer__note {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0 !important;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Section headings */
+.editor-styles-wrapper .xfact-footer__heading {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #9ca3af !important;
+    margin: 0 0 1rem !important;
+}
+
+/* Remove WP default gap between heading and links in footer sections */
+.editor-styles-wrapper .xfact-footer__section > * + * {
+    margin-block-start: 0 !important;
+}
+
+/* Links group (paragraph-based) */
+.editor-styles-wrapper .xfact-footer__links-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin: 0 !important;
+    margin-block-start: 0 !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__link-item {
+    margin: 0 !important;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    padding: 0 !important;
+    font-size: 0.875rem;
+}
+
+.editor-styles-wrapper .xfact-footer__link,
+.editor-styles-wrapper .xfact-footer__link-item a {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-decoration: none;
+}
+
+/* Bottom bar */
+.editor-styles-wrapper .xfact-footer__bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 2.5rem !important;
+    padding-top: 1.5rem !important;
+    border-top: 1px solid #e5e7eb !important;
+    gap: 1rem !important;
+}
+
+.editor-styles-wrapper .xfact-footer__copyright {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__bottom-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+}
+
+/* Social links block in editor */
+.editor-styles-wrapper .xfact-footer__social-block {
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link a,
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link {
+    color: #9ca3af !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    fill: #9ca3af !important;
+}
+
+/* Theme label */
+.editor-styles-wrapper .xfact-footer__theme-label {
+    font-size: 0.75rem !important;
+    color: #9ca3af !important;
+    margin: 0 !important;
 }

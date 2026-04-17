@@ -30,7 +30,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-global',
 		get_theme_file_uri( 'assets/css/global.css' ),
 		array( 'xfact-style' ),
-		$theme_version
+		(string) filemtime( get_theme_file_path( 'assets/css/global.css' ) )
 	);
 
 	/* Dark mode overrides */
