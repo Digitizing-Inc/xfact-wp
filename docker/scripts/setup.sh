@@ -12,7 +12,7 @@ set -eu
 : "${WORDPRESS_DB_PASSWORD:?missing}"
 
 SITE_URL="${WP_SITE_URL:-http://localhost:8080}"
-SITE_TITLE="${WP_SITE_TITLE:-WordPress Template}"
+SITE_TITLE="${WP_SITE_TITLE:-xFact | Technology Services}"
 ADMIN_USER="${WP_ADMIN_USER:-admin}"
 ADMIN_PASSWORD="${WP_ADMIN_PASSWORD:-admin}"
 ADMIN_EMAIL="${WP_ADMIN_EMAIL:-admin@example.com}"
@@ -94,6 +94,9 @@ wp rewrite flush --hard
 
 # Set timezone
 wp option update timezone_string "${WP_TIMEZONE:-UTC}" 2>/dev/null || true
+
+# Set site description (tagline) to match source site branding
+wp option update blogdescription "Technology services that deliver results for public-sector organizations." 2>/dev/null || true
 
 # Remove default content
 echo "🧹 Cleaning up default content..."
