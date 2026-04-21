@@ -20,7 +20,7 @@ services:
         define('EMPTY_TRASH_DAYS', 30);
 
         /* Security */
-        define('DISALLOW_FILE_EDIT', true);
+        define('DISALLOW_FILE_EDIT', false);
         define('FORCE_SSL_ADMIN', false);
 
         /* Updates — managed via Docker image rebuilds */
