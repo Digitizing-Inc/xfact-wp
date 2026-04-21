@@ -31,7 +31,6 @@
 				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
 			),
 			el( h.TextControl, { key: 'name-' + i, label: 'Name', value: logo.name || '', onChange: function ( v ) { update( 'name', v ); } } ),
-			el( h.TextControl, { key: 'text-' + i, label: 'Display Text', value: logo.text || '', onChange: function ( v ) { update( 'text', v ); } } ),
 			h.imageControl(
 				'Logo Image',
 				logo.imageUrl || '',
@@ -60,7 +59,7 @@
 				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
-					onClick: function () { set( { logos: logos.concat( [ { name: '', text: '', imageUrl: '' } ] ) } ); },
+					onClick: function () { set( { logos: logos.concat( [ { name: '', imageUrl: '' } ] ) } ); },
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center' },
 				}, '+ Add Logo' )

@@ -75,7 +75,8 @@
 /* ── Logo Images ── */
 
 .xfact-logo-strip__logo-img {
-    max-height: 2rem;
+    max-height: 2.25rem;
+    max-width: 10rem;
     width: auto;
     object-fit: contain;
     filter: grayscale(100%) opacity(0.5);
