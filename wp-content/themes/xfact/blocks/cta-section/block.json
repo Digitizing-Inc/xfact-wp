@@ -15,7 +15,8 @@
 		"primaryHref": { "type": "string", "default": "/contact" },
 		"secondaryLabel": { "type": "string", "default": "" },
 		"secondaryHref": { "type": "string", "default": "" },
-		"backgroundImage": { "type": "string", "default": "" }
+		"backgroundImage": { "type": "string", "default": "" },
+		"showXLogo": { "type": "boolean", "default": true }
 	},
 	"supports": { "html": false, "align": ["full", "wide"] },
 	"editorScript": "file:./index.js",

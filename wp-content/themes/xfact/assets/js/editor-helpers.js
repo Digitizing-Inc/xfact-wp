@@ -18,6 +18,7 @@
 	var TextareaControl = wp.components.TextareaControl;
 	var Button = wp.components.Button;
 	var Disabled = wp.components.Disabled;
+	var ToggleControl = wp.components.ToggleControl;
 
 	/* ServerSideRender can be a default export in some WP versions */
 	var SSR = wp.serverSideRender;
@@ -244,6 +245,7 @@
 		TextareaControl: TextareaControl,
 		Button: Button,
 		Disabled: Disabled,
+		ToggleControl: ToggleControl,
 		ServerSideRender: SSR,
 	};
 } )();

@@ -36,6 +36,10 @@
 		"slides": {
 			"type": "array",
 			"default": []
+		},
+		"showXLogo": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"supports": {

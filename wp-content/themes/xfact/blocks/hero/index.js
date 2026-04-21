@@ -64,6 +64,12 @@
 					},
 					'slides'
 				),
+				el( h.ToggleControl, {
+					key: 'showXLogo',
+					label: 'Show X Logo',
+					checked: attr.showXLogo !== false,
+					onChange: function ( v ) { set( { showXLogo: v } ); },
+				} ),
 			];
 		} ),
 		save: function () { return null; },
