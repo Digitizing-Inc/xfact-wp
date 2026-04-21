@@ -140,26 +140,15 @@ if [ -f "/usr/local/bin/wp-seed-content.sh" ]; then
     sh /usr/local/bin/wp-seed-content.sh
 fi
 
-# Import site logo into Media Library and set as Site Logo
-echo "🖼️ Setting up site logo..."
-THEME_DIR="/var/www/html/wp-content/themes/${THEME_SLUG}"
-LOGO_FILE="${THEME_DIR}/assets/images/xfact-lockup-white.png"
-if [ -f "$LOGO_FILE" ]; then
-    EXISTING_LOGO=$(wp option get site_logo 2>/dev/null || echo "0")
-    if [ "$EXISTING_LOGO" = "0" ] || [ -z "$EXISTING_LOGO" ]; then
-        LOGO_ID=$(wp media import "$LOGO_FILE" --title="xFact Logo" --porcelain 2>/dev/null || true)
-        if [ -n "$LOGO_ID" ]; then
-            wp option update site_logo "$LOGO_ID"
-            echo "  ✅ Site logo imported (ID: $LOGO_ID)"
-        else
-            echo "  ⚠️ Could not import site logo"
-        fi
-    else
-        echo "  ✅ Site logo already set (ID: $EXISTING_LOGO)"
+# Clean up any DB-stored template-part overrides so the theme files are used
+echo "🧹 Clearing template-part overrides..."
+for part_slug in header footer; do
+    PART_ID=$(wp post list --post_type=wp_template_part --name="$part_slug" --field=ID 2>/dev/null || true)
+    if [ -n "$PART_ID" ]; then
+        wp post delete "$PART_ID" --force 2>/dev/null || true
+        echo "  ✅ Cleared DB override for: $part_slug"
     fi
-else
-    echo "  ⚠️ Logo file not found: $LOGO_FILE"
-fi
+done
 
 echo ""
 echo "🚀 WordPress setup complete!"
