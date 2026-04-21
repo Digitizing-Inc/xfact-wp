@@ -586,13 +586,14 @@ button:focus-visible,
     }
 }
 
-/* ── WP Site Logo in Header ──────────────────────── */
+/* ── Header Logo (wordmark image block) ──────────── */
 
-.xfact-header .wp-block-site-logo {
+.xfact-header__logo-block {
+    margin: 0 !important;
     line-height: 0;
 }
 
-.xfact-header .wp-block-site-logo a {
+.xfact-header__logo-block a {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -600,21 +601,15 @@ button:focus-visible,
 }
 
 @media (min-width: 640px) {
-    .xfact-header .wp-block-site-logo a {
+    .xfact-header__logo-block a {
         padding: 0.75rem 0;
     }
 }
 
-.xfact-header .wp-block-site-logo img {
-    height: 3rem;
-    width: auto;
+.xfact-header__logo-block img {
+    width: 130px !important;
+    height: auto;
     transition: all 0.3s;
-}
-
-@media (min-width: 640px) {
-    .xfact-header .wp-block-site-logo img {
-        height: 3.5rem;
-    }
 }
 
 /* ── WP Navigation in Header ─────────────────────── */
