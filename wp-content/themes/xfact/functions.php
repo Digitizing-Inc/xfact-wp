@@ -34,6 +34,7 @@ require_once get_template_directory() . '/inc/images.php';
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/template-parts.php';
 require_once get_template_directory() . '/inc/settings.php';
+require_once get_template_directory() . '/inc/admin-settings-page.php';
 
 /**
  * Show a prominent warning on the Theme/Plugin File Editor pages.

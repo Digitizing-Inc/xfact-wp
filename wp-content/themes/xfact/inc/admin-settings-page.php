@@ -64,22 +64,36 @@ function xfact_render_admin_settings_page(): void {
 
 	/* Handle form submission */
 	if ( isset( $_POST['xfact_settings_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['xfact_settings_nonce'] ) ), 'xfact_save_settings' ) ) {
-		if ( isset( $_POST['xfact_site_logo_url'] ) ) {
-			update_option( 'xfact_site_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_site_logo_url'] ) ) );
-		}
-		if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
-			update_option( 'xfact_floating_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ) );
-		}
-		$show = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
-		update_option( 'xfact_show_floating_logo', $show );
 
-		echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
+		/* Reset Global Styles to theme.json defaults */
+		if ( isset( $_POST['xfact_reset_global_styles'] ) ) {
+			$global_styles = get_posts(
+				array(
+					'post_type'   => 'wp_global_styles',
+					'post_status' => array( 'publish', 'draft' ),
+					'numberposts' => 1,
+				)
+			);
+			if ( ! empty( $global_styles ) ) {
+				wp_delete_post( $global_styles[0]->ID, true );
+				echo '<div class="notice notice-success is-dismissible"><p>Theme styles reset to defaults. All Gutenberg color, typography, and spacing customizations have been reverted.</p></div>';
+			} else {
+				echo '<div class="notice notice-info is-dismissible"><p>Theme styles are already at defaults — nothing to reset.</p></div>';
+			}
+		} else {
+			/* Normal settings save */
+			if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
+				update_option( 'xfact_floating_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ) );
+			}
+			$show = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
+			update_option( 'xfact_show_floating_logo', $show );
+
+			echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
+		}
 	}
 
-	$site_logo_url      = get_option( 'xfact_site_logo_url', '' );
 	$floating_logo_url  = get_option( 'xfact_floating_logo_url', '' );
 	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
-	$default_site_logo  = get_theme_file_uri( 'assets/images/xfact-wordmark-white.png' );
 	$default_float_logo = get_theme_file_uri( 'assets/images/xfact-icon.svg' );
 	$edit_header_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
 	$edit_footer_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
@@ -88,19 +102,6 @@ function xfact_render_admin_settings_page(): void {
 		<h1>xFact Settings</h1>
 		<form method="post">
 			<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>
-
-			<!-- Site Logo -->
-			<div class="xfact-admin-card">
-				<h2>Site Logo</h2>
-				<p class="description">The wordmark logo used in the header and footer. Upload a replacement to apply it globally. Edit a template part directly for a per-pattern override.</p>
-				<div class="xfact-admin-logo-preview" id="xfact-site-logo-preview">
-					<img src="<?php echo esc_url( $site_logo_url ? $site_logo_url : $default_site_logo ); ?>" alt="Site logo" />
-				</div>
-				<input type="hidden" name="xfact_site_logo_url" id="xfact_site_logo_url" value="<?php echo esc_attr( $site_logo_url ); ?>" />
-				<button type="button" class="button xfact-admin-upload-btn" data-target="#xfact_site_logo_url" data-preview="#xfact-site-logo-preview img">
-					Replace Site Logo
-				</button>
-			</div>
 
 			<!-- Floating Logo -->
 			<div class="xfact-admin-card">
@@ -127,6 +128,17 @@ function xfact_render_admin_settings_page(): void {
 
 			<?php submit_button( 'Save Settings' ); ?>
 		</form>
+
+		<!-- Reset Theme Styles -->
+		<div class="xfact-admin-card" style="border-left: 4px solid #dc3545;">
+			<h2>Reset Theme Styles</h2>
+			<p class="description">Revert <strong>all</strong> Gutenberg Site Editor customizations (colors, typography, spacing) back to the theme defaults defined in <code>theme.json</code>. This cannot be undone.</p>
+			<form method="post" onsubmit="return confirm('Are you sure? This will reset ALL Gutenberg style customizations (colors, fonts, spacing) back to the theme defaults. This action cannot be undone.');">
+				<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>
+				<input type="hidden" name="xfact_reset_global_styles" value="1" />
+				<button type="submit" class="button" style="color:#dc3545;border-color:#dc3545;">Reset to Theme Defaults</button>
+			</form>
+		</div>
 
 		<!-- Quick Links -->
 		<div class="xfact-admin-card">
