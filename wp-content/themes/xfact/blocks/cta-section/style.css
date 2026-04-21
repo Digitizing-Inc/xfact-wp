@@ -19,8 +19,16 @@
 	transform: translateY(-50%);
 	width: 16rem;
 	height: 16rem;
+}
+
+svg.xfact-cta-section__watermark {
 	color: var(--xfact-dark-section-text, #ffffff);
 	opacity: 0.03;
+}
+
+img.xfact-cta-section__watermark {
+	opacity: 0.03;
+	filter: brightness(0) invert(1);
 }
 
 @media (min-width: 640px) { .xfact-cta-section__watermark { width: 20rem; height: 20rem; } }

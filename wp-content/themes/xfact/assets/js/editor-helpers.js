@@ -19,6 +19,7 @@
 	var Button = wp.components.Button;
 	var Disabled = wp.components.Disabled;
 	var ToggleControl = wp.components.ToggleControl;
+	var SelectControl = wp.components.SelectControl;
 
 	/* ServerSideRender can be a default export in some WP versions */
 	var SSR = wp.serverSideRender;
@@ -246,6 +247,7 @@
 		Button: Button,
 		Disabled: Disabled,
 		ToggleControl: ToggleControl,
+		SelectControl: SelectControl,
 		ServerSideRender: SSR,
 	};
 } )();

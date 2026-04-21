@@ -16,7 +16,7 @@
 		"secondaryLabel": { "type": "string", "default": "" },
 		"secondaryHref": { "type": "string", "default": "" },
 		"backgroundImage": { "type": "string", "default": "" },
-		"showXLogo": { "type": "boolean", "default": true }
+		"showFloatingLogo": { "type": "string", "default": "global" }
 	},
 	"supports": { "html": false, "align": ["full", "wide"] },
 	"editorScript": "file:./index.js",

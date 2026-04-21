@@ -56,11 +56,16 @@
 					function () { set( { backgroundImage: '' } ); },
 					'backgroundImage'
 				),
-				el( h.ToggleControl, {
-					key: 'showXLogo',
-					label: 'Show X Logo',
-					checked: attr.showXLogo !== false,
-					onChange: function ( v ) { set( { showXLogo: v } ); },
+				el( h.SelectControl, {
+					key: 'showFloatingLogo',
+					label: 'Floating Logo',
+					value: attr.showFloatingLogo || 'global',
+					options: [
+						{ label: 'Use Global Setting', value: 'global' },
+						{ label: 'Show', value: 'show' },
+						{ label: 'Hide', value: 'hide' },
+					],
+					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
 				} ),
 			];
 		} ),

@@ -134,5 +134,26 @@ add_action( 'init', 'xfact_register_editor_helpers', 5 );
  */
 function xfact_enqueue_editor_assets(): void {
 	wp_enqueue_script( 'xfact-editor-helpers' );
+
+	/* Settings sidebar — global theme options panel in the Editor. */
+	$theme_version = wp_get_theme()->get( 'Version' );
+	wp_enqueue_script(
+		'xfact-editor-settings-sidebar',
+		get_theme_file_uri( 'assets/js/editor-settings-sidebar.js' ),
+		array( 'wp-plugins', 'wp-editor', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-api-fetch' ),
+		$theme_version,
+		true
+	);
+	wp_localize_script(
+		'xfact-editor-settings-sidebar',
+		'xfactSettingsConfig',
+		array(
+			'currentLogoUrl'   => get_option( 'xfact_floating_logo_url', '' ),
+			'defaultLogoUrl'   => get_theme_file_uri( 'assets/images/xfact-icon.svg' ),
+			'showFloatingLogo' => (bool) get_option( 'xfact_show_floating_logo', false ),
+			'editHeaderUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' ),
+			'editFooterUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' ),
+		)
+	);
 }
 add_action( 'enqueue_block_editor_assets', 'xfact_enqueue_editor_assets' );

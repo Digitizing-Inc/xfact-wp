@@ -169,15 +169,25 @@
 		display: block;
 	}
 
-	.xfact-hero__icon svg {
+	.xfact-hero__icon svg,
+	.xfact-hero__icon img {
 		width: 14rem;
 		height: 14rem;
+	}
+
+	.xfact-hero__icon svg {
 		color: rgba(255, 255, 255, 0.1);
+	}
+
+	.xfact-hero__icon img {
+		opacity: 0.1;
+		filter: brightness(0) invert(1);
 	}
 }
 
 @media (min-width: 1280px) {
-	.xfact-hero__icon svg {
+	.xfact-hero__icon svg,
+	.xfact-hero__icon img {
 		width: 18rem;
 		height: 18rem;
 	}

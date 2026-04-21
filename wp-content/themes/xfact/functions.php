@@ -33,3 +33,4 @@ require_once get_template_directory() . '/inc/icons.php';
 require_once get_template_directory() . '/inc/images.php';
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/template-parts.php';
+require_once get_template_directory() . '/inc/settings.php';
