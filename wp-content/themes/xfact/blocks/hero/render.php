@@ -69,10 +69,13 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?> data-xfact-slideshow>
 
-	<?php foreach ( $slides as $index => $slide ) : ?>
+	<?php
+	foreach ( $slides as $index => $slide ) :
+		$slide_url = $slide['src'] ?? ( $slide['url'] ?? '' );
+		?>
 		<img
 			class="xfact-hero-slide xfact-hero__bg-image"
-			src="<?php echo esc_url( $slide['src'] ); ?>"
+			src="<?php echo esc_url( $slide_url ); ?>"
 			alt="<?php echo esc_attr( $slide['alt'] ?? '' ); ?>"
 			style="object-position: <?php echo esc_attr( $slide['position'] ?? 'center' ); ?>; opacity: <?php echo 0 === $index ? '1' : '0'; ?>;"
 			<?php echo 0 === $index ? 'fetchpriority="high"' : 'loading="lazy"'; ?>

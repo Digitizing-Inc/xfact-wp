@@ -106,12 +106,12 @@
 			"gradients": [
 				{
 					"slug": "button-primary",
-					"gradient": "linear-gradient(90deg, #123e99 0%, #2a5bb8 100%)",
+					"gradient": "linear-gradient(90deg, var(--wp--preset--color--accent-darkest) 0%, var(--wp--preset--color--accent-dark) 100%)",
 					"name": "Button Primary"
 				},
 				{
 					"slug": "button-hover",
-					"gradient": "linear-gradient(90deg, #1a4fb3 0%, #3A6BD4 100%)",
+					"gradient": "linear-gradient(90deg, var(--wp--preset--color--accent-dark) 0%, var(--wp--preset--color--accent) 100%)",
 					"name": "Button Hover"
 				}
 			]

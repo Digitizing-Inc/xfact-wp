@@ -180,7 +180,7 @@
 				},
 			},
 				el( 'img', {
-					src: img.url,
+					src: img.url || img.src || '',
 					alt: img.alt || '',
 					style: {
 						width: '80px',
