@@ -1,0 +1,35 @@
+.xfact-section-list {
+	padding-top: var(--xfact-spacing-section);
+	padding-bottom: var(--xfact-spacing-section);
+}
+
+.xfact-section-list .xfact-container {
+	max-width: 48rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.xfact-section-list__intro {
+	font-size: 1rem;
+	line-height: 1.625;
+	margin-bottom: 3rem;
+}
+
+.xfact-section-list__items {
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
+}
+
+.xfact-section-list__title {
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin-bottom: 0.75rem;
+	margin-top: 0;
+}
+
+.xfact-section-list__content {
+	font-size: 1rem;
+	line-height: 1.625;
+	margin: 0;
+}

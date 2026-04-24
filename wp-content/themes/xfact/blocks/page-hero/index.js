@@ -14,6 +14,12 @@
 
 			return [
 				el( h.TextControl, {
+					key: 'sectionLabel',
+					label: 'Section Label',
+					value: attr.sectionLabel,
+					onChange: function ( v ) { set( { sectionLabel: v } ); },
+				} ),
+				el( h.TextControl, {
 					key: 'heading',
 					label: 'Heading',
 					value: attr.heading,
