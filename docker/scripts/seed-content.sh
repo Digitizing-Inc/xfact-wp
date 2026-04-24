@@ -1,8 +1,9 @@
 #!/bin/sh
 # Page Content Seeder for xFact WordPress Theme.
 #
-# Populates each page's post_content with the appropriate block markup.
-# Called by setup.sh after pages are created.
+# Removes default content, creates pages, sets static front page,
+# and populates each page's post_content with the appropriate block markup.
+# Called by setup.sh.
 #
 # Usage: sh seed-content.sh
 
@@ -15,6 +16,42 @@ echo "📝 Seeding page content..."
 # Theme assets base URL — used for image attributes.
 SITE_URL=$(wp option get siteurl 2>/dev/null || echo "$WP_SITE_URL")
 ASSETS="${SITE_URL}/wp-content/themes/xfact/assets/images"
+
+# Remove default content
+echo "🧹 Cleaning up default content..."
+wp post delete 1 --force 2>/dev/null || true    # Hello World
+wp post delete 2 --force 2>/dev/null || true    # Sample Page
+wp comment delete 1 --force 2>/dev/null || true # Default comment
+
+# Create theme pages (slugs must match template filenames: page-{slug}.html)
+echo "📄 Creating theme pages..."
+for page_info in \
+    "Home:home" \
+    "Solutions:solutions" \
+    "Support:support" \
+    "Careers:careers" \
+    "Contact:contact" \
+    "Privacy Policy:privacy" \
+    "Terms of Service:terms"; do
+    title="${page_info%%:*}"
+    slug="${page_info##*:}"
+    if ! wp post list --post_type=page --name="$slug" --field=ID 2>/dev/null | grep -q .; then
+        wp post create --post_type=page --post_title="$title" --post_name="$slug" --post_status=publish
+        echo "  ✅ Created page: $title ($slug)"
+    else
+        echo "  ✅ Page exists: $title ($slug)"
+    fi
+done
+
+# Set static front page
+FRONT_PAGE_ID=$(wp post list --post_type=page --name=home --field=ID 2>/dev/null)
+if [ -n "$FRONT_PAGE_ID" ]; then
+    wp option update show_on_front page
+    wp option update page_on_front "$FRONT_PAGE_ID"
+    echo "  ✅ Front page set to: Home (ID $FRONT_PAGE_ID)"
+fi
+
+echo "📝 Adding block markup..."
 
 # ── Home ──────────────────────────────────────────────────────
 HOME_ID=$(wp post list --post_type=page --name=home --field=ID 2>/dev/null)

@@ -98,44 +98,10 @@ wp option update timezone_string "${WP_TIMEZONE:-UTC}" 2>/dev/null || true
 # Set site description (tagline) to match source site branding
 wp option update blogdescription "Technology services that deliver results for public-sector organizations." 2>/dev/null || true
 
-# Remove default content
-echo "🧹 Cleaning up default content..."
-wp post delete 1 --force 2>/dev/null || true    # Hello World
-wp post delete 2 --force 2>/dev/null || true    # Sample Page
-wp comment delete 1 --force 2>/dev/null || true # Default comment
-
 # Delete default plugins (keeping Akismet as a reference)
 wp plugin delete hello 2>/dev/null || true
 
-# Create theme pages (slugs must match template filenames: page-{slug}.html)
-echo "📄 Creating theme pages..."
-for page_info in \
-    "Home:home" \
-    "Solutions:solutions" \
-    "Support:support" \
-    "Careers:careers" \
-    "Contact:contact" \
-    "Privacy Policy:privacy" \
-    "Terms of Service:terms"; do
-    title="${page_info%%:*}"
-    slug="${page_info##*:}"
-    if ! wp post list --post_type=page --name="$slug" --field=ID 2>/dev/null | grep -q .; then
-        wp post create --post_type=page --post_title="$title" --post_name="$slug" --post_status=publish
-        echo "  ✅ Created page: $title ($slug)"
-    else
-        echo "  ✅ Page exists: $title ($slug)"
-    fi
-done
-
-# Set static front page
-FRONT_PAGE_ID=$(wp post list --post_type=page --name=home --field=ID 2>/dev/null)
-if [ -n "$FRONT_PAGE_ID" ]; then
-    wp option update show_on_front page
-    wp option update page_on_front "$FRONT_PAGE_ID"
-    echo "  ✅ Front page set to: Home (ID $FRONT_PAGE_ID)"
-fi
-
-# Seed page content with block markup
+# Seed page content
 if [ -f "/usr/local/bin/wp-seed-content.sh" ]; then
     sh /usr/local/bin/wp-seed-content.sh
 fi
