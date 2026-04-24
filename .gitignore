@@ -71,3 +71,5 @@ composer.lock
 
 # --- PHPStan ---
 phpstan-baseline.neon
+wp-content/themes/xfact/assets/images/xfact-hero.mp4
+wp-content/themes/xfact/assets/images/xfact-hero-poster.png
