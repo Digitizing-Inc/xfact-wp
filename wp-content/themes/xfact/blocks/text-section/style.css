@@ -88,3 +88,21 @@
 	color: var(--xfact-accent, #5C8AE6);
 	flex-shrink: 0;
 }
+
+.xfact-text-section__action {
+	margin-top: 2rem;
+}
+
+.xfact-text-section__link {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--xfact-accent, #5C8AE6);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.xfact-text-section__link:hover {
+	color: var(--xfact-accent-dark, #3A6BD4);
+}

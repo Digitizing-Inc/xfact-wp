@@ -68,6 +68,8 @@
 				attr.sectionImage
 					? el( h.TextControl, { key: 'sectionImageAlt', label: 'Section Image Alt Text', value: attr.sectionImageAlt, onChange: function ( v ) { set( { sectionImageAlt: v } ); } } )
 					: null,
+				el( h.TextControl, { key: 'linkText', label: 'Link Text', value: attr.linkText || '', onChange: function ( v ) { set( { linkText: v } ); } } ),
+				el( h.TextControl, { key: 'linkUrl', label: 'Link URL', value: attr.linkUrl || '', onChange: function ( v ) { set( { linkUrl: v } ); } } ),
 			];
 
 			/* Tags section */

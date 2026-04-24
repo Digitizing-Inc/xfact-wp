@@ -70,6 +70,18 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 				</div>
 			<?php endif; ?>
 
+			<?php
+			$link_text = $attributes['linkText'] ?? '';
+			$link_url  = $attributes['linkUrl'] ?? '';
+			if ( $link_text && $link_url ) :
+				?>
+				<div class="xfact-text-section__action">
+					<a href="<?php echo esc_url( $link_url ); ?>" class="xfact-text-section__link">
+						<?php echo esc_html( $link_text ); ?>
+					</a>
+				</div>
+			<?php endif; ?>
+
 			<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
 		</div>
 	</div>

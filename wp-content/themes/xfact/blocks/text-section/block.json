@@ -17,7 +17,9 @@
 		"badgeText": { "type": "string", "default": "" },
 		"tags": { "type": "array", "default": [] },
 		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" }
+		"sectionImageAlt": { "type": "string", "default": "" },
+		"linkText": { "type": "string", "default": "" },
+		"linkUrl": { "type": "string", "default": "" }
 	},
 	"supports": { "html": false, "anchor": true },
 	"editorScript": "file:./index.js",
