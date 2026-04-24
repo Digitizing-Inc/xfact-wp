@@ -30,20 +30,20 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			<div class="xfact-section-list__items">
 				<?php foreach ( $sections as $index => $section ) : ?>
 					<?php
-					$title   = $section['title'] ?? '';
-					$content = $section['content'] ?? '';
-					if ( ! $title && ! $content ) {
+					$section_title = $section['title'] ?? '';
+					$content       = $section['content'] ?? '';
+					if ( ! $section_title && ! $content ) {
 						continue;
 					}
 
-					$display_title = $title;
-					if ( $show_numbers && $title ) {
+					$display_title = $section_title;
+					if ( $show_numbers && $section_title ) {
 						$num           = $index + 1;
-						$display_title = "{$num}. {$title}";
+						$display_title = "{$num}. {$section_title}";
 					}
 					?>
 					<div class="xfact-section-list__item xfact-fade-in">
-						<?php if ( $title ) : ?>
+						<?php if ( $section_title ) : ?>
 							<h2 class="xfact-section-list__title xfact-text"><?php echo esc_html( $display_title ); ?></h2>
 						<?php endif; ?>
 						
