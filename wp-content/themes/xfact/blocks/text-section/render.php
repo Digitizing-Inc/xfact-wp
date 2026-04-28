@@ -14,8 +14,10 @@ $heading    = $attributes['heading'] ?? '';
 $body       = $attributes['body'] ?? '';
 $badge_text = $attributes['badgeText'] ?? '';
 $tags       = $attributes['tags'] ?? array();
+$use_alt_bg = $attributes['useAltBackground'] ?? false;
 
-$wrapper_args = array( 'class' => 'xfact-text-section xfact-bg xfact-section xfact-section-border' );
+$bg_class     = $use_alt_bg ? 'xfact-bg-alt' : 'xfact-bg';
+$wrapper_args = array( 'class' => "xfact-text-section {$bg_class} xfact-section xfact-section-border" );
 
 $anchor = $attributes['anchor'] ?? '';
 if ( $anchor ) {
@@ -41,6 +43,13 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
 			<?php if ( $heading ) : ?>
 				<h2 class="xfact-section-heading"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+
+			<?php
+			$subtitle = $attributes['subtitle'] ?? '';
+			if ( $subtitle ) :
+				?>
+				<p class="xfact-section-subtitle"><?php echo esc_html( $subtitle ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( $badge_text ) : ?>

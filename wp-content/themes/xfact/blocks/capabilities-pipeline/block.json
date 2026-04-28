@@ -1,29 +1,73 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/capabilities-pipeline",
-	"version": "1.0.0",
-	"title": "xFact Capabilities Pipeline",
-	"category": "theme",
-	"icon": "arrow-right-alt",
-	"description": "Horizontal pipeline showing capabilities with arrow connectors.",
-	"textdomain": "xfact",
-	"attributes": {
-		"sectionLabel": { "type": "string", "default": "Capabilities Overview" },
-		"heading": { "type": "string", "default": "End-to-End Technology Services" },
-		"subtitle": { "type": "string", "default": "From foundational infrastructure to long-term strategy — everything we do is connected." },
-		"capabilities": { "type": "array", "default": [
-			{ "title": "Infrastructure", "description": "Networks, hardware, cloud", "iconName": "Server" },
-			{ "title": "Cybersecurity", "description": "Protection & compliance", "iconName": "ShieldCheck" },
-			{ "title": "Applications", "description": "Integration & development", "iconName": "AppWindow" },
-			{ "title": "Data", "description": "Management & analytics", "iconName": "Database" },
-			{ "title": "Strategy", "description": "Planning & advisory", "iconName": "Compass" }
-		]},
-		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" }
-	},
-	"supports": { "html": false },
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/capabilities-pipeline",
+  "version": "1.0.0",
+  "title": "xFact Capabilities Pipeline",
+  "category": "theme",
+  "icon": "arrow-right-alt",
+  "description": "Horizontal pipeline showing capabilities with arrow connectors.",
+  "textdomain": "xfact",
+  "attributes": {
+    "sectionLabel": {
+      "type": "string",
+      "default": "Capabilities Overview"
+    },
+    "heading": {
+      "type": "string",
+      "default": "End-to-End Technology Services"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "From foundational infrastructure to long-term strategy — everything we do is connected."
+    },
+    "capabilities": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Infrastructure",
+          "description": "Networks, hardware, cloud",
+          "iconName": "Server"
+        },
+        {
+          "title": "Cybersecurity",
+          "description": "Protection & compliance",
+          "iconName": "ShieldCheck"
+        },
+        {
+          "title": "Applications",
+          "description": "Integration & development",
+          "iconName": "AppWindow"
+        },
+        {
+          "title": "Data",
+          "description": "Management & analytics",
+          "iconName": "Database"
+        },
+        {
+          "title": "Strategy",
+          "description": "Planning & advisory",
+          "iconName": "Compass"
+        }
+      ]
+    },
+    "sectionImage": {
+      "type": "string",
+      "default": ""
+    },
+    "sectionImageAlt": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

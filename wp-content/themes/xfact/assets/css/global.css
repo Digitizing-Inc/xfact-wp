@@ -488,6 +488,7 @@ button:focus-visible,
 
 /* ── Header ───────────────────────────────────────── */
 
+/* Default state: Solid dark header for pages without hero */
 .xfact-header {
     position: fixed !important;
     top: 0;
@@ -495,13 +496,15 @@ button:focus-visible,
     right: 0;
     z-index: 50;
     width: 100%;
+    background: #0d2d6b !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.3s ease;
+}
+
+/* When the page has a hero, make the header transparent until scrolled */
+body.has-hero-header .xfact-header:not(.xfact-header--scrolled) {
     background: transparent !important;
-    border-bottom: 1px solid transparent;
-    transition:
-        background-color 0.5s ease,
-        border-color 0.5s ease,
-        box-shadow 0.5s ease,
-        top 0.3s ease;
+    border-bottom-color: transparent !important;
 }
 
 /* Editor canvas: make header visible (not transparent) and non-fixed */
@@ -530,7 +533,19 @@ button:focus-visible,
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Push content below the solid header by default */
 .wp-site-blocks {
+    padding-top: 4rem !important;
+}
+
+@media (min-width: 640px) {
+    .wp-site-blocks {
+        padding-top: 5rem !important;
+    }
+}
+
+/* If body has hero-header, content flows under the transparent header */
+body.has-hero-header .wp-site-blocks {
     padding-top: 0 !important;
 }
 

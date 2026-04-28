@@ -1,34 +1,84 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/contact-form",
-	"version": "1.0.0",
-	"title": "xFact Contact Form",
-	"category": "theme",
-	"icon": "email",
-	"description": "Contact form section with heading and email-based submission.",
-	"textdomain": "xfact",
-	"attributes": {
-		"heading": { "type": "string", "default": "Get in Touch" },
-		"subtitle": { "type": "string", "default": "Tell us about your organization and what you're looking to accomplish. We'll connect you with the right team." },
-		"recipientEmail": { "type": "string", "default": "info@xfact.com" },
-		"assessmentLabel": { "type": "string", "default": "Technology Assessment" },
-		"assessmentHeading": { "type": "string", "default": "Evaluate Your Systems" },
-		"assessmentDescription": { "type": "string", "default": "Our technology assessments help organizations understand their current environment, identify risks and opportunities, and develop a practical roadmap for improvement." },
-		"assessmentChecklist": { "type": "array", "default": [
-			{ "text": "Infrastructure & environment review" },
-			{ "text": "Security posture evaluation" },
-			{ "text": "Application landscape analysis" },
-			{ "text": "Strategic recommendations & roadmap" }
-		]},
-		"assessmentButtonLabel": { "type": "string", "default": "Request an Assessment" },
-		"assessmentButtonHref": { "type": "string", "default": "#assessment" },
-		"formId": { "type": "string", "default": "1" },
-		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" }
-	},
-	"supports": { "html": false },
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/contact-form",
+  "version": "1.0.0",
+  "title": "xFact Contact Form",
+  "category": "theme",
+  "icon": "email",
+  "description": "Contact form section with heading and email-based submission.",
+  "textdomain": "xfact",
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Get in Touch"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Tell us about your organization and what you're looking to accomplish. We'll connect you with the right team."
+    },
+    "recipientEmail": {
+      "type": "string",
+      "default": "info@xfact.com"
+    },
+    "assessmentLabel": {
+      "type": "string",
+      "default": "Technology Assessment"
+    },
+    "assessmentHeading": {
+      "type": "string",
+      "default": "Evaluate Your Systems"
+    },
+    "assessmentDescription": {
+      "type": "string",
+      "default": "Our technology assessments help organizations understand their current environment, identify risks and opportunities, and develop a practical roadmap for improvement."
+    },
+    "assessmentChecklist": {
+      "type": "array",
+      "default": [
+        {
+          "text": "Infrastructure & environment review"
+        },
+        {
+          "text": "Security posture evaluation"
+        },
+        {
+          "text": "Application landscape analysis"
+        },
+        {
+          "text": "Strategic recommendations & roadmap"
+        }
+      ]
+    },
+    "assessmentButtonLabel": {
+      "type": "string",
+      "default": "Request an Assessment"
+    },
+    "assessmentButtonHref": {
+      "type": "string",
+      "default": "#assessment"
+    },
+    "formId": {
+      "type": "string",
+      "default": "1"
+    },
+    "sectionImage": {
+      "type": "string",
+      "default": ""
+    },
+    "sectionImageAlt": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

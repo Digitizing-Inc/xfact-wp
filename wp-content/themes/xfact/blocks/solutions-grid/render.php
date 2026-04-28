@@ -53,7 +53,7 @@ if ( empty( $sectors ) ) {
 }
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-solutions-grid xfact-bg xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-solutions-grid xfact-section xfact-section-border' )
 );
 ?>
 
@@ -74,7 +74,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 			<div class="xfact-solutions-grid__grid">
 				<?php foreach ( $sectors as $sector ) : ?>
-					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card xfact-bg-alt">
+					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card">
 						<?php
 						$icon_name = $sector['iconName'] ?? '';
 						if ( $icon_name ) {

@@ -27,6 +27,8 @@ wp comment delete 1 --force 2>/dev/null || true # Default comment
 echo "📄 Creating theme pages..."
 for page_info in \
     "Home:home" \
+    "About:about" \
+    "Capabilities:capabilities" \
     "Solutions:solutions" \
     "Support:support" \
     "Careers:careers" \
@@ -72,6 +74,42 @@ if [ -n "$HOME_ID" ]; then
 
 <!-- wp:xfact/cta-section {"align":"full","title":"Ready to talk about your systems?","subtitle":"Whether you'\''re planning an upgrade, responding to a requirement, or evaluating a long-term partner — we'\''re the right conversation to start.","primaryLabel":"Contact xFact","primaryHref":"/contact"} /-->'
     echo "  ✅ Seeded: Home"
+fi
+
+# ── About ─────────────────────────────────────────────────────
+ABT_ID=$(wp post list --post_type=page --name=about --field=ID 2>/dev/null)
+if [ -n "$ABT_ID" ]; then
+    wp post update "$ABT_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"About xFact","heading":"Behind the Systems Communities Rely On","subtitle":"For more than two decades, xFact has partnered with public-sector institutions to design, integrate, secure, and sustain mission-critical technology systems.","align":"full"} /-->
+
+<!-- wp:xfact/text-section {"heading":"Our Story","body":"xFact began as a public-sector technology services firm focused on helping state, local, and education organizations modernize the systems their communities depend on. Over time, that work expanded across infrastructure, cybersecurity, applications, and strategy — and DataServ joined as our infrastructure and managed-services platform. Today, xFact operates as a single accountable partner for the institutions behind public safety, government, education, and human services."} /-->
+
+<!-- wp:xfact/text-section {"heading":"Why We Do It","body":"Public institutions rely on technology systems that must work every day. Many of those environments have evolved across multiple vendors, platforms, and legacy systems — creating fragmentation and operational risk. We exist to bring those environments together: integrated, accountable, and sustained over time so communities receive uninterrupted service."} /-->
+
+<!-- wp:xfact/feature-cards {"sectionLabel":"How We Operate","heading":"Our Values","cards":[{"title":"Long-term accountability","description":"We stay with our clients across the full lifecycle of their systems — from design through ongoing operation.","iconName":"ShieldCheck"},{"title":"One coordinated system","description":"We bring infrastructure, security, applications, and strategy together so environments operate as one — not as a collection of disconnected services.","iconName":"Network"},{"title":"Mission-aligned delivery","description":"Every project we ship supports a public-sector mission. We build for reliability, governance, and the people communities depend on.","iconName":"HeartPulse"},{"title":"Real partnership","description":"We work alongside our clients, not at arm'\''s length. That means clear communication, honest tradeoff conversations, and shared success metrics.","iconName":"Users"}]} /-->
+
+<!-- wp:xfact/cta-section {"align":"full","title":"Ready to talk about your systems?","subtitle":"Whether you'\''re planning an upgrade, evaluating a long-term partner, or starting an assessment — we'\''re the right conversation to start.","primaryLabel":"Contact xFact","primaryHref":"/contact"} /-->'
+    echo "  ✅ Seeded: About"
+fi
+
+# ── Capabilities ────────────────────────────────────────────────
+CAP_ID=$(wp post list --post_type=page --name=capabilities --field=ID 2>/dev/null)
+if [ -n "$CAP_ID" ]; then
+    wp post update "$CAP_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Capabilities","heading":"Integrated Capabilities for Mission-Critical Systems","subtitle":"Coordinated expertise supporting systems across their full lifecycle — from idea to action, design through long-term operation.","align":"full"} /-->
+
+<!-- wp:xfact/text-section {"heading":"A Full-Funnel Capabilities Stack","body":"Public-sector environments require integrated expertise across infrastructure, security, applications, and strategy. xFact delivers coordinated, system-level solutions that align with governance and operational realities. Support extends from design through long-term operation."} /-->
+
+<!-- wp:xfact/text-section {"sectionIcon":"Compass","useAltBackground":true,"heading":"Strategy \u0026 Advisory","subtitle":"Where it starts: governance-aware strategy and planning that ensure systems evolve responsibly over time.","body":"We help leaders shape technology direction in environments that demand stability, governance, and accountability. Our advisory work translates strategic intent into a practical roadmap that respects budget cycles, procurement rules, and the realities of running essential services.","tags":[{"label":"Technology assessments \u0026 roadmaps"},{"label":"Architecture \u0026 enterprise planning"},{"label":"Governance \u0026 risk strategy"},{"label":"Procurement \u0026 vendor advisory"}]} /-->
+
+<!-- wp:xfact/text-section {"sectionIcon":"AppWindow","heading":"Applications \u0026 Integration","subtitle":"Connected applications and systems designed to operate reliably as one coordinated environment.","body":"We design, build, and integrate applications that connect across the systems public institutions already rely on. The result is fewer silos, less duplication, and a coordinated environment that scales with the mission.","tags":[{"label":"Custom application development"},{"label":"System integration \u0026 APIs"},{"label":"Workflow \u0026 case-management platforms"},{"label":"Modernization of legacy applications"}]} /-->
+
+<!-- wp:xfact/text-section {"sectionIcon":"Database","useAltBackground":true,"heading":"Data \u0026 Platforms","subtitle":"Structured, secure data environments that enable visibility, coordination, and informed decision-making.","body":"Our data work focuses on giving leaders a trustworthy picture of their environments. We build platforms that move sensitive data safely, structure it for accountability, and surface it where decisions are made.","tags":[{"label":"Data platform design"},{"label":"Reporting, analytics \u0026 dashboards"},{"label":"Data governance \u0026 lineage"},{"label":"Master data \u0026 integration patterns"}]} /-->
+
+<!-- wp:xfact/text-section {"sectionIcon":"ShieldCheck","heading":"Cybersecurity","subtitle":"Coordinated protection and monitoring that keeps systems secure without disrupting essential operations.","body":"Security in public-sector environments is a continuous practice, not a project. We design defenses that account for compliance requirements, monitor environments around the clock, and respond when something matters.","tags":[{"label":"Security architecture \u0026 assessments"},{"label":"Compliance (CJIS, HIPAA, FedRAMP, etc.)"},{"label":"24x7 managed detection \u0026 response"},{"label":"Incident response \u0026 recovery"}]} /-->
+
+<!-- wp:xfact/text-section {"sectionIcon":"ServerCog","useAltBackground":true,"heading":"Infrastructure \u0026 Platform Environments","subtitle":"Resilient environments that ensure mission-critical systems remain secure, stable, and continuously operational.","body":"Our infrastructure practice — delivered through DataServ, an xFact solution — provides the resilient foundation public institutions need to operate essential systems with confidence.","tags":[{"label":"Hybrid \u0026 cloud infrastructure"},{"label":"Hosted platform environments (DataServ)"},{"label":"Network \u0026 telecommunications"},{"label":"Managed services \u0026 monitoring"}]} /-->
+
+<!-- wp:xfact/cta-section {"align":"full","title":"Bring it all together.","subtitle":"Talk to us about coordinating your environments under one accountable partner.","primaryLabel":"Start a conversation","primaryHref":"/contact"} /-->'
+    echo "  ✅ Seeded: Capabilities"
 fi
 
 # ── Solutions ─────────────────────────────────────────────────

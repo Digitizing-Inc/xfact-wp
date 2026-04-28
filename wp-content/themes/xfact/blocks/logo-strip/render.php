@@ -14,7 +14,7 @@ $logos   = $attributes['logos'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class' => 'xfact-logo-strip xfact-bg-alt xfact-section-border',
+		'class' => 'xfact-logo-strip xfact-section-border',
 	)
 );
 ?>

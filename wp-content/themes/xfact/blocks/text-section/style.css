@@ -20,14 +20,15 @@
 
 .xfact-section-heading {
 	margin-top: 1rem;
-	font-size: 1.875rem;
+	font-size: 1.5rem;
 	font-weight: 700;
 	letter-spacing: -0.025em;
 	color: var(--xfact-text);
-	line-height: 1.2;
+	line-height: 1.1;
 }
 
-@media (min-width: 768px) { .xfact-section-heading { font-size: 2.25rem; } }
+@media (min-width: 768px) { .xfact-section-heading { font-size: 1.875rem; } }
+@media (min-width: 1024px) { .xfact-section-heading { font-size: 2.25rem; } }
 
 .xfact-section-subtitle {
 	margin-top: 1rem;
@@ -56,7 +57,7 @@
 	margin-top: 1.5rem;
 	max-width: 48rem;
 	font-size: 1.125rem;
-	line-height: 1.75;
+	line-height: 1.625;
 	color: var(--xfact-text-secondary);
 }
 

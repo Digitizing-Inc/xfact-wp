@@ -16,7 +16,7 @@ $ec_btn_label = $attributes['existingClientButtonLabel'] ?? '';
 $ec_btn_href  = $attributes['existingClientButtonHref'] ?? '';
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-support-channels xfact-bg xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-support-channels xfact-section xfact-section-border' )
 );
 ?>
 
@@ -49,7 +49,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				</div>
 			</div>
 		</section>
-		<section class="xfact-support-channels__existing-section xfact-bg-alt xfact-section xfact-section-border">
+		<section class="xfact-support-channels__existing-section xfact-section xfact-section-border">
 			<div class="xfact-container">
 				<div class="xfact-fade-in xfact-support-channels__existing-inner">
 					<h2 class="xfact-support-channels__existing-heading"><?php echo esc_html( $ec_heading ); ?></h2>

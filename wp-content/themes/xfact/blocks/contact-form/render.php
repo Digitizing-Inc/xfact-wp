@@ -20,7 +20,7 @@ $assess_btn_label = $attributes['assessmentButtonLabel'] ?? '';
 $assess_btn_href  = $attributes['assessmentButtonHref'] ?? '#';
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-contact-form xfact-bg xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-contact-form xfact-section xfact-section-border' )
 );
 ?>
 

@@ -15,7 +15,7 @@ $subtitle     = $attributes['subtitle'] ?? '';
 $capabilities = $attributes['capabilities'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-capabilities xfact-bg xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-capabilities xfact-section xfact-section-border' )
 );
 ?>
 

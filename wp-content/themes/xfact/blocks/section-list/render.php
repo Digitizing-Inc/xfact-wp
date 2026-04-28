@@ -14,7 +14,7 @@ $show_numbers = $attributes['showNumbers'] ?? true;
 $sections     = $attributes['sections'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-section-list xfact-bg xfact-section' )
+	array( 'class' => 'xfact-section-list xfact-section' )
 );
 ?>
 
