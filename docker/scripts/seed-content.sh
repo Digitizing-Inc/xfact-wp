@@ -29,6 +29,7 @@ for page_info in \
     "Home:home" \
     "About:about" \
     "Capabilities:capabilities" \
+    "News & Insights:news" \
     "Solutions:solutions" \
     "Support:support" \
     "Careers:careers" \
@@ -110,6 +111,19 @@ if [ -n "$CAP_ID" ]; then
 
 <!-- wp:xfact/cta-section {"align":"full","title":"Bring it all together.","subtitle":"Talk to us about coordinating your environments under one accountable partner.","primaryLabel":"Start a conversation","primaryHref":"/contact"} /-->'
     echo "  ✅ Seeded: Capabilities"
+fi
+
+# ── News ──────────────────────────────────────────────────────
+NEWS_ID=$(wp post list --post_type=page --name=news --field=ID 2>/dev/null)
+if [ -n "$NEWS_ID" ]; then
+    wp post update "$NEWS_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"News \u0026 Insights","subtitle":"Perspectives on public-sector systems and the technology behind them.","backgroundImage":"'"${ASSETS}"'/hero-solutions.jpg","imageAlt":"A workspace with laptop and notes","align":"full"} /-->
+
+<!-- wp:xfact/text-section {"heading":"Stories from xFact","body":"Technology environments continue to evolve. We publish field-level insights on what we see across public safety, government, education, and human services — grounded in real-world engagements rather than vendor talking points."} /-->
+
+<!-- wp:xfact/text-section {"useAltBackground":true,"heading":"New stories on the way","body":"We'\''re reorganizing the DataServ archive into a unified news feed. Check back shortly — or reach out if you'\''d like to talk to us in the meantime."} /-->
+
+<!-- wp:xfact/cta-section {"align":"full","title":"Want to talk shop?","subtitle":"We share insights privately, too. Reach out and we can dive in on your environment.","primaryLabel":"Contact us","primaryHref":"/contact"} /-->'
+    echo "  ✅ Seeded: News"
 fi
 
 # ── Solutions ─────────────────────────────────────────────────
