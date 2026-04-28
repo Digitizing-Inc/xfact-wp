@@ -54,7 +54,7 @@ shell: ## Open a bash shell in the WordPress container
 
 .PHONY: wp
 wp: ## Run WP-CLI command (usage: make wp CMD="plugin list")
-	$(COMPOSE) exec $(WP_CONTAINER) wp $(CMD)
+	$(COMPOSE) exec $(WP_CONTAINER) wp $(CMD) --allow-root
 
 .PHONY: setup
 setup: ## Run the WordPress setup script (via WP-CLI sidecar)

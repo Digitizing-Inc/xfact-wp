@@ -87,6 +87,35 @@ else
 fi
 echo "✅ Akismet configured."
 
+# Install and activate Safe SVG
+echo "🖼️ Setting up Safe SVG..."
+if ! wp plugin is-installed safe-svg 2>/dev/null; then
+    wp plugin install safe-svg --activate
+else
+    wp plugin activate safe-svg 2>/dev/null || true
+fi
+echo "✅ Safe SVG configured."
+
+# Install, activate, and configure Yoast SEO
+echo "🔍 Setting up Yoast SEO..."
+if ! wp plugin is-installed wordpress-seo 2>/dev/null; then
+    wp plugin install wordpress-seo --activate
+else
+    wp plugin activate wordpress-seo 2>/dev/null || true
+fi
+
+# Configure Yoast SEO defaults
+wp eval '
+    $options = get_option("wpseo_titles", []);
+    $options["title-home-wpseo"] = "%%sitename%% - %%sitedesc%%";
+    $options["metadesc-home-wpseo"] = "Technology services that deliver results for public-sector organizations.";
+    $options["company_name"] = "xFact";
+    $options["company_or_person"] = "company";
+    update_option("wpseo_titles", $options);
+'
+echo "✅ Yoast SEO configured."
+
+
 # Set permalink structure
 echo "🔗 Setting permalink structure..."
 wp rewrite structure '/%postname%/' --hard
@@ -104,6 +133,12 @@ wp plugin delete hello 2>/dev/null || true
 # Seed page content
 if [ -f "/usr/local/bin/wp-seed-content.sh" ]; then
     sh /usr/local/bin/wp-seed-content.sh
+fi
+
+# Seed SEO data
+if [ -f "/usr/local/bin/wp-seed-seo.php" ]; then
+    echo "📈 Populating Yoast SEO metadata..."
+    wp eval-file /usr/local/bin/wp-seed-seo.php
 fi
 
 # Clean up any DB-stored template-part overrides so the theme files are used

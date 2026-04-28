@@ -123,6 +123,7 @@ services:
       - ./wp-cli.yml:/var/www/html/wp-cli.yml:ro
       - ./docker/scripts/setup.sh:/usr/local/bin/wp-setup.sh:ro
       - ./docker/scripts/seed-content.sh:/usr/local/bin/wp-seed-content.sh:ro
+      - ./docker/scripts/seed-seo.php:/usr/local/bin/wp-seed-seo.php:ro
     networks:
       - wp_network
     restart: "no"

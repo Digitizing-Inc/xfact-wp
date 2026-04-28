@@ -27,9 +27,15 @@
 				} ),
 				el( h.TextControl, {
 					key: 'recipientEmail',
-					label: 'Recipient Email',
+					label: 'Recipient Email (Fallback)',
 					value: attr.recipientEmail,
 					onChange: function ( v ) { set( { recipientEmail: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'formId',
+					label: 'Gravity Form ID',
+					value: attr.formId,
+					onChange: function ( v ) { set( { formId: v } ); },
 				} ),
 				h.imageControl(
 					'Section Image',
