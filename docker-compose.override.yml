@@ -33,6 +33,3 @@ services:
         define('WP_DEBUG_DISPLAY', true);
         define('SCRIPT_DEBUG', true);
         define('SAVEQUERIES', true);
-  db:
-    ports:
-      - "3306:3306"

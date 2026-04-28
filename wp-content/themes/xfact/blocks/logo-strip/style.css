@@ -86,3 +86,14 @@
 .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-img {
     filter: grayscale(0%) opacity(1);
 }
+
+/* ── Dark Mode ── */
+[data-theme="dark"] .xfact-logo-strip__logo-img,
+[data-theme="dark"] .xfact-logo-strip__logo-svg {
+    filter: brightness(0) invert(1) opacity(0.5);
+}
+
+[data-theme="dark"] .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-img,
+[data-theme="dark"] .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-svg {
+    filter: brightness(0) invert(1) opacity(1);
+}
