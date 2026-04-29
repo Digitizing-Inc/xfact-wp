@@ -43,7 +43,7 @@
     },
     "existingClientButtonHref": {
       "type": "string",
-      "default": "https://support.dataserv.com"
+      "default": "https://portal.dataservtech.com/"
     },
     "sectionImage": {
       "type": "string",

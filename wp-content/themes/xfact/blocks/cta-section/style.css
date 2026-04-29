@@ -61,6 +61,10 @@ img.xfact-cta-section__watermark {
 	margin: 0;
 }
 
+.xfact-bg-alt .xfact-cta-section__title {
+	color: #1a202c;
+}
+
 @media (min-width: 768px) { .xfact-cta-section__title { font-size: 3rem; } }
 
 .xfact-cta-section__subtitle {
@@ -68,6 +72,10 @@ img.xfact-cta-section__watermark {
 	font-size: 1.125rem;
 	line-height: 1.625;
 	color: rgba(255, 255, 255, 0.75);
+}
+
+.xfact-bg-alt .xfact-cta-section__subtitle {
+	color: #4a5568;
 }
 
 .xfact-cta-section__buttons {

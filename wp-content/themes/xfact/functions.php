@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function xfact_setup(): void {
 	/* Block themes handle most features via theme.json, but these are still useful: */
 	add_theme_support( 'wp-block-styles' );
+	add_theme_support( 'editor-styles' );
 
 	/* Enqueue editor styles to match the frontend. */
 	add_editor_style( 'style.css' );

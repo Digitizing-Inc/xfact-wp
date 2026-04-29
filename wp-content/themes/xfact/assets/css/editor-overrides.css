@@ -4,6 +4,46 @@
  * in the Gutenberg block editor.
  */
 
+.editor-styles-wrapper {
+	--xfact-bg: #f5f7fa;
+	--xfact-bg-alt: #ffffff;
+	--xfact-bg-card: #ffffff;
+	--xfact-border: #e2e8f0;
+	--xfact-text: #1a202c;
+	--xfact-text-secondary: #4a5568;
+	--xfact-text-muted: #718096;
+	--xfact-dark-section: #0d2d6b;
+	--xfact-dark-section-text: #ffffff;
+	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.75);
+	--xfact-dark-section-muted: rgba(255, 255, 255, 0.55);
+	--xfact-accent: #5c8ae6;
+	--xfact-accent-dark: #3a6bd4;
+	--xfact-accent-darkest: #123e99;
+	--xfact-btn-from: #123e99;
+	--xfact-btn-to: #2a5bb8;
+	--xfact-btn-hover-from: #1a4fb3;
+	--xfact-btn-hover-to: #3a6bd4;
+	--xfact-spacing-section: 5.625rem;
+	--xfact-spacing-section-lg: 7rem;
+}
+
+.editor-styles-wrapper[data-theme="dark"],
+[data-theme="dark"] .editor-styles-wrapper {
+	--xfact-bg: #09172f;
+	--xfact-bg-alt: #022038;
+	--xfact-bg-card: #06384f;
+	--xfact-surface: var(--xfact-bg-alt);
+	--xfact-surface-alt: var(--xfact-bg);
+	--xfact-border: rgba(255, 255, 255, 0.1);
+	--xfact-text: #ffffff;
+	--xfact-text-secondary: rgba(255, 255, 255, 0.7);
+	--xfact-text-muted: rgba(255, 255, 255, 0.45);
+	--xfact-dark-section: #09172f;
+	--xfact-dark-section-text: #ffffff;
+	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.6);
+	--xfact-dark-section-muted: rgba(255, 255, 255, 0.45);
+}
+
 .editor-styles-wrapper .xfact-dark-section {
 	background-color: #0d2d6b !important;
 }

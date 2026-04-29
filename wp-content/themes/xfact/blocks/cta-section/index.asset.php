@@ -7,5 +7,5 @@
 
 return array(
 	'dependencies' => array( 'xfact-editor-helpers' ),
-	'version'      => '1.0.3',
+	'version'      => '1777461405',
 );

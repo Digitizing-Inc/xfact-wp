@@ -241,7 +241,7 @@ SUP_ID=$(wp post list --post_type=page --name=support --field=ID 2>/dev/null)
 if [ -n "$SUP_ID" ]; then
     wp post update "$SUP_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Support","heading":"Access assistance for your systems and services.","subtitle":"Ongoing support maintains system reliability. Our structured processes enable efficient response and timely issue resolution.","backgroundImage":"'"${ASSETS}"'/hero-support.jpg","imageAlt":"Police officer on duty","align":"full"} /-->
 
-<!-- wp:xfact/support-channels /-->'
+<!-- wp:xfact/support-channels {"existingClientButtonHref":"https://portal.dataservtech.com/"} /-->'
     echo "  ✅ Seeded: Support"
 fi
 

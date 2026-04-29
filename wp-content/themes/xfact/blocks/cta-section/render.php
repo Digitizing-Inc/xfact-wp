@@ -60,13 +60,13 @@ $bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) 
 
 			<div class="xfact-cta-section__buttons">
 				<?php if ( $primary_label ) : ?>
-					<a href="<?php echo esc_url( $primary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn xfact-btn-primary' : 'xfact-gradient-button'; ?> xfact-btn-lg">
+					<a href="<?php echo esc_url( $primary_href ); ?>" class="xfact-gradient-button xfact-btn-lg">
 						<?php echo esc_html( $primary_label ); ?>
 					</a>
 				<?php endif; ?>
 
 				<?php if ( $secondary_label ) : ?>
-					<a href="<?php echo esc_url( $secondary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn xfact-btn-secondary' : 'xfact-btn-outline-light'; ?> xfact-btn-lg">
+					<a href="<?php echo esc_url( $secondary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn-secondary' : 'xfact-btn-outline-light'; ?> xfact-btn-lg">
 						<?php echo esc_html( $secondary_label ); ?>
 					</a>
 				<?php endif; ?>
