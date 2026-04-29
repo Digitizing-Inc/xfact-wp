@@ -38,6 +38,9 @@ open http://localhost:8080
 ```
 xfact-wp/
 ├── .agents/skills/                 # AI agent skills (coding standards reference)
+├── DESIGN-GUIDE.md                 # Design System Documentation
+├── DESIGN-GUIDE.pdf                # Exported PDF Design Guide
+├── design-guide.css                # PDF rendering stylesheet
 ├── .editorconfig                   # Editor formatting rules (tabs for PHP, spaces for data files)
 ├── .env.example                    # Environment variable template
 ├── .github/workflows/lint.yml      # CI: runs Lefthook pre-commit checks
@@ -46,7 +49,11 @@ xfact-wp/
 ├── config/php.ini                  # PHP tuning (uploads, memory, execution limits)
 ├── docker/
 │   ├── nginx/default.conf          # Reverse proxy, gzip, security headers, caching
-│   ├── scripts/setup.sh            # WP auto-install script (runs via wp-setup sidecar)
+│   ├── scripts/
+│   │   ├── setup.sh                # WP auto-install script (runs via wp-setup sidecar)
+│   │   ├── export-db.sh            # WP Engine database export and rewrite script
+│   │   ├── seed-content.sh         # Seeding script for block-based content
+│   │   └── seed-seo.php            # Yoast SEO migration script
 │   ├── wp-cli/Dockerfile           # Custom WP-CLI image (adds Redis PHP extension)
 │   └── wordpress/Dockerfile        # Custom WP image (WP-CLI, Redis ext, OPcache)
 ├── docker-compose.yml              # Full stack definition (WP, MariaDB, Redis, Nginx)
@@ -81,19 +88,25 @@ xfact/
 │   ├── css/           # Global CSS (animations, dark mode, utilities)
 │   ├── js/            # Dark mode toggle, fade-in, hero slideshow
 │   └── images/        # Hero images, logos, video
-├── blocks/            # 12 custom dynamic blocks (block.json + render.php + style.css)
+├── blocks/            # 18 custom dynamic blocks (block.json + render.php + style.css)
+│   ├── capability-areas/
+│   ├── capabilities-pipeline/
+│   ├── case-study-grid/
+│   ├── case-study-page/
+│   ├── code-embed/
+│   ├── contact-form/
+│   ├── cta-section/
+│   ├── feature-cards/
 │   ├── hero/          # Full-screen hero with slideshow + video
+│   ├── logo-strip/
+│   ├── metrics-strip/
+│   ├── navigation-cards/
 │   ├── page-hero/     # Subpage hero with Ken Burns background
 │   ├── section-heading/
+│   ├── section-list/
 │   ├── solutions-grid/
-│   ├── capabilities-pipeline/
-│   ├── metrics-strip/
-│   ├── logo-strip/
-│   ├── cta-section/
-│   ├── text-section/
-│   ├── feature-cards/
-│   ├── contact-form/
-│   └── support-channels/
+│   ├── support-channels/
+│   └── text-section/
 ├── templates/         # 13 full-page layouts (block markup)
 │   ├── front-page.html    # Homepage (8 sections)
 │   ├── page-solutions.html
@@ -136,22 +149,28 @@ Each template is an HTML file containing [WordPress block markup](https://develo
 
 ### Custom Blocks
 
-All 12 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersion: 3`, and follow WordPress coding standards:
+All 18 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersion: 3`, and follow WordPress coding standards:
 
 | Block | Description |
 |-------|-------------|
+| `xfact/capability-areas` | Three-column capability layout |
+| `xfact/capabilities-pipeline` | Horizontal pipeline with arrow connectors |
+| `xfact/case-study-grid` | Alternating background case study card grid |
+| `xfact/case-study-page` | Full case study page layout with sections |
+| `xfact/code-embed` | Embed block for code snippets |
+| `xfact/contact-form` | Contact form with email-based submission |
+| `xfact/cta-section` | Call-to-action with gradient accent line and watermark |
+| `xfact/feature-cards` | Card grid for values/features |
 | `xfact/hero` | Full-screen hero with image slideshow, video overlay, floating icon, CTA |
+| `xfact/logo-strip` | Partner logo display strip |
+| `xfact/metrics-strip` | 4-metric stats row on dark background |
+| `xfact/navigation-cards` | Interactive routing cards (Other Industries) |
 | `xfact/page-hero` | Subpage hero with Ken Burns background image effect |
 | `xfact/section-heading` | Reusable section label + heading + subtitle |
+| `xfact/section-list` | Standard bulleted section list |
 | `xfact/solutions-grid` | 5-card grid of sector solutions with hover effects |
-| `xfact/capabilities-pipeline` | Horizontal pipeline with arrow connectors |
-| `xfact/metrics-strip` | 4-metric stats row on dark background |
-| `xfact/logo-strip` | Partner logo display strip |
-| `xfact/cta-section` | Call-to-action with gradient accent line and watermark |
-| `xfact/text-section` | Content section with optional badge and tags |
-| `xfact/feature-cards` | Card grid for values/features |
-| `xfact/contact-form` | Contact form with email-based submission |
 | `xfact/support-channels` | Support channel cards with existing client CTA |
+| `xfact/text-section` | Content section with optional badge and tags |
 
 ## Customizing the Theme
 
@@ -392,6 +411,36 @@ npx @wp-playground/cli@latest server --blueprint=./blueprint.json --blueprint-ma
 The `blueprint.json` installs the xFact theme, copies the mu-plugin, sets site options, and configures pretty permalinks.
 
 ## Deployment
+
+### WP Engine (Managed Hosting)
+
+To deploy this site from your local Docker environment to WP Engine:
+
+1. **Export the Database**
+   Run the export script to generate an SQL dump where your local URL is safely replaced with the staging/production domain.
+   ```bash
+   ./docker/scripts/export-db.sh
+   # Optionally pass a custom domain: ./docker/scripts/export-db.sh xfact.com
+   ```
+   This creates a `.sql` file in the `backups/` directory.
+
+2. **Deploy Code via Git Push (SSH)**
+   WP Engine supports direct Git deployments. First, add your SSH key in the WP Engine User Portal, then add the environment as a git remote:
+   ```bash
+   git remote add production git@git.wpengine.com:production/your-environment-name.git
+   git push production main
+   ```
+
+3. **Import the Database via phpMyAdmin**
+   - Log in to your WP Engine User Portal.
+   - Navigate to your environment and open **phpMyAdmin**.
+   - Select your target database.
+   - Click the **Import** tab.
+   - Upload the `.sql` file generated in step 1 and execute the import.
+   
+4. **Final Steps**
+   - Clear the WP Engine object and page caches in the user portal.
+   - Visit your newly deployed site to verify everything is working!
 
 ### Docker Compose (VPS/Server)
 
