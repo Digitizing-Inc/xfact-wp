@@ -29,8 +29,8 @@ function xfact_enqueue_assets(): void {
 	wp_enqueue_style(
 		'xfact-global',
 		get_theme_file_uri( 'assets/css/global.css' ),
-		array( 'xfact-style' ),
-		(string) filemtime( get_theme_file_path( 'assets/css/global.css' ) )
+		array(),
+		$theme_version
 	);
 
 	/* Template parts styles */
@@ -38,14 +38,14 @@ function xfact_enqueue_assets(): void {
 		'xfact-header',
 		get_theme_file_uri( 'assets/css/parts/header.css' ),
 		array( 'xfact-global' ),
-		(string) filemtime( get_theme_file_path( 'assets/css/parts/header.css' ) )
+		$theme_version
 	);
 
 	wp_enqueue_style(
 		'xfact-footer',
 		get_theme_file_uri( 'assets/css/parts/footer.css' ),
 		array( 'xfact-global' ),
-		(string) filemtime( get_theme_file_path( 'assets/css/parts/footer.css' ) )
+		$theme_version
 	);
 
 	/* Button styles (used by core/button and custom blocks like cta-section). */
@@ -53,7 +53,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-core-button',
 		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
 		array( 'xfact-global' ),
-		(string) filemtime( get_theme_file_path( 'assets/css/blocks/core-button.css' ) )
+		$theme_version
 	);
 
 	/* Dark mode overrides. */
@@ -61,7 +61,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-dark-mode',
 		get_theme_file_uri( 'assets/css/dark-mode.css' ),
 		array( 'xfact-global' ),
-		(string) filemtime( get_theme_file_path( 'assets/css/dark-mode.css' ) )
+		$theme_version
 	);
 
 	/*
@@ -72,7 +72,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-dark-mode',
 		get_theme_file_uri( 'assets/js/dark-mode.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/dark-mode.js' ) ),
+		$theme_version,
 		false
 	);
 
@@ -81,7 +81,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-fade-in',
 		get_theme_file_uri( 'assets/js/fade-in.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/fade-in.js' ) ),
+		$theme_version,
 		true
 	);
 
@@ -90,7 +90,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-hero-slideshow',
 		get_theme_file_uri( 'assets/js/hero-slideshow.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/hero-slideshow.js' ) ),
+		$theme_version,
 		true
 	);
 
@@ -99,7 +99,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-header-scroll',
 		get_theme_file_uri( 'assets/js/header-scroll.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/header-scroll.js' ) ),
+		$theme_version,
 		true
 	);
 
@@ -108,7 +108,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-mobile-menu',
 		get_theme_file_uri( 'assets/js/mobile-menu.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/mobile-menu.js' ) ),
+		$theme_version,
 		true
 	);
 }
@@ -156,17 +156,18 @@ add_action( 'init', 'xfact_register_editor_helpers', 5 );
  * Enqueue the shared editor helpers script in the block editor.
  */
 function xfact_enqueue_editor_assets(): void {
+	$theme_version = wp_get_theme()->get( 'Version' );
+
 	wp_enqueue_script( 'xfact-editor-helpers' );
 
 	wp_enqueue_style(
-		'xfact-core-button',
+		'xfact-core-button-editor',
 		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/css/blocks/core-button.css' ) )
+		$theme_version
 	);
 
 	/* Settings sidebar — global theme options panel in the Editor. */
-	$theme_version = wp_get_theme()->get( 'Version' );
 	wp_enqueue_script(
 		'xfact-editor-settings-sidebar',
 		get_theme_file_uri( 'assets/js/editor-settings-sidebar.js' ),
