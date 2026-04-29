@@ -1,4 +1,16 @@
-.xfact-cta-section { position: relative; overflow: hidden; }
+.xfact-cta-section {
+	position: relative;
+	overflow: hidden;
+	padding-top: var(--xfact-spacing-section);
+	padding-bottom: var(--xfact-spacing-section);
+}
+
+@media (min-width: 1024px) {
+	.xfact-cta-section {
+		padding-top: var(--xfact-spacing-section-lg);
+		padding-bottom: var(--xfact-spacing-section-lg);
+	}
+}
 
 .xfact-cta-section__accents { position: absolute; inset: 0; pointer-events: none; }
 
@@ -70,3 +82,7 @@ img.xfact-cta-section__watermark {
 @media (min-width: 640px) {
 	.xfact-cta-section__buttons { flex-direction: row; }
 }
+
+/* Block-scoped Fade-in Pattern */
+
+/* Block-scoped Fade-in Pattern */

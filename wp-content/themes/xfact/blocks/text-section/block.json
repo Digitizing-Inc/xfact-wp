@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "xfact/text-section",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"title": "xFact Text Section",
 	"category": "theme",
 	"icon": "text",
@@ -21,7 +21,11 @@
 		"sectionImageAlt": { "type": "string", "default": "" },
 		"linkText": { "type": "string", "default": "" },
 		"linkUrl": { "type": "string", "default": "" },
-		"useAltBackground": { "type": "boolean", "default": false }
+		"linkIsButton": { "type": "boolean", "default": false },
+		"useAltBackground": { "type": "boolean", "default": false },
+		"isCenteredCard": { "type": "boolean", "default": false },
+		"keyMessages": { "type": "array", "default": [] },
+		"keyMessagesHeading": { "type": "string", "default": "Why xFact" }
 	},
 	"supports": { "html": false, "anchor": true },
 	"editorScript": "file:./index.js",

@@ -7,12 +7,44 @@
 	var h = window.xfactBlockHelpers;
 	var el = h.el;
 
+	function checklistControls( items, i, set ) {
+		var item = items[ i ];
+		function update( key, value ) {
+			var arr = items.slice();
+			arr[ i ] = Object.assign( {}, arr[ i ] );
+			arr[ i ][ key ] = value;
+			set( { assessmentChecklist: arr } );
+		}
+		function remove() {
+			var arr = items.slice();
+			arr.splice( i, 1 );
+			set( { assessmentChecklist: arr } );
+		}
+
+		return [
+			el( 'hr', { key: 'sep-' + i, style: { margin: '8px 0', opacity: 0.3 } } ),
+			el( 'div', {
+				key: 'hdr-' + i,
+				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			},
+				el( 'strong', null, 'Item ' + ( i + 1 ) ),
+				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
+			),
+			el( h.TextControl, {
+				key: 'text-' + i,
+				label: 'Text',
+				value: item.text || '',
+				onChange: function ( v ) { update( 'text', v ); }
+			} ),
+		];
+	}
+
 	wp.blocks.registerBlockType( 'xfact/contact-form', {
 		edit: h.createEdit( 'xfact/contact-form', 'Contact Form Settings', function ( props ) {
 			var attr = props.attributes;
 			var set = props.setAttributes;
 
-			return [
+			var controls = [
 				el( h.TextControl, {
 					key: 'heading',
 					label: 'Heading',
@@ -37,6 +69,38 @@
 					value: attr.formId,
 					onChange: function ( v ) { set( { formId: v } ); },
 				} ),
+				el( 'hr', { key: 'assessment-sep', style: { margin: '24px 0', borderTop: '2px solid #ccc' } } ),
+				el( 'strong', { key: 'assessment-title', style: { display: 'block', marginBottom: '16px', fontSize: '1.2em' } }, 'Assessment Card (Right Side)' ),
+				el( h.TextControl, {
+					key: 'assessmentLabel',
+					label: 'Assessment Section Label',
+					value: attr.assessmentLabel,
+					onChange: function ( v ) { set( { assessmentLabel: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'assessmentHeading',
+					label: 'Assessment Heading',
+					value: attr.assessmentHeading,
+					onChange: function ( v ) { set( { assessmentHeading: v } ); },
+				} ),
+				el( h.TextareaControl, {
+					key: 'assessmentDescription',
+					label: 'Assessment Description',
+					value: attr.assessmentDescription,
+					onChange: function ( v ) { set( { assessmentDescription: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'assessmentButtonLabel',
+					label: 'Assessment Button Label',
+					value: attr.assessmentButtonLabel,
+					onChange: function ( v ) { set( { assessmentButtonLabel: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'assessmentButtonHref',
+					label: 'Assessment Button URL',
+					value: attr.assessmentButtonHref,
+					onChange: function ( v ) { set( { assessmentButtonHref: v } ); },
+				} ),
 				h.imageControl(
 					'Section Image',
 					attr.sectionImage,
@@ -45,6 +109,26 @@
 					'sectionImage'
 				),
 			];
+
+			var checklist = attr.assessmentChecklist || [];
+			if ( checklist.length > 0 ) {
+				controls.push( el( 'strong', { key: 'items-hdr', style: { display: 'block', marginTop: '16px', marginBottom: '8px' } }, 'Checklist Items (' + checklist.length + ')' ) );
+				checklist.forEach( function ( _item, i ) {
+					controls = controls.concat( checklistControls( checklist, i, set ) );
+				} );
+			}
+
+			controls.push(
+				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( h.Button, {
+					key: 'add',
+					onClick: function () { set( { assessmentChecklist: checklist.concat( [ { text: '' } ] ) } ); },
+					variant: 'secondary',
+					style: { width: '100%', justifyContent: 'center' },
+				}, '+ Add Checklist Item' )
+			);
+
+			return controls;
 		} ),
 		save: function () { return null; },
 	} );

@@ -61,14 +61,6 @@
 	margin: 0;
 }
 
-.xfact-section-label {
-	font-size: 0.75rem;
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	color: var(--xfact-accent, #5C8AE6);
-	margin: 0 0 0.25rem;
-}
 
 /* When heading follows a section label, add spacing */
 .xfact-section-label + .xfact-page-hero__heading {
@@ -91,3 +83,72 @@
 }
 
 @media (min-width: 768px) { .xfact-page-hero__subtitle { font-size: 1.25rem; } }
+
+.xfact-page-hero__body {
+	margin-top: 1.5rem;
+	max-width: 48rem;
+	font-size: 1rem;
+	line-height: 1.625;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+@media (min-width: 768px) { .xfact-page-hero__body { font-size: 1.125rem; } }
+
+/* Block-scoped Fade-in Pattern */
+
+/* Breadcrumb Styling */
+.xfact-breadcrumb {
+	margin-bottom: 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.xfact-breadcrumb ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.xfact-breadcrumb a {
+	color: var(--xfact-accent, #5c8ae6);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.xfact-breadcrumb a:hover {
+	color: var(--xfact-accent-dark, #3a6bd4);
+}
+
+.xfact-breadcrumb-separator {
+	opacity: 0.6;
+}
+
+.xfact-breadcrumb li[aria-current="page"] {
+	color: #ffffff;
+}
+
+/* Badge Styling */
+.xfact-hero-badge {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 9999px;
+	border: 1px solid rgba(92, 138, 230, 0.4);
+	background-color: rgba(92, 138, 230, 0.1);
+	padding: 0.25rem 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--xfact-accent, #5c8ae6);
+	margin-top: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+/* Ensure proper spacing when following breadcrumb */
+.xfact-breadcrumb + .xfact-hero-badge {
+	margin-top: -0.25rem;
+}
+

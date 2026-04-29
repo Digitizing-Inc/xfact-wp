@@ -21,33 +21,39 @@ if ( empty( $sectors ) ) {
 	$sectors = array(
 		array(
 			'title'       => __( 'Public safety & justice', 'xfact' ),
-			'description' => __( 'Law enforcement, courts, corrections, 911 systems', 'xfact' ),
+			'headline'    => __( 'Law enforcement, courts, corrections, 911 systems', 'xfact' ),
+			'description' => __( 'Mission-critical systems that require continuous availability and uncompromising security.', 'xfact' ),
 			'href'        => '/solutions#public-safety',
 			'iconName'    => 'Shield',
 		),
 		array(
 			'title'       => __( 'Government & municipal', 'xfact' ),
-			'description' => __( 'State, county, and local agencies', 'xfact' ),
+			'headline'    => __( 'State, county, and local agencies', 'xfact' ),
+			'description' => __( 'Integrated systems that support public works, digital services, and civic infrastructure.', 'xfact' ),
 			'href'        => '/solutions#government',
 			'iconName'    => 'Landmark',
 		),
 		array(
 			'title'       => __( 'Education', 'xfact' ),
-			'description' => __( 'K-12 districts and higher education', 'xfact' ),
+			'headline'    => __( 'K-12 districts and higher education', 'xfact' ),
+			'description' => __( 'Secure infrastructure that protects student data and supports continuous learning.', 'xfact' ),
 			'href'        => '/solutions#education',
 			'iconName'    => 'GraduationCap',
 		),
 		array(
 			'title'       => __( 'Health & human services', 'xfact' ),
-			'description' => __( 'Healthcare, behavioral health, social services', 'xfact' ),
+			'headline'    => __( 'Healthcare, behavioral health, social services', 'xfact' ),
+			'description' => __( 'Compliant environments that balance accessibility with strict privacy requirements.', 'xfact' ),
 			'href'        => '/solutions#hhs',
 			'iconName'    => 'HeartPulse',
 		),
 		array(
 			'title'       => __( 'Infrastructure & managed services', 'xfact' ),
-			'description' => __( 'DataServ, an xFact solution', 'xfact' ),
+			'headline'    => __( 'DataServ, an xFact solution', 'xfact' ),
+			'description' => __( 'Hosted platforms and managed network operations that ensure operational stability.', 'xfact' ),
 			'href'        => '/solutions#infrastructure',
 			'iconName'    => 'ServerCog',
+			'badge'       => 'DataServ',
 		),
 	);
 }
@@ -75,16 +81,42 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			<div class="xfact-solutions-grid__grid">
 				<?php foreach ( $sectors as $sector ) : ?>
 					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card">
-						<?php
-						$icon_name = $sector['iconName'] ?? '';
-						if ( $icon_name ) {
-							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
-							echo xfact_get_icon( $icon_name, 'xfact-solutions-grid__icon' );
-						}
-						?>
-						<h3 class="xfact-solutions-grid__title"><?php echo esc_html( $sector['title'] ?? '' ); ?></h3>
-						<p class="xfact-solutions-grid__desc"><?php echo esc_html( $sector['description'] ?? '' ); ?></p>
-						<span class="xfact-solutions-grid__link"><?php esc_html_e( 'Learn more →', 'xfact' ); ?></span>
+						<div class="xfact-solutions-grid__card-header">
+							<?php
+							$icon_name = $sector['iconName'] ?? '';
+							if ( $icon_name ) {
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
+								echo xfact_get_icon( $icon_name, 'xfact-solutions-grid__icon' );
+							}
+							?>
+							<?php if ( ! empty( $sector['badge'] ) ) : ?>
+								<span class="xfact-solutions-grid__badge"><?php echo esc_html( $sector['badge'] ); ?></span>
+							<?php endif; ?>
+						</div>
+						
+						<?php if ( ! empty( $sector['title'] ) ) : ?>
+							<span class="xfact-section-label"><?php echo esc_html( $sector['title'] ); ?></span>
+						<?php endif; ?>
+						
+						<?php if ( ! empty( $sector['headline'] ) ) : ?>
+							<h3 class="xfact-solutions-grid__title"><?php echo esc_html( $sector['headline'] ); ?></h3>
+						<?php endif; ?>
+						
+						<?php if ( ! empty( $sector['description'] ) ) : ?>
+							<p class="xfact-solutions-grid__desc"><?php echo esc_html( $sector['description'] ); ?></p>
+						<?php endif; ?>
+						
+						<div class="xfact-solutions-grid__link">
+							<?php
+							// Extract the first part of the title before " & " for the Explore link.
+							$explore_title = explode( ' & ', $sector['title'] ?? '' )[0];
+							?>
+							<span><?php /* translators: %s: Industry name */ echo esc_html( sprintf( __( 'Explore %s', 'xfact' ), $explore_title ) ); ?></span>
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							echo xfact_get_icon( 'ArrowRight', 'xfact-solutions-grid__link-arrow' );
+							?>
+						</div>
 					</a>
 				<?php endforeach; ?>
 			</div>

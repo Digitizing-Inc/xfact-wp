@@ -17,7 +17,8 @@
 		if ( stored === 'dark' || stored === 'light' ) {
 			return stored;
 		}
-		return window.matchMedia( '(prefers-color-scheme: dark)' ).matches ? 'dark' : 'light';
+		// Default to 'dark' if no preference is set, matching the Vercel theme.
+		return window.matchMedia( '(prefers-color-scheme: light)' ).matches ? 'light' : 'dark';
 	}
 
 	function apply( theme ) {

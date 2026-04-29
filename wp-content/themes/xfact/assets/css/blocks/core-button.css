@@ -1,0 +1,97 @@
+/* ── Gradient Button ───────────────────────────────────── */
+
+.xfact-gradient-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 0;
+    background: linear-gradient(
+        90deg,
+        var(--xfact-btn-from) 0%,
+        var(--xfact-btn-to) 100%
+    );
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    text-decoration: none;
+}
+
+.xfact-gradient-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        var(--xfact-btn-hover-from) 0%,
+        var(--xfact-btn-hover-to) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.xfact-gradient-button:hover::after {
+    opacity: 1;
+}
+
+.xfact-gradient-button:hover {
+    box-shadow: 0 4px 12px rgba(92, 138, 230, 0.2);
+    color: #ffffff;
+}
+
+.xfact-btn-default {
+    height: 2.75rem;
+    padding: 0 1.25rem;
+    font-size: 0.875rem;
+}
+
+.xfact-btn-lg {
+    height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.875rem;
+}
+
+/* ── Secondary Button ──────────────────────────────────── */
+
+.xfact-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 0;
+    border: 1px solid rgba(26, 32, 44, 0.2);
+    color: #1a202c;
+    background: transparent;
+    text-decoration: none;
+}
+
+.xfact-btn-secondary:hover {
+    border-color: var(--xfact-accent);
+    color: var(--xfact-accent-dark);
+}
+
+/* ── Outline Light Button ──────────────────────────────── */
+
+.xfact-btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    background: transparent;
+    text-decoration: none;
+}
+
+.xfact-btn-outline-light:hover {
+    background: #ffffff;
+    color: var(--xfact-accent-darkest);
+    border-color: #ffffff;
+}
+

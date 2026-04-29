@@ -10,10 +10,15 @@
 	"textdomain": "xfact",
 	"attributes": {
 		"sectionLabel": { "type": "string", "default": "" },
+		"useBreadcrumbs": { "type": "boolean", "default": false },
+		"breadcrumbParentLabel": { "type": "string", "default": "Solutions" },
+		"breadcrumbParentHref": { "type": "string", "default": "/solutions" },
+		"badgeText": { "type": "string", "default": "" },
 		"heading": { "type": "string", "default": "" },
 		"subtitle": { "type": "string", "default": "" },
 		"backgroundImage": { "type": "string", "default": "" },
-		"imageAlt": { "type": "string", "default": "" }
+		"imageAlt": { "type": "string", "default": "" },
+		"bodyText": { "type": "string", "default": "" }
 	},
 	"supports": { "html": false, "align": ["full", "wide"] },
 	"editorScript": "file:./index.js",

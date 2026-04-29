@@ -1,0 +1,71 @@
+<?php
+/**
+ * Navigation Cards block render.
+ *
+ * @package xfact
+ *
+ * @var array<string, mixed> $attributes Block attributes.
+ */
+
+declare(strict_types=1);
+
+$wrapper_args = array( 'class' => 'xfact-navigation-cards xfact-section xfact-section-border' );
+
+$anchor = $attributes['anchor'] ?? '';
+if ( $anchor ) {
+	$wrapper_args['id'] = $anchor;
+}
+
+$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
+$heading            = $attributes['heading'] ?? '';
+$items              = $attributes['items'] ?? array();
+$button_label       = $attributes['buttonLabel'] ?? '';
+$button_href        = $attributes['buttonHref'] ?? '';
+?>
+
+<section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
+	<div class="xfact-container">
+		<div class="xfact-fade-in">
+			<?php if ( $heading ) : ?>
+				<h2 class="xfact-navigation-cards__heading"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+			
+			<div class="xfact-navigation-cards__grid">
+				<?php foreach ( $items as $item ) : ?>
+					<a href="<?php echo esc_url( $item['href'] ?? '#' ); ?>" class="xfact-nav-card xfact-card">
+						<?php if ( ! empty( $item['icon'] ) ) : ?>
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
+							echo xfact_get_icon( $item['icon'], 'xfact-nav-card__icon' );
+							?>
+						<?php endif; ?>
+						<div class="xfact-nav-card__content">
+							<h3 class="xfact-nav-card__title">
+								<?php echo esc_html( $item['title'] ?? '' ); ?>
+							</h3>
+							<?php if ( ! empty( $item['subtitle'] ) ) : ?>
+								<p class="xfact-nav-card__subtitle">
+									<?php echo esc_html( $item['subtitle'] ); ?>
+								</p>
+							<?php endif; ?>
+						</div>
+						<div class="xfact-nav-card__arrow">
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
+							echo xfact_get_icon( 'ArrowRight', 'xfact-nav-card__arrow-icon' );
+							?>
+						</div>
+					</a>
+				<?php endforeach; ?>
+			</div>
+
+			<?php if ( $button_label ) : ?>
+				<div class="xfact-navigation-cards__cta" style="margin-top: 3rem;">
+					<a href="<?php echo esc_url( $button_href ); ?>" class="xfact-btn-secondary xfact-btn-default">
+						<?php echo esc_html( $button_label ); ?>
+					</a>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</section>

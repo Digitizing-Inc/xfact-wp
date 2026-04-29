@@ -6,6 +6,8 @@
     --xfact-bg: #09172f;
     --xfact-bg-alt: #022038;
     --xfact-bg-card: #06384f;
+    --xfact-surface: var(--xfact-bg-alt);
+    --xfact-surface-alt: var(--xfact-bg);
     --xfact-border: rgba(255, 255, 255, 0.1);
     --xfact-text: #ffffff;
     --xfact-text-secondary: rgba(255, 255, 255, 0.7);
@@ -20,6 +22,14 @@
 [data-theme="dark"] body {
     background-color: var(--xfact-bg);
     color: var(--xfact-text);
+
+    /* Override WP Block Theme Presets */
+    --wp--preset--color--surface: var(--xfact-bg);
+    --wp--preset--color--surface-alt: var(--xfact-bg-alt);
+    --wp--preset--color--border: var(--xfact-border);
+    --wp--preset--color--text-primary: var(--xfact-text);
+    --wp--preset--color--text-secondary: var(--xfact-text-secondary);
+    --wp--preset--color--text-muted: var(--xfact-text-muted);
 }
 
 [data-theme="dark"] .wp-block-group,
@@ -89,6 +99,7 @@
     display: none;
 }
 
+[data-theme="dark"] .xfact-header,
 [data-theme="dark"] .xfact-header--scrolled {
-    background: var(--xfact-bg) !important;
+    background: rgba(9, 23, 47, 0.95) !important;
 }

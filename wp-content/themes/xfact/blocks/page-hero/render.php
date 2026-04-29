@@ -11,11 +11,16 @@
 
 declare(strict_types=1);
 
-$section_label    = $attributes['sectionLabel'] ?? '';
-$heading          = $attributes['heading'] ?? '';
-$subtitle         = $attributes['subtitle'] ?? '';
-$background_image = $attributes['backgroundImage'] ?? '';
-$image_alt        = $attributes['imageAlt'] ?? '';
+$section_label           = $attributes['sectionLabel'] ?? '';
+$use_breadcrumbs         = ! empty( $attributes['useBreadcrumbs'] );
+$breadcrumb_parent_label = $attributes['breadcrumbParentLabel'] ?? 'Solutions';
+$breadcrumb_parent_href  = $attributes['breadcrumbParentHref'] ?? '/solutions';
+$badge_text              = $attributes['badgeText'] ?? '';
+$heading                 = $attributes['heading'] ?? '';
+$subtitle                = $attributes['subtitle'] ?? '';
+$background_image        = $attributes['backgroundImage'] ?? '';
+$image_alt               = $attributes['imageAlt'] ?? '';
+$body_text               = $attributes['bodyText'] ?? '';
 
 $focal_points = array(
 	'hero-careers.jpg'   => 'center 30%',
@@ -49,14 +54,33 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 	<div class="xfact-page-hero__content xfact-container">
 		<div class="xfact-page-hero__text">
-			<?php if ( $section_label ) : ?>
+			<?php if ( $use_breadcrumbs ) : ?>
+				<nav aria-label="Breadcrumb" class="xfact-breadcrumb">
+					<ol>
+						<?php if ( $breadcrumb_parent_label && $breadcrumb_parent_href ) : ?>
+							<li>
+								<a href="<?php echo esc_url( home_url( $breadcrumb_parent_href ) ); ?>"><?php echo esc_html( $breadcrumb_parent_label ); ?></a>
+							</li>
+							<li aria-hidden="true" class="xfact-breadcrumb-separator">/</li>
+						<?php endif; ?>
+						<li aria-current="page"><?php echo esc_html( get_the_title() ); ?></li>
+					</ol>
+				</nav>
+			<?php elseif ( $section_label ) : ?>
 				<span class="xfact-section-label"><?php echo esc_html( $section_label ); ?></span>
+			<?php endif; ?>
+
+			<?php if ( $badge_text ) : ?>
+				<span class="xfact-hero-badge"><?php echo esc_html( $badge_text ); ?></span>
 			<?php endif; ?>
 			<?php if ( $heading ) : ?>
 				<h1 class="xfact-page-hero__heading"><?php echo esc_html( $heading ); ?></h1>
 			<?php endif; ?>
 			<?php if ( $subtitle ) : ?>
 				<p class="xfact-page-hero__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+			<?php endif; ?>
+			<?php if ( $body_text ) : ?>
+				<p class="xfact-page-hero__body"><?php echo esc_html( $body_text ); ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

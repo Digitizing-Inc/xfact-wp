@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/capability-areas",
+	"version": "1.0.0",
+	"title": "xFact Capability Areas",
+	"category": "theme",
+	"icon": "list-view",
+	"description": "Numbered list of capability areas with icons and service tags.",
+	"textdomain": "xfact",
+	"attributes": {
+		"areas": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

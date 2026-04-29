@@ -51,6 +51,18 @@
 				value: card.title || '',
 				onChange: function ( v ) { updateCard( 'title', v ); },
 			} ),
+			el( h.TextControl, {
+				key: 'badge-' + i,
+				label: 'Badge',
+				value: card.badge || '',
+				onChange: function ( v ) { updateCard( 'badge', v ); },
+			} ),
+			el( h.TextControl, {
+				key: 'headline-' + i,
+				label: 'Headline',
+				value: card.headline || '',
+				onChange: function ( v ) { updateCard( 'headline', v ); },
+			} ),
 			el( h.TextareaControl, {
 				key: 'desc-' + i,
 				label: 'Description',

@@ -33,12 +33,35 @@ function xfact_enqueue_assets(): void {
 		(string) filemtime( get_theme_file_path( 'assets/css/global.css' ) )
 	);
 
+	/* Template parts styles */
+	wp_enqueue_style(
+		'xfact-header',
+		get_theme_file_uri( 'assets/css/parts/header.css' ),
+		array( 'xfact-global' ),
+		(string) filemtime( get_theme_file_path( 'assets/css/parts/header.css' ) )
+	);
+
+	wp_enqueue_style(
+		'xfact-footer',
+		get_theme_file_uri( 'assets/css/parts/footer.css' ),
+		array( 'xfact-global' ),
+		(string) filemtime( get_theme_file_path( 'assets/css/parts/footer.css' ) )
+	);
+
+	/* Button styles (used by core/button and custom blocks like cta-section) */
+	wp_enqueue_style(
+		'xfact-core-button',
+		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
+		array( 'xfact-global' ),
+		(string) filemtime( get_theme_file_path( 'assets/css/blocks/core-button.css' ) )
+	);
+
 	/* Dark mode overrides */
 	wp_enqueue_style(
 		'xfact-dark-mode',
 		get_theme_file_uri( 'assets/css/dark-mode.css' ),
 		array( 'xfact-global' ),
-		$theme_version
+		(string) filemtime( get_theme_file_path( 'assets/css/dark-mode.css' ) )
 	);
 
 	/*
@@ -49,7 +72,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-dark-mode',
 		get_theme_file_uri( 'assets/js/dark-mode.js' ),
 		array(),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/dark-mode.js' ) ),
 		false
 	);
 
@@ -58,7 +81,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-fade-in',
 		get_theme_file_uri( 'assets/js/fade-in.js' ),
 		array(),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/fade-in.js' ) ),
 		true
 	);
 
@@ -67,7 +90,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-hero-slideshow',
 		get_theme_file_uri( 'assets/js/hero-slideshow.js' ),
 		array(),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/hero-slideshow.js' ) ),
 		true
 	);
 
@@ -76,7 +99,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-header-scroll',
 		get_theme_file_uri( 'assets/js/header-scroll.js' ),
 		array(),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/header-scroll.js' ) ),
 		true
 	);
 
@@ -85,7 +108,7 @@ function xfact_enqueue_assets(): void {
 		'xfact-mobile-menu',
 		get_theme_file_uri( 'assets/js/mobile-menu.js' ),
 		array(),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/mobile-menu.js' ) ),
 		true
 	);
 }

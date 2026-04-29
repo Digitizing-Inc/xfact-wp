@@ -1,0 +1,495 @@
+/* ── WP Site Logo in Footer ──────────────────────── */
+
+.xfact-footer .wp-block-site-logo {
+    line-height: 0;
+}
+
+.xfact-footer .wp-block-site-logo img {
+    width: 130px;
+    height: auto;
+    filter: brightness(0);
+    transition: opacity 0.2s;
+}
+
+[data-xfact-dark="true"] .xfact-footer .wp-block-site-logo img {
+    filter: brightness(0) invert(1);
+}
+
+/* ── WP Columns in Footer (override gaps) ────────── */
+
+.xfact-footer .wp-block-columns {
+    gap: 2rem;
+}
+
+.xfact-footer .wp-block-column {
+    margin: 0;
+}
+
+/* ── WP List in Footer ───────────────────────────── */
+
+.xfact-footer .wp-block-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.xfact-footer .wp-block-list a {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.xfact-footer .wp-block-list a:hover {
+    color: var(--xfact-accent-darkest, #123e99);
+}
+
+[data-xfact-dark="true"] .xfact-footer .wp-block-list a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-xfact-dark="true"] .xfact-footer .wp-block-list a:hover {
+    color: var(--xfact-accent, #5c8ae6);
+}
+
+.xfact-desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+
+/* ── Footer ───────────────────────────────────────── */
+
+.xfact-footer {
+    border-top: 1px solid var(--xfact-border, #e5e7eb);
+    background: var(--xfact-bg-alt, #f9fafb);
+}
+
+[data-xfact-dark="true"] .xfact-footer {
+    border-top-color: rgba(255, 255, 255, 0.1);
+    background: #09172f;
+}
+
+/* Editor canvas: footer uses its natural light-mode styling by default.
+   Dark mode is applied via [data-xfact-dark="true"] on the frontend. */
+
+.xfact-footer__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .xfact-footer__inner {
+        padding: 4rem 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .xfact-footer__inner {
+        padding: 4rem 2rem;
+    }
+}
+
+.xfact-footer__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .xfact-footer__grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* Brand column */
+.xfact-footer__brand {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+    .xfact-footer__brand {
+        grid-column: 1;
+    }
+}
+
+.xfact-footer__logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* wp:image block logo */
+.xfact-footer__logo-block {
+    margin: 0 !important;
+}
+
+.xfact-footer__logo-block img,
+.xfact-footer__logo {
+    width: 130px;
+    height: auto;
+    filter: brightness(0);
+    transition:
+        opacity 0.2s,
+        filter 0.3s;
+}
+
+[data-xfact-dark="true"] .xfact-footer__logo-block img,
+[data-xfact-dark="true"] .xfact-footer__logo {
+    filter: none;
+}
+
+.xfact-footer__tagline {
+    margin-top: 1rem;
+    max-width: 20rem;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: #6b7280;
+}
+
+[data-xfact-dark="true"] .xfact-footer__tagline {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.xfact-footer__note {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+[data-xfact-dark="true"] .xfact-footer__note {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Link sections */
+.xfact-footer__heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    margin: 0 0 1rem;
+}
+
+[data-xfact-dark="true"] .xfact-footer__heading {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.xfact-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Paragraph-based link group (replaces wp:list for editor consistency) */
+.xfact-footer__links-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.xfact-footer__link-item {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.xfact-footer__link {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.xfact-footer__link:hover {
+    color: var(--xfact-accent-darkest, #123e99);
+}
+
+[data-xfact-dark="true"] .xfact-footer__link {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-xfact-dark="true"] .xfact-footer__link:hover {
+    color: var(--xfact-accent, #5c8ae6);
+}
+
+/* Bottom bar — now inside __inner, inherits max-width/padding */
+.xfact-footer__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--xfact-border, #e5e7eb);
+}
+
+@media (min-width: 640px) {
+    .xfact-footer__bottom {
+        margin-top: 4rem;
+        padding-top: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .xfact-footer__bottom {
+        flex-direction: row;
+    }
+}
+
+[data-xfact-dark="true"] .xfact-footer__bottom {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.xfact-footer__copyright {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0;
+}
+
+[data-xfact-dark="true"] .xfact-footer__copyright {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.xfact-footer__bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.xfact-footer__social {
+    color: #9ca3af;
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.xfact-footer__social:hover {
+    color: var(--xfact-accent-darkest, #123e99);
+}
+
+[data-xfact-dark="true"] .xfact-footer__social {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+[data-xfact-dark="true"] .xfact-footer__social:hover {
+    color: var(--xfact-accent, #5c8ae6);
+}
+
+.xfact-footer__social-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* wp:social-links block in footer */
+.xfact-footer__social-block {
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.xfact-footer__social-block .wp-social-link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.xfact-footer__social-block .wp-social-link a {
+    color: #9ca3af !important;
+    padding: 0 !important;
+    transition: color 0.2s;
+}
+
+.xfact-footer__social-block .wp-social-link a:hover {
+    color: var(--xfact-accent-darkest, #123e99) !important;
+    transform: none;
+}
+
+.xfact-footer__social-block .wp-social-link svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+[data-xfact-dark="true"] .xfact-footer__social-block .wp-social-link a {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+[data-xfact-dark="true"] .xfact-footer__social-block .wp-social-link a:hover {
+    color: var(--xfact-accent, #5c8ae6) !important;
+}
+
+.xfact-footer__theme-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin: 0 !important;
+}
+
+[data-xfact-dark="true"] .xfact-footer__theme-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Editor: Footer overrides ────────────────────── */
+/* The Site Editor canvas doesn't inherit all frontend styles.
+   These overrides ensure the footer matches the source in the editor. */
+
+.editor-styles-wrapper .xfact-footer {
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.editor-styles-wrapper .xfact-footer__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+/* Force CSS grid on columns in the editor */
+.editor-styles-wrapper .xfact-footer__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 2rem !important;
+}
+
+/* Brand column: full row on its own in grid */
+.editor-styles-wrapper .xfact-footer__brand {
+    grid-column: 1;
+    max-width: none !important;
+    flex-basis: auto !important;
+}
+
+.editor-styles-wrapper .xfact-footer__section {
+    max-width: none !important;
+    flex-basis: auto !important;
+}
+
+/* Logo */
+.editor-styles-wrapper .xfact-footer__logo-block {
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__logo-block img {
+    width: 130px;
+    height: auto;
+    filter: brightness(0);
+}
+
+/* Tagline and note spacing */
+.editor-styles-wrapper .xfact-footer__tagline {
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+    max-width: 20rem;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: #6b7280;
+}
+
+.editor-styles-wrapper .xfact-footer__note {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0 !important;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Section headings */
+.editor-styles-wrapper .xfact-footer__heading {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #9ca3af !important;
+    margin: 0 0 1rem !important;
+}
+
+/* Remove WP default gap between heading and links in footer sections */
+.editor-styles-wrapper .xfact-footer__section > * + * {
+    margin-block-start: 0 !important;
+}
+
+/* Links group (paragraph-based) */
+.editor-styles-wrapper .xfact-footer__links-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin: 0 !important;
+    margin-block-start: 0 !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__link-item {
+    margin: 0 !important;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    padding: 0 !important;
+    font-size: 0.875rem;
+}
+
+.editor-styles-wrapper .xfact-footer__link,
+.editor-styles-wrapper .xfact-footer__link-item a {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-decoration: none;
+}
+
+/* Bottom bar */
+.editor-styles-wrapper .xfact-footer__bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 2.5rem !important;
+    padding-top: 1.5rem !important;
+    border-top: 1px solid #e5e7eb !important;
+    gap: 1rem !important;
+}
+
+.editor-styles-wrapper .xfact-footer__copyright {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__bottom-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+}
+
+/* Social links block in editor */
+.editor-styles-wrapper .xfact-footer__social-block {
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link a,
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link {
+    color: #9ca3af !important;
+    padding: 0 !important;
+}
+
+.editor-styles-wrapper .xfact-footer__social-block .wp-social-link svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    fill: #9ca3af !important;
+}
+
+/* Theme label */
+.editor-styles-wrapper .xfact-footer__theme-label {
+    font-size: 0.75rem !important;
+    color: #9ca3af !important;
+    margin: 0 !important;
+}

@@ -19,6 +19,30 @@
 					value: attr.sectionLabel,
 					onChange: function ( v ) { set( { sectionLabel: v } ); },
 				} ),
+				el( h.ToggleControl, {
+					key: 'useBreadcrumbs',
+					label: 'Render Section Label as Breadcrumb',
+					checked: attr.useBreadcrumbs,
+					onChange: function ( v ) { set( { useBreadcrumbs: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'breadcrumbParentLabel',
+					label: 'Breadcrumb Parent Label (Optional)',
+					value: attr.breadcrumbParentLabel,
+					onChange: function ( v ) { set( { breadcrumbParentLabel: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'breadcrumbParentHref',
+					label: 'Breadcrumb Parent URL (Optional)',
+					value: attr.breadcrumbParentHref,
+					onChange: function ( v ) { set( { breadcrumbParentHref: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'badgeText',
+					label: 'Badge Text',
+					value: attr.badgeText,
+					onChange: function ( v ) { set( { badgeText: v } ); },
+				} ),
 				el( h.TextControl, {
 					key: 'heading',
 					label: 'Heading',

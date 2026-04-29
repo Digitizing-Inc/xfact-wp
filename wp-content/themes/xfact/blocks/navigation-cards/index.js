@@ -1,0 +1,72 @@
+/**
+ * xFact Navigation Cards — editor script.
+ */
+( function () {
+	'use strict';
+
+	var h = window.xfactBlockHelpers;
+	var el = h.el;
+
+	function cardControls( items, i, set ) {
+		var item = items[ i ];
+		function update( key, value ) {
+			var arr = items.slice();
+			arr[ i ] = Object.assign( {}, arr[ i ] );
+			arr[ i ][ key ] = value;
+			set( { items: arr } );
+		}
+		function remove() {
+			var arr = items.slice();
+			arr.splice( i, 1 );
+			set( { items: arr } );
+		}
+
+		return [
+			el( 'div', {
+				key: 'card-' + i,
+				style: { border: '1px solid #ddd', padding: '12px', marginBottom: '12px', borderRadius: '4px' },
+			},
+				el( h.TextControl, { label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
+				el( h.TextControl, { label: 'Subtitle', value: item.subtitle || '', onChange: function ( v ) { update( 'subtitle', v ); } } ),
+				el( h.TextControl, { label: 'Icon (Lucide name)', value: item.icon || '', onChange: function ( v ) { update( 'icon', v ); } } ),
+				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } ),
+				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Card' )
+			),
+		];
+	}
+
+	wp.blocks.registerBlockType( 'xfact/navigation-cards', {
+		edit: h.createEdit( 'xfact/navigation-cards', 'Navigation Cards Settings', function ( props ) {
+			var attr = props.attributes;
+			var set = props.setAttributes;
+			var items = attr.items || [];
+
+			var controls = [
+				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } ),
+				el( 'hr', { key: 'sep1', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( h.TextControl, { key: 'heading', label: 'Section Heading', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
+				el( h.TextControl, { key: 'buttonLabel', label: 'CTA Button Label (Optional)', value: attr.buttonLabel || '', onChange: function ( v ) { set( { buttonLabel: v } ); } } ),
+				el( h.TextControl, { key: 'buttonHref', label: 'CTA Button URL (Optional)', value: attr.buttonHref || '', onChange: function ( v ) { set( { buttonHref: v } ); } } ),
+			];
+
+			if ( items.length > 0 ) {
+				controls.push( el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Cards (' + items.length + ')' ) );
+				items.forEach( function ( _item, i ) {
+					controls = controls.concat( cardControls( items, i, set ) );
+				} );
+			}
+
+			controls.push(
+				el( h.Button, {
+					key: 'add-card',
+					onClick: function () { set( { items: items.concat( [ { title: '', subtitle: '', icon: '', href: '' } ] ) } ); },
+					variant: 'secondary',
+					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+				}, '+ Add Navigation Card' )
+			);
+
+			return controls;
+		} ),
+		save: function () { return null; },
+	} );
+}() );

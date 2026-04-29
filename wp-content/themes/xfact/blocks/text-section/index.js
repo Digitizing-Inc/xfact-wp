@@ -48,11 +48,46 @@
 		];
 	}
 
+	function keyMessageControls( messages, i, set ) {
+		var msg = messages[ i ];
+		function update( v ) {
+			var arr = messages.slice();
+			arr[ i ] = v;
+			set( { keyMessages: arr } );
+		}
+		function remove() {
+			var arr = messages.slice();
+			arr.splice( i, 1 );
+			set( { keyMessages: arr } );
+		}
+
+		return [
+			el( 'div', {
+				key: 'msg-' + i,
+				style: { display: 'flex', gap: '4px', alignItems: 'flex-start', marginBottom: '8px' },
+			},
+				el( h.TextControl, {
+					label: 'Key Message ' + ( i + 1 ),
+					value: msg || '',
+					onChange: update,
+					style: { flex: 1 },
+				} ),
+				el( h.Button, {
+					onClick: remove,
+					variant: 'link',
+					isDestructive: true,
+					style: { marginTop: '24px', fontSize: '12px' },
+				}, '✕' )
+			),
+		];
+	}
+
 	wp.blocks.registerBlockType( 'xfact/text-section', {
 		edit: h.createEdit( 'xfact/text-section', 'Text Section Settings', function ( props ) {
 			var attr = props.attributes;
 			var set = props.setAttributes;
 			var tags = attr.tags || [];
+			var keyMessages = attr.keyMessages || [];
 
 			var controls = [
 				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } ),
@@ -60,6 +95,7 @@
 				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
 				el( h.TextControl, { key: 'sectionIcon', label: 'Section Icon (Lucide name)', value: attr.sectionIcon || '', onChange: function ( v ) { set( { sectionIcon: v } ); }, help: 'e.g. Shield, Landmark, GraduationCap, HeartPulse, ServerCog' } ),
 				el( h.ToggleControl, { key: 'useAltBackground', label: 'Use Alternate Background Color', checked: attr.useAltBackground, onChange: function ( v ) { set( { useAltBackground: v } ); } } ),
+				el( h.ToggleControl, { key: 'isCenteredCard', label: 'Style as Centered Card (Empty State)', checked: attr.isCenteredCard, onChange: function ( v ) { set( { isCenteredCard: v } ); } } ),
 				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
 				el( h.TextareaControl, { key: 'subtitle', label: 'Subtitle / Headline', value: attr.subtitle || '', rows: 2, onChange: function ( v ) { set( { subtitle: v } ); } } ),
 				el( h.TextareaControl, { key: 'body', label: 'Body Text', value: attr.body, rows: 5, onChange: function ( v ) { set( { body: v } ); } } ),
@@ -72,6 +108,7 @@
 					: null,
 				el( h.TextControl, { key: 'linkText', label: 'Link Text', value: attr.linkText || '', onChange: function ( v ) { set( { linkText: v } ); } } ),
 				el( h.TextControl, { key: 'linkUrl', label: 'Link URL', value: attr.linkUrl || '', onChange: function ( v ) { set( { linkUrl: v } ); } } ),
+				el( h.ToggleControl, { key: 'linkIsButton', label: 'Style Link as Button', checked: attr.linkIsButton, onChange: function ( v ) { set( { linkIsButton: v } ); } } ),
 			];
 
 			/* Tags section */
@@ -92,6 +129,27 @@
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
 				}, '+ Add Tag' )
+			);
+
+			/* Key Messages section */
+			if ( keyMessages.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'msg-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( h.TextControl, { key: 'keyMessagesHeading', label: 'Aside Heading', value: attr.keyMessagesHeading, onChange: function ( v ) { set( { keyMessagesHeading: v } ); } } ),
+					el( 'strong', { key: 'msg-hdr', style: { display: 'block', marginBottom: '8px' } }, 'List Items (' + keyMessages.length + ')' )
+				);
+				keyMessages.forEach( function ( _msg, i ) {
+					controls = controls.concat( keyMessageControls( keyMessages, i, set ) );
+				} );
+			}
+
+			controls.push(
+				el( h.Button, {
+					key: 'add-msg',
+					onClick: function () { set( { keyMessages: keyMessages.concat( [ '' ] ) } ); },
+					variant: 'secondary',
+					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+				}, '+ Add Key Message' )
 			);
 
 			return controls;
