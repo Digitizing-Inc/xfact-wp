@@ -1,7 +1,7 @@
 .xfact-page-hero {
 	position: relative;
 	overflow: hidden;
-	background-color: #09172f;
+	background-color: var(--xfact-dark-section, #09172f);
 	padding-top: 10rem;
 	padding-bottom: var(--xfact-spacing-section);
 	min-height: 30rem;
@@ -36,11 +36,11 @@
 }
 
 /* Dark mode overlays */
-[data-xfact-dark="true"] .xfact-page-hero__overlay {
+html[data-theme="dark"] .xfact-page-hero__overlay {
 	background: linear-gradient(135deg, rgba(9, 23, 47, 0.50) 0%, rgba(13, 45, 107, 0.28) 100%);
 }
 
-[data-xfact-dark="true"] .xfact-page-hero__text-gradient {
+html[data-theme="dark"] .xfact-page-hero__text-gradient {
 	background: linear-gradient(90deg, rgba(9, 23, 47, 0.58) 0%, rgba(9, 23, 47, 0.22) 45%, rgba(9, 23, 47, 0) 75%);
 }
 

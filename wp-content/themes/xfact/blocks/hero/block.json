@@ -40,11 +40,18 @@
 		"showFloatingLogo": {
 			"type": "string",
 			"default": "global"
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
 		}
 	},
 	"supports": {
 		"html": false,
-		"align": ["full", "wide"],
+		"align": [
+			"full",
+			"wide"
+		],
 		"spacing": {
 			"padding": true
 		}

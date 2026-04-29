@@ -1,77 +1,57 @@
-/* 
+/*
  * WP-Admin Editor Overrides
- * Ensures ServerSideRender blocks display with correct padding and backgrounds 
+ * Ensures ServerSideRender blocks display with correct padding and backgrounds
  * in the Gutenberg block editor.
  */
 
+/* Prevent Gutenberg's 100vw hack from causing horizontal scrollbars in the editor, and remove default vertical margins */
 .editor-styles-wrapper {
-	--xfact-bg: #f5f7fa;
-	--xfact-bg-alt: #ffffff;
-	--xfact-bg-card: #ffffff;
-	--xfact-border: #e2e8f0;
-	--xfact-text: #1a202c;
-	--xfact-text-secondary: #4a5568;
-	--xfact-text-muted: #718096;
-	--xfact-dark-section: #0d2d6b;
-	--xfact-dark-section-text: #ffffff;
-	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.75);
-	--xfact-dark-section-muted: rgba(255, 255, 255, 0.55);
-	--xfact-accent: #5c8ae6;
-	--xfact-accent-dark: #3a6bd4;
-	--xfact-accent-darkest: #123e99;
-	--xfact-btn-from: #123e99;
-	--xfact-btn-to: #2a5bb8;
-	--xfact-btn-hover-from: #1a4fb3;
-	--xfact-btn-hover-to: #3a6bd4;
-	--xfact-spacing-section: 5.625rem;
-	--xfact-spacing-section-lg: 7rem;
+    overflow-x: hidden !important;
 }
 
-.editor-styles-wrapper[data-theme="dark"],
-[data-theme="dark"] .editor-styles-wrapper {
-	--xfact-bg: #09172f;
-	--xfact-bg-alt: #022038;
-	--xfact-bg-card: #06384f;
-	--xfact-surface: var(--xfact-bg-alt);
-	--xfact-surface-alt: var(--xfact-bg);
-	--xfact-border: rgba(255, 255, 255, 0.1);
-	--xfact-text: #ffffff;
-	--xfact-text-secondary: rgba(255, 255, 255, 0.7);
-	--xfact-text-muted: rgba(255, 255, 255, 0.45);
-	--xfact-dark-section: #09172f;
-	--xfact-dark-section-text: #ffffff;
-	--xfact-dark-section-secondary: rgba(255, 255, 255, 0.6);
-	--xfact-dark-section-muted: rgba(255, 255, 255, 0.45);
+/* Force border-box sizing in the editor to match frontend layout (prevents padding from blowing up block heights) */
+.editor-styles-wrapper,
+.editor-styles-wrapper *,
+.editor-styles-wrapper *::before,
+.editor-styles-wrapper *::after {
+    box-sizing: border-box !important;
 }
 
-.editor-styles-wrapper .xfact-dark-section {
-	background-color: #0d2d6b !important;
+.editor-styles-wrapper .wp-block[data-align="full"] {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
-.editor-styles-wrapper .xfact-bg-alt {
-	background-color: #ffffff !important;
+/* Remove frontend header offset padding in the editor since header is relative */
+.editor-styles-wrapper .wp-site-blocks {
+    padding-top: 0 !important;
 }
 
-.editor-styles-wrapper .xfact-bg {
-	background-color: #f5f7fa !important;
+/* Restore missing spacing variables in editor context */
+.editor-styles-wrapper {
+    --xfact-spacing-section: 5.625rem;
+    --xfact-spacing-section-lg: 7rem;
+    --xfact-spacing-hero-top: 10rem;
+}
+
+/* Compensate for the missing absolute header overlay in the editor */
+.editor-styles-wrapper .xfact-page-hero {
+    padding-top: 10rem !important; /* Match frontend exactly */
+    min-height: 38rem !important; /* Match frontend exactly */
+}
+
+/* Careers: Current Openings block container in editor */
+.editor-styles-wrapper .wp-block-xfact-code-embed {
+    padding-top: 7rem !important;
+    padding-bottom: 7rem !important;
 }
 
 .editor-styles-wrapper .xfact-border-top {
-	border-top: 1px solid #e2e8f0 !important;
-}
-
-/* Force padding on sections in the editor */
-.editor-styles-wrapper .xfact-section-lg {
-	padding-top: 7rem !important;
-	padding-bottom: 7rem !important;
-}
-
-.editor-styles-wrapper .xfact-section {
-	padding-top: 5.625rem !important;
-	padding-bottom: 5.625rem !important;
+    border-top: 1px solid #e2e8f0 !important;
 }
 
 /* Fix for disabled wrapper from SSR */
 .editor-styles-wrapper .components-disabled {
-	opacity: 1 !important;
+    opacity: 1 !important;
 }

@@ -1,28 +1,32 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "xfact/code-embed",
-  "version": "1.0.0",
-  "title": "xFact Code Embed",
-  "category": "theme",
-  "icon": "html",
-  "description": "Custom HTML/JS embed wrapped in the theme container.",
-  "textdomain": "xfact",
-  "attributes": {
-    "code": {
-      "type": "string",
-      "default": ""
-    }
-  },
-  "supports": {
-    "html": false,
-    "align": [
-      "full",
-      "wide"
-    ],
-    "customClassName": true
-  },
-  "editorScript": "file:./index.js",
-  "render": "file:./render.php",
-  "style": "file:./style.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/code-embed",
+	"version": "1.0.0",
+	"title": "xFact Code Embed",
+	"category": "theme",
+	"icon": "html",
+	"description": "Custom HTML/JS embed wrapped in the theme container.",
+	"textdomain": "xfact",
+	"attributes": {
+		"code": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		],
+		"customClassName": true
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
 }

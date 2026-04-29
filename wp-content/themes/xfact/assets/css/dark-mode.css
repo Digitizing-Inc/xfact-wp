@@ -3,17 +3,8 @@
  * =========================================== */
 
 [data-theme="dark"] {
-    --xfact-bg: #09172f;
-    --xfact-bg-alt: #022038;
-    --xfact-bg-card: #06384f;
-    --xfact-surface: var(--xfact-bg-alt);
-    --xfact-surface-alt: var(--xfact-bg);
     --xfact-border: rgba(255, 255, 255, 0.1);
-    --xfact-text: #ffffff;
-    --xfact-text-secondary: rgba(255, 255, 255, 0.7);
     --xfact-text-muted: rgba(255, 255, 255, 0.45);
-    --xfact-dark-section: #09172f;
-    --xfact-dark-section-text: #ffffff;
     --xfact-dark-section-secondary: rgba(255, 255, 255, 0.6);
     --xfact-dark-section-muted: rgba(255, 255, 255, 0.45);
 }
@@ -51,7 +42,7 @@
 /* Footer dark mode overrides */
 [data-theme="dark"] .xfact-footer {
     border-color: rgba(255, 255, 255, 0.1);
-    background-color: #09172f;
+    background-color: var(--xfact-bg);
 }
 
 /* Dark mode toggle button */
@@ -101,5 +92,5 @@
 
 [data-theme="dark"] .xfact-header,
 [data-theme="dark"] .xfact-header--scrolled {
-    background: rgba(9, 23, 47, 0.95) !important;
+    background: var(--xfact-bg) !important;
 }

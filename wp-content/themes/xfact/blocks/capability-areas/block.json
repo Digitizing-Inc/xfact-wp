@@ -12,10 +12,18 @@
 		"areas": {
 			"type": "array",
 			"default": []
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
 		}
 	},
 	"supports": {
-		"html": false
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
 	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",

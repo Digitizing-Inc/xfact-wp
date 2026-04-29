@@ -9,25 +9,87 @@
 	"description": "Text section with label, heading, body, optional badge and tags.",
 	"textdomain": "xfact",
 	"attributes": {
-		"anchor": { "type": "string", "default": "" },
-		"sectionLabel": { "type": "string", "default": "" },
-		"sectionIcon": { "type": "string", "default": "" },
-		"heading": { "type": "string", "default": "" },
-		"subtitle": { "type": "string", "default": "" },
-		"body": { "type": "string", "default": "" },
-		"badgeText": { "type": "string", "default": "" },
-		"tags": { "type": "array", "default": [] },
-		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" },
-		"linkText": { "type": "string", "default": "" },
-		"linkUrl": { "type": "string", "default": "" },
-		"linkIsButton": { "type": "boolean", "default": false },
-		"useAltBackground": { "type": "boolean", "default": false },
-		"isCenteredCard": { "type": "boolean", "default": false },
-		"keyMessages": { "type": "array", "default": [] },
-		"keyMessagesHeading": { "type": "string", "default": "Why xFact" }
+		"anchor": {
+			"type": "string",
+			"default": ""
+		},
+		"sectionLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"sectionIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitle": {
+			"type": "string",
+			"default": ""
+		},
+		"body": {
+			"type": "string",
+			"default": ""
+		},
+		"badgeText": {
+			"type": "string",
+			"default": ""
+		},
+		"tags": {
+			"type": "array",
+			"default": []
+		},
+		"sectionImage": {
+			"type": "string",
+			"default": ""
+		},
+		"sectionImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"linkText": {
+			"type": "string",
+			"default": ""
+		},
+		"linkUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"linkIsButton": {
+			"type": "boolean",
+			"default": false
+		},
+		"useAltBackground": {
+			"type": "boolean",
+			"default": false
+		},
+		"isCenteredCard": {
+			"type": "boolean",
+			"default": false
+		},
+		"keyMessages": {
+			"type": "array",
+			"default": []
+		},
+		"keyMessagesHeading": {
+			"type": "string",
+			"default": "Why xFact"
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
 	},
-	"supports": { "html": false, "anchor": true },
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

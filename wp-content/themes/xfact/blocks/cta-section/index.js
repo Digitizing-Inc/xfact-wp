@@ -75,7 +75,15 @@
 						{ label: 'Dark (Default)', value: 'dark' },
 						{ label: 'Light', value: 'light' },
 					],
-					onChange: function ( v ) { set( { variant: v } ); },
+					onChange: function ( v ) { 
+						var updates = { variant: v };
+						if ( v === 'light' ) {
+							updates.backgroundColor = 'surface-alt';
+						} else {
+							updates.backgroundColor = 'dark-section';
+						}
+						set( updates ); 
+					},
 				} ),
 			];
 		} ),

@@ -39,5 +39,10 @@
 			$input.val( '' );
 			$preview.attr( 'src', defaultUrl );
 		} );
+
+		// Initialize color pickers
+		if ( typeof $.fn.wpColorPicker !== 'undefined' ) {
+			$( '.xfact-color-picker' ).wpColorPicker();
+		}
 	} );
 } )( jQuery );

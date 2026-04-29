@@ -8,12 +8,35 @@
 	"icon": "index-card",
 	"description": "Displays a grid of navigation cards with icons and hover effects.",
 	"attributes": {
-		"heading": { "type": "string", "default": "" },
-		"items": { "type": "array", "default": [] },
-		"buttonLabel": { "type": "string", "default": "" },
-		"buttonHref": { "type": "string", "default": "" }
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		},
+		"buttonLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonHref": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
 	},
-	"supports": { "html": false, "anchor": true },
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

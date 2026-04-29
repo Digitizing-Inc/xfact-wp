@@ -12,15 +12,40 @@
 		"metrics": {
 			"type": "array",
 			"default": [
-				{ "value": "25+", "label": "Years of Service" },
-				{ "value": "500+", "label": "Clients Served" },
-				{ "value": "99.9%", "label": "Uptime SLA" },
-				{ "value": "24/7", "label": "Support Coverage" }
+				{
+					"value": "25+",
+					"label": "Years of Service"
+				},
+				{
+					"value": "500+",
+					"label": "Clients Served"
+				},
+				{
+					"value": "99.9%",
+					"label": "Uptime SLA"
+				},
+				{
+					"value": "24/7",
+					"label": "Support Coverage"
+				}
 			]
 		},
-		"backgroundImage": { "type": "string", "default": "" }
+		"backgroundImage": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
 	},
-	"supports": { "html": false, "align": ["full", "wide"] },
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

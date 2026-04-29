@@ -376,3 +376,7 @@
 }
 
 /* ── Mobile Hamburger Toggle ──────────────────────── */
+
+.xfact-navigation-cards__grid > * {
+	min-width: 0;
+}

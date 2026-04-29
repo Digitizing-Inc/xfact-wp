@@ -48,7 +48,7 @@ function xfact_enqueue_assets(): void {
 		(string) filemtime( get_theme_file_path( 'assets/css/parts/footer.css' ) )
 	);
 
-	/* Button styles (used by core/button and custom blocks like cta-section) */
+	/* Button styles (used by core/button and custom blocks like cta-section). */
 	wp_enqueue_style(
 		'xfact-core-button',
 		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
@@ -56,7 +56,7 @@ function xfact_enqueue_assets(): void {
 		(string) filemtime( get_theme_file_path( 'assets/css/blocks/core-button.css' ) )
 	);
 
-	/* Dark mode overrides */
+	/* Dark mode overrides. */
 	wp_enqueue_style(
 		'xfact-dark-mode',
 		get_theme_file_uri( 'assets/css/dark-mode.css' ),
@@ -76,7 +76,7 @@ function xfact_enqueue_assets(): void {
 		false
 	);
 
-	/* Scroll fade-in — safe to defer to footer */
+	/* Scroll fade-in — safe to defer to footer. */
 	wp_enqueue_script(
 		'xfact-fade-in',
 		get_theme_file_uri( 'assets/js/fade-in.js' ),
@@ -85,7 +85,7 @@ function xfact_enqueue_assets(): void {
 		true
 	);
 
-	/* Hero slideshow — loads in footer */
+	/* Hero slideshow — loads in footer. */
 	wp_enqueue_script(
 		'xfact-hero-slideshow',
 		get_theme_file_uri( 'assets/js/hero-slideshow.js' ),
@@ -94,7 +94,7 @@ function xfact_enqueue_assets(): void {
 		true
 	);
 
-	/* Header scroll — transparent → opaque on scroll */
+	/* Header scroll — transparent → opaque on scroll. */
 	wp_enqueue_script(
 		'xfact-header-scroll',
 		get_theme_file_uri( 'assets/js/header-scroll.js' ),
@@ -103,7 +103,7 @@ function xfact_enqueue_assets(): void {
 		true
 	);
 
-	/* Mobile menu toggle */
+	/* Mobile menu toggle. */
 	wp_enqueue_script(
 		'xfact-mobile-menu',
 		get_theme_file_uri( 'assets/js/mobile-menu.js' ),
@@ -158,6 +158,13 @@ add_action( 'init', 'xfact_register_editor_helpers', 5 );
 function xfact_enqueue_editor_assets(): void {
 	wp_enqueue_script( 'xfact-editor-helpers' );
 
+	wp_enqueue_style(
+		'xfact-core-button',
+		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
+		array(),
+		(string) filemtime( get_theme_file_path( 'assets/css/blocks/core-button.css' ) )
+	);
+
 	/* Settings sidebar — global theme options panel in the Editor. */
 	$theme_version = wp_get_theme()->get( 'Version' );
 	wp_enqueue_script(
@@ -174,8 +181,26 @@ function xfact_enqueue_editor_assets(): void {
 			'currentLogoUrl'   => get_option( 'xfact_floating_logo_url', '' ),
 			'defaultLogoUrl'   => get_theme_file_uri( 'assets/images/xfact-icon.svg' ),
 			'showFloatingLogo' => (bool) get_option( 'xfact_show_floating_logo', false ),
+			'editorDarkMode'   => (bool) get_option( 'xfact_editor_dark_mode', false ),
 			'editHeaderUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' ),
 			'editFooterUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' ),
+			'darkVars'         => array(
+				'--xfact-bg'                          => get_option( 'xfact_color_dark_bg', '#09172f' ),
+				'--xfact-bg-alt'                      => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
+				'--xfact-bg-card'                     => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
+				'--xfact-text'                        => get_option( 'xfact_color_dark_text', '#ffffff' ),
+				'--xfact-text-secondary'              => get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' ),
+				'--xfact-accent'                      => get_option( 'xfact_color_dark_accent', '#5c8ae6' ),
+				'--xfact-surface'                     => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
+				'--xfact-surface-alt'                 => get_option( 'xfact_color_dark_bg', '#09172f' ),
+				'--xfact-dark-section'                => get_option( 'xfact_color_dark_bg', '#09172f' ),
+				'--xfact-dark-section-text'           => get_option( 'xfact_color_dark_text', '#ffffff' ),
+				'--wp--preset--color--surface'        => get_option( 'xfact_color_dark_bg', '#09172f' ),
+				'--wp--preset--color--surface-alt'    => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
+				'--wp--preset--color--text-primary'   => get_option( 'xfact_color_dark_text', '#ffffff' ),
+				'--wp--preset--color--text-secondary' => get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' ),
+				'--wp--preset--color--accent'         => get_option( 'xfact_color_dark_accent', '#5c8ae6' ),
+			),
 		)
 	);
 }

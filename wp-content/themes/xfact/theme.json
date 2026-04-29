@@ -39,7 +39,7 @@
 				},
 				{
 					"slug": "accent",
-					"color": "#5C8AE6",
+					"color": "var(--xfact-accent, #5C8AE6)",
 					"name": "Accent"
 				},
 				{
@@ -54,12 +54,12 @@
 				},
 				{
 					"slug": "surface",
-					"color": "#f5f7fa",
+					"color": "var(--xfact-bg, #f5f7fa)",
 					"name": "Surface"
 				},
 				{
 					"slug": "surface-alt",
-					"color": "#ffffff",
+					"color": "var(--xfact-bg-alt, #ffffff)",
 					"name": "Surface Alt"
 				},
 				{
@@ -79,12 +79,12 @@
 				},
 				{
 					"slug": "text-primary",
-					"color": "#1a202c",
+					"color": "var(--xfact-text, #1a202c)",
 					"name": "Text Primary"
 				},
 				{
 					"slug": "text-secondary",
-					"color": "#4a5568",
+					"color": "var(--xfact-text-secondary, #4a5568)",
 					"name": "Text Secondary"
 				},
 				{

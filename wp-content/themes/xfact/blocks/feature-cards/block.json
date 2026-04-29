@@ -9,13 +9,38 @@
 	"description": "Grid of feature/value cards with titles and descriptions.",
 	"textdomain": "xfact",
 	"attributes": {
-		"sectionLabel": { "type": "string", "default": "" },
-		"heading": { "type": "string", "default": "" },
-		"cards": { "type": "array", "default": [] },
-		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" }
+		"sectionLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"cards": {
+			"type": "array",
+			"default": []
+		},
+		"sectionImage": {
+			"type": "string",
+			"default": ""
+		},
+		"sectionImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
 	},
-	"supports": { "html": false },
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

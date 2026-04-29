@@ -1,94 +1,114 @@
 .xfact-cta-section {
-	position: relative;
-	overflow: hidden;
-	padding-top: var(--xfact-spacing-section);
-	padding-bottom: var(--xfact-spacing-section);
+    position: relative;
+    overflow: hidden;
+    padding-top: var(--xfact-spacing-section);
+    padding-bottom: var(--xfact-spacing-section);
 }
 
 @media (min-width: 1024px) {
-	.xfact-cta-section {
-		padding-top: var(--xfact-spacing-section-lg);
-		padding-bottom: var(--xfact-spacing-section-lg);
-	}
+    .xfact-cta-section {
+        padding-top: var(--xfact-spacing-section-lg);
+        padding-bottom: var(--xfact-spacing-section-lg);
+    }
 }
 
-.xfact-cta-section__accents { position: absolute; inset: 0; pointer-events: none; }
+.xfact-cta-section__accents {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
 
 .xfact-cta-section__top-line {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 66%;
-	height: 1px;
-	background: linear-gradient(90deg, transparent, rgba(92, 138, 230, 0.6), transparent);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 66%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(92, 138, 230, 0.6),
+        transparent
+    );
 }
 
 .xfact-cta-section__watermark {
-	position: absolute;
-	right: -3rem;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 16rem;
-	height: 16rem;
+    position: absolute;
+    right: -3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16rem;
+    height: 16rem;
 }
 
 svg.xfact-cta-section__watermark {
-	color: var(--xfact-dark-section-text, #ffffff);
-	opacity: 0.03;
+    color: var(--xfact-dark-section-text, #ffffff);
+    opacity: 0.03;
 }
 
 img.xfact-cta-section__watermark {
-	opacity: 0.03;
-	filter: brightness(0) invert(1);
-}
-
-@media (min-width: 640px) { .xfact-cta-section__watermark { width: 20rem; height: 20rem; } }
-
-.xfact-cta-section__inner {
-	position: relative;
-	max-width: 42rem;
-	margin: 0 auto;
-	text-align: center;
-}
-
-.xfact-cta-section__title {
-	font-size: 1.875rem;
-	font-weight: 700;
-	letter-spacing: -0.025em;
-	color: #ffffff;
-	line-height: 1.1;
-	margin: 0;
-}
-
-.xfact-bg-alt .xfact-cta-section__title {
-	color: #1a202c;
-}
-
-@media (min-width: 768px) { .xfact-cta-section__title { font-size: 3rem; } }
-
-.xfact-cta-section__subtitle {
-	margin-top: 1.5rem;
-	font-size: 1.125rem;
-	line-height: 1.625;
-	color: rgba(255, 255, 255, 0.75);
-}
-
-.xfact-bg-alt .xfact-cta-section__subtitle {
-	color: #4a5568;
-}
-
-.xfact-cta-section__buttons {
-	margin-top: 2.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 1rem;
+    opacity: 0.03;
+    filter: brightness(0) invert(1);
 }
 
 @media (min-width: 640px) {
-	.xfact-cta-section__buttons { flex-direction: row; }
+    .xfact-cta-section__watermark {
+        width: 20rem;
+        height: 20rem;
+    }
+}
+
+.xfact-cta-section__inner {
+    position: relative;
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.xfact-cta-section__title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--xfact-dark-section-text, #ffffff);
+    line-height: 1.1;
+    margin: 0;
+}
+
+.xfact-bg-alt .xfact-cta-section__title {
+    color: var(--xfact-text);
+}
+
+@media (min-width: 768px) {
+    .xfact-cta-section__title {
+        font-size: 3rem;
+    }
+}
+
+.xfact-cta-section__subtitle {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.625;
+    color: var(--xfact-dark-section-secondary, rgba(255, 255, 255, 0.75));
+}
+
+.xfact-bg-alt .xfact-cta-section__subtitle {
+    color: var(--xfact-text-secondary);
+}
+
+.xfact-cta-section__buttons {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .xfact-cta-section__buttons {
+        flex-direction: row;
+    }
 }
 
 /* Block-scoped Fade-in Pattern */

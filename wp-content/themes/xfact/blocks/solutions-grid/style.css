@@ -38,7 +38,9 @@
     border: 1px solid var(--xfact-border);
     background-color: var(--xfact-bg-card);
     text-decoration: none;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition:
+        border-color 0.2s,
+        background-color 0.2s;
 }
 
 .xfact-solutions-grid__card:hover {
@@ -70,8 +72,6 @@
     font-weight: 500;
     color: var(--xfact-accent);
 }
-
-
 
 .xfact-solutions-grid__title {
     font-size: 1.125rem;
@@ -111,4 +111,8 @@
 
 .xfact-solutions-grid__cta {
     margin-top: 2.5rem;
+}
+
+.xfact-solutions-grid__grid > * {
+    min-width: 0;
 }

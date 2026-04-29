@@ -38,6 +38,7 @@ function xfact_admin_settings_enqueue( string $hook ): void {
 		return;
 	}
 	wp_enqueue_media();
+	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_style(
 		'xfact-admin-settings',
 		get_theme_file_uri( 'assets/css/admin-settings.css' ),
@@ -47,7 +48,7 @@ function xfact_admin_settings_enqueue( string $hook ): void {
 	wp_enqueue_script(
 		'xfact-admin-settings',
 		get_theme_file_uri( 'assets/js/admin-settings.js' ),
-		array( 'jquery' ),
+		array( 'jquery', 'wp-color-picker' ),
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
@@ -82,18 +83,54 @@ function xfact_render_admin_settings_page(): void {
 			}
 		} else {
 			/* Normal settings save */
+			$colors = array(
+				'bg',
+				'bg_alt',
+				'text',
+				'text_secondary',
+				'accent',
+				'dark_bg',
+				'dark_bg_alt',
+				'dark_text',
+				'dark_text_secondary',
+				'dark_accent',
+			);
+			foreach ( $colors as $color ) {
+				$key = 'xfact_color_' . $color;
+				if ( isset( $_POST[ $key ] ) ) {
+					update_option( $key, sanitize_hex_color( wp_unslash( $_POST[ $key ] ) ) );
+				}
+			}
+
 			if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
 				update_option( 'xfact_floating_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ) );
 			}
 			$show = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
 			update_option( 'xfact_show_floating_logo', $show );
 
+			$editor_dark_mode = isset( $_POST['xfact_editor_dark_mode'] ) ? true : false;
+			update_option( 'xfact_editor_dark_mode', $editor_dark_mode );
+
 			echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
 		}
 	}
 
+	// Fetch color settings.
+	$c_bg             = get_option( 'xfact_color_bg', '#f5f7fa' );
+	$c_bg_alt         = get_option( 'xfact_color_bg_alt', '#ffffff' );
+	$c_text           = get_option( 'xfact_color_text', '#1a202c' );
+	$c_text_secondary = get_option( 'xfact_color_text_secondary', '#4a5568' );
+	$c_accent         = get_option( 'xfact_color_accent', '#5c8ae6' );
+
+	$c_dark_bg             = get_option( 'xfact_color_dark_bg', '#09172f' );
+	$c_dark_bg_alt         = get_option( 'xfact_color_dark_bg_alt', '#022038' );
+	$c_dark_text           = get_option( 'xfact_color_dark_text', '#ffffff' );
+	$c_dark_text_secondary = get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' );
+	$c_dark_accent         = get_option( 'xfact_color_dark_accent', '#5c8ae6' );
+
 	$floating_logo_url  = get_option( 'xfact_floating_logo_url', '' );
 	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
+	$editor_dark_mode   = (bool) get_option( 'xfact_editor_dark_mode', false );
 	$default_float_logo = get_theme_file_uri( 'assets/images/xfact-icon.svg' );
 	$edit_header_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
 	$edit_footer_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
@@ -102,6 +139,19 @@ function xfact_render_admin_settings_page(): void {
 		<h1>xFact Settings</h1>
 		<form method="post">
 			<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>
+
+			<!-- Editor Dark Mode -->
+			<div class="xfact-admin-card">
+				<h2>Editor Dark Mode Preview</h2>
+				<p class="description">Toggle dark mode rendering inside the Gutenberg block editor canvas by default.</p>
+				<div class="xfact-admin-toggle">
+					<label for="xfact_editor_dark_mode">
+						<input type="checkbox" name="xfact_editor_dark_mode" id="xfact_editor_dark_mode" value="1" <?php checked( $editor_dark_mode ); ?> />
+						Enable Dark Mode in Editor
+					</label>
+					<span class="description">You can also toggle this instantly via the Gutenberg toolbar icon.</span>
+				</div>
+			</div>
 
 			<!-- Floating Logo -->
 			<div class="xfact-admin-card">
@@ -124,6 +174,72 @@ function xfact_render_admin_settings_page(): void {
 				<button type="button" class="button xfact-admin-reset-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img" data-default="<?php echo esc_url( $default_float_logo ); ?>">
 					Reset to Default
 				</button>
+			</div>
+
+			<!-- Theme Colors -->
+			<div class="xfact-admin-card" style="margin-bottom: 2rem;">
+				<h2>Theme Colors</h2>
+				<p class="description">Configure the primary branding colors for both Light and Dark modes. These variables power all Gutenberg blocks globally.</p>
+				
+				<div style="display: flex; gap: 4rem; margin-top: 1.5rem; flex-wrap: wrap;">
+					<!-- Light Mode Palette -->
+					<div>
+						<h3 style="margin-top: 0;">Light Mode</h3>
+						<table class="form-table" role="presentation" style="margin-top: 0;">
+							<tbody>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0;"><label for="xfact_color_bg">Background</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_bg" id="xfact_color_bg" value="<?php echo esc_attr( $c_bg ); ?>" class="xfact-color-picker" data-default-color="#f5f7fa" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0;"><label for="xfact_color_bg_alt">Surface / Cards</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_bg_alt" id="xfact_color_bg_alt" value="<?php echo esc_attr( $c_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#ffffff" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0;"><label for="xfact_color_text">Primary Text</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_text" id="xfact_color_text" value="<?php echo esc_attr( $c_text ); ?>" class="xfact-color-picker" data-default-color="#1a202c" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0;"><label for="xfact_color_text_secondary">Secondary Text</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_text_secondary" id="xfact_color_text_secondary" value="<?php echo esc_attr( $c_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#4a5568" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0;"><label for="xfact_color_accent">Accent Color</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_accent" id="xfact_color_accent" value="<?php echo esc_attr( $c_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Dark Mode Palette -->
+					<div style="padding: 1.5rem; background: #1e1e1e; color: #fff; border-radius: 8px;">
+						<h3 style="margin-top: 0; color: #fff;">Dark Mode</h3>
+						<table class="form-table" role="presentation" style="margin-top: 0;">
+							<tbody>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0; color: #ccc;"><label for="xfact_color_dark_bg">Background</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_dark_bg" id="xfact_color_dark_bg" value="<?php echo esc_attr( $c_dark_bg ); ?>" class="xfact-color-picker" data-default-color="#09172f" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0; color: #ccc;"><label for="xfact_color_dark_bg_alt">Surface / Cards</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_dark_bg_alt" id="xfact_color_dark_bg_alt" value="<?php echo esc_attr( $c_dark_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#022038" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0; color: #ccc;"><label for="xfact_color_dark_text">Primary Text</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_dark_text" id="xfact_color_dark_text" value="<?php echo esc_attr( $c_dark_text ); ?>" class="xfact-color-picker" data-default-color="#ffffff" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0; color: #ccc;"><label for="xfact_color_dark_text_secondary">Secondary Text</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_dark_text_secondary" id="xfact_color_dark_text_secondary" value="<?php echo esc_attr( $c_dark_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#b3b3b3" /></td>
+								</tr>
+								<tr>
+									<th scope="row" style="padding: 10px 10px 10px 0; color: #ccc;"><label for="xfact_color_dark_accent">Accent Color</label></th>
+									<td style="padding: 10px 0;"><input type="text" name="xfact_color_dark_accent" id="xfact_color_dark_accent" value="<?php echo esc_attr( $c_dark_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 
 			<?php submit_button( 'Save Settings' ); ?>

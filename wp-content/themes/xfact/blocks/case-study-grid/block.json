@@ -8,12 +8,35 @@
 	"icon": "grid-view",
 	"description": "Displays a grid of case studies.",
 	"attributes": {
-		"sectionLabel": { "type": "string", "default": "" },
-		"heading": { "type": "string", "default": "" },
-		"description": { "type": "string", "default": "" },
-		"items": { "type": "array", "default": [] }
+		"sectionLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"default": ""
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
 	},
-	"supports": { "html": false, "anchor": true },
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
 	"style": "file:./style.css"

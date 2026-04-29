@@ -206,7 +206,7 @@ button:focus-visible,
     transition: background 0.3s;
 }
 
-[data-xfact-dark="true"] .xfact-theme-toggle__track {
+html[data-theme="dark"] .xfact-theme-toggle__track {
     background: var(--xfact-accent, #5c8ae6);
 }
 
@@ -223,7 +223,7 @@ button:focus-visible,
     transition: transform 0.3s;
 }
 
-[data-xfact-dark="true"] .xfact-theme-toggle__thumb {
+html[data-theme="dark"] .xfact-theme-toggle__thumb {
     transform: translateX(24px);
 }
 
@@ -243,11 +243,11 @@ button:focus-visible,
     color: #718096;
 }
 
-[data-xfact-dark="true"] .xfact-theme-toggle__icon-moon {
+html[data-theme="dark"] .xfact-theme-toggle__icon-moon {
     display: block;
 }
 
-[data-xfact-dark="true"] .xfact-theme-toggle__icon-sun {
+html[data-theme="dark"] .xfact-theme-toggle__icon-sun {
     display: none;
 }
 

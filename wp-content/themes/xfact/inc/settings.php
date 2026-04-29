@@ -39,6 +39,17 @@ function xfact_register_settings(): void {
 			'show_in_rest'      => true,
 		)
 	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_editor_dark_mode',
+		array(
+			'type'              => 'boolean',
+			'default'           => false,
+			'sanitize_callback' => 'rest_sanitize_boolean',
+			'show_in_rest'      => true,
+		)
+	);
 }
 add_action( 'admin_init', 'xfact_register_settings' );
 
