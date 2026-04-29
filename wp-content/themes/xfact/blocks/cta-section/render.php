@@ -16,8 +16,20 @@ $primary_href    = $attributes['primaryHref'] ?? '/contact';
 $secondary_label = $attributes['secondaryLabel'] ?? '';
 $secondary_href  = $attributes['secondaryHref'] ?? '';
 
+$variant = $attributes['variant'] ?? 'dark';
+
+$is_light = 'light' === $variant;
+
+$classes = array( 'xfact-cta-section', 'xfact-section-lg' );
+if ( $is_light ) {
+	$classes[] = 'xfact-bg-alt';
+	$classes[] = 'xfact-border-top';
+} else {
+	$classes[] = 'xfact-dark-section';
+}
+
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-cta-section xfact-dark-section xfact-section-lg' )
+	array( 'class' => implode( ' ', $classes ) )
 );
 ?>
 <?php
@@ -27,7 +39,7 @@ $bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) 
 
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?><?php echo $bg_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
 
-	<?php if ( xfact_should_show_floating_logo( $attributes ) ) : ?>
+	<?php if ( ! $is_light && xfact_should_show_floating_logo( $attributes ) ) : ?>
 		<div class="xfact-cta-section__accents" aria-hidden="true">
 			<div class="xfact-cta-section__top-line"></div>
 			<img
@@ -40,21 +52,21 @@ $bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) 
 
 	<div class="xfact-container">
 		<div class="xfact-cta-section__inner xfact-fade-in">
-			<h2 class="xfact-cta-section__title"><?php echo esc_html( $cta_title ); ?></h2>
+			<h2 class="xfact-cta-section__title <?php echo $is_light ? 'xfact-text' : ''; ?>"><?php echo esc_html( $cta_title ); ?></h2>
 
 			<?php if ( $subtitle ) : ?>
-				<p class="xfact-cta-section__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+				<p class="xfact-cta-section__subtitle <?php echo $is_light ? 'xfact-text-secondary' : ''; ?>"><?php echo esc_html( $subtitle ); ?></p>
 			<?php endif; ?>
 
 			<div class="xfact-cta-section__buttons">
 				<?php if ( $primary_label ) : ?>
-					<a href="<?php echo esc_url( $primary_href ); ?>" class="xfact-gradient-button xfact-btn-lg">
+					<a href="<?php echo esc_url( $primary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn xfact-btn-primary' : 'xfact-gradient-button'; ?> xfact-btn-lg">
 						<?php echo esc_html( $primary_label ); ?>
 					</a>
 				<?php endif; ?>
 
 				<?php if ( $secondary_label ) : ?>
-					<a href="<?php echo esc_url( $secondary_href ); ?>" class="xfact-btn-outline-light xfact-btn-lg">
+					<a href="<?php echo esc_url( $secondary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn xfact-btn-secondary' : 'xfact-btn-outline-light'; ?> xfact-btn-lg">
 						<?php echo esc_html( $secondary_label ); ?>
 					</a>
 				<?php endif; ?>

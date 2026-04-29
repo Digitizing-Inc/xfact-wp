@@ -40,6 +40,10 @@
     "showFloatingLogo": {
       "type": "string",
       "default": "global"
+    },
+    "variant": {
+      "type": "string",
+      "default": "dark"
     }
   },
   "supports": {

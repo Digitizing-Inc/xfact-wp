@@ -252,7 +252,9 @@ if [ -n "$CAR_ID" ]; then
 
 <!-- wp:xfact/feature-cards {"sectionLabel":"Why xFact","heading":"What it means to work here","cards":[{"title":"Mission-Driven Work","description":"Every project supports systems critical to public services — from public safety to education to healthcare.","iconName":"Target"},{"title":"High-Accountability Environments","description":"Our teams operate in environments where reliability matters. The work we do must function every day.","iconName":"ShieldCheck"},{"title":"Real Impact","description":"Employees contribute directly to systems that serve communities and support essential public operations.","iconName":"Zap"},{"title":"Growth \u0026 Development","description":"Work alongside experienced professionals across infrastructure, security, applications, and strategy.","iconName":"TrendingUp"}]} /-->
 
-<!-- wp:xfact/cta-section {"align":"full","title":"Interested in joining the team?","subtitle":"We'\''re always looking for talented people who want to do meaningful work.","primaryLabel":"Get in Touch","primaryHref":"/contact"} /-->'
+<!-- wp:xfact/code-embed {"code":"<link rel=\"stylesheet\" type=\"text/css\" href=\"//reports.hrmdirect.com/employment/default/sm/settings/dynamic-embed/dynamic-iframe-embed-css.php\" />\n<script type=\"text/javascript\" src=\"//reports.hrmdirect.com/employment/default/sm/settings/dynamic-embed/dynamic-iframe-embed-js.php\"></script>\n<script>\n  function resizeIframe(obj) {\n    obj.style.height = obj.contentWindow.document.body.scrollHeight + '\''px'\'';\n  }\n</script>\n<iframe id=\"hrmdirect\" src=\"//dataserv.hrmdirect.com/employment/job-openings.php?search=true&nohd=&dept=-1&city=-1&state=-1\" style=\"width: 100%; height: 400px;\" frameborder=\"0\" scrolling=\"auto\" allowtransparency=\"true\" title=\"Career Site\"></iframe>"} /-->
+
+<!-- wp:xfact/cta-section {"variant":"light","align":"full","title":"Interested in joining the team?","subtitle":"We'\''re always looking for talented people who want to do meaningful work.","primaryLabel":"Get in Touch","primaryHref":"/contact"} /-->'
     echo "  ✅ Seeded: Careers"
 fi
 

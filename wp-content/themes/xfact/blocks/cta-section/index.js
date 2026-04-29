@@ -67,6 +67,16 @@
 					],
 					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
 				} ),
+				el( h.SelectControl, {
+					key: 'variant',
+					label: 'Theme Variant',
+					value: attr.variant || 'dark',
+					options: [
+						{ label: 'Dark (Default)', value: 'dark' },
+						{ label: 'Light', value: 'light' },
+					],
+					onChange: function ( v ) { set( { variant: v } ); },
+				} ),
 			];
 		} ),
 		save: function () { return null; },

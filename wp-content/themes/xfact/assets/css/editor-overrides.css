@@ -1,0 +1,37 @@
+/* 
+ * WP-Admin Editor Overrides
+ * Ensures ServerSideRender blocks display with correct padding and backgrounds 
+ * in the Gutenberg block editor.
+ */
+
+.editor-styles-wrapper .xfact-dark-section {
+	background-color: #0d2d6b !important;
+}
+
+.editor-styles-wrapper .xfact-bg-alt {
+	background-color: #ffffff !important;
+}
+
+.editor-styles-wrapper .xfact-bg {
+	background-color: #f5f7fa !important;
+}
+
+.editor-styles-wrapper .xfact-border-top {
+	border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Force padding on sections in the editor */
+.editor-styles-wrapper .xfact-section-lg {
+	padding-top: 7rem !important;
+	padding-bottom: 7rem !important;
+}
+
+.editor-styles-wrapper .xfact-section {
+	padding-top: 5.625rem !important;
+	padding-bottom: 5.625rem !important;
+}
+
+/* Fix for disabled wrapper from SSR */
+.editor-styles-wrapper .components-disabled {
+	opacity: 1 !important;
+}
