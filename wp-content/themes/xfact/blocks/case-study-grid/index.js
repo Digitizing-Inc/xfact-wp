@@ -29,6 +29,7 @@
 				el( h.TextControl, { label: 'Case Study Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextareaControl, { label: 'Summary', value: item.summary || '', rows: 3, onChange: function ( v ) { update( 'summary', v ); } } ),
 				el( h.TextControl, { label: 'Source (e.g. xFact)', value: item.source || '', onChange: function ( v ) { update( 'source', v ); } } ),
+				el( h.TextControl, { label: 'Case Study URL (Optional)', value: item.linkUrl || '', onChange: function ( v ) { update( 'linkUrl', v ); }, help: 'If provided, the card will link to this URL in a new tab.' } ),
 				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Case Study' )
 			),
 		];

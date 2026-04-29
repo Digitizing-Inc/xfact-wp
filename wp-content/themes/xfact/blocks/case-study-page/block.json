@@ -1,0 +1,59 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xfact/case-study-page",
+	"version": "1.0.0",
+	"title": "xFact Case Study Page",
+	"category": "xfact-blocks",
+	"icon": "media-document",
+	"description": "Displays the full content of a case study.",
+	"attributes": {
+		"source": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"summary": {
+			"type": "string",
+			"default": ""
+		},
+		"client": {
+			"type": "string",
+			"default": ""
+		},
+		"challenge": {
+			"type": "array",
+			"default": []
+		},
+		"services": {
+			"type": "array",
+			"default": []
+		},
+		"outcomes": {
+			"type": "array",
+			"default": []
+		},
+		"narrative": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}
