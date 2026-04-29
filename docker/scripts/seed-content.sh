@@ -131,7 +131,7 @@ fi
 # ── News ──────────────────────────────────────────────────────
 NEWS_ID=$(wp post list --post_type=page --name=news --field=ID 2>/dev/null)
 if [ -n "$NEWS_ID" ]; then
-    wp post update "$NEWS_ID" --post_content='<!-- wp:xfact/page-hero {"heading":"News \u0026 Insights","subtitle":"Perspectives on public-sector systems and the technology behind them.","backgroundImage":"'"${ASSETS}"'/hero-solutions.jpg","imageAlt":"A workspace with laptop and notes","align":"full"} /-->
+    wp post update "$NEWS_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"News \u0026 Insights","heading":"News \u0026 Insights","subtitle":"Perspectives on public-sector systems and the technology behind them.","backgroundImage":"'"${ASSETS}"'/hero-solutions.jpg","imageAlt":"A workspace with laptop and notes","align":"full"} /-->
 
 <!-- wp:xfact/text-section {"sectionLabel":"Stories from xFact","body":"Technology environments continue to evolve. We publish field-level insights on what we see across public safety, government, education, and human services — grounded in real-world engagements rather than vendor talking points."} /-->
 
