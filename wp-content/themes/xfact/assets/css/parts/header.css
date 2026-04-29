@@ -10,7 +10,11 @@
     width: 100%;
     background: #0d2d6b !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.3s ease;
+    transition:
+        background-color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        top 0.3s ease;
 }
 
 /* When the page has a hero, make the header transparent until scrolled */
@@ -146,7 +150,27 @@ body.has-hero-header .wp-site-blocks {
 }
 
 .xfact-header .wp-block-navigation a,
-.xfact-header nav.wp-block-navigation > ul.wp-block-navigation__container > li.wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content
+    *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-submenu__toggle,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation__submenu-icon {
     display: inline-block;
     position: relative;
     font-size: 0.875rem;
@@ -160,12 +184,56 @@ body.has-hero-header .wp-site-blocks {
     background: transparent;
 }
 
-.xfact-header nav.wp-block-navigation > ul.wp-block-navigation__container > li.wp-block-navigation-item > a:hover,
-.xfact-header nav.wp-block-navigation > ul.wp-block-navigation__container > li.wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle {
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a:hover,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content:hover,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content:hover
+    *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item:hover
+    > .wp-block-navigation-item__content,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item:hover
+    > .wp-block-navigation-item__content
+    *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item:hover
+    > .wp-block-navigation-submenu__toggle,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item:hover
+    > .wp-block-navigation__submenu-icon {
     color: #fff !important;
 }
 
-.xfact-header nav.wp-block-navigation > ul.wp-block-navigation__container > li.wp-block-navigation-item > a::after {
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content::after {
     content: "";
     position: absolute;
     bottom: -2px;
@@ -176,7 +244,16 @@ body.has-hero-header .wp-site-blocks {
     transition: width 0.25s ease;
 }
 
-.xfact-header nav.wp-block-navigation > ul.wp-block-navigation__container > li.wp-block-navigation-item > a:hover::after {
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a:hover::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item:hover
+    > .wp-block-navigation-item__content::after {
     width: 100%;
 }
 
@@ -208,21 +285,36 @@ body.has-hero-header .wp-site-blocks {
     background: transparent;
 }
 
-.xfact-header .wp-block-navigation__submenu-container a {
+.xfact-header .wp-block-navigation__submenu-container a,
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-item__content,
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-item__content
+    * {
     color: rgba(255, 255, 255, 0.8) !important;
     padding: 0.625rem 1.25rem !important;
     display: block !important;
     font-size: 0.875rem !important;
     font-weight: 400 !important;
-    transition: background-color 0.15s, color 0.15s !important;
+    transition:
+        background-color 0.15s,
+        color 0.15s !important;
 }
 
-.xfact-header .wp-block-navigation__submenu-container a:hover {
+.xfact-header .wp-block-navigation__submenu-container a:hover,
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-item__content:hover {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: #ffffff !important;
 }
 
-.xfact-header .wp-block-navigation__submenu-container a::after {
+.xfact-header .wp-block-navigation__submenu-container a::after,
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-item__content::after {
     display: none !important;
 }
 
@@ -248,8 +340,6 @@ body.has-hero-header .wp-site-blocks {
     color: var(--xfact-accent-darkest, #123e99) !important;
     border-color: #ffffff !important;
 }
-
-
 
 /* ── Mobile Menu Toggle & Overlay ── */
 .xfact-mobile-toggle {
@@ -394,11 +484,13 @@ body.has-hero-header .wp-site-blocks {
 }
 
 /* Fix submenu caret icon to match Lucide ChevronDown from theme source */
-.xfact-header .wp-block-navigation-submenu__toggle svg {
-    display: none;
+.xfact-header .wp-block-navigation-submenu__toggle svg,
+.xfact-header .wp-block-navigation__submenu-icon svg {
+    display: none !important;
 }
 
-.xfact-header .wp-block-navigation-submenu__toggle {
+.xfact-header .wp-block-navigation-submenu__toggle,
+.xfact-header .wp-block-navigation__submenu-icon {
     width: 14px;
     height: 14px;
     display: inline-flex;
@@ -409,7 +501,8 @@ body.has-hero-header .wp-site-blocks {
     transform: translateY(-1px);
 }
 
-.xfact-header .wp-block-navigation-submenu__toggle::after {
+.xfact-header .wp-block-navigation-submenu__toggle::after,
+.xfact-header .wp-block-navigation__submenu-icon::after {
     content: "";
     display: block;
     width: 14px;
@@ -426,9 +519,15 @@ body.has-hero-header .wp-site-blocks {
     transition: transform 0.2s;
 }
 
-.xfact-header .wp-block-navigation-item.has-child:hover > .wp-block-navigation-submenu__toggle::after,
-.xfact-header .wp-block-navigation-item.has-child.open > .wp-block-navigation-submenu__toggle::after,
-.xfact-header .wp-block-navigation-item.has-child:focus-within > .wp-block-navigation-submenu__toggle::after {
+.xfact-header
+    .wp-block-navigation-item.has-child:hover
+    > .wp-block-navigation-submenu__toggle::after,
+.xfact-header
+    .wp-block-navigation-item.has-child.open
+    > .wp-block-navigation-submenu__toggle::after,
+.xfact-header
+    .wp-block-navigation-item.has-child:focus-within
+    > .wp-block-navigation-submenu__toggle::after {
     transform: rotate(180deg);
 }
 
