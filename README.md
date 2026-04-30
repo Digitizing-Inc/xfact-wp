@@ -38,9 +38,10 @@ open http://localhost:8080
 ```
 xfact-wp/
 ├── .agents/skills/                 # AI agent skills (coding standards reference)
-├── DESIGN-GUIDE.md                 # Design System Documentation
-├── DESIGN-GUIDE.pdf                # Exported PDF Design Guide
-├── design-guide.css                # PDF rendering stylesheet
+├── .design-guide/                  # Design System Documentation
+│   ├── DESIGN-GUIDE.md             # Source markdown documentation
+│   ├── DESIGN-GUIDE.pdf            # Exported PDF Design Guide
+│   └── pdf-export-styles.css       # PDF rendering stylesheet
 ├── .editorconfig                   # Editor formatting rules (tabs for PHP, spaces for data files)
 ├── .env.example                    # Environment variable template
 ├── .github/workflows/lint.yml      # CI: runs Lefthook pre-commit checks
