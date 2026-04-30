@@ -372,7 +372,7 @@ Run `make help` to see all commands:
 
 | Tool | Config | Purpose |
 |------|--------|---------| 
-| **PHPCS** | `phpcs.xml.dist` | WordPress Coding Standards + PHPCompatibility |
+| **PHPCS** | `phpcs.xml.dist` | WordPress Coding Standards + PHPCompatibility (excludes third-party plugins) |
 | **PHPStan** | `phpstan.neon.dist` | Static analysis (level 6) with WordPress stubs |
 | **Lefthook** | `lefthook.yml` | Git pre-commit hooks |
 

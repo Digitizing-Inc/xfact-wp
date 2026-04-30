@@ -267,7 +267,13 @@ html[data-theme="dark"] .xfact-footer__copyright {
 .xfact-footer__bottom-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .xfact-footer__bottom-right {
+        gap: 1.5rem;
+    }
 }
 
 .xfact-footer__social {

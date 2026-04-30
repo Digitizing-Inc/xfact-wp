@@ -27,13 +27,82 @@
 	var ctaLink = mobileNav.querySelector( '[data-xfact-mobile-cta]' );
 
 	if ( linksContainer && desktopNav ) {
-		var navLinks = desktopNav.querySelectorAll( '.wp-block-navigation-item__content' );
-		for ( var i = 0; i < navLinks.length; i++ ) {
-			var a = document.createElement( 'a' );
-			a.href = navLinks[ i ].getAttribute( 'href' ) || '#';
-			a.className = 'xfact-mobile-nav__link';
-			a.textContent = navLinks[ i ].textContent;
-			linksContainer.appendChild( a );
+		// Use Next.js hierarchical generation
+		var buildNav = function ( ulContainer, isSubmenu ) {
+			var wrapper = document.createElement( isSubmenu ? 'ul' : 'div' );
+			if ( isSubmenu ) {
+				wrapper.className = 'xfact-mobile-nav__submenu';
+				wrapper.style.display = 'none'; // Hidden by default
+			} else {
+				wrapper.className = 'xfact-mobile-nav__list';
+			}
+
+			// Find immediate li items
+			var items = Array.prototype.filter.call( ulContainer.children, function ( node ) {
+				return node.tagName === 'LI';
+			} );
+
+			for ( var i = 0; i < items.length; i++ ) {
+				var li = items[ i ];
+				var linkNode = li.querySelector( ':scope > .wp-block-navigation-item__content' );
+				var subContainer = li.querySelector( ':scope > .wp-block-navigation__submenu-container' );
+
+				if ( ! linkNode ) {
+					continue;
+				}
+
+				var hasSubmenu = li.classList.contains( 'has-child' ) && subContainer;
+
+				var itemWrapper = document.createElement( 'div' );
+				itemWrapper.className = 'xfact-mobile-nav__item-wrapper';
+
+				if ( hasSubmenu ) {
+					var headerDiv = document.createElement( 'div' );
+					headerDiv.className = 'xfact-mobile-nav__item-header';
+
+					var a = document.createElement( 'a' );
+					a.href = linkNode.getAttribute( 'href' ) || '#';
+					a.className = 'xfact-mobile-nav__link';
+					a.textContent = linkNode.textContent;
+
+					var toggleBtn = document.createElement( 'button' );
+					toggleBtn.className = 'xfact-mobile-nav__submenu-toggle';
+					toggleBtn.setAttribute( 'type', 'button' );
+					toggleBtn.setAttribute( 'aria-label', 'Toggle submenu' );
+					toggleBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+					headerDiv.appendChild( a );
+					headerDiv.appendChild( toggleBtn );
+					itemWrapper.appendChild( headerDiv );
+
+					var submenuEl = buildNav( subContainer, true );
+					itemWrapper.appendChild( submenuEl );
+
+					// Add toggle listener
+					( function ( btn, subEl ) {
+						btn.addEventListener( 'click', function ( e ) {
+							e.preventDefault();
+							var isClosed = subEl.style.display === 'none';
+							subEl.style.display = isClosed ? 'flex' : 'none';
+							btn.classList.toggle( 'is-open', isClosed );
+						} );
+					} )( toggleBtn, submenuEl );
+				} else {
+					var singleLink = document.createElement( 'a' );
+					singleLink.href = linkNode.getAttribute( 'href' ) || '#';
+					singleLink.className = isSubmenu ? 'xfact-mobile-nav__sublink' : 'xfact-mobile-nav__link';
+					singleLink.textContent = linkNode.textContent;
+					itemWrapper.appendChild( singleLink );
+				}
+
+				wrapper.appendChild( itemWrapper );
+			}
+			return wrapper;
+		};
+
+		var topLevelUl = desktopNav.querySelector( '.wp-block-navigation__container' );
+		if ( topLevelUl ) {
+			linksContainer.appendChild( buildNav( topLevelUl, false ) );
 		}
 	}
 
