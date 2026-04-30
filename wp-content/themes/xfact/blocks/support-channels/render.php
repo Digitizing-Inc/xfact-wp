@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+$heading      = $attributes['heading'] ?? '';
 $channels     = $attributes['channels'] ?? array();
 $ec_heading   = $attributes['existingClientHeading'] ?? '';
 $ec_desc      = $attributes['existingClientDescription'] ?? '';
@@ -23,6 +24,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="xfact-container">
 		<div class="xfact-fade-in">
+			<?php if ( $heading ) : ?>
+				<h2 class="xfact-section-heading" style="margin-bottom: 3rem;"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
 			<?php if ( ! empty( $channels ) ) : ?>
 				<div class="xfact-support-channels__grid">
 					<?php foreach ( $channels as $channel ) : ?>
@@ -38,8 +42,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 									?>
 								</div>
 							<?php endif; ?>
-							<h3 class="xfact-support-channels__title"><?php echo esc_html( $channel['title'] ?? '' ); ?></h3>
-							<p class="xfact-support-channels__desc"><?php echo esc_html( $channel['description'] ?? '' ); ?></p>
+							<h3 class="xfact-support-channels__title xfact-text"><?php echo esc_html( $channel['title'] ?? '' ); ?></h3>
+							<p class="xfact-support-channels__desc xfact-text-secondary"><?php echo esc_html( $channel['description'] ?? '' ); ?></p>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -52,8 +56,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		<section class="xfact-support-channels__existing-section xfact-section xfact-section-border">
 			<div class="xfact-container">
 				<div class="xfact-fade-in xfact-support-channels__existing-inner">
-					<h2 class="xfact-support-channels__existing-heading"><?php echo esc_html( $ec_heading ); ?></h2>
-					<p class="xfact-support-channels__existing-desc"><?php echo esc_html( $ec_desc ); ?></p>
+					<h2 class="xfact-support-channels__existing-heading xfact-section-heading"><?php echo esc_html( $ec_heading ); ?></h2>
+					<p class="xfact-support-channels__existing-desc xfact-section-subtitle" style="margin-top: 1rem;"><?php echo esc_html( $ec_desc ); ?></p>
 					<?php if ( $ec_btn_label ) : ?>
 						<div class="xfact-support-channels__existing-cta">
 							<a href="<?php echo esc_url( $ec_btn_href ); ?>" class="xfact-gradient-button xfact-btn-lg">

@@ -9,6 +9,10 @@
 	"description": "Grid of support channel cards.",
 	"textdomain": "xfact",
 	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Support Channels"
+		},
 		"channels": {
 			"type": "array",
 			"default": [

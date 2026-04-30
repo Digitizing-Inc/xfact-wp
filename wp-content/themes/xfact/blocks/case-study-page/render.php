@@ -52,12 +52,12 @@ if ( ! function_exists( 'xfact_render_case_study_section' ) ) {
 		}
 		?>
 		<div class="xfact-case-study-page__section">
-			<h3 class="xfact-case-study-page__section-title">
+			<h3 class="xfact-case-study-page__section-title xfact-section-label" style="margin-bottom: 1rem;">
 				<?php echo esc_html( $section_title ); ?>
 			</h3>
 			<ul class="xfact-case-study-page__list">
 				<?php foreach ( $items as $item ) : ?>
-					<li class="xfact-case-study-page__list-item">
+					<li class="xfact-case-study-page__list-item xfact-text">
 						<span class="xfact-case-study-page__list-bullet" aria-hidden="true"></span>
 						<?php echo esc_html( $item ); ?>
 					</li>
@@ -81,23 +81,23 @@ if ( ! function_exists( 'xfact_render_case_study_section' ) ) {
 				<?php endif; ?>
 
 				<?php if ( $study_title ) : ?>
-					<h1 class="xfact-case-study-page__title">
+					<h1 class="xfact-case-study-page__title xfact-text">
 						<?php echo esc_html( $study_title ); ?>
 					</h1>
 				<?php endif; ?>
 
 				<?php if ( $summary ) : ?>
-					<p class="xfact-case-study-page__summary">
+					<p class="xfact-case-study-page__summary xfact-text-secondary">
 						<?php echo esc_html( $summary ); ?>
 					</p>
 				<?php endif; ?>
 
 				<?php if ( $client ) : ?>
 					<div class="xfact-case-study-page__client-box">
-						<span class="xfact-case-study-page__client-label">
+						<span class="xfact-case-study-page__client-label xfact-section-label" style="margin-bottom: 0.25rem;">
 							Client
 						</span>
-						<p class="xfact-case-study-page__client-name">
+						<p class="xfact-case-study-page__client-name xfact-text">
 							<?php echo esc_html( $client ); ?>
 						</p>
 					</div>
@@ -108,7 +108,7 @@ if ( ! function_exists( 'xfact_render_case_study_section' ) ) {
 				<?php xfact_render_case_study_section( 'Outcomes & Success Story', $outcomes ); ?>
 
 				<?php if ( $narrative ) : ?>
-					<p class="xfact-case-study-page__narrative">
+					<p class="xfact-case-study-page__narrative xfact-text-secondary">
 						<?php echo esc_html( $narrative ); ?>
 					</p>
 				<?php endif; ?>

@@ -80,7 +80,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 			<div class="xfact-solutions-grid__grid">
 				<?php foreach ( $sectors as $sector ) : ?>
-					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card">
+					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card xfact-card-interactive">
 						<div class="xfact-solutions-grid__card-header">
 							<?php
 							$icon_name = $sector['iconName'] ?? '';
@@ -99,11 +99,11 @@ $wrapper_attributes = get_block_wrapper_attributes(
 						<?php endif; ?>
 						
 						<?php if ( ! empty( $sector['headline'] ) ) : ?>
-							<h3 class="xfact-solutions-grid__title"><?php echo esc_html( $sector['headline'] ); ?></h3>
+							<h3 class="xfact-solutions-grid__title xfact-text"><?php echo esc_html( $sector['headline'] ); ?></h3>
 						<?php endif; ?>
 						
 						<?php if ( ! empty( $sector['description'] ) ) : ?>
-							<p class="xfact-solutions-grid__desc"><?php echo esc_html( $sector['description'] ); ?></p>
+							<p class="xfact-solutions-grid__desc xfact-text-secondary"><?php echo esc_html( $sector['description'] ); ?></p>
 						<?php endif; ?>
 						
 						<div class="xfact-solutions-grid__link">

@@ -36,7 +36,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 			$key_messages = $attributes['keyMessages'] ?? array();
 			?>
 			<div class="<?php echo ! empty( $key_messages ) ? 'xfact-text-section__grid' : ''; ?>">
-				<div class="xfact-text-section__main">
+				<div class="xfact-text-section__main<?php echo $is_centered ? ' xfact-card' : ''; ?>">
 					<?php
 					$section_icon = $attributes['sectionIcon'] ?? '';
 					if ( $section_icon ) {
@@ -66,13 +66,13 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 					<?php endif; ?>
 
 					<?php if ( $body ) : ?>
-						<p class="xfact-text-section__body"><?php echo esc_html( $body ); ?></p>
+						<p class="xfact-text-section__body xfact-text-secondary"><?php echo esc_html( $body ); ?></p>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $tags ) ) : ?>
 						<div class="xfact-text-section__tags">
 							<?php foreach ( $tags as $tag_item ) : ?>
-								<span class="xfact-text-section__tag xfact-card">
+								<span class="xfact-text-section__tag xfact-card xfact-text-secondary">
 									<?php
 									$tag_icon = $tag_item['iconName'] ?? '';
 									if ( $tag_icon ) {
@@ -108,7 +108,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 						<?php
 						$aside_heading = $attributes['keyMessagesHeading'] ?? 'Why xFact';
 						?>
-						<h2 class="xfact-text-section__aside-heading"><?php echo esc_html( $aside_heading ); ?></h2>
+						<h2 class="xfact-text-section__aside-heading xfact-section-label" style="margin-bottom: 1rem;"><?php echo esc_html( $aside_heading ); ?></h2>
 						<ul class="xfact-text-section__aside-list">
 							<?php foreach ( $key_messages as $msg ) : ?>
 								<?php if ( trim( $msg ) ) : ?>
@@ -117,7 +117,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
 										echo xfact_get_icon( 'ChevronRight', 'xfact-text-section__aside-icon' );
 										?>
-										<span><?php echo esc_html( $msg ); ?></span>
+										<span class="xfact-text-secondary"><?php echo esc_html( $msg ); ?></span>
 									</li>
 								<?php endif; ?>
 							<?php endforeach; ?>

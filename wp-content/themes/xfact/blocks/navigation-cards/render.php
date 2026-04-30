@@ -27,12 +27,12 @@ $button_href        = $attributes['buttonHref'] ?? '';
 	<div class="xfact-container">
 		<div class="xfact-fade-in">
 			<?php if ( $heading ) : ?>
-				<h2 class="xfact-navigation-cards__heading"><?php echo esc_html( $heading ); ?></h2>
+				<h2 class="xfact-navigation-cards__heading xfact-section-heading"><?php echo esc_html( $heading ); ?></h2>
 			<?php endif; ?>
 			
 			<div class="xfact-navigation-cards__grid">
 				<?php foreach ( $items as $item ) : ?>
-					<a href="<?php echo esc_url( $item['href'] ?? '#' ); ?>" class="xfact-nav-card xfact-card">
+					<a href="<?php echo esc_url( $item['href'] ?? '#' ); ?>" class="xfact-nav-card xfact-card-interactive">
 						<?php if ( ! empty( $item['icon'] ) ) : ?>
 							<?php
 							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
@@ -40,11 +40,11 @@ $button_href        = $attributes['buttonHref'] ?? '';
 							?>
 						<?php endif; ?>
 						<div class="xfact-nav-card__content">
-							<h3 class="xfact-nav-card__title">
+							<h3 class="xfact-nav-card__title xfact-text">
 								<?php echo esc_html( $item['title'] ?? '' ); ?>
 							</h3>
 							<?php if ( ! empty( $item['subtitle'] ) ) : ?>
-								<p class="xfact-nav-card__subtitle">
+								<p class="xfact-nav-card__subtitle xfact-text-secondary">
 									<?php echo esc_html( $item['subtitle'] ); ?>
 								</p>
 							<?php endif; ?>

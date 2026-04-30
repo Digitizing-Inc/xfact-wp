@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-$wrapper_args = array( 'class' => 'xfact-case-study-grid xfact-section' );
+$wrapper_args = array( 'class' => 'xfact-case-study-grid xfact-section xfact-bg-alt' );
 
 $anchor = $attributes['anchor'] ?? '';
 if ( $anchor ) {
@@ -60,10 +60,10 @@ $description        = $attributes['description'] ?? '';
 									<?php echo esc_html( $item['source'] ); ?>
 								</p>
 							<?php endif; ?>
-							<h3 class="xfact-case-study-card__title">
+							<h3 class="xfact-case-study-card__title xfact-text">
 								<?php echo esc_html( $item['title'] ?? '' ); ?>
 							</h3>
-							<p class="xfact-case-study-card__summary">
+							<p class="xfact-case-study-card__summary xfact-text-secondary">
 								<?php echo esc_html( $item['summary'] ?? '' ); ?>
 							</p>
 						</div>

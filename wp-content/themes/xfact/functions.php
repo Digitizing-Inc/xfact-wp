@@ -26,7 +26,6 @@ function xfact_setup(): void {
 	add_editor_style( 'assets/css/parts/footer.css' );
 	add_editor_style( 'assets/css/blocks/core-button.css' );
 	add_editor_style( 'assets/css/dark-mode.css' );
-	add_editor_style( 'assets/css/editor-overrides.css' );
 }
 add_action( 'after_setup_theme', 'xfact_setup' );
 

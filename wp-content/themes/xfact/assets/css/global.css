@@ -118,6 +118,10 @@ button:focus-visible,
     padding-right: 1rem;
 }
 
+.xfact-container--narrow {
+    max-width: 48rem; /* 768px / max-w-3xl */
+}
+
 @media (min-width: 640px) {
     .xfact-container {
         padding-left: 1.5rem;
@@ -130,6 +134,20 @@ button:focus-visible,
         padding-left: 2rem;
         padding-right: 2rem;
     }
+}
+
+.xfact-section {
+    padding-top: var(--xfact-spacing-section);
+    padding-bottom: var(--xfact-spacing-section);
+}
+
+.xfact-section-lg {
+    padding-top: var(--xfact-spacing-section-lg);
+    padding-bottom: var(--xfact-spacing-section-lg);
+}
+
+.xfact-section-border {
+    border-bottom: 1px solid var(--xfact-border);
 }
 
 
@@ -176,7 +194,36 @@ button:focus-visible,
     color: var(--xfact-dark-section-muted);
 }
 
+/* ── Card Utilities ────────────────────────────────────── */
 
+.xfact-card {
+    background-color: var(--xfact-bg-card);
+    border: 1px solid var(--xfact-border);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.xfact-card-interactive {
+    background-color: var(--xfact-bg-card);
+    border: 1px solid var(--xfact-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    display: block;
+    color: inherit;
+}
+
+.xfact-card-interactive:hover {
+    border-color: var(--xfact-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.xfact-card-interactive:focus-visible {
+    outline: 2px solid var(--xfact-accent);
+    outline-offset: 2px;
+}
 
 /* ── Theme Toggle Button ── */
 button.xfact-theme-toggle {
@@ -195,6 +242,31 @@ button.xfact-theme-toggle {
 button.xfact-theme-toggle:focus-visible {
     outline: 2px solid var(--xfact-accent);
     outline-offset: 2px;
+}
+
+button.xfact-theme-toggle--icon-only {
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50% !important;
+    color: var(--xfact-text-secondary) !important;
+    background: transparent !important;
+}
+
+button.xfact-theme-toggle--icon-only:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-theme="dark"] button.xfact-theme-toggle--icon-only:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+button.xfact-theme-toggle--icon-only svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 span.xfact-theme-toggle__track {
@@ -323,3 +395,61 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 
 
 /* Block-scoped Fade-in Pattern */
+/* ===========================================
+ * WP-Admin Editor Overrides
+ * ===========================================
+ * Ensures ServerSideRender blocks display with correct padding and backgrounds
+ * in the Gutenberg block editor.
+ * =========================================== */
+
+/* Prevent Gutenberg's 100vw hack from causing horizontal scrollbars in the editor, and remove default vertical margins */
+.editor-styles-wrapper {
+    overflow-x: hidden !important;
+}
+
+/* Force border-box sizing in the editor to match frontend layout (prevents padding from blowing up block heights) */
+.editor-styles-wrapper,
+.editor-styles-wrapper *,
+.editor-styles-wrapper *::before,
+.editor-styles-wrapper *::after {
+    box-sizing: border-box !important;
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Remove frontend header offset padding in the editor since header is relative */
+.editor-styles-wrapper .wp-site-blocks {
+    padding-top: 0 !important;
+}
+
+/* Restore missing spacing variables in editor context */
+.editor-styles-wrapper {
+    --xfact-spacing-section: 5.625rem;
+    --xfact-spacing-section-lg: 7rem;
+    --xfact-spacing-hero-top: 10rem;
+}
+
+/* Compensate for the missing absolute header overlay in the editor */
+.editor-styles-wrapper .xfact-page-hero {
+    padding-top: 10rem !important; /* Match frontend exactly */
+    min-height: 38rem !important; /* Match frontend exactly */
+}
+
+/* Careers: Current Openings block container in editor */
+.editor-styles-wrapper .wp-block-xfact-code-embed {
+    padding-top: 7rem !important;
+    padding-bottom: 7rem !important;
+}
+
+.editor-styles-wrapper .xfact-border-top {
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Fix for disabled wrapper from SSR */
+.editor-styles-wrapper .components-disabled {
+    opacity: 1 !important;
+}

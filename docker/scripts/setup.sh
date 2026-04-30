@@ -125,7 +125,7 @@ wp rewrite flush --hard
 wp option update timezone_string "${WP_TIMEZONE:-UTC}" 2>/dev/null || true
 
 # Set site description (tagline) to match source site branding
-wp option update blogdescription "Technology services that deliver results for public-sector organizations." 2>/dev/null || true
+wp option update blogdescription "Behind the Systems Communities Rely On" 2>/dev/null || true
 
 # Delete default plugins (keeping Akismet as a reference)
 wp plugin delete hello 2>/dev/null || true

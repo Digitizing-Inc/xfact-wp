@@ -42,8 +42,7 @@
 			"default": "global"
 		},
 		"backgroundColor": {
-			"type": "string",
-			"default": "dark-section"
+			"type": "string"
 		},
 		"variant": {
 			"type": "string",

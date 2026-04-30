@@ -38,7 +38,7 @@ html[data-theme="dark"] .xfact-footer .wp-block-site-logo img {
 
 .xfact-footer .wp-block-list a {
     font-size: 0.875rem;
-    color: #4b5563;
+    color: var(--xfact-text-secondary, #4a5568);
     text-decoration: none;
     transition: color 0.2s;
 }
@@ -71,7 +71,7 @@ html[data-theme="dark"] .xfact-footer .wp-block-list a:hover {
 
 html[data-theme="dark"] .xfact-footer {
     border-top-color: rgba(255, 255, 255, 0.1);
-    background: #09172f;
+    background: var(--xfact-dark-section, #09172f);
 }
 
 /* Editor canvas: footer uses its natural light-mode styling by default.
@@ -150,7 +150,7 @@ html[data-theme="dark"] .xfact-footer__logo,
     max-width: 20rem;
     font-size: 0.875rem;
     line-height: 1.625;
-    color: #6b7280;
+    color: var(--xfact-text-muted, #718096);
 }
 
 html[data-theme="dark"] .xfact-footer__tagline {
@@ -160,7 +160,7 @@ html[data-theme="dark"] .xfact-footer__tagline {
 .xfact-footer__note {
     margin-top: 0.75rem;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--xfact-text-muted, #718096);
 }
 
 html[data-theme="dark"] .xfact-footer__note {
@@ -173,7 +173,7 @@ html[data-theme="dark"] .xfact-footer__note {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #9ca3af;
+    color: var(--xfact-text-muted, #718096);
     margin: 0 0 1rem;
 }
 
@@ -208,7 +208,7 @@ html[data-theme="dark"] .xfact-footer__heading {
 
 .xfact-footer__link {
     font-size: 0.875rem;
-    color: #4b5563;
+    color: var(--xfact-text-secondary, #4a5568);
     text-decoration: none;
     transition: color 0.2s;
 }
@@ -256,7 +256,7 @@ html[data-theme="dark"] .xfact-footer__bottom {
 
 .xfact-footer__copyright {
     font-size: 0.875rem;
-    color: #9ca3af;
+    color: var(--xfact-text-muted, #718096);
     margin: 0;
 }
 
@@ -277,7 +277,7 @@ html[data-theme="dark"] .xfact-footer__copyright {
 }
 
 .xfact-footer__social {
-    color: #9ca3af;
+    color: var(--xfact-text-muted, #718096);
     transition: color 0.2s;
     text-decoration: none;
 }
@@ -337,7 +337,7 @@ html[data-theme="dark"] .xfact-footer__social-block .wp-social-link a:hover {
 
 .xfact-footer__theme-label {
     font-size: 0.75rem;
-    color: #9ca3af;
+    color: var(--xfact-text-muted, #718096);
     margin: 0 !important;
 }
 
@@ -404,7 +404,7 @@ html[data-theme="dark"] .xfact-footer__theme-label {
     margin-top: 0.75rem !important;
     margin-bottom: 0 !important;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--xfact-text-muted, #718096);
 }
 
 /* Section headings */

@@ -39,8 +39,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 								echo xfact_get_icon( $fc_icon, 'xfact-feature-cards__icon' );
 							}
 							?>
-							<h3 class="xfact-feature-cards__title"><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
-							<p class="xfact-feature-cards__desc"><?php echo esc_html( $card['description'] ?? '' ); ?></p>
+							<h3 class="xfact-feature-cards__title xfact-text"><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
+							<p class="xfact-feature-cards__desc xfact-text-secondary"><?php echo esc_html( $card['description'] ?? '' ); ?></p>
 						</div>
 					<?php endforeach; ?>
 				</div>

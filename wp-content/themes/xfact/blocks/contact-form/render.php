@@ -45,24 +45,24 @@ $wrapper_attributes = get_block_wrapper_attributes(
 					<form class="xfact-contact-form__form" action="mailto:<?php echo esc_attr( $recipient_email ); ?>" method="post" enctype="text/plain">
 						<div class="xfact-contact-form__row">
 							<div class="xfact-contact-form__field">
-								<label for="xfact-firstname" class="xfact-contact-form__label"><?php esc_html_e( 'First Name', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
+								<label for="xfact-firstname" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'First Name', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
 								<input type="text" id="xfact-firstname" name="firstName" required class="xfact-contact-form__input" />
 							</div>
 							<div class="xfact-contact-form__field">
-								<label for="xfact-lastname" class="xfact-contact-form__label"><?php esc_html_e( 'Last Name', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
+								<label for="xfact-lastname" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'Last Name', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
 								<input type="text" id="xfact-lastname" name="lastName" required class="xfact-contact-form__input" />
 							</div>
 						</div>
 						<div class="xfact-contact-form__field">
-							<label for="xfact-email" class="xfact-contact-form__label"><?php esc_html_e( 'Email', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
+							<label for="xfact-email" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'Email', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
 							<input type="email" id="xfact-email" name="email" required class="xfact-contact-form__input" />
 						</div>
 						<div class="xfact-contact-form__field">
-							<label for="xfact-org" class="xfact-contact-form__label"><?php esc_html_e( 'Organization', 'xfact' ); ?></label>
+							<label for="xfact-org" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'Organization', 'xfact' ); ?></label>
 							<input type="text" id="xfact-org" name="organization" class="xfact-contact-form__input" />
 						</div>
 						<div class="xfact-contact-form__field">
-							<label for="xfact-message" class="xfact-contact-form__label"><?php esc_html_e( 'How can we help?', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
+							<label for="xfact-message" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'How can we help?', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
 							<textarea id="xfact-message" name="message" rows="4" required class="xfact-contact-form__textarea"></textarea>
 						</div>
 						<button type="submit" class="xfact-gradient-button xfact-btn-default">
@@ -78,8 +78,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 						<?php if ( $assess_label ) : ?>
 							<p class="xfact-section-label"><?php echo esc_html( $assess_label ); ?></p>
 						<?php endif; ?>
-						<h3 class="xfact-contact-form__assess-heading"><?php echo esc_html( $assess_heading ); ?></h3>
-						<p class="xfact-contact-form__assess-desc"><?php echo esc_html( $assess_desc ); ?></p>
+						<h3 class="xfact-contact-form__assess-heading xfact-text"><?php echo esc_html( $assess_heading ); ?></h3>
+						<p class="xfact-contact-form__assess-desc xfact-text-secondary"><?php echo esc_html( $assess_desc ); ?></p>
 
 						<?php if ( ! empty( $assess_checklist ) ) : ?>
 							<ul class="xfact-contact-form__checklist">
@@ -89,7 +89,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
 										echo xfact_get_icon( 'CheckCircle', 'xfact-contact-form__check-icon' );
 										?>
-										<span><?php echo esc_html( $item['text'] ?? '' ); ?></span>
+										<span class="xfact-text-secondary"><?php echo esc_html( $item['text'] ?? '' ); ?></span>
 									</li>
 								<?php endforeach; ?>
 							</ul>

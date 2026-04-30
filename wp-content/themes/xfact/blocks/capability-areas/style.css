@@ -1,6 +1,5 @@
 .xfact-capability-area {
     border-bottom: 1px solid var(--xfact-border);
-    padding: var(--xfact-spacing-section) 0;
     scroll-margin-top: 5rem;
 }
 
@@ -24,19 +23,22 @@
 }
 
 .xfact-capability-area__icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: var(--xfact-accent);
-    margin-bottom: 1rem;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .xfact-capability-area__icon {
+        display: block;
+        width: 2.5rem;
+        height: 2.5rem;
+        color: var(--xfact-accent);
+        margin-bottom: 1rem;
+    }
 }
 
 .xfact-capability-area__number {
     display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--xfact-text-muted);
+    color: var(--xfact-text-muted) !important;
 }
 
 .xfact-capability-area__title {
@@ -44,7 +46,6 @@
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: var(--xfact-text);
 }
 
 @media (min-width: 768px) {
@@ -56,14 +57,12 @@
 .xfact-capability-area__headline {
     font-size: 1.125rem;
     line-height: 1.625;
-    color: var(--xfact-text);
 }
 
 .xfact-capability-area__body {
     margin-top: 1rem;
     font-size: 1rem;
     line-height: 1.625;
-    color: var(--xfact-text-secondary);
 }
 
 .xfact-capability-area__services-wrapper {
@@ -71,11 +70,7 @@
 }
 
 .xfact-capability-area__services-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--xfact-text-muted);
+    display: block;
 }
 
 .xfact-capability-area__services-list {
@@ -91,9 +86,15 @@
     border-radius: 9999px;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
+    background-color: var(--xfact-bg-alt);
     color: var(--xfact-text-secondary);
-    background-color: var(--xfact-bg-card);
     border: 1px solid var(--xfact-border);
+}
+
+html[data-theme="dark"] .xfact-capability-area__service-tag {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--xfact-dark-section-text);
 }
 
 .wp-block-xfact-capability-areas.has-background .xfact-capability-area {

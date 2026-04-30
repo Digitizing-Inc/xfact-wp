@@ -43,8 +43,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
 								echo xfact_get_icon( $cap_icon, 'xfact-capabilities__icon' );
 							}
 							?>
-							<h3 class="xfact-capabilities__title"><?php echo esc_html( $cap['title'] ?? '' ); ?></h3>
-							<p class="xfact-capabilities__desc"><?php echo esc_html( $cap['description'] ?? '' ); ?></p>
+							<h3 class="xfact-capabilities__title xfact-text"><?php echo esc_html( $cap['title'] ?? '' ); ?></h3>
+							<p class="xfact-capabilities__desc xfact-text-muted"><?php echo esc_html( $cap['description'] ?? '' ); ?></p>
 						</div>
 						<?php if ( $i < count( $capabilities ) - 1 ) : ?>
 							<div class="xfact-capabilities__arrow" aria-hidden="true">

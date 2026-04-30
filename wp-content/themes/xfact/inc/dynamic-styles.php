@@ -57,6 +57,7 @@ function xfact_output_dynamic_styles(): void {
 			--xfact-surface-alt: <?php echo esc_attr( $dark_bg ); ?>;
 			--xfact-dark-section: <?php echo esc_attr( $dark_bg ); ?>;
 			--xfact-dark-section-text: <?php echo esc_attr( $dark_text ); ?>;
+			--xfact-border: rgba(255, 255, 255, 0.1);
 
 			/* Override native WP presets directly on the element */
 			--wp--preset--color--surface: <?php echo esc_attr( $dark_bg ); ?>;
@@ -128,6 +129,7 @@ add_action(
 			--xfact-surface-alt: {$dark_bg};
 			--xfact-dark-section: {$dark_bg};
 			--xfact-dark-section-text: {$dark_text};
+			--xfact-border: rgba(255, 255, 255, 0.1);
 
 			/* Override native WP presets directly on the wrapper so they resolve correctly
 			   even if the html tag remains in light mode */

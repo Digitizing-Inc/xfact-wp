@@ -143,6 +143,7 @@ body.has-hero-header .wp-site-blocks {
     transition: all 0.3s;
 }
 
+
 /* ── WP Navigation in Header ─────────────────────── */
 
 .xfact-header .wp-block-navigation {
@@ -320,7 +321,7 @@ body.has-hero-header .wp-site-blocks {
 
 /* ── WP Button in Header (CTA) ───────────────────── */
 
-.xfact-header .wp-block-button__link {
+.xfact-header .wp-block-button__link:not(.xfact-gradient-button) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -335,7 +336,7 @@ body.has-hero-header .wp-site-blocks {
     transition: all 0.2s;
 }
 
-.xfact-header .wp-block-button__link:hover {
+.xfact-header .wp-block-button__link:not(.xfact-gradient-button):hover {
     background: #ffffff !important;
     color: var(--xfact-accent-darkest, #123e99) !important;
     border-color: #ffffff !important;
