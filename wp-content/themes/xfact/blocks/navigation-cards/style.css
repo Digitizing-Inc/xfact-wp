@@ -21,7 +21,7 @@
 }
 
 .xfact-nav-card {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem;

@@ -18,6 +18,7 @@ if ( $anchor ) {
 
 $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 $heading            = $attributes['heading'] ?? '';
+$section_label      = $attributes['sectionLabel'] ?? '';
 $items              = $attributes['items'] ?? array();
 $button_label       = $attributes['buttonLabel'] ?? '';
 $button_href        = $attributes['buttonHref'] ?? '';
@@ -26,6 +27,9 @@ $button_href        = $attributes['buttonHref'] ?? '';
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="xfact-container">
 		<div class="xfact-fade-in">
+			<?php if ( $section_label ) : ?>
+				<h3 class="xfact-section-label" style="margin-bottom: 0.5rem;"><?php echo esc_html( $section_label ); ?></h3>
+			<?php endif; ?>
 			<?php if ( $heading ) : ?>
 				<h2 class="xfact-navigation-cards__heading xfact-section-heading"><?php echo esc_html( $heading ); ?></h2>
 			<?php endif; ?>

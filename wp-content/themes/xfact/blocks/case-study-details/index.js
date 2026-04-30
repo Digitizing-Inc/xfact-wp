@@ -41,8 +41,8 @@
 		];
 	}
 
-	wp.blocks.registerBlockType( 'xfact/case-study-page', {
-		edit: h.createEdit( 'xfact/case-study-page', 'Case Study Content Settings', function ( props ) {
+	wp.blocks.registerBlockType( 'xfact/case-study-details', {
+		edit: h.createEdit( 'xfact/case-study-details', 'Case Study Content Settings', function ( props ) {
 			var attr = props.attributes;
 			var set = props.setAttributes;
 			
