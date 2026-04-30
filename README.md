@@ -52,7 +52,7 @@ xfact-wp/
 │   ├── nginx/default.conf          # Reverse proxy, gzip, security headers, caching
 │   ├── scripts/
 │   │   ├── setup.sh                # WP auto-install script (runs via wp-setup sidecar)
-│   │   ├── export-db.sh            # WP Engine database export and rewrite script
+│   │   ├── export-to-wpengine.sh            # WP Engine database export and rewrite script
 │   │   ├── seed-content.sh         # Seeding script for block-based content
 │   │   └── seed-seo.php            # Yoast SEO migration script
 │   ├── wp-cli/Dockerfile           # Custom WP-CLI image (adds Redis PHP extension)
@@ -420,8 +420,8 @@ To deploy this site from your local Docker environment to WP Engine:
 1. **Export the Database**
    Run the export script to generate an SQL dump where your local URL is safely replaced with the staging/production domain.
    ```bash
-   ./docker/scripts/export-db.sh
-   # Optionally pass a custom domain: ./docker/scripts/export-db.sh xfact.com
+   ./docker/scripts/export-to-wpengine.sh
+   # Optionally pass a custom domain: ./docker/scripts/export-to-wpengine.sh xfact.com
    ```
    This creates a `.sql` file in the `backups/` directory.
 
