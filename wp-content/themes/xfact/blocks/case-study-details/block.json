@@ -8,18 +8,6 @@
 	"icon": "media-document",
 	"description": "Displays the full content of a case study.",
 	"attributes": {
-		"source": {
-			"type": "string",
-			"default": ""
-		},
-		"title": {
-			"type": "string",
-			"default": ""
-		},
-		"summary": {
-			"type": "string",
-			"default": ""
-		},
 		"client": {
 			"type": "string",
 			"default": ""
