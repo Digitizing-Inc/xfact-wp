@@ -52,7 +52,7 @@ xfact-wp/
 │   ├── nginx/default.conf          # Reverse proxy, gzip, security headers, caching
 │   ├── scripts/
 │   │   ├── setup.sh                # WP auto-install script (runs via wp-setup sidecar)
-│   │   ├── export-to-wpengine.sh            # WP Engine database export and rewrite script
+│   │   ├── export-db.sh                # WP Engine database export and rewrite script
 │   │   ├── seed-content.sh         # Seeding script for block-based content
 │   │   └── seed-seo.php            # Yoast SEO migration script
 │   ├── wp-cli/Dockerfile           # Custom WP-CLI image (adds Redis PHP extension)
@@ -83,8 +83,15 @@ xfact/
 ├── theme.json         # Global settings & styles — the design system source of truth
 ├── functions.php      # Theme setup: block styles support, editor styles, asset enqueue
 ├── inc/
+│   ├── admin-settings-page.php # Standalone admin settings page for the theme
 │   ├── blocks.php     # Auto-registers all blocks from blocks/*/block.json
-│   └── enqueue.php    # Frontend CSS/JS enqueueing
+│   ├── dynamic-styles.php # Fetches configured colors and injects them as CSS variables
+│   ├── enqueue.php    # Frontend CSS/JS enqueueing
+│   ├── icons.php      # Lucide-style SVG icon helper
+│   ├── images.php     # Shared image rendering helpers
+│   ├── post-types.php # Registers custom post types (e.g., case_study)
+│   ├── settings.php   # Registers theme settings via REST API
+│   └── template-parts.php # Template-part render filters
 ├── assets/
 │   ├── css/           # Global CSS (animations, dark mode, utilities)
 │   ├── js/            # Dark mode toggle, fade-in, hero slideshow
@@ -93,7 +100,7 @@ xfact/
 │   ├── capability-areas/
 │   ├── capabilities-pipeline/
 │   ├── case-study-grid/
-│   ├── case-study-page/
+│   ├── case-study-details/
 │   ├── code-embed/
 │   ├── contact-form/
 │   ├── cta-section/
@@ -108,7 +115,7 @@ xfact/
 │   ├── solutions-grid/
 │   ├── support-channels/
 │   └── text-section/
-├── templates/         # 13 full-page layouts (block markup)
+├── templates/         # 14 full-page layouts (block markup)
 │   ├── front-page.html    # Homepage (8 sections)
 │   ├── page-solutions.html
 │   ├── page-contact.html
@@ -121,6 +128,7 @@ xfact/
 │   ├── page.html          # Generic page
 │   ├── archive.html       # Category/tag/date archives
 │   ├── search.html        # Search results
+│   ├── single-case_study.html # Single case study template
 │   └── 404.html           # Not-found page
 ├── parts/             # Reusable template parts (must NOT be nested in subdirectories)
 │   ├── header.html    # Sticky header with logo, navigation, CTA, dark mode toggle
@@ -157,7 +165,7 @@ All 18 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersio
 | `xfact/capability-areas` | Three-column capability layout |
 | `xfact/capabilities-pipeline` | Horizontal pipeline with arrow connectors |
 | `xfact/case-study-grid` | Alternating background case study card grid |
-| `xfact/case-study-page` | Full case study page layout with sections |
+| `xfact/case-study-details` | Full case study page layout with sections |
 | `xfact/code-embed` | Embed block for code snippets |
 | `xfact/contact-form` | Contact form with email-based submission |
 | `xfact/cta-section` | Call-to-action with gradient accent line and watermark |
@@ -420,8 +428,8 @@ To deploy this site from your local Docker environment to WP Engine:
 1. **Export the Database**
    Run the export script to generate an SQL dump where your local URL is safely replaced with the staging/production domain.
    ```bash
-   ./docker/scripts/export-to-wpengine.sh
-   # Optionally pass a custom domain: ./docker/scripts/export-to-wpengine.sh xfact.com
+   ./docker/scripts/export-db.sh
+   # Optionally pass a custom domain: ./docker/scripts/export-db.sh xfact.com
    ```
    This creates a `.sql` file in the `backups/` directory.
 

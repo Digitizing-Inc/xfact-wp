@@ -9,7 +9,7 @@ if [ -f .env ]; then
   done < .env
 fi
 
-# Usage: ./docker/scripts/export-to-wpengine.sh [target_domain]
+# Usage: ./docker/scripts/export-db.sh [target_domain]
 # Defaults to WP_TARGET_DOMAIN from .env, or xfact2stg.wpenginepowered.com.
 TARGET_DOMAIN="${1:-${WP_TARGET_DOMAIN:-xfact2stg.wpenginepowered.com}}"
 
