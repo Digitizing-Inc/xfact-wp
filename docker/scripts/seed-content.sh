@@ -34,6 +34,7 @@ for page_info in \
     "Support:support" \
     "Careers:careers" \
     "Contact:contact" \
+    "Leadership:leadership" \
     "Privacy Policy:privacy" \
     "Terms of Service:terms"; do
     title="${page_info%%:*}"
@@ -84,20 +85,20 @@ if [ -n "$HOME_ID" ]; then
 
 <!-- wp:xfact/capabilities-pipeline /-->
 
-<!-- wp:xfact/metrics-strip {"align":"full"} /-->
+<!-- wp:xfact/metrics-strip /-->
 
-<!-- wp:xfact/text-section {"sectionLabel":"DataServ Integration","heading":"Trusted Services, Expanded Capabilities","badgeText":"● Formerly DataServ","body":"DataServ has delivered managed IT, cloud, and cybersecurity services to K-12 schools, municipalities, and businesses for years. That experience — and the team behind it — is now part of xFact, giving clients access to a wider range of capabilities without changing the relationships they rely on.","tags":[{"label":"Managed IT","iconName":"Monitor"},{"label":"Cloud services","iconName":"Cloud"},{"label":"Cybersecurity","iconName":"ShieldCheck"},{"label":"K-12 schools","iconName":"School"},{"label":"Municipalities","iconName":"Building2"},{"label":"Senior loan \u0026 contacts","iconName":"Users"}]} /-->
+<!-- wp:xfact/text-section {"sectionLabel":"DataServ Integration","heading":"Trusted Services, Expanded Capabilities","badgeText":"● Formerly DataServ","body":"DataServ has delivered managed IT, cloud, and cybersecurity services to K-12 schools, municipalities, and businesses for years. That experience — and the team behind it — is now part of xFact, giving clients access to a wider range of capabilities without changing the relationships they rely on.","tags":[{"label":"Managed IT","iconName":"Monitor"},{"label":"Cloud services","iconName":"Cloud"},{"label":"Cybersecurity","iconName":"ShieldCheck"},{"label":"K-12 schools","iconName":"School"},{"label":"Municipalities","iconName":"Building2"},{"label":"Government contracts","iconName":"Users"}]} /-->
 
 <!-- wp:xfact/logo-strip /-->
 
-<!-- wp:xfact/cta-section {"align":"full","title":"Ready to talk about your systems?","subtitle":"Whether you'\''re planning an upgrade, responding to a requirement, or evaluating a long-term partner — we'\''re the right conversation to start.","primaryLabel":"Contact xFact","primaryHref":"/contact"} /-->'
+<!-- wp:xfact/cta-section {"subtitle":"Whether you'\''re planning an upgrade, responding to a requirement, or evaluating a long-term partner — we'\''re the right conversation to start."} /-->'
     echo "  ✅ Seeded: Home"
 fi
 
 # ── About ─────────────────────────────────────────────────────
 ABT_ID=$(wp post list --post_type=page --name=about --field=ID 2>/dev/null)
 if [ -n "$ABT_ID" ]; then
-    wp post update "$ABT_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"About xFact","heading":"Behind the Systems Communities Rely On","subtitle":"For more than two decades, xFact has partnered with public-sector institutions to design, integrate, secure, and sustain mission-critical technology systems.","align":"full"} /-->
+    wp post update "$ABT_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"About xFact","heading":"Behind the Systems Communities Rely On","subtitle":"Since 2000, the teams behind xFact have partnered with public-sector institutions to design, integrate, secure, and sustain mission-critical technology systems."} /-->
 
 <!-- wp:xfact/text-section {"sectionLabel":"Our Story","heading":"Our Story","body":"xFact began as a public-sector technology services firm focused on helping state, local, and education organizations modernize the systems their communities depend on. Over time, that work expanded across infrastructure, cybersecurity, applications, and strategy — and DataServ joined as our infrastructure and managed-services platform. Today, xFact operates as a single accountable partner for the institutions behind public safety, government, education, and human services."} /-->
 
@@ -105,7 +106,7 @@ if [ -n "$ABT_ID" ]; then
 
 <!-- wp:xfact/feature-cards {"sectionLabel":"How We Operate","heading":"What partnership with xFact looks like","cards":[{"title":"Long-term accountability","description":"We stay with our clients across the full lifecycle of their systems — from design through ongoing operation.","iconName":"ShieldCheck"},{"title":"One coordinated system","description":"We bring infrastructure, security, applications, and strategy together so environments operate as one — not as a collection of disconnected services.","iconName":"Network"},{"title":"Mission-aligned delivery","description":"Every project we ship supports a public-sector mission. We build for reliability, governance, and the people communities depend on.","iconName":"HeartPulse"},{"title":"Real partnership","description":"We work alongside our clients, not at arm'\''s length. That means clear communication, honest tradeoff conversations, and shared success metrics.","iconName":"Users"}]} /-->
 
-<!-- wp:xfact/cta-section {"align":"full","title":"Ready to talk about your systems?","subtitle":"Whether you'\''re planning an upgrade, evaluating a long-term partner, or starting an assessment — we'\''re the right conversation to start.","primaryLabel":"Contact xFact","primaryHref":"/contact"} /-->'
+<!-- wp:xfact/cta-section {"subtitle":"Whether you'\''re planning an upgrade, evaluating a long-term partner, or starting an assessment — we'\''re the right conversation to start."} /-->'
     echo "  ✅ Seeded: About"
 fi
 
@@ -265,6 +266,17 @@ if [ -n "$CON_ID" ]; then
 
 <!-- wp:xfact/contact-form {"heading":"Get in Touch","subtitle":"Tell us about your organization and what you'\''re looking to accomplish. We'\''ll connect you with the right team."} /-->'
     echo "  ✅ Seeded: Contact"
+fi
+
+# ── Leadership ────────────────────────────────────────────────
+LDR_ID=$(wp post list --post_type=page --name=leadership --field=ID 2>/dev/null)
+if [ -n "$LDR_ID" ]; then
+    wp post update "$LDR_ID" --post_content='<!-- wp:xfact/page-hero {"sectionLabel":"Leadership","heading":"Our Leadership","subtitle":"Guiding our mission to support public sector organizations through technology.","align":"full"} /-->
+
+<!-- wp:xfact/team-grid {"sectionLabel":"Executive Team","heading":"Leading with Purpose","teamMembers":[{"name":"Jeff Valentine","title":"Chief Executive Officer","imageUrl":"'"${ASSETS}"'/leadership/jeff-valentine.jpg","socialLinks":[{"type":"linkedin","url":"https://linkedin.com/in/jeff-valentine-7b67817"}]},{"name":"Tim Heikkila","title":"Sr. VP of Sales and Marketing","imageUrl":"'"${ASSETS}"'/leadership/tim-heikkila.jpeg","socialLinks":[]},{"name":"Grayson Harcourt","title":"Chief Financial Officer","imageUrl":"'"${ASSETS}"'/leadership/grayson-harcourt.jpeg","socialLinks":[]},{"name":"Dave Jacobson","title":"VP of Services","imageUrl":"'"${ASSETS}"'/leadership/dave-jacobson.jpeg","socialLinks":[]},{"name":"Karen Knaack","title":"Sr. VP of Administration","imageUrl":"'"${ASSETS}"'/leadership/karen-knaack.jpeg","socialLinks":[]},{"name":"Richard Gee","title":"Principal, Technology Architecture","imageUrl":"'"${ASSETS}"'/leadership/richard-gee.jpeg","socialLinks":[{"type":"linkedin","url":"https://linkedin.com/in/richard-gee-nyc"}]},{"name":"Sean Hughes","title":"Principal, Public Safety and Justice","imageUrl":"'"${ASSETS}"'/leadership/sean-hughes.jpg","socialLinks":[{"type":"linkedin","url":"https://www.linkedin.com/in/seanmichaelhughes/"}]},{"name":"Paul Connelly","title":"Principal, State and Local Government Consulting","imageUrl":"'"${ASSETS}"'/leadership/paul-connelly.jpg","socialLinks":[{"type":"linkedin","url":"https://linkedin.com/in/paul-connelly-72486517"}]}]} /-->
+
+<!-- wp:xfact/cta-section {"align":"full","title":"Ready to strengthen your systems?","subtitle":"Schedule an assessment to understand your current environment and identify a path forward.","primaryLabel":"Contact Us","primaryHref":"/contact"} /-->'
+    echo "  ✅ Seeded: Leadership"
 fi
 
 # ── Privacy Policy ────────────────────────────────────────────
