@@ -20,6 +20,8 @@
 	var Disabled = wp.components.Disabled;
 	var ToggleControl = wp.components.ToggleControl;
 	var SelectControl = wp.components.SelectControl;
+	var ComboboxControl = wp.components.ComboboxControl;
+	var useSelect = wp.data ? wp.data.useSelect : null;
 
 	/* ServerSideRender can be a default export in some WP versions */
 	var SSR = wp.serverSideRender;
@@ -248,6 +250,8 @@
 		Disabled: Disabled,
 		ToggleControl: ToggleControl,
 		SelectControl: SelectControl,
+		ComboboxControl: ComboboxControl,
+		useSelect: useSelect,
 		ServerSideRender: SSR,
 	};
 } )();
