@@ -100,8 +100,7 @@
 					label: 'Select Case Study',
 					value: currentPostId || '',
 					options: options,
-					onChange: onSelectCaseStudy,
-					help: item.title ? 'Currently selected: ' + item.title : 'Search and select a case study'
+					onChange: onSelectCaseStudy
 				} ),
 				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Case Study' )
 			),
