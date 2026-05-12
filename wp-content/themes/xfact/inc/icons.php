@@ -11,14 +11,12 @@
 declare(strict_types=1);
 
 /**
- * Retrieve an SVG icon.
+ * Retrieve all available Lucide icons.
  *
- * @param string $name    The name of the icon to retrieve.
- * @param string $classes Optional additional CSS classes.
- * @return string The SVG string, or empty string if not found.
+ * @return array<string, string> Array of icon names and their SVG paths.
  */
-function xfact_get_icon( string $name, string $classes = '' ): string {
-	$icons = array(
+function xfact_get_all_icons(): array {
+	return array(
 		'AArrowDown'                       => '<path d="m14 12 4 4 4-4"/><path d="M18 16V7"/><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M3.304 13h6.392"/>',
 		'AArrowUp'                         => '<path d="m14 11 4-4 4 4"/><path d="M18 16V7"/><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M3.304 13h6.392"/>',
 		'ALargeSmall'                      => '<path d="m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16"/><path d="M15.697 14h5.606"/><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M3.304 13h6.392"/>',
@@ -1968,6 +1966,17 @@ function xfact_get_icon( string $name, string $classes = '' ): string {
 		'ZoomIn'                           => '<circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>',
 		'ZoomOut'                          => '<circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/>',
 	);
+}
+
+/**
+ * Retrieve an SVG icon.
+ *
+ * @param string $name    The name of the icon to retrieve.
+ * @param string $classes Optional additional CSS classes.
+ * @return string The SVG string, or empty string if not found.
+ */
+function xfact_get_icon( string $name, string $classes = '' ): string {
+	$icons = xfact_get_all_icons();
 
 	if ( ! isset( $icons[ $name ] ) ) {
 		return '';

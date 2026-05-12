@@ -69,13 +69,7 @@
 				value: card.description || '',
 				onChange: function ( v ) { updateCard( 'description', v ); },
 			} ),
-			el( h.TextControl, {
-				key: 'icon-' + i,
-				label: 'Icon Name (Lucide)',
-				value: card.iconName || '',
-				onChange: function ( v ) { updateCard( 'iconName', v ); },
-				help: 'e.g. Shield, Landmark, GraduationCap, HeartPulse, ServerCog',
-			} ),
+			h.iconControl( 'Icon (Lucide)', card.iconName || '', function ( v ) { updateCard( 'iconName', v ); }, 'icon-' + i ),
 			el( h.TextControl, {
 				key: 'href-' + i,
 				label: 'Link URL',

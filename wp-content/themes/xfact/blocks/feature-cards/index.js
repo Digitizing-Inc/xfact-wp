@@ -32,7 +32,7 @@
 			),
 			el( h.TextControl, { key: 'title-' + i, label: 'Title', value: card.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 			el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: card.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
-			el( h.TextControl, { key: 'icon-' + i, label: 'Icon Name (Lucide)', value: card.iconName || '', onChange: function ( v ) { update( 'iconName', v ); }, help: 'e.g. Target, ShieldCheck, Zap, TrendingUp' } ),
+			h.iconControl( 'Icon (Lucide)', card.iconName || '', function ( v ) { update( 'iconName', v ); }, 'icon-' + i ),
 			h.imageControl(
 				'Card Image',
 				card.imageUrl || '',

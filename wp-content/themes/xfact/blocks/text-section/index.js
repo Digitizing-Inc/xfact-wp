@@ -93,7 +93,7 @@
 				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } ),
 				el( 'hr', { key: 'anchor-sep', style: { margin: '12px 0', opacity: 0.15 } } ),
 				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
-				el( h.TextControl, { key: 'sectionIcon', label: 'Section Icon (Lucide name)', value: attr.sectionIcon || '', onChange: function ( v ) { set( { sectionIcon: v } ); }, help: 'e.g. Shield, Landmark, GraduationCap, HeartPulse, ServerCog' } ),
+				h.iconControl( 'Section Icon (Lucide)', attr.sectionIcon || '', function ( v ) { set( { sectionIcon: v } ); }, 'sectionIcon' ),
 				el( h.ToggleControl, { key: 'useAltBackground', label: 'Use Alternate Background Color', checked: attr.useAltBackground, onChange: function ( v ) { set( { useAltBackground: v } ); } } ),
 				el( h.ToggleControl, { key: 'isCenteredCard', label: 'Style as Centered Card (Empty State)', checked: attr.isCenteredCard, onChange: function ( v ) { set( { isCenteredCard: v } ); } } ),
 				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),

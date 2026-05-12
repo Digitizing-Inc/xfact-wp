@@ -48,12 +48,7 @@
 				value: area.body || '',
 				onChange: function ( v ) { update( 'body', v ); }
 			} ),
-			el( h.TextControl, {
-				key: 'iconName-' + i,
-				label: 'Icon Name (Lucide)',
-				value: area.iconName || '',
-				onChange: function ( v ) { update( 'iconName', v ); }
-			} ),
+			h.iconControl( 'Icon (Lucide)', area.iconName || '', function ( v ) { update( 'iconName', v ); }, 'iconName-' + i ),
 			el( h.TextControl, {
 				key: 'anchor-' + i,
 				label: 'HTML Anchor (ID)',

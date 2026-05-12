@@ -149,6 +149,12 @@ function xfact_register_editor_helpers(): void {
 		$theme_version,
 		true
 	);
+
+	wp_add_inline_script(
+		'xfact-editor-helpers',
+		'window.xfactLucideIcons = ' . wp_json_encode( xfact_get_all_icons() ) . ';',
+		'before'
+	);
 }
 add_action( 'init', 'xfact_register_editor_helpers', 5 );
 

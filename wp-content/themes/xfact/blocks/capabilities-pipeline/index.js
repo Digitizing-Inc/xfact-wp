@@ -32,7 +32,7 @@
 			),
 			el( h.TextControl, { key: 'title-' + i, label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 			el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: item.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
-			el( h.TextControl, { key: 'icon-' + i, label: 'Icon Name (Lucide)', value: item.iconName || '', onChange: function ( v ) { update( 'iconName', v ); }, help: 'e.g. Server, Shield, Headphones, TrendingUp' } ),
+			h.iconControl( 'Icon (Lucide)', item.iconName || '', function ( v ) { update( 'iconName', v ); }, 'icon-' + i ),
 			h.imageControl(
 				'Image',
 				item.imageUrl || '',

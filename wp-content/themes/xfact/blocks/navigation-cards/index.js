@@ -28,7 +28,7 @@
 			},
 				el( h.TextControl, { label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextControl, { label: 'Subtitle', value: item.subtitle || '', onChange: function ( v ) { update( 'subtitle', v ); } } ),
-				el( h.TextControl, { label: 'Icon (Lucide name)', value: item.icon || '', onChange: function ( v ) { update( 'icon', v ); } } ),
+				h.iconControl( 'Icon (Lucide name)', item.icon || '', function ( v ) { update( 'icon', v ); } ),
 				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } ),
 				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Card' )
 			),

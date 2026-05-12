@@ -32,7 +32,7 @@
 			),
 			el( h.TextControl, { key: 'title-' + i, label: 'Title', value: ch.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 			el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: ch.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
-			el( h.TextControl, { key: 'icon-' + i, label: 'Icon Name (Lucide)', value: ch.iconName || '', onChange: function ( v ) { update( 'iconName', v ); }, help: 'e.g. Phone, Mail, MessageCircle, Clock' } ),
+			h.iconControl( 'Icon (Lucide)', ch.iconName || '', function ( v ) { update( 'iconName', v ); }, 'icon-' + i ),
 			h.imageControl(
 				'Channel Image',
 				ch.imageUrl || '',
