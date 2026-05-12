@@ -66,34 +66,53 @@
 
                 var controls = [
                     el(
+                        "div",
+                        {
+                            key: "group-grid-cards",
+                            style: {
+                                border: "1px solid #ddd",
+                                padding: "12px",
+                                borderRadius: "4px",
+                                backgroundColor: "#f8f9f9",
+                                marginBottom: "24px"
+                            }
+                        },
+                        el(
+                            "strong",
+                            { style: { display: "block", marginBottom: "8px", fontSize: "13px" } },
+                            "Grid Card Appearance"
+                        ),
+                        el(
+                            "p",
+                            { style: { fontSize: "12px", color: "#666", marginBottom: "16px", marginTop: "0" } },
+                            "These fields control how this case study appears when selected in a Case Study Grid block."
+                        ),
+                        el(h.TextareaControl, {
+                            key: "summary",
+                            label: "Summary",
+                            value: attr.summary || "",
+                            rows: 3,
+                            onChange: function (v) {
+                                set({ summary: v });
+                            },
+                        }),
+                        el(h.TextControl, {
+                            key: "source",
+                            label: "Source (e.g. xFact)",
+                            value: attr.source || "",
+                            onChange: function (v) {
+                                set({ source: v });
+                            },
+                        })
+                    ),
+                    el(
                         "strong",
                         {
-                            key: "hdr-grid-cards",
-                            style: { display: "block", marginBottom: "8px" },
+                            key: "hdr-content",
+                            style: { display: "block", marginBottom: "16px", fontSize: "14px", borderBottom: "1px solid #ddd", paddingBottom: "8px" },
                         },
-                        "Case Study Grid Cards"
+                        "Case Study Page Content"
                     ),
-                    el(h.TextareaControl, {
-                        key: "summary",
-                        label: "Summary",
-                        value: attr.summary || "",
-                        rows: 3,
-                        onChange: function (v) {
-                            set({ summary: v });
-                        },
-                    }),
-                    el(h.TextControl, {
-                        key: "source",
-                        label: "Source (e.g. xFact)",
-                        value: attr.source || "",
-                        onChange: function (v) {
-                            set({ source: v });
-                        },
-                    }),
-                    el("hr", {
-                        key: "sep-client",
-                        style: { margin: "24px 0", opacity: 0.3 },
-                    }),
                     el(h.TextControl, {
                         key: "client",
                         label: "Client",
