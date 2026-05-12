@@ -93,19 +93,19 @@ $wrapper_attributes = get_block_wrapper_attributes(
 								<span class="xfact-solutions-grid__badge"><?php echo esc_html( $sector['badge'] ); ?></span>
 							<?php endif; ?>
 						</div>
-						
-						<?php if ( ! empty( $sector['title'] ) ) : ?>
-							<span class="xfact-section-label"><?php echo esc_html( $sector['title'] ); ?></span>
-						<?php endif; ?>
-						
-						<?php if ( ! empty( $sector['headline'] ) ) : ?>
-							<h3 class="xfact-solutions-grid__title xfact-text"><?php echo esc_html( $sector['headline'] ); ?></h3>
-						<?php endif; ?>
-						
-						<?php if ( ! empty( $sector['description'] ) ) : ?>
-							<p class="xfact-solutions-grid__desc xfact-text-secondary"><?php echo esc_html( $sector['description'] ); ?></p>
-						<?php endif; ?>
-						
+						<div class="xfact-solutions-grid__card-content">
+							<?php if ( ! empty( $sector['title'] ) ) : ?>
+								<span class="xfact-section-label"><?php echo esc_html( $sector['title'] ); ?></span>
+							<?php endif; ?>
+							
+							<?php if ( ! empty( $sector['headline'] ) ) : ?>
+								<h3 class="xfact-solutions-grid__title xfact-text"><?php echo esc_html( $sector['headline'] ); ?></h3>
+							<?php endif; ?>
+							
+							<?php if ( ! empty( $sector['description'] ) ) : ?>
+								<p class="xfact-solutions-grid__desc xfact-text-secondary"><?php echo esc_html( $sector['description'] ); ?></p>
+							<?php endif; ?>
+						</div>
 						<div class="xfact-solutions-grid__link">
 							<?php
 							// Extract the first part of the title before " & " for the Explore link.

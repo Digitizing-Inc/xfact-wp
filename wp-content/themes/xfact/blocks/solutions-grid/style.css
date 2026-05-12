@@ -19,9 +19,9 @@
 .xfact-solutions-grid__card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 1rem;
+    height: 100%;
 }
 
 .xfact-solutions-grid__card-header {
@@ -29,6 +29,14 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.xfact-solutions-grid__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
 }
 
 .xfact-solutions-grid__icon {
@@ -65,7 +73,6 @@
 
 .xfact-solutions-grid__link {
     margin-top: auto;
-    padding-top: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -91,3 +98,4 @@
 .xfact-solutions-grid__grid > * {
     min-width: 0;
 }
+.xfact-solutions-grid__card-content .xfact-section-label { margin-bottom: 0; }
