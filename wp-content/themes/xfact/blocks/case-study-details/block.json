@@ -12,6 +12,14 @@
 			"type": "string",
 			"default": ""
 		},
+		"summary": {
+			"type": "string",
+			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"default": ""
+		},
 		"challenge": {
 			"type": "array",
 			"default": []

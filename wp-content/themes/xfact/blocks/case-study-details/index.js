@@ -73,6 +73,23 @@
                             set({ client: v });
                         },
                     }),
+                    el(h.TextareaControl, {
+                        key: "summary",
+                        label: "Summary",
+                        value: attr.summary || "",
+                        rows: 3,
+                        onChange: function (v) {
+                            set({ summary: v });
+                        },
+                    }),
+                    el(h.TextControl, {
+                        key: "source",
+                        label: "Source (e.g. xFact)",
+                        value: attr.source || "",
+                        onChange: function (v) {
+                            set({ source: v });
+                        },
+                    }),
                 ];
 
                 /* Challenge Section */
