@@ -45,9 +45,42 @@ $description        = $attributes['description'] ?? '';
 			<div class="xfact-case-study-grid__list">
 				<?php foreach ( $items as $item ) : ?>
 					<?php
-					$has_link    = ! empty( $item['linkUrl'] );
+					$card_post_id = ! empty( $item['postId'] ) ? intval( $item['postId'] ) : 0;
+					$card_title   = $item['title'] ?? '';
+					$summary      = $item['summary'] ?? '';
+					$source       = $item['source'] ?? '';
+					$link_url     = $item['linkUrl'] ?? '';
+
+					// If we do not have a post_id but have a linkUrl, try to find the post.
+					if ( ! $card_post_id && $link_url ) {
+						$card_post_id = url_to_postid( $link_url );
+					}
+
+					if ( $card_post_id && ( empty( $summary ) || empty( $source ) ) ) {
+						$cs_post = get_post( $card_post_id );
+						if ( $cs_post ) {
+							$card_title = $card_title ? $card_title : get_the_title( $cs_post );
+							$link_url   = $link_url ? $link_url : get_permalink( $cs_post );
+
+							$blocks        = parse_blocks( $cs_post->post_content );
+							$found_summary = '';
+							$found_source  = '';
+							foreach ( $blocks as $block ) {
+								if ( 'xfact/case-study-details' === $block['blockName'] ) {
+									$found_summary = $block['attrs']['summary'] ?? '';
+									$found_source  = $block['attrs']['source'] ?? '';
+									break;
+								}
+							}
+
+							$summary = $summary ? $summary : ( $found_summary ? $found_summary : wp_strip_all_tags( get_the_excerpt( $cs_post ) ) );
+							$source  = $source ? $source : $found_source;
+						}
+					}
+
+					$has_link    = ! empty( $link_url );
 					$wrapper_tag = $has_link ? 'a' : 'article';
-					$href        = $has_link ? ' href="' . esc_url( $item['linkUrl'] ) . '" target="_blank" rel="noopener noreferrer"' : '';
+					$href        = $has_link ? ' href="' . esc_url( $link_url ) . '" target="_blank" rel="noopener noreferrer"' : '';
 					$classes     = 'xfact-case-study-card xfact-card';
 					if ( $has_link ) {
 						$classes .= ' xfact-card-interactive';
@@ -55,16 +88,16 @@ $description        = $attributes['description'] ?? '';
 					?>
 					<<?php echo esc_html( $wrapper_tag ); ?> class="<?php echo esc_attr( $classes ); ?>"<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 						<div class="xfact-case-study-card__content">
-							<?php if ( ! empty( $item['source'] ) ) : ?>
+							<?php if ( ! empty( $source ) ) : ?>
 								<p class="xfact-case-study-card__source">
-									<?php echo esc_html( $item['source'] ); ?>
+									<?php echo esc_html( $source ); ?>
 								</p>
 							<?php endif; ?>
 							<h3 class="xfact-case-study-card__title xfact-text">
-								<?php echo esc_html( $item['title'] ?? '' ); ?>
+								<?php echo esc_html( $card_title ); ?>
 							</h3>
 							<p class="xfact-case-study-card__summary xfact-text-secondary">
-								<?php echo esc_html( $item['summary'] ?? '' ); ?>
+								<?php echo esc_html( $summary ); ?>
 							</p>
 						</div>
 						<?php if ( $has_link ) : ?>
