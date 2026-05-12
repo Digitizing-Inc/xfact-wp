@@ -65,14 +65,14 @@
                 var outcomes = attr.outcomes || [];
 
                 var controls = [
-                    el(h.TextControl, {
-                        key: "client",
-                        label: "Client",
-                        value: attr.client || "",
-                        onChange: function (v) {
-                            set({ client: v });
+                    el(
+                        "strong",
+                        {
+                            key: "hdr-grid-cards",
+                            style: { display: "block", marginBottom: "8px" },
                         },
-                    }),
+                        "Case Study Grid Cards"
+                    ),
                     el(h.TextareaControl, {
                         key: "summary",
                         label: "Summary",
@@ -88,6 +88,18 @@
                         value: attr.source || "",
                         onChange: function (v) {
                             set({ source: v });
+                        },
+                    }),
+                    el("hr", {
+                        key: "sep-client",
+                        style: { margin: "24px 0", opacity: 0.3 },
+                    }),
+                    el(h.TextControl, {
+                        key: "client",
+                        label: "Client",
+                        value: attr.client || "",
+                        onChange: function (v) {
+                            set({ client: v });
                         },
                     }),
                 ];
