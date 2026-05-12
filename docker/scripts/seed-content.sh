@@ -21,7 +21,17 @@ ASSETS="${SITE_URL}/wp-content/themes/xfact/assets/images"
 echo "🧹 Cleaning up default content..."
 wp post delete 1 --force 2>/dev/null || true    # Hello World
 wp post delete 2 --force 2>/dev/null || true    # Sample Page
+wp post delete 3 --force 2>/dev/null || true    # Default Privacy Policy
 wp comment delete 1 --force 2>/dev/null || true # Default comment
+
+# Remove old or duplicate pages to prevent duplicates
+echo "🧹 Cleaning up old/duplicate pages..."
+for old_slug in privacy-policy health-human-services hhs; do
+    old_id=$(wp post list --post_type=page --name="$old_slug" --field=ID 2>/dev/null)
+    if [ -n "$old_id" ]; then
+        wp post delete "$old_id" --force 2>/dev/null || true
+    fi
+done
 
 # Create theme pages (slugs must match template filenames: page-{slug}.html)
 echo "📄 Creating theme pages..."
