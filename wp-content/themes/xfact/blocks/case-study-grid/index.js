@@ -102,6 +102,10 @@
 					options: options,
 					onChange: onSelectCaseStudy
 				} ),
+				el( h.Disabled, null,
+					el( h.TextareaControl, { label: 'Summary (Auto-fetched)', value: item.summary || '', rows: 3 } ),
+					el( h.TextControl, { label: 'Source (Auto-fetched)', value: item.source || '' } )
+				),
 				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Case Study' )
 			),
 		];
