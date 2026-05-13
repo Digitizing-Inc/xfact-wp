@@ -56,13 +56,7 @@
 			var sections = attr.sections || [];
 
 			var controls = [
-				el( wp.components.ToggleControl, { 
-					key: 'showNumbers', 
-					label: 'Show Numbers', 
-					checked: attr.showNumbers !== false,
-					onChange: function ( v ) { set( { showNumbers: v } ); } 
-				} ),
-				el( h.TextareaControl, { key: 'introText', label: 'Introductory Text', value: attr.introText || '', onChange: function ( v ) { set( { introText: v } ); } } ),
+				el( h.TextareaControl, { key: 'introText', label: 'Description', value: attr.introText || '', onChange: function ( v ) { set( { introText: v } ); } } ),
 			];
 
 			if ( sections.length > 0 ) {
@@ -82,6 +76,17 @@
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Section' )
+			);
+
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
+				el( wp.components.ToggleControl, { 
+					key: 'showNumbers', 
+					label: 'Show Numbers', 
+					checked: attr.showNumbers !== false,
+					onChange: function ( v ) { set( { showNumbers: v } ); } 
+				} )
 			);
 
 			return controls;

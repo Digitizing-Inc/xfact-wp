@@ -105,8 +105,8 @@
 			var members = attr.teamMembers || [];
 
 			var controls = [
-				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
-				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } )
+				el( h.TextControl, { key: 'sectionLabel', label: 'Pre-Title Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
+				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } )
 			];
 
 			if ( members.length > 0 ) {

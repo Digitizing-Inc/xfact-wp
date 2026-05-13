@@ -135,15 +135,16 @@
 			}, [] ) : [];
 
 			var controls = [
-				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } ),
-				el( 'hr', { key: 'sep1', style: { margin: '16px 0', opacity: 0.3 } } ),
-				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel || '', onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
-				el( h.TextControl, { key: 'heading', label: 'Section Heading', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
-				el( h.TextareaControl, { key: 'description', label: 'Section Description', value: attr.description || '', onChange: function ( v ) { set( { description: v } ); } } )
+				el( h.TextControl, { key: 'sectionLabel', label: 'Pre-Title Label', value: attr.sectionLabel || '', onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
+				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
+				el( h.TextareaControl, { key: 'description', label: 'Description', value: attr.description || '', onChange: function ( v ) { set( { description: v } ); } } )
 			];
 
 			if ( items.length > 0 ) {
-				controls.push( el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Case Studies (' + items.length + ')' ) );
+				controls.push(
+					el( 'hr', { key: 'items-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Case Studies (' + items.length + ')' )
+				);
 				items.forEach( function ( _item, i ) {
 					controls = controls.concat( itemControls( items, i, set, caseStudies ) );
 				} );
@@ -156,6 +157,13 @@
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Case Study' )
+			);
+
+			/* Settings section */
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
+				el( h.TextControl, { key: 'anchor', label: 'HTML Anchor (ID)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } )
 			);
 
 			return controls;

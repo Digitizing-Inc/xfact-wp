@@ -15,19 +15,19 @@
 			return [
 				el( h.TextControl, {
 					key: 'sectionLabel',
-					label: 'Section Label',
+					label: 'Pre-Title Label',
 					value: attr.sectionLabel,
 					onChange: function ( v ) { set( { sectionLabel: v } ); },
 				} ),
 				el( h.TextControl, {
 					key: 'heading',
-					label: 'Heading',
+					label: 'Title',
 					value: attr.heading,
 					onChange: function ( v ) { set( { heading: v } ); },
 				} ),
 				el( h.TextareaControl, {
 					key: 'subtitle',
-					label: 'Subtitle',
+					label: 'Description',
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),

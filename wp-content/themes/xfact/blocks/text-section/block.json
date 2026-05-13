@@ -25,10 +25,6 @@
 			"type": "string",
 			"default": ""
 		},
-		"subtitle": {
-			"type": "string",
-			"default": ""
-		},
 		"body": {
 			"type": "string",
 			"default": ""

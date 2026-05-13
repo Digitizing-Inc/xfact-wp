@@ -113,21 +113,16 @@
 			var buttons = attr.buttons || [];
 
 			var controls = [
-				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } ),
-				el( 'hr', { key: 'anchor-sep', style: { margin: '12px 0', opacity: 0.15 } } ),
-				el( h.TextControl, { key: 'sectionLabel', label: 'Section Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
-				h.iconControl( 'Section Icon (Lucide)', attr.sectionIcon || '', function ( v ) { set( { sectionIcon: v } ); }, 'sectionIcon' ),
-				el( h.ToggleControl, { key: 'useAltBackground', label: 'Use Alternate Background Color', checked: attr.useAltBackground, onChange: function ( v ) { set( { useAltBackground: v } ); } } ),
-				el( h.ToggleControl, { key: 'isCenteredCard', label: 'Style as Centered Card (Empty State)', checked: attr.isCenteredCard, onChange: function ( v ) { set( { isCenteredCard: v } ); } } ),
-				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
-				el( h.TextareaControl, { key: 'subtitle', label: 'Subtitle / Headline', value: attr.subtitle || '', rows: 2, onChange: function ( v ) { set( { subtitle: v } ); } } ),
-				el( h.TextareaControl, { key: 'body', label: 'Body Text', value: attr.body, rows: 5, onChange: function ( v ) { set( { body: v } ); } } ),
+				el( h.TextControl, { key: 'sectionLabel', label: 'Pre-Title Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
 				el( h.TextControl, { key: 'badgeText', label: 'Badge Text', value: attr.badgeText, onChange: function ( v ) { set( { badgeText: v } ); } } ),
-				h.imageControl( 'Section Image', attr.sectionImage,
+				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
+				el( h.TextareaControl, { key: 'body', label: 'Description', value: attr.body, rows: 5, onChange: function ( v ) { set( { body: v } ); } } ),
+				h.iconControl( 'Icon', attr.sectionIcon || '', function ( v ) { set( { sectionIcon: v } ); }, 'sectionIcon' ),
+				h.imageControl( 'Image', attr.sectionImage,
 					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
 					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
 				attr.sectionImage
-					? el( h.TextControl, { key: 'sectionImageAlt', label: 'Section Image Alt Text', value: attr.sectionImageAlt, onChange: function ( v ) { set( { sectionImageAlt: v } ); } } )
+					? el( h.TextControl, { key: 'sectionImageAlt', label: 'Image Alt Text', value: attr.sectionImageAlt, onChange: function ( v ) { set( { sectionImageAlt: v } ); } } )
 					: null,
 			];
 
@@ -177,6 +172,15 @@
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Key Message' )
+			);
+
+			/* Settings section */
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
+				el( h.ToggleControl, { key: 'useAltBackground', label: 'Use Alternate Background Color', checked: attr.useAltBackground, onChange: function ( v ) { set( { useAltBackground: v } ); } } ),
+				el( h.ToggleControl, { key: 'isCenteredCard', label: 'Style as Centered Card (Empty State)', checked: attr.isCenteredCard, onChange: function ( v ) { set( { isCenteredCard: v } ); } } ),
+				el( h.TextControl, { key: 'anchor', label: 'HTML Anchor (ID)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } )
 			);
 
 			return controls;

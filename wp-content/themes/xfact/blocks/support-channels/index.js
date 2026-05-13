@@ -64,7 +64,11 @@
 			var set = props.setAttributes;
 			var channels = attr.channels || [];
 
-			var controls = [];
+			var controls = [
+				h.imageControl( 'Image', attr.sectionImage,
+					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
+					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' )
+			];
 
 			/* Per-channel controls */
 			if ( channels.length > 0 ) {
@@ -84,13 +88,6 @@
 					variant: 'secondary',
 					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Channel' )
-			);
-
-			controls.push(
-				el( 'hr', { key: 'client-sep', style: { margin: '24px 0', borderTopWidth: '2px' } } ),
-				h.imageControl( 'Section Image', attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
 			);
 
 			return controls;

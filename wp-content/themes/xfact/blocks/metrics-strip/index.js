@@ -56,7 +56,7 @@
 			var metrics = attr.metrics || [];
 
 			var controls = [
-				h.imageControl( 'Background Image', attr.backgroundImage,
+				h.imageControl( 'Image', attr.backgroundImage,
 					function ( media ) { set( { backgroundImage: media.url } ); },
 					function () { set( { backgroundImage: '' } ); }, 'bgImage' ),
 			];

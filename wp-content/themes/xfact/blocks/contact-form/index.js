@@ -62,16 +62,24 @@
 			var controls = [
 				el( h.TextControl, {
 					key: 'heading',
-					label: 'Heading',
+					label: 'Title',
 					value: attr.heading,
 					onChange: function ( v ) { set( { heading: v } ); },
 				} ),
 				el( h.TextareaControl, {
 					key: 'subtitle',
-					label: 'Subtitle',
+					label: 'Description',
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
+				h.imageControl(
+					'Image',
+					attr.sectionImage,
+					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
+					function () { set( { sectionImage: '', sectionImageAlt: '' } ); },
+					'sectionImage'
+				),
+				el( 'hr', { key: 'form-settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
 				el( h.TextControl, {
 					key: 'recipientEmail',
 					label: 'Recipient Email (Fallback)',
@@ -88,13 +96,13 @@
 				el( 'strong', { key: 'assessment-title', style: { display: 'block', marginBottom: '16px', fontSize: '1.2em' } }, 'Assessment Card (Right Side)' ),
 				el( h.TextControl, {
 					key: 'assessmentLabel',
-					label: 'Assessment Section Label',
+					label: 'Assessment Pre-Title Label',
 					value: attr.assessmentLabel,
 					onChange: function ( v ) { set( { assessmentLabel: v } ); },
 				} ),
 				el( h.TextControl, {
 					key: 'assessmentHeading',
-					label: 'Assessment Heading',
+					label: 'Assessment Title',
 					value: attr.assessmentHeading,
 					onChange: function ( v ) { set( { assessmentHeading: v } ); },
 				} ),
@@ -104,14 +112,6 @@
 					value: attr.assessmentDescription,
 					onChange: function ( v ) { set( { assessmentDescription: v } ); },
 				} ),
-
-				h.imageControl(
-					'Section Image',
-					attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); },
-					'sectionImage'
-				),
 			];
 
 			var checklist = attr.assessmentChecklist || [];

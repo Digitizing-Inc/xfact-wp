@@ -62,7 +62,7 @@
 			var logos = attr.logos || [];
 
 			var controls = [
-				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
+				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
 			];
 
 			if ( logos.length > 0 ) {

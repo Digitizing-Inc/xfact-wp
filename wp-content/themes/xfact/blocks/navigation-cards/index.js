@@ -61,9 +61,7 @@
 			var buttons = attr.buttons || [];
 
 			var controls = [
-				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } ),
-				el( 'hr', { key: 'sep1', style: { margin: '16px 0', opacity: 0.3 } } ),
-				el( h.TextControl, { key: 'heading', label: 'Section Heading', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
+				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
 			];
 
 			if ( items.length > 0 ) {
@@ -91,6 +89,13 @@
 				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
 			);
 			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
+
+			/* Settings section */
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
+				el( h.TextControl, { key: 'anchor', label: 'HTML Anchor (ID)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } )
+			);
 
 			return controls;
 		} ),

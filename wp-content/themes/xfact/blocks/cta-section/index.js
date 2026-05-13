@@ -22,29 +22,30 @@
 				} ),
 				el( h.TextareaControl, {
 					key: 'subtitle',
-					label: 'Subtitle',
+					label: 'Description',
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-
 				h.imageControl(
-					'Background Image',
+					'Image',
 					attr.backgroundImage,
 					function ( media ) { set( { backgroundImage: media.url } ); },
 					function () { set( { backgroundImage: '' } ); },
 					'backgroundImage'
 				),
-				el( h.SelectControl, {
-					key: 'showFloatingLogo',
-					label: 'Floating Logo',
-					value: attr.showFloatingLogo || 'global',
-					options: [
-						{ label: 'Use Global Setting', value: 'global' },
-						{ label: 'Show', value: 'show' },
-						{ label: 'Hide', value: 'hide' },
-					],
-					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
-				} ),
+			];
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
+
+			/* Settings section */
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
 				el( h.SelectControl, {
 					key: 'variant',
 					label: 'Theme Variant',
@@ -66,14 +67,18 @@
 						set( updates ); 
 					},
 				} ),
-			];
-
-			/* Buttons section */
-			controls.push(
-				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
-				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+				el( h.SelectControl, {
+					key: 'showFloatingLogo',
+					label: 'Floating Logo',
+					value: attr.showFloatingLogo || 'global',
+					options: [
+						{ label: 'Use Global Setting', value: 'global' },
+						{ label: 'Show', value: 'show' },
+						{ label: 'Hide', value: 'hide' },
+					],
+					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
+				} )
 			);
-			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
 			return controls;
 		} ),

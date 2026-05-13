@@ -52,13 +52,6 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 						<h2 class="xfact-section-heading"><?php echo esc_html( $heading ); ?></h2>
 					<?php endif; ?>
 
-					<?php
-					$subtitle = $attributes['subtitle'] ?? '';
-					if ( $subtitle ) :
-						?>
-						<p class="xfact-section-subtitle"><?php echo esc_html( $subtitle ); ?></p>
-					<?php endif; ?>
-
 					<?php if ( $badge_text ) : ?>
 						<div class="xfact-text-section__badge">
 							<span><?php echo esc_html( $badge_text ); ?></span>

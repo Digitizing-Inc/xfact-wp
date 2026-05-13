@@ -12,30 +12,12 @@
 			var attr = props.attributes;
 			var set = props.setAttributes;
 
-			return [
+			var controls = [
 				el( h.TextControl, {
 					key: 'sectionLabel',
-					label: 'Section Label',
+					label: 'Pre-Title Label',
 					value: attr.sectionLabel,
 					onChange: function ( v ) { set( { sectionLabel: v } ); },
-				} ),
-				el( h.ToggleControl, {
-					key: 'useBreadcrumbs',
-					label: 'Render Section Label as Breadcrumb',
-					checked: attr.useBreadcrumbs,
-					onChange: function ( v ) { set( { useBreadcrumbs: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'breadcrumbParentLabel',
-					label: 'Breadcrumb Parent Label (Optional)',
-					value: attr.breadcrumbParentLabel,
-					onChange: function ( v ) { set( { breadcrumbParentLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'breadcrumbParentHref',
-					label: 'Breadcrumb Parent URL (Optional)',
-					value: attr.breadcrumbParentHref,
-					onChange: function ( v ) { set( { breadcrumbParentHref: v } ); },
 				} ),
 				el( h.TextControl, {
 					key: 'badgeText',
@@ -45,18 +27,18 @@
 				} ),
 				el( h.TextControl, {
 					key: 'heading',
-					label: 'Heading',
+					label: 'Title',
 					value: attr.heading,
 					onChange: function ( v ) { set( { heading: v } ); },
 				} ),
 				el( h.TextareaControl, {
 					key: 'subtitle',
-					label: 'Subtitle',
+					label: 'Description',
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
 				h.imageControl(
-					'Background Image',
+					'Image',
 					attr.backgroundImage,
 					function ( media ) {
 						set( { backgroundImage: media.url, imageAlt: media.alt || attr.imageAlt } );
@@ -71,6 +53,32 @@
 					onChange: function ( v ) { set( { imageAlt: v } ); },
 				} ),
 			];
+
+			/* Settings section */
+			controls.push(
+				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
+				el( h.ToggleControl, {
+					key: 'useBreadcrumbs',
+					label: 'Render Pre-Title Label as Breadcrumb',
+					checked: attr.useBreadcrumbs,
+					onChange: function ( v ) { set( { useBreadcrumbs: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'breadcrumbParentLabel',
+					label: 'Breadcrumb Parent Label (Optional)',
+					value: attr.breadcrumbParentLabel,
+					onChange: function ( v ) { set( { breadcrumbParentLabel: v } ); },
+				} ),
+				el( h.TextControl, {
+					key: 'breadcrumbParentHref',
+					label: 'Breadcrumb Parent URL (Optional)',
+					value: attr.breadcrumbParentHref,
+					onChange: function ( v ) { set( { breadcrumbParentHref: v } ); },
+				} )
+			);
+
+			return controls;
 		} ),
 		save: function () { return null; },
 	} );
