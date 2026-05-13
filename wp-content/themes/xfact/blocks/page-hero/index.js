@@ -13,12 +13,39 @@
 			var set = props.setAttributes;
 
 			var controls = [
-				el( h.TextControl, {
+				el( h.ToggleControl, {
+					key: 'useBreadcrumbs',
+					label: 'Replace Pre-Title with Breadcrumb Navigation',
+					checked: attr.useBreadcrumbs,
+					onChange: function ( v ) { set( { useBreadcrumbs: v } ); },
+				} ),
+				( ! attr.useBreadcrumbs ) ? el( h.TextControl, {
 					key: 'sectionLabel',
 					label: 'Pre-Title Label',
 					value: attr.sectionLabel,
 					onChange: function ( v ) { set( { sectionLabel: v } ); },
-				} ),
+				} ) : el( 'div', {
+					key: 'breadcrumb-group',
+					style: {
+						background: '#f8f9fa',
+						border: '1px solid #e2e8f0',
+						borderRadius: '4px',
+						padding: '12px',
+						marginBottom: '24px',
+						marginTop: '-8px'
+					}
+				},
+					el( h.TextControl, {
+						label: 'Breadcrumb Parent Label (Optional)',
+						value: attr.breadcrumbParentLabel,
+						onChange: function ( v ) { set( { breadcrumbParentLabel: v } ); },
+					} ),
+					el( h.TextControl, {
+						label: 'Breadcrumb Parent URL (Optional)',
+						value: attr.breadcrumbParentHref,
+						onChange: function ( v ) { set( { breadcrumbParentHref: v } ); },
+					} )
+				),
 				el( h.TextControl, {
 					key: 'badgeText',
 					label: 'Badge Text',
@@ -54,29 +81,6 @@
 				} ),
 			];
 
-			/* Settings section */
-			controls.push(
-				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
-				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
-				el( h.ToggleControl, {
-					key: 'useBreadcrumbs',
-					label: 'Render Pre-Title Label as Breadcrumb',
-					checked: attr.useBreadcrumbs,
-					onChange: function ( v ) { set( { useBreadcrumbs: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'breadcrumbParentLabel',
-					label: 'Breadcrumb Parent Label (Optional)',
-					value: attr.breadcrumbParentLabel,
-					onChange: function ( v ) { set( { breadcrumbParentLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'breadcrumbParentHref',
-					label: 'Breadcrumb Parent URL (Optional)',
-					value: attr.breadcrumbParentHref,
-					onChange: function ( v ) { set( { breadcrumbParentHref: v } ); },
-				} )
-			);
 
 			return controls;
 		} ),
