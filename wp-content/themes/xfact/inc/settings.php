@@ -76,25 +76,10 @@ function xfact_get_floating_logo_url(): string {
 }
 
 /**
- * Determine whether a block should display the floating logo.
+ * Determine whether a block should display the floating logo globally.
  *
- * Resolution order:
- *   1. Per-block override ('show' or 'hide') takes precedence.
- *   2. Otherwise ('global' or empty) falls back to the global option.
- *
- * @param array<string, mixed> $attributes Block attributes containing 'showFloatingLogo'.
  * @return bool Whether to render the floating logo.
  */
-function xfact_should_show_floating_logo( array $attributes ): bool {
-	$value = $attributes['showFloatingLogo'] ?? 'global';
-
-	if ( 'show' === $value ) {
-		return true;
-	}
-	if ( 'hide' === $value ) {
-		return false;
-	}
-
-	/* 'global' or any unrecognised value → fall back to global option. */
+function xfact_should_show_floating_logo(): bool {
 	return (bool) get_option( 'xfact_show_floating_logo', false );
 }

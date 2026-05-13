@@ -209,13 +209,13 @@ function xfact_render_admin_settings_page(): void {
 			<!-- Floating Logo -->
 			<div class="xfact-admin-card">
 				<h2>Floating Logo</h2>
-				<p class="description">This logo appears as a watermark in all blocks that have "Show Floating Logo" enabled.</p>
+				<p class="description">This logo appears as a watermark globally across all compatible blocks.</p>
 				<div class="xfact-admin-toggle">
 					<label for="xfact_show_floating_logo">
 						<input type="checkbox" name="xfact_show_floating_logo" id="xfact_show_floating_logo" value="1" <?php checked( $show_floating_logo ); ?> />
 						Show Floating Logo
 					</label>
-					<span class="description">Visible on all blocks unless overridden per-block.</span>
+					<span class="description">Enable or disable the floating watermark globally across the entire site.</span>
 				</div>
 				<div class="xfact-admin-logo-preview" id="xfact-floating-logo-preview">
 					<img src="<?php echo esc_url( $floating_logo_url ? $floating_logo_url : $default_float_logo ); ?>" alt="Floating logo" />
@@ -243,7 +243,6 @@ function xfact_render_admin_settings_page(): void {
 					<span class="description">You can also toggle this instantly via the Gutenberg toolbar icon.</span>
 				</div>
 			</div>
-
 			<div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
 				<?php submit_button( 'Save Settings', 'primary', 'submit', false, array( 'class' => 'button-primary' ) ); ?>
 			</div>

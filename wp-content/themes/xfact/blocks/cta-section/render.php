@@ -32,7 +32,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 ?>
 <section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 
-	<?php if ( ! $is_light && xfact_should_show_floating_logo( $attributes ) ) : ?>
+	<?php if ( ! $is_light && xfact_should_show_floating_logo() ) : ?>
 		<div class="xfact-cta-section__accents" aria-hidden="true">
 			<div class="xfact-cta-section__top-line"></div>
 			<img

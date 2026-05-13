@@ -125,7 +125,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				<?php endif; ?>
 			</div>
 
-			<?php if ( xfact_should_show_floating_logo( $attributes ) ) : ?>
+			<?php if ( xfact_should_show_floating_logo() ) : ?>
 				<div class="xfact-hero__icon" aria-hidden="true">
 					<img
 						src="<?php echo esc_url( xfact_get_floating_logo_url() ); ?>"
