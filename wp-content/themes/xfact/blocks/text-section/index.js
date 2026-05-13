@@ -36,28 +36,22 @@
 		}
 		return [
 			el( h.ArrayItemWrapper, {
-				key: 'tag-',
+				key: 'tag-' + i,
 				index: i,
 				total: tags.length,
 				label: 'Tag ' + ( i + 1 ),
 				titleText: tag.title || tag.name || tag.label || tag.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: tag.iconName
 			},
-				el( 'div', { style: { display: 'flex', gap: '4px', alignItems: 'flex-start' } },
 				el( h.TextControl, {
+					key: 'label-' + i,
 					label: 'Tag ' + ( i + 1 ) + ' Label',
 					value: tag.label || '',
-					onChange: function ( v ) { update( 'label', v ); },
-					style: { flex: 1 },
+					onChange: function ( v ) { update( 'label', v ); }
 				} ),
-				el( h.TextControl, {
-					label: 'Icon',
-					value: tag.iconName || '',
-					onChange: function ( v ) { update( 'iconName', v ); },
-					style: { width: '90px' },
-				} ),
-				)
+				h.iconControl( 'Icon (Lucide)', tag.iconName || '', function ( v ) { update( 'iconName', v ); }, 'icon-' + i )
 			),
 		];
 	}
@@ -90,11 +84,11 @@
 		}
 		return [
 			el( h.ArrayItemWrapper, {
-				key: 'msg-',
+				key: 'msg-' + i,
 				index: i,
 				total: messages.length,
 				label: 'Message ' + ( i + 1 ),
-				titleText: tag.title || tag.name || tag.label || tag.heading || '',
+				titleText: msg || '',
 				onRemove: remove,
 				onMoveItem: moveItem
 			},
@@ -160,7 +154,7 @@
 					key: 'add-tag',
 					onClick: function () { set( { tags: tags.concat( [ { label: '', iconName: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Tag' )
 			);
 
@@ -181,7 +175,7 @@
 					key: 'add-msg',
 					onClick: function () { set( { keyMessages: keyMessages.concat( [ '' ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Key Message' )
 			);
 

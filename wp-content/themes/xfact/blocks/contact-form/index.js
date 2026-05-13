@@ -116,19 +116,21 @@
 
 			var checklist = attr.assessmentChecklist || [];
 			if ( checklist.length > 0 ) {
-				controls.push( el( 'strong', { key: 'items-hdr', style: { display: 'block', marginTop: '16px', marginBottom: '8px' } }, 'Checklist Items (' + checklist.length + ')' ) );
+				controls.push(
+					el( 'hr', { key: 'items-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Checklist Items (' + checklist.length + ')' )
+				);
 				checklist.forEach( function ( _item, i ) {
 					controls = controls.concat( checklistControls( checklist, i, set ) );
 				} );
 			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { assessmentChecklist: checklist.concat( [ { text: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Checklist Item' )
 			);
 

@@ -65,17 +65,22 @@
 				el( h.TextareaControl, { key: 'introText', label: 'Introductory Text', value: attr.introText || '', onChange: function ( v ) { set( { introText: v } ); } } ),
 			];
 
-			sections.forEach( function ( _sec, i ) {
-				controls = controls.concat( sectionControls( sections, i, set ) );
-			} );
+			if ( sections.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'sections-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'sections-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Sections (' + sections.length + ')' )
+				);
+				sections.forEach( function ( _sec, i ) {
+					controls = controls.concat( sectionControls( sections, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { sections: sections.concat( [ { title: '', content: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Section' )
 			);
 

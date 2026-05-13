@@ -53,6 +53,7 @@
 				titleText: card.title || card.name || card.label || card.heading || '',
 				onRemove: removeCard,
 				onMoveItem: moveItem,
+				iconName: card.iconName
 			},
 				el( h.TextControl, {
 					key: 'title-' + i,
@@ -133,20 +134,25 @@
 			];
 
 			/* ── Per-card controls ── */
-			sectors.forEach( function ( _sector, i ) {
-				controls = controls.concat( cardControls( sectors, i, set ) );
-			} );
+			if ( sectors.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'cards-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'cards-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Cards (' + sectors.length + ')' )
+				);
+				sectors.forEach( function ( _sector, i ) {
+					controls = controls.concat( cardControls( sectors, i, set ) );
+				} );
+			}
 
 			/* ── Add card button ── */
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add-card',
 					onClick: function () {
 						set( { sectors: sectors.concat( [ { title: '', description: '', iconName: 'Circle', href: '' } ] ) } );
 					},
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Card' )
 			);
 

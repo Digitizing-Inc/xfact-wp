@@ -154,7 +154,7 @@
 					key: 'add-item',
 					onClick: function () { set( { items: items.concat( [ { title: '', summary: '', source: '', postId: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Case Study' )
 			);
 

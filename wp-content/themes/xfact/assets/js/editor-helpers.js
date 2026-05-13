@@ -429,13 +429,21 @@
 	 * @param {Function} [toggle]   Callback to toggle expansion.
 	 * @return {Object} React element.
 	 */
-	function arrayItemHeader( label, index, total, onMoveItem, isOpen, toggle ) {
+	function arrayItemHeader( label, index, total, onMoveItem, isOpen, toggle, customProps ) {
+		customProps = customProps || {};
 		var icons = window.xfactLucideIcons || {};
 		var gripSvg = renderSvg( icons['GripVertical'] || '<circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/>' );
 		var chevronSvg = renderSvg( isOpen 
 			? ( icons['ChevronUp'] || '<polyline points="18 15 12 9 6 15"></polyline>' ) 
 			: ( icons['ChevronDown'] || '<polyline points="6 9 12 15 18 9"></polyline>' ) 
 		);
+
+		var iconSvg = null;
+		if ( customProps.iconName && icons[customProps.iconName] ) {
+			iconSvg = renderSvg( icons[customProps.iconName] );
+		} else if ( customProps.itemType === 'button' ) {
+			iconSvg = renderSvg( icons['MousePointerClick'] || '<path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/>' );
+		}
 
 		var dragProps = {};
 		if ( onMoveItem ) {
@@ -483,8 +491,12 @@
 					dangerouslySetInnerHTML: { __html: gripSvg },
 					style: { width: '20px', height: '20px', display: 'flex', color: '#888', alignItems: 'center', justifyContent: 'center', cursor: onMoveItem ? 'grab' : 'default' },
 				} ),
-				el( 'strong', { 
-					style: { flex: 1, userSelect: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } 
+				iconSvg ? el( 'div', {
+					dangerouslySetInnerHTML: { __html: iconSvg },
+					style: { width: '16px', height: '16px', display: 'flex', color: '#007cba', alignItems: 'center', justifyContent: 'center' },
+				} ) : null,
+				el( 'span', { 
+					style: { flex: 1, userSelect: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontWeight: 'normal' } 
 				}, label )
 			),
 			el( 'div', { style: { display: 'flex', gap: '4px', alignItems: 'center', flexShrink: 0 } },
@@ -502,13 +514,33 @@
 	 * Wrapper for array items to handle collapsed state and dynamic titles.
 	 */
 	function ArrayItemWrapper( props ) {
-		var isOpenState = useState( false );
+		var isNewState = useState( function() {
+			var t = props.titleText;
+			return !t || t === 'New Button' || t === 'New Metric';
+		} );
+		var isNew = isNewState[0];
+
+		var isOpenState = useState( isNew );
 		var isOpen = isOpenState[0];
 		var setIsOpen = isOpenState[1];
 		
 		var dropIntentState = useState( null );
 		var dropIntent = dropIntentState[0];
 		var setDropIntent = dropIntentState[1];
+
+		var containerRef = wp.element.useRef( null );
+
+		wp.element.useEffect( function() {
+			if ( isNew && containerRef.current ) {
+				setTimeout( function() {
+					if ( containerRef.current ) {
+						containerRef.current.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
+						var input = containerRef.current.querySelector('input:not([type="hidden"]), textarea');
+						if ( input ) input.focus( { preventScroll: true } );
+					}
+				}, 100 );
+			}
+		}, [] );
 
 		function toggle() {
 			setIsOpen( ! isOpen );
@@ -588,16 +620,17 @@
 		}
 
 		return el( 'div', Object.assign({
-			style: { position: 'relative' } // Outer container for drop logic
+			style: { position: 'relative' }, // Outer container for drop logic
+			ref: containerRef
 		}, dragProps),
 			dropIntent === 'shift-top' ? el( 'div', { style: { height: window.__xfactDraggedHeight || 48, border: '2px dashed #007cba', margin: '0', borderRadius: '0', background: 'rgba(0,124,186,0.05)', position: 'relative', zIndex: 1 } } ) : null,
 			el( 'div', { // Inner visual container
 				style: { 
 					border: dropIntent === 'swap' ? '2px solid #007cba' : '1px solid #ddd', 
 					padding: '8px', 
-					marginBottom: '-1px', // Remove spacing and overlap borders for smooth DND
-					position: 'relative', // Ensure borders overlap correctly
-					borderRadius: '0', // Flush items shouldn't have internal border radius
+					marginBottom: '-1px', 
+					position: 'relative', 
+					borderRadius: '0', 
 					transition: 'all 0.2s ease', 
 					background: dropIntent === 'swap' ? 'rgba(0,124,186,0.05)' : (isOpen ? '#fff' : '#f8f9fa'),
 					transform: dropIntent === 'swap' ? 'scale(1.02)' : 'none',
@@ -605,7 +638,7 @@
 					zIndex: dropIntent === 'swap' ? 2 : 1
 				}
 			},
-				arrayItemHeader( displayTitle, props.index, props.total, props.onMoveItem, isOpen, toggle ),
+				arrayItemHeader( displayTitle, props.index, props.total, props.onMoveItem, isOpen, toggle, { iconName: props.iconName, itemType: props.itemType } ),
 				isOpen ? el( 'div', { style: { marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #eee' } }, 
 					props.children,
 					el( 'div', { style: { marginTop: '16px', paddingTop: '16px', borderTop: '1px dashed #eee', textAlign: 'right' } },
@@ -677,7 +710,8 @@
 						label: 'Button ' + ( i + 1 ),
 						titleText: btn.label || 'New Button',
 						onRemove: remove,
-						onMoveItem: moveItem
+						onMoveItem: moveItem,
+						itemType: 'button'
 					},
 						el( TextControl, {
 							label: 'Label',
@@ -715,7 +749,7 @@
 					set( updates ); 
 				},
 				variant: 'secondary',
-				style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+				style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 			}, '+ Add Button' )
 		);
 

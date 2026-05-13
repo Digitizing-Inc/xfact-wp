@@ -61,17 +61,22 @@
 					function () { set( { backgroundImage: '' } ); }, 'bgImage' ),
 			];
 
-			metrics.forEach( function ( _m, i ) {
-				controls = controls.concat( metricControls( metrics, i, set ) );
-			} );
+			if ( metrics.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'metrics-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'metrics-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Metrics (' + metrics.length + ')' )
+				);
+				metrics.forEach( function ( _m, i ) {
+					controls = controls.concat( metricControls( metrics, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { metrics: metrics.concat( [ { value: '0', label: 'New Metric' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Metric' )
 			);
 

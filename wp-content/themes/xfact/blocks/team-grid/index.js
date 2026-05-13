@@ -109,17 +109,22 @@
 				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } )
 			];
 
-			members.forEach( function ( _mem, i ) {
-				controls = controls.concat( memberControls( members, i, set ) );
-			} );
+			if ( members.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'members-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'members-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Members (' + members.length + ')' )
+				);
+				members.forEach( function ( _mem, i ) {
+					controls = controls.concat( memberControls( members, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { teamMembers: members.concat( [ { name: '', title: '', imageUrl: '', socialLinks: [] } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Member' )
 			);
 

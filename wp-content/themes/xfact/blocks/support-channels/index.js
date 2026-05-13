@@ -42,7 +42,8 @@
 				label: 'Channel ' + ( i + 1 ),
 				titleText: ch.title || ch.name || ch.label || ch.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: ch.iconName
 			},
 				el( h.TextControl, { key: 'title-' + i, label: 'Title', value: ch.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: ch.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
@@ -66,17 +67,22 @@
 			var controls = [];
 
 			/* Per-channel controls */
-			channels.forEach( function ( _ch, i ) {
-				controls = controls.concat( channelControls( channels, i, set ) );
-			} );
+			if ( channels.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'channels-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'channels-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Channels (' + channels.length + ')' )
+				);
+				channels.forEach( function ( _ch, i ) {
+					controls = controls.concat( channelControls( channels, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add-ch',
 					onClick: function () { set( { channels: channels.concat( [ { title: '', description: '', iconName: 'Circle' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Channel' )
 			);
 

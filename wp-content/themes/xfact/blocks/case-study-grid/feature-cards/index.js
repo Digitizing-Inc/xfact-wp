@@ -42,7 +42,8 @@
 				label: 'Card ' + ( i + 1 ),
 				titleText: card.title || card.name || card.label || card.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: card.iconName
 			},
 				el( h.TextControl, { key: 'title-' + i, label: 'Title', value: card.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: card.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
@@ -71,17 +72,22 @@
 					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
 			];
 
-			cards.forEach( function ( _card, i ) {
-				controls = controls.concat( cardControls( cards, i, set ) );
-			} );
+			if ( cards.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'cards-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'cards-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Cards (' + cards.length + ')' )
+				);
+				cards.forEach( function ( _card, i ) {
+					controls = controls.concat( cardControls( cards, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { cards: cards.concat( [ { title: '', description: '', iconName: 'Circle' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Card' )
 			);
 

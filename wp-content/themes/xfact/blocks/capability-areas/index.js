@@ -42,7 +42,8 @@
 				label: 'Area ' + ( i + 1 ),
 				titleText: area.title || area.name || area.label || area.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: area.iconName
 			},
 				el( h.TextControl, {
 					key: 'title-' + i,
@@ -87,14 +88,16 @@
 			var controls = [];
 
 			if ( areas.length > 0 ) {
-				controls.push( el( 'strong', { key: 'areas-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Areas (' + areas.length + ')' ) );
+				controls.push(
+					el( 'hr', { key: 'areas-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'areas-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Areas (' + areas.length + ')' )
+				);
 				areas.forEach( function ( _area, i ) {
 					controls = controls.concat( areaControls( areas, i, set ) );
 				} );
 			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () {
@@ -110,7 +113,7 @@
 						} );
 					},
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Area' )
 			);
 

@@ -42,7 +42,8 @@
 				label: 'Card ' + ( i + 1 ),
 				titleText: item.title || item.name || item.label || item.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: item.icon
 			},
 				el( h.TextControl, { label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextControl, { label: 'Subtitle', value: item.subtitle || '', onChange: function ( v ) { update( 'subtitle', v ); } } ),
@@ -66,7 +67,10 @@
 			];
 
 			if ( items.length > 0 ) {
-				controls.push( el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Cards (' + items.length + ')' ) );
+				controls.push(
+					el( 'hr', { key: 'items-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'items-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Cards (' + items.length + ')' )
+				);
 				items.forEach( function ( _item, i ) {
 					controls = controls.concat( cardControls( items, i, set ) );
 				} );
@@ -77,7 +81,7 @@
 					key: 'add-card',
 					onClick: function () { set( { items: items.concat( [ { title: '', subtitle: '', icon: '', href: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Navigation Card' )
 			);
 

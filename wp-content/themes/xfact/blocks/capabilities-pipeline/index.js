@@ -42,7 +42,8 @@
 				label: 'Step ' + ( i + 1 ),
 				titleText: item.title || item.name || item.label || item.heading || '',
 				onRemove: remove,
-				onMoveItem: moveItem
+				onMoveItem: moveItem,
+				iconName: item.iconName
 			},
 				el( h.TextControl, { key: 'title-' + i, label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextareaControl, { key: 'desc-' + i, label: 'Description', value: item.description || '', onChange: function ( v ) { update( 'description', v ); } } ),
@@ -72,17 +73,22 @@
 					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
 			];
 
-			caps.forEach( function ( _cap, i ) {
-				controls = controls.concat( itemControls( caps, i, set, 'capabilities' ) );
-			} );
+			if ( caps.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'caps-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'caps-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Steps (' + caps.length + ')' )
+				);
+				caps.forEach( function ( _cap, i ) {
+					controls = controls.concat( itemControls( caps, i, set, 'capabilities' ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { capabilities: caps.concat( [ { title: '', description: '', iconName: 'Circle' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Step' )
 			);
 

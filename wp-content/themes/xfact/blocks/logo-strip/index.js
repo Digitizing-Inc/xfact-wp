@@ -65,17 +65,22 @@
 				el( h.TextControl, { key: 'heading', label: 'Heading', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
 			];
 
-			logos.forEach( function ( _logo, i ) {
-				controls = controls.concat( logoControls( logos, i, set ) );
-			} );
+			if ( logos.length > 0 ) {
+				controls.push(
+					el( 'hr', { key: 'logos-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+					el( 'strong', { key: 'logos-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Logos (' + logos.length + ')' )
+				);
+				logos.forEach( function ( _logo, i ) {
+					controls = controls.concat( logoControls( logos, i, set ) );
+				} );
+			}
 
 			controls.push(
-				el( 'hr', { key: 'add-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.Button, {
 					key: 'add',
 					onClick: function () { set( { logos: logos.concat( [ { name: '', imageUrl: '' } ] ) } ); },
 					variant: 'secondary',
-					style: { width: '100%', justifyContent: 'center' },
+					style: { width: '100%', justifyContent: 'center', marginTop: '15px' },
 				}, '+ Add Logo' )
 			);
 
