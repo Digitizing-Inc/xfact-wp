@@ -5,7 +5,7 @@ A production-ready WordPress site for [xFact](https://xfact.com) — technology 
 ## Stack
 
 | Service | Image | Purpose |
-|---------|-------|---------| 
+|---------|-------|---------|
 | **WordPress** | `wordpress:6.9-php8.3-apache` + custom | PHP 8.3, WP-CLI, Redis extension, OPcache |
 | **MariaDB** | `mariadb:11` | Database with optimized InnoDB settings |
 | **Redis** | `redis:7-alpine` | Persistent object caching |
@@ -105,15 +105,15 @@ xfact/
 │   ├── contact-form/
 │   ├── cta-section/
 │   ├── feature-cards/
-│   ├── hero/          # Full-screen hero with slideshow + video
+│   ├── hero/
 │   ├── logo-strip/
 │   ├── metrics-strip/
 │   ├── navigation-cards/
-│   ├── page-hero/     # Subpage hero with Ken Burns background
 │   ├── section-heading/
 │   ├── section-list/
 │   ├── solutions-grid/
 │   ├── support-channels/
+│   ├── team-grid/
 │   └── text-section/
 ├── templates/         # 14 full-page layouts (block markup)
 │   ├── front-page.html    # Homepage (8 sections)
@@ -170,15 +170,15 @@ All 18 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersio
 | `xfact/contact-form` | Contact form with email-based submission |
 | `xfact/cta-section` | Call-to-action with gradient accent line and watermark |
 | `xfact/feature-cards` | Card grid for values/features |
-| `xfact/hero` | Full-screen hero with image slideshow, video overlay, floating icon, CTA |
+| `xfact/hero` | Unified hero block with media (slideshow/video) and standard (text focus) variants |
 | `xfact/logo-strip` | Partner logo display strip |
 | `xfact/metrics-strip` | 4-metric stats row on dark background |
 | `xfact/navigation-cards` | Interactive routing cards (Other Industries) |
-| `xfact/page-hero` | Subpage hero with Ken Burns background image effect |
 | `xfact/section-heading` | Reusable section label + heading + subtitle |
 | `xfact/section-list` | Standard bulleted section list |
 | `xfact/solutions-grid` | 5-card grid of sector solutions with hover effects |
 | `xfact/support-channels` | Support channel cards with existing client CTA |
+| `xfact/team-grid` | Grid of team members for the Leadership page |
 | `xfact/text-section` | Content section with optional badge and tags |
 
 ## Customizing the Theme
@@ -379,7 +379,7 @@ Run `make help` to see all commands:
 ### Tools
 
 | Tool | Config | Purpose |
-|------|--------|---------| 
+|------|--------|---------|
 | **PHPCS** | `phpcs.xml.dist` | WordPress Coding Standards + PHPCompatibility (excludes third-party plugins) |
 | **PHPStan** | `phpstan.neon.dist` | Static analysis (level 6) with WordPress stubs |
 | **Lefthook** | `lefthook.yml` | Git pre-commit hooks |
@@ -446,7 +446,7 @@ To deploy this site from your local Docker environment to WP Engine:
    - Select your target database.
    - Click the **Import** tab.
    - Upload the `.sql` file generated in step 1 and execute the import.
-   
+
 4. **Final Steps**
    - Clear the WP Engine object and page caches in the user portal.
    - Visit your newly deployed site to verify everything is working!
