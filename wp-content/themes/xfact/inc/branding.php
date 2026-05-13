@@ -59,3 +59,62 @@ function xfact_output_favicon(): void {
 add_action( 'wp_head', 'xfact_output_favicon', 99 );
 add_action( 'admin_head', 'xfact_output_favicon', 99 );
 add_action( 'login_head', 'xfact_output_favicon', 99 );
+
+/**
+ * Output dynamic typography CSS variables and custom @font-face rules.
+ * Uses enqueue_block_assets so it works inside the block editor iframe.
+ */
+function xfact_enqueue_dynamic_fonts(): void {
+	$font_heading = xfact_get_font_heading();
+	$font_body    = xfact_get_font_body();
+	$custom_fonts = xfact_get_custom_fonts();
+
+	$heading_family = 'var(--wp--preset--font-family--' . esc_attr( $font_heading ) . ', sans-serif)';
+	$body_family    = 'var(--wp--preset--font-family--' . esc_attr( $font_body ) . ', sans-serif)';
+
+	$font_family_map = array(
+		'inter'         => "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+		'ibm-plex-mono' => "'IBM Plex Mono', monospace",
+	);
+
+	foreach ( $custom_fonts as $font ) {
+		$font_family_map[ $font['slug'] ] = "'" . esc_attr( $font['fontFamily'] ) . "'";
+	}
+
+	if ( isset( $font_family_map[ $font_heading ] ) ) {
+		$heading_family = $font_family_map[ $font_heading ];
+	}
+	if ( isset( $font_family_map[ $font_body ] ) ) {
+		$body_family = $font_family_map[ $font_body ];
+	}
+
+	$css = '';
+
+	// Output @font-face for custom fonts.
+	foreach ( $custom_fonts as $font ) {
+		$css .= "@font-face {\n";
+		$css .= "\tfont-family: '" . esc_attr( $font['fontFamily'] ) . "';\n";
+		$css .= "\tsrc: url('" . esc_url( $font['url'] ) . "') format('woff2');\n";
+		if ( ! empty( $font['weight'] ) ) {
+			$css .= "\tfont-weight: " . esc_attr( $font['weight'] ) . ";\n";
+		}
+		$css .= "\tfont-display: swap;\n";
+		$css .= "}\n";
+	}
+
+	$css .= ":root {\n";
+	$css .= "\t--wp--preset--font-family--heading: {$heading_family} !important;\n";
+	$css .= "\t--wp--preset--font-family--body: {$body_family} !important;\n";
+	$css .= "}\n";
+
+	// Ensure editor body gets the font.
+	$css .= "body {\n";
+	$css .= "\t--wp--preset--font-family--body: {$body_family} !important;\n";
+	$css .= "}\n";
+
+	wp_register_style( 'xfact-dynamic-fonts', false, array(), '1.0.0' );
+	wp_enqueue_style( 'xfact-dynamic-fonts' );
+	wp_add_inline_style( 'xfact-dynamic-fonts', $css );
+}
+add_action( 'wp_enqueue_scripts', 'xfact_enqueue_dynamic_fonts', 100 );
+add_action( 'enqueue_block_assets', 'xfact_enqueue_dynamic_fonts', 100 );

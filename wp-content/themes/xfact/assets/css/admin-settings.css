@@ -240,3 +240,20 @@
 	background: #ef4444;
 	color: #fff;
 }
+
+.xfact-custom-font-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 12px;
+	align-items: center;
+	background: #f8fafc;
+	padding: 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 6px;
+}
+
+.xfact-custom-font-row input[type="text"] {
+	flex: 1;
+	min-width: 150px;
+}

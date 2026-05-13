@@ -117,6 +117,40 @@ function xfact_render_admin_settings_page(): void {
 			$editor_dark_mode = isset( $_POST['xfact_editor_dark_mode'] ) ? true : false;
 			update_option( 'xfact_editor_dark_mode', $editor_dark_mode );
 
+			// Typography.
+			if ( isset( $_POST['xfact_font_heading'] ) ) {
+				update_option( 'xfact_font_heading', sanitize_text_field( wp_unslash( $_POST['xfact_font_heading'] ) ) );
+			}
+			if ( isset( $_POST['xfact_font_body'] ) ) {
+				update_option( 'xfact_font_body', sanitize_text_field( wp_unslash( $_POST['xfact_font_body'] ) ) );
+			}
+
+			// Process custom fonts.
+			if ( isset( $_POST['xfact_custom_fonts'] ) && is_array( $_POST['xfact_custom_fonts'] ) ) {
+				$sanitized_fonts = array();
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We sanitize individual fields below.
+				foreach ( wp_unslash( $_POST['xfact_custom_fonts'] ) as $font ) {
+					if ( empty( $font['name'] ) || empty( $font['url'] ) ) {
+						continue;
+					}
+					$slug              = sanitize_title( $font['name'] );
+					$sanitized_fonts[] = array(
+						'name'       => sanitize_text_field( $font['name'] ),
+						'slug'       => $slug,
+						'url'        => esc_url_raw( $font['url'] ),
+						'weight'     => sanitize_text_field( $font['weight'] ?? '400' ),
+						'fontFamily' => sanitize_text_field( $font['fontFamily'] ?? $font['name'] ),
+					);
+				}
+				update_option( 'xfact_custom_fonts', $sanitized_fonts );
+			} else {
+				// If submitted but empty, clear it.
+				update_option( 'xfact_custom_fonts', array() );
+			}
+
+			$editor_dark_mode = isset( $_POST['xfact_editor_dark_mode'] ) ? true : false;
+			update_option( 'xfact_editor_dark_mode', $editor_dark_mode );
+
 			echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
 		}
 	}
@@ -140,6 +174,10 @@ function xfact_render_admin_settings_page(): void {
 
 	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
 	$editor_dark_mode   = (bool) get_option( 'xfact_editor_dark_mode', false );
+
+	$font_heading = xfact_get_font_heading();
+	$font_body    = xfact_get_font_body();
+	$custom_fonts = xfact_get_custom_fonts();
 
 	$default_float_logo   = get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' );
 	$default_primary_logo = get_theme_file_uri( 'assets/images/brand/xfact-wordmark-white.png' );
@@ -217,6 +255,64 @@ function xfact_render_admin_settings_page(): void {
 						</table>
 					</div>
 				</div>
+			</div>
+
+			<!-- Typography Settings -->
+			<div class="xfact-admin-card">
+				<h2>Typography Settings</h2>
+				<p class="description">Select the font families for headings and body text. You can also upload custom fonts below.</p>
+				
+				<table class="form-table" role="presentation">
+					<tbody>
+						<tr>
+							<th scope="row"><label for="xfact_font_heading">Heading Font</label></th>
+							<td>
+								<select name="xfact_font_heading" id="xfact_font_heading">
+									<option value="inter" <?php selected( $font_heading, 'inter' ); ?>>Inter (Default)</option>
+									<option value="ibm-plex-mono" <?php selected( $font_heading, 'ibm-plex-mono' ); ?>>IBM Plex Mono</option>
+									<?php foreach ( $custom_fonts as $font ) : ?>
+										<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_heading, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="xfact_font_body">Body Font</label></th>
+							<td>
+								<select name="xfact_font_body" id="xfact_font_body">
+									<option value="inter" <?php selected( $font_body, 'inter' ); ?>>Inter</option>
+									<option value="ibm-plex-mono" <?php selected( $font_body, 'ibm-plex-mono' ); ?>>IBM Plex Mono (Default)</option>
+									<?php foreach ( $custom_fonts as $font ) : ?>
+										<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_body, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p>
+					<button type="button" class="button button-secondary" id="xfact-reset-typography-btn">Reset Typography to Default</button>
+				</p>
+
+				<hr style="margin: 24px 0; border: 0; border-top: 1px solid #e2e8f0;" />
+				
+				<h3>Custom Fonts Manager</h3>
+				<p class="description">Upload .woff2 files to register custom fonts. They will appear in the dropdowns above after saving.</p>
+
+				<div id="xfact-custom-fonts-container">
+					<?php foreach ( $custom_fonts as $index => $font ) : ?>
+						<div class="xfact-custom-font-row" data-index="<?php echo esc_attr( (string) $index ); ?>">
+							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][name]" value="<?php echo esc_attr( $font['name'] ); ?>" placeholder="Font Name (e.g. Comic Sans)" required />
+							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][fontFamily]" value="<?php echo esc_attr( $font['fontFamily'] ); ?>" placeholder="CSS font-family value" required />
+							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][weight]" value="<?php echo esc_attr( $font['weight'] ); ?>" placeholder="Weight (e.g. 400)" />
+							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][url]" class="xfact-font-url" value="<?php echo esc_attr( $font['url'] ); ?>" placeholder="URL to .woff2 file" required readonly style="width: 300px;" />
+							<button type="button" class="button button-secondary xfact-upload-font-btn">Upload .woff2</button>
+							<button type="button" class="button xfact-btn-danger xfact-remove-font-btn">Remove</button>
+						</div>
+					<?php endforeach; ?>
+				</div>
+				<button type="button" class="button button-secondary" id="xfact-add-font-btn" style="margin-top: 12px;">+ Add Custom Font</button>
 			</div>
 
 			<!-- Primary Brand Assets -->

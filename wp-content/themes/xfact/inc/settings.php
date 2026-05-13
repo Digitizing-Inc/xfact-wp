@@ -72,6 +72,28 @@ function xfact_register_settings(): void {
 			'show_in_rest'      => true,
 		)
 	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_font_heading',
+		array(
+			'type'              => 'string',
+			'default'           => 'inter',
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_font_body',
+		array(
+			'type'              => 'string',
+			'default'           => 'ibm-plex-mono',
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+		)
+	);
 }
 add_action( 'admin_init', 'xfact_register_settings' );
 
@@ -130,4 +152,32 @@ function xfact_get_favicon_url(): string {
 		return $custom;
 	}
 	return get_theme_file_uri( 'assets/images/brand/favicon.ico' );
+}
+
+/**
+ * Get the resolved heading font slug.
+ *
+ * @return string Font slug.
+ */
+function xfact_get_font_heading(): string {
+	return get_option( 'xfact_font_heading', 'inter' );
+}
+
+/**
+ * Get the resolved body font slug.
+ *
+ * @return string Font slug.
+ */
+function xfact_get_font_body(): string {
+	return get_option( 'xfact_font_body', 'ibm-plex-mono' );
+}
+
+/**
+ * Get custom fonts array.
+ *
+ * @return array<int, array<string, string>> Array of custom fonts.
+ */
+function xfact_get_custom_fonts(): array {
+	$fonts = get_option( 'xfact_custom_fonts', array() );
+	return is_array( $fonts ) ? $fonts : array();
 }
