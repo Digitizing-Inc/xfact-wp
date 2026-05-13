@@ -50,13 +50,9 @@
 				}
 			]
 		},
-		"assessmentButtonLabel": {
-			"type": "string",
-			"default": "Request an Assessment"
-		},
-		"assessmentButtonHref": {
-			"type": "string",
-			"default": "#assessment"
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"formId": {
 			"type": "string",

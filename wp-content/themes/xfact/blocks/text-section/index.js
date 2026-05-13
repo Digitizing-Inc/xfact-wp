@@ -116,6 +116,7 @@
 			var set = props.setAttributes;
 			var tags = attr.tags || [];
 			var keyMessages = attr.keyMessages || [];
+			var buttons = attr.buttons || [];
 
 			var controls = [
 				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); }, help: 'Used for deep links, e.g. /solutions#public-safety' } ),
@@ -134,10 +135,14 @@
 				attr.sectionImage
 					? el( h.TextControl, { key: 'sectionImageAlt', label: 'Section Image Alt Text', value: attr.sectionImageAlt, onChange: function ( v ) { set( { sectionImageAlt: v } ); } } )
 					: null,
-				el( h.TextControl, { key: 'linkText', label: 'Link Text', value: attr.linkText || '', onChange: function ( v ) { set( { linkText: v } ); } } ),
-				el( h.TextControl, { key: 'linkUrl', label: 'Link URL', value: attr.linkUrl || '', onChange: function ( v ) { set( { linkUrl: v } ); } } ),
-				el( h.ToggleControl, { key: 'linkIsButton', label: 'Style Link as Button', checked: attr.linkIsButton, onChange: function ( v ) { set( { linkIsButton: v } ); } } ),
 			];
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
 			/* Tags section */
 			if ( tags.length > 0 ) {

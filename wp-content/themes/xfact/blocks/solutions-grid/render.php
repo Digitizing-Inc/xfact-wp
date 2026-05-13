@@ -9,12 +9,11 @@
 
 declare(strict_types=1);
 
-$label        = $attributes['sectionLabel'] ?? '';
-$heading      = $attributes['heading'] ?? '';
-$subtitle     = $attributes['subtitle'] ?? '';
-$sectors      = $attributes['sectors'] ?? array();
-$button_label = $attributes['buttonLabel'] ?? '';
-$button_href  = $attributes['buttonHref'] ?? '/solutions';
+$label    = $attributes['sectionLabel'] ?? '';
+$heading  = $attributes['heading'] ?? '';
+$subtitle = $attributes['subtitle'] ?? '';
+$sectors  = $attributes['sectors'] ?? array();
+$buttons  = $attributes['buttons'] ?? array();
 
 /* Default sectors if none configured */
 if ( empty( $sectors ) ) {
@@ -121,11 +120,29 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				<?php endforeach; ?>
 			</div>
 
-			<?php if ( $button_label ) : ?>
+			<?php if ( ! empty( $buttons ) ) : ?>
 				<div class="xfact-solutions-grid__cta">
-					<a href="<?php echo esc_url( $button_href ); ?>" class="xfact-btn-secondary xfact-btn-default">
-						<?php echo esc_html( $button_label ); ?>
-					</a>
+					<?php
+					foreach ( $buttons as $btn ) :
+						$btn_label   = $btn['label'] ?? '';
+						$btn_url     = $btn['url'] ?? '';
+						$btn_variant = $btn['variant'] ?? 'secondary';
+
+						$link_class = 'xfact-btn-link';
+						if ( 'primary' === $btn_variant ) {
+							$link_class = 'xfact-gradient-button xfact-btn-default';
+						} elseif ( 'secondary' === $btn_variant ) {
+							$link_class = 'xfact-btn-secondary xfact-btn-default'; }
+
+						if ( $btn_label ) :
+							?>
+						<a href="<?php echo esc_url( $btn_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
+							<?php echo esc_html( $btn_label ); ?>
+						</a>
+							<?php
+						endif;
+					endforeach;
+					?>
 				</div>
 			<?php endif; ?>
 

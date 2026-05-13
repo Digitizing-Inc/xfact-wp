@@ -9,12 +9,8 @@
 
 declare(strict_types=1);
 
-$heading      = $attributes['heading'] ?? '';
-$channels     = $attributes['channels'] ?? array();
-$ec_heading   = $attributes['existingClientHeading'] ?? '';
-$ec_desc      = $attributes['existingClientDescription'] ?? '';
-$ec_btn_label = $attributes['existingClientButtonLabel'] ?? '';
-$ec_btn_href  = $attributes['existingClientButtonHref'] ?? '';
+$heading  = $attributes['heading'] ?? '';
+$channels = $attributes['channels'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array( 'class' => 'xfact-support-channels xfact-section xfact-section-border' )
@@ -49,30 +45,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				</div>
 			<?php endif; ?>
 
-			<?php if ( $ec_heading ) : ?>
-				</div>
-			</div>
-		</section>
-		<section class="xfact-support-channels__existing-section xfact-section xfact-section-border">
-			<div class="xfact-container">
-				<div class="xfact-fade-in xfact-support-channels__existing-inner">
-					<h2 class="xfact-support-channels__existing-heading xfact-section-heading"><?php echo esc_html( $ec_heading ); ?></h2>
-					<p class="xfact-support-channels__existing-desc xfact-section-subtitle" style="margin-top: 1rem;"><?php echo esc_html( $ec_desc ); ?></p>
-					<?php if ( $ec_btn_label ) : ?>
-						<div class="xfact-support-channels__existing-cta">
-							<a href="<?php echo esc_url( $ec_btn_href ); ?>" class="xfact-gradient-button xfact-btn-lg">
-								<?php echo esc_html( $ec_btn_label ); ?>
-							</a>
-						</div>
-					<?php endif; ?>
-				</div>
-			</div>
-
-				<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
-		</section>
-			<?php else : ?>
-				<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
+			<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
 		</div>
 	</div>
 </section>
-			<?php endif; ?>

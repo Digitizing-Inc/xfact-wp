@@ -80,14 +80,8 @@
 				}, '+ Add Channel' )
 			);
 
-			/* Existing client section */
 			controls.push(
 				el( 'hr', { key: 'client-sep', style: { margin: '24px 0', borderTopWidth: '2px' } } ),
-				el( 'strong', { key: 'client-hdr', style: { display: 'block', marginBottom: '12px', fontSize: '13px' } }, '📋 Existing Client Panel' ),
-				el( h.TextControl, { key: 'ecHeading', label: 'Existing Client Heading', value: attr.existingClientHeading, onChange: function ( v ) { set( { existingClientHeading: v } ); } } ),
-				el( h.TextareaControl, { key: 'ecDesc', label: 'Existing Client Description', value: attr.existingClientDescription, onChange: function ( v ) { set( { existingClientDescription: v } ); } } ),
-				el( h.TextControl, { key: 'ecBtnLabel', label: 'Existing Client Button Label', value: attr.existingClientButtonLabel, onChange: function ( v ) { set( { existingClientButtonLabel: v } ); } } ),
-				el( h.TextControl, { key: 'ecBtnHref', label: 'Existing Client Button Link', value: attr.existingClientButtonHref, onChange: function ( v ) { set( { existingClientButtonHref: v } ); } } ),
 				h.imageControl( 'Section Image', attr.sectionImage,
 					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
 					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),

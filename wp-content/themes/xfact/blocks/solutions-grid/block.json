@@ -25,13 +25,9 @@
 			"type": "array",
 			"default": []
 		},
-		"buttonLabel": {
-			"type": "string",
-			"default": "Explore our solutions →"
-		},
-		"buttonHref": {
-			"type": "string",
-			"default": "/solutions"
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"sectionImage": {
 			"type": "string",

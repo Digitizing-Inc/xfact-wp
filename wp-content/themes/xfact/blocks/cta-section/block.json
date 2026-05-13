@@ -17,21 +17,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"primaryLabel": {
-			"type": "string",
-			"default": "Contact xFact"
-		},
-		"primaryHref": {
-			"type": "string",
-			"default": "/contact"
-		},
-		"secondaryLabel": {
-			"type": "string",
-			"default": ""
-		},
-		"secondaryHref": {
-			"type": "string",
-			"default": ""
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"backgroundImage": {
 			"type": "string",

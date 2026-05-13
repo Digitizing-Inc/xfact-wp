@@ -57,13 +57,12 @@
 			var attr = props.attributes;
 			var set = props.setAttributes;
 			var items = attr.items || [];
+			var buttons = attr.buttons || [];
 
 			var controls = [
 				el( h.TextControl, { key: 'anchor', label: 'Section ID (HTML Anchor)', value: attr.anchor || '', onChange: function ( v ) { set( { anchor: v } ); } } ),
 				el( 'hr', { key: 'sep1', style: { margin: '16px 0', opacity: 0.3 } } ),
 				el( h.TextControl, { key: 'heading', label: 'Section Heading', value: attr.heading || '', onChange: function ( v ) { set( { heading: v } ); } } ),
-				el( h.TextControl, { key: 'buttonLabel', label: 'CTA Button Label (Optional)', value: attr.buttonLabel || '', onChange: function ( v ) { set( { buttonLabel: v } ); } } ),
-				el( h.TextControl, { key: 'buttonHref', label: 'CTA Button URL (Optional)', value: attr.buttonHref || '', onChange: function ( v ) { set( { buttonHref: v } ); } } ),
 			];
 
 			if ( items.length > 0 ) {
@@ -81,6 +80,13 @@
 					style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
 				}, '+ Add Navigation Card' )
 			);
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
 			return controls;
 		} ),

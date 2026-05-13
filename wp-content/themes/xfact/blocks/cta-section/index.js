@@ -11,8 +11,9 @@
 		edit: h.createEdit( 'xfact/cta-section', 'CTA Settings', function ( props ) {
 			var attr = props.attributes;
 			var set = props.setAttributes;
+			var buttons = attr.buttons || [];
 
-			return [
+			var controls = [
 				el( h.TextControl, {
 					key: 'title',
 					label: 'Title',
@@ -25,30 +26,7 @@
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-				el( h.TextControl, {
-					key: 'primaryLabel',
-					label: 'Primary Button Label',
-					value: attr.primaryLabel,
-					onChange: function ( v ) { set( { primaryLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'primaryHref',
-					label: 'Primary Button Link',
-					value: attr.primaryHref,
-					onChange: function ( v ) { set( { primaryHref: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'secondaryLabel',
-					label: 'Secondary Button Label',
-					value: attr.secondaryLabel,
-					onChange: function ( v ) { set( { secondaryLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'secondaryHref',
-					label: 'Secondary Button Link',
-					value: attr.secondaryHref,
-					onChange: function ( v ) { set( { secondaryHref: v } ); },
-				} ),
+
 				h.imageControl(
 					'Background Image',
 					attr.backgroundImage,
@@ -74,11 +52,14 @@
 					options: [
 						{ label: 'Dark (Default)', value: 'dark' },
 						{ label: 'Light', value: 'light' },
+						{ label: 'Transparent', value: 'default' },
 					],
 					onChange: function ( v ) { 
 						var updates = { variant: v };
 						if ( v === 'light' ) {
 							updates.backgroundColor = 'surface-alt';
+						} else if ( v === 'default' ) {
+							updates.backgroundColor = '';
 						} else {
 							updates.backgroundColor = 'dark-section';
 						}
@@ -86,6 +67,15 @@
 					},
 				} ),
 			];
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
+
+			return controls;
 		} ),
 		save: function () { return null; },
 	} );

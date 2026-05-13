@@ -16,13 +16,9 @@
 			"type": "array",
 			"default": []
 		},
-		"buttonLabel": {
-			"type": "string",
-			"default": ""
-		},
-		"buttonHref": {
-			"type": "string",
-			"default": ""
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"align": {
 			"type": "string",

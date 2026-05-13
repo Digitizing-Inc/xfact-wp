@@ -74,24 +74,16 @@
     color: var(--xfact-accent-dark);
 }
 
-/* ── Outline Light Button ──────────────────────────────── */
 
-.xfact-btn-outline-light {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    transition: all 0.2s;
-    border-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+/* ── Secondary Contextual (Dark Section) ───────────────── */
+
+.xfact-dark-section .xfact-btn-secondary {
+    border-color: rgba(255, 255, 255, 0.5);
     color: #ffffff;
-    background: transparent;
-    text-decoration: none;
 }
 
-.xfact-btn-outline-light:hover {
+.xfact-dark-section .xfact-btn-secondary:hover {
     background: #ffffff;
     color: var(--xfact-accent-darkest);
     border-color: #ffffff;
 }
-

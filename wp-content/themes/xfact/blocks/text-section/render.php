@@ -87,16 +87,31 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 					<?php endif; ?>
 
 					<?php
-					$link_text  = $attributes['linkText'] ?? '';
-					$link_url   = $attributes['linkUrl'] ?? '';
-					$is_button  = ! empty( $attributes['linkIsButton'] );
-					$link_class = $is_button ? 'xfact-gradient-button wp-block-button__link wp-element-button xfact-btn-lg' : 'xfact-text-section__link';
-					if ( $link_text && $link_url ) :
+					$buttons = $attributes['buttons'] ?? array();
+					if ( ! empty( $buttons ) ) :
 						?>
-						<div class="xfact-text-section__action<?php echo $is_button ? ' xfact-text-section__action--button' : ''; ?>">
-							<a href="<?php echo esc_url( $link_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
-								<?php echo esc_html( $link_text ); ?>
-							</a>
+						<div class="xfact-text-section__action xfact-text-section__action--button">
+							<?php
+							foreach ( $buttons as $btn ) :
+								$btn_label   = $btn['label'] ?? '';
+								$btn_url     = $btn['url'] ?? '';
+								$btn_variant = $btn['variant'] ?? 'primary';
+
+								$link_class = 'xfact-text-section__link';
+								if ( 'primary' === $btn_variant ) {
+									$link_class = 'xfact-gradient-button wp-block-button__link wp-element-button xfact-btn-lg';
+								} elseif ( 'secondary' === $btn_variant ) {
+									$link_class = 'xfact-btn-secondary xfact-btn-lg'; }
+
+								if ( $btn_label ) :
+									?>
+								<a href="<?php echo esc_url( $btn_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
+									<?php echo esc_html( $btn_label ); ?>
+								</a>
+									<?php
+								endif;
+							endforeach;
+							?>
 						</div>
 					<?php endif; ?>
 

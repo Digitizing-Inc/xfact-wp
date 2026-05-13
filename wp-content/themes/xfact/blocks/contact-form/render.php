@@ -16,8 +16,7 @@ $assess_label     = $attributes['assessmentLabel'] ?? '';
 $assess_heading   = $attributes['assessmentHeading'] ?? '';
 $assess_desc      = $attributes['assessmentDescription'] ?? '';
 $assess_checklist = $attributes['assessmentChecklist'] ?? array();
-$assess_btn_label = $attributes['assessmentButtonLabel'] ?? '';
-$assess_btn_href  = $attributes['assessmentButtonHref'] ?? '#';
+$buttons          = $attributes['buttons'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array( 'class' => 'xfact-contact-form xfact-section xfact-section-border' )
@@ -95,10 +94,30 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							</ul>
 						<?php endif; ?>
 
-						<?php if ( $assess_btn_label ) : ?>
-							<a href="<?php echo esc_url( $assess_btn_href ); ?>" class="xfact-btn-secondary xfact-btn-default xfact-contact-form__assess-btn">
-								<?php echo esc_html( $assess_btn_label ); ?>
-							</a>
+						<?php if ( ! empty( $buttons ) ) : ?>
+							<div class="xfact-contact-form__buttons" style="margin-top: 1.5rem;">
+								<?php
+								foreach ( $buttons as $btn ) :
+									$btn_label   = $btn['label'] ?? '';
+									$btn_url     = $btn['url'] ?? '';
+									$btn_variant = $btn['variant'] ?? 'secondary';
+
+									$link_class = 'xfact-btn-link';
+									if ( 'primary' === $btn_variant ) {
+										$link_class = 'xfact-gradient-button xfact-btn-default xfact-contact-form__assess-btn';
+									} elseif ( 'secondary' === $btn_variant ) {
+										$link_class = 'xfact-btn-secondary xfact-btn-default xfact-contact-form__assess-btn'; }
+
+									if ( $btn_label ) :
+										?>
+									<a href="<?php echo esc_url( $btn_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
+										<?php echo esc_html( $btn_label ); ?>
+									</a>
+										<?php
+									endif;
+								endforeach;
+								?>
+							</div>
 						<?php endif; ?>
 					</div>
 				</div>

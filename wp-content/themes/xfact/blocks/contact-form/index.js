@@ -57,6 +57,7 @@
 		edit: h.createEdit( 'xfact/contact-form', 'Contact Form Settings', function ( props ) {
 			var attr = props.attributes;
 			var set = props.setAttributes;
+			var buttons = attr.buttons || [];
 
 			var controls = [
 				el( h.TextControl, {
@@ -103,18 +104,7 @@
 					value: attr.assessmentDescription,
 					onChange: function ( v ) { set( { assessmentDescription: v } ); },
 				} ),
-				el( h.TextControl, {
-					key: 'assessmentButtonLabel',
-					label: 'Assessment Button Label',
-					value: attr.assessmentButtonLabel,
-					onChange: function ( v ) { set( { assessmentButtonLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'assessmentButtonHref',
-					label: 'Assessment Button URL',
-					value: attr.assessmentButtonHref,
-					onChange: function ( v ) { set( { assessmentButtonHref: v } ); },
-				} ),
+
 				h.imageControl(
 					'Section Image',
 					attr.sectionImage,
@@ -141,6 +131,13 @@
 					style: { width: '100%', justifyContent: 'center' },
 				}, '+ Add Checklist Item' )
 			);
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Assessment Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
 			return controls;
 		} ),

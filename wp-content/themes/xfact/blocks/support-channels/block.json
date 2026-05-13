@@ -33,22 +33,6 @@
 				}
 			]
 		},
-		"existingClientHeading": {
-			"type": "string",
-			"default": "Existing Client?"
-		},
-		"existingClientDescription": {
-			"type": "string",
-			"default": "Access your support portal to submit tickets, track issues, and review service history."
-		},
-		"existingClientButtonLabel": {
-			"type": "string",
-			"default": "Open Support Portal"
-		},
-		"existingClientButtonHref": {
-			"type": "string",
-			"default": "https://portal.dataservtech.com/"
-		},
 		"sectionImage": {
 			"type": "string",
 			"default": ""

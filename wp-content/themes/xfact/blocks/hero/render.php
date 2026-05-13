@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 $hero_title   = $attributes['title'] ?? '';
 $subtitle     = $attributes['subtitle'] ?? '';
-$cta_label    = $attributes['ctaLabel'] ?? '';
-$cta_href     = $attributes['ctaHref'] ?? '/contact';
+$buttons      = $attributes['buttons'] ?? array();
 $video_url    = $attributes['videoUrl'] ?? '';
 $poster_image = $attributes['posterImage'] ?? '';
 $slides       = $attributes['slides'] ?? array();
@@ -63,7 +62,7 @@ $rendered_title = wp_kses_post(
 );
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-hero' )
+	array( 'class' => 'xfact-hero xfact-dark-section' )
 );
 ?>
 
@@ -99,11 +98,29 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			<div class="xfact-hero__text">
 				<h1 class="xfact-hero__title"><?php echo wp_kses_post( $rendered_title ); ?></h1>
 				<p class="xfact-hero__subtitle"><?php echo esc_html( $subtitle ); ?></p>
-				<?php if ( $cta_label ) : ?>
+				<?php if ( ! empty( $buttons ) ) : ?>
 					<div class="xfact-hero__cta">
-						<a href="<?php echo esc_url( $cta_href ); ?>" class="xfact-gradient-button xfact-btn-lg">
-							<?php echo esc_html( $cta_label ); ?>
-						</a>
+						<?php
+						foreach ( $buttons as $btn ) :
+							$btn_label   = $btn['label'] ?? '';
+							$btn_url     = $btn['url'] ?? '';
+							$btn_variant = $btn['variant'] ?? 'primary';
+
+							$link_class = 'xfact-btn-link';
+							if ( 'primary' === $btn_variant ) {
+								$link_class = 'xfact-gradient-button xfact-btn-lg';
+							} elseif ( 'secondary' === $btn_variant ) {
+								$link_class = 'xfact-btn-secondary xfact-btn-lg'; }
+
+							if ( $btn_label ) :
+								?>
+							<a href="<?php echo esc_url( $btn_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
+								<?php echo esc_html( $btn_label ); ?>
+							</a>
+								<?php
+							endif;
+						endforeach;
+						?>
 					</div>
 				<?php endif; ?>
 			</div>

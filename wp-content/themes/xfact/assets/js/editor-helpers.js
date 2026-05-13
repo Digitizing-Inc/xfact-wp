@@ -622,6 +622,115 @@
 		);
 	}
 
+	/**
+	 * Build controls for an array of buttons.
+	 *
+	 * @param {Array}    buttons    The current array of buttons.
+	 * @param {Function} set        The setAttributes function.
+	 * @param {string}   attributeName The name of the attribute (e.g. 'buttons').
+	 * @return {Array} React elements.
+	 */
+	function buttonArrayControls( buttons, set, attributeName ) {
+		var attrName = attributeName || 'buttons';
+		var safeButtons = buttons || [];
+		
+		var controls = [];
+		if ( safeButtons.length > 0 ) {
+			safeButtons.forEach( function ( btn, i ) {
+				function update( key, value ) {
+					var arr = safeButtons.slice();
+					arr[ i ] = Object.assign( {}, arr[ i ] );
+					arr[ i ][ key ] = value;
+					var updates = {};
+					updates[ attrName ] = arr;
+					set( updates );
+				}
+				function remove() {
+					var arr = safeButtons.slice();
+					arr.splice( i, 1 );
+					var updates = {};
+					updates[ attrName ] = arr;
+					set( updates );
+				}
+				function moveItem( fromIndex, toIndex, intent ) {
+					var arr = safeButtons.slice();
+					if ( intent === 'swap' ) {
+						var temp = arr[fromIndex];
+						arr[fromIndex] = arr[toIndex];
+						arr[toIndex] = temp;
+					} else {
+						var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+						if ( insertAt > fromIndex ) insertAt--;
+						var itm = arr.splice( fromIndex, 1 )[ 0 ];
+						arr.splice( insertAt, 0, itm );
+					}
+					var updates = {};
+					updates[ attrName ] = arr;
+					set( updates );
+				}
+				
+				controls.push(
+					el( ArrayItemWrapper, {
+						key: attrName + '-item-' + i,
+						index: i,
+						total: safeButtons.length,
+						label: 'Button ' + ( i + 1 ),
+						titleText: btn.label || 'New Button',
+						onRemove: remove,
+						onMoveItem: moveItem
+					},
+						el( TextControl, {
+							label: 'Label',
+							value: btn.label || '',
+							onChange: function ( v ) { update( 'label', v ); },
+						} ),
+						el( TextControl, {
+							label: 'URL',
+							value: btn.url || '',
+							onChange: function ( v ) { update( 'url', v ); },
+						} ),
+						el( SelectControl, {
+							label: 'Variant',
+							value: btn.variant || 'primary',
+							options: [
+								{ label: 'Primary (Gradient)', value: 'primary' },
+								{ label: 'Secondary (Outline)', value: 'secondary' },
+								{ label: 'Text Link', value: 'link' },
+							],
+							onChange: function ( v ) { update( 'variant', v ); },
+						} )
+					)
+				);
+			} );
+		}
+
+		controls.push(
+			el( Button, {
+				key: attrName + '-add',
+				onClick: function () { 
+					var arr = safeButtons.slice();
+					arr.push( { label: 'New Button', url: '', variant: 'primary' } );
+					var updates = {};
+					updates[ attrName ] = arr;
+					set( updates ); 
+				},
+				variant: 'secondary',
+				style: { width: '100%', justifyContent: 'center', marginTop: '8px' },
+			}, '+ Add Button' )
+		);
+
+		return controls;
+	}
+
+	/**
+	 * Build controls for an array of buttons.
+	 *
+	 * @param {Array}    buttons    The current array of buttons.
+	 * @param {Function} set        The setAttributes function.
+	 * @param {string}   attributeName The name of the attribute (e.g. 'buttons').
+	 * @return {Array} React elements.
+	 */
+
 	// Expose to window for use by individual block scripts.
 	window.xfactBlockHelpers = {
 		el: el,
@@ -646,5 +755,6 @@
 		ComboboxControl: ComboboxControl,
 		useSelect: useSelect,
 		ServerSideRender: SSR,
+		buttonArrayControls: buttonArrayControls,
 	};
 } )();

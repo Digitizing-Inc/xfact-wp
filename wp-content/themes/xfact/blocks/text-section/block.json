@@ -49,17 +49,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"linkText": {
-			"type": "string",
-			"default": ""
-		},
-		"linkUrl": {
-			"type": "string",
-			"default": ""
-		},
-		"linkIsButton": {
-			"type": "boolean",
-			"default": false
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"useAltBackground": {
 			"type": "boolean",

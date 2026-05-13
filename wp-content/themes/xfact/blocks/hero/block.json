@@ -17,13 +17,9 @@
 			"type": "string",
 			"default": "xFact partners with public institutions to design, integrate, secure, and sustain mission-critical technology systems."
 		},
-		"ctaLabel": {
-			"type": "string",
-			"default": "Let's Talk"
-		},
-		"ctaHref": {
-			"type": "string",
-			"default": "/contact"
+		"buttons": {
+			"type": "array",
+			"default": []
 		},
 		"videoUrl": {
 			"type": "string",

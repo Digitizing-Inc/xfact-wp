@@ -12,8 +12,9 @@
 			var attr = props.attributes;
 			var set = props.setAttributes;
 			var slides = attr.slides || [];
+			var buttons = attr.buttons || [];
 
-			return [
+			var controls = [
 				el( h.TextControl, {
 					key: 'title',
 					label: 'Title (use <accent>…</accent> for accent)',
@@ -26,18 +27,7 @@
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-				el( h.TextControl, {
-					key: 'ctaLabel',
-					label: 'CTA Button Label',
-					value: attr.ctaLabel,
-					onChange: function ( v ) { set( { ctaLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'ctaHref',
-					label: 'CTA Button Link',
-					value: attr.ctaHref,
-					onChange: function ( v ) { set( { ctaHref: v } ); },
-				} ),
+
 				h.imageControl(
 					'Video Poster Image',
 					attr.posterImage,
@@ -76,6 +66,15 @@
 					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
 				} ),
 			];
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
+
+			return controls;
 		} ),
 		save: function () { return null; },
 	} );

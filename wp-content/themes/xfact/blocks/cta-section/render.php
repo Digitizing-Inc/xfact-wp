@@ -9,22 +9,20 @@
 
 declare(strict_types=1);
 
-$cta_title       = $attributes['title'] ?? '';
-$subtitle        = $attributes['subtitle'] ?? '';
-$primary_label   = $attributes['primaryLabel'] ?? '';
-$primary_href    = $attributes['primaryHref'] ?? '/contact';
-$secondary_label = $attributes['secondaryLabel'] ?? '';
-$secondary_href  = $attributes['secondaryHref'] ?? '';
+$cta_title = $attributes['title'] ?? '';
+$subtitle  = $attributes['subtitle'] ?? '';
+$buttons   = $attributes['buttons'] ?? array();
 
-$variant = $attributes['variant'] ?? 'dark';
-
-$is_light = 'light' === $variant;
+$variant    = $attributes['variant'] ?? 'dark';
+$is_light   = 'light' === $variant;
+$is_default = 'default' === $variant;
 
 $classes = array( 'xfact-cta-section', 'xfact-section-lg' );
+
 if ( $is_light ) {
 	$classes[] = 'xfact-bg-alt';
 	$classes[] = 'xfact-border-top';
-} else {
+} elseif ( ! $is_default ) {
 	$classes[] = 'xfact-dark-section';
 }
 
@@ -52,25 +50,50 @@ $bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) 
 
 	<div class="xfact-container">
 		<div class="xfact-cta-section__inner xfact-fade-in">
-			<h2 class="xfact-cta-section__title <?php echo $is_light ? 'xfact-text' : ''; ?>"><?php echo esc_html( $cta_title ); ?></h2>
+			<?php
+			$title_class = $is_light ? 'xfact-text' : '';
+			if ( $title_class ) {
+				$title_class = ' ' . $title_class;
+			}
+			?>
+			<h2 class="xfact-cta-section__title<?php echo esc_attr( $title_class ); ?>"><?php echo esc_html( $cta_title ); ?></h2>
 
-			<?php if ( $subtitle ) : ?>
-				<p class="xfact-cta-section__subtitle <?php echo $is_light ? 'xfact-text-secondary' : ''; ?>"><?php echo esc_html( $subtitle ); ?></p>
+			<?php
+			if ( $subtitle ) :
+				$subtitle_class = $is_light ? 'xfact-text-secondary' : '';
+				if ( $subtitle_class ) {
+					$subtitle_class = ' ' . $subtitle_class;
+				}
+				$subtitle_style = '';
+				?>
+				<p class="xfact-cta-section__subtitle<?php echo esc_attr( $subtitle_class ); ?>"<?php echo $subtitle_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $subtitle ); ?></p>
 			<?php endif; ?>
 
-			<div class="xfact-cta-section__buttons">
-				<?php if ( $primary_label ) : ?>
-					<a href="<?php echo esc_url( $primary_href ); ?>" class="xfact-gradient-button xfact-btn-lg">
-						<?php echo esc_html( $primary_label ); ?>
-					</a>
-				<?php endif; ?>
+			<?php if ( ! empty( $buttons ) ) : ?>
+				<div class="xfact-cta-section__buttons">
+					<?php
+					foreach ( $buttons as $btn ) :
+						$btn_label   = $btn['label'] ?? '';
+						$btn_url     = $btn['url'] ?? '';
+						$btn_variant = $btn['variant'] ?? 'primary';
 
-				<?php if ( $secondary_label ) : ?>
-					<a href="<?php echo esc_url( $secondary_href ); ?>" class="<?php echo $is_light ? 'xfact-btn-secondary' : 'xfact-btn-outline-light'; ?> xfact-btn-lg">
-						<?php echo esc_html( $secondary_label ); ?>
-					</a>
-				<?php endif; ?>
-			</div>
+						$link_class = 'xfact-btn-link';
+						if ( 'primary' === $btn_variant ) {
+							$link_class = 'xfact-gradient-button xfact-btn-lg';
+						} elseif ( 'secondary' === $btn_variant ) {
+							$link_class = 'xfact-btn-secondary xfact-btn-lg'; }
+
+						if ( $btn_label ) :
+							?>
+						<a href="<?php echo esc_url( $btn_url ); ?>" class="<?php echo esc_attr( $link_class ); ?>">
+							<?php echo esc_html( $btn_label ); ?>
+						</a>
+							<?php
+						endif;
+					endforeach;
+					?>
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 

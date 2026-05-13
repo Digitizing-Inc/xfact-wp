@@ -100,6 +100,7 @@
 			var attr = props.attributes;
 			var set = props.setAttributes;
 			var sectors = attr.sectors || [];
+			var buttons = attr.buttons || [];
 
 			/* ── Section-level controls ── */
 			var controls = [
@@ -121,18 +122,7 @@
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-				el( h.TextControl, {
-					key: 'buttonLabel',
-					label: 'Button Label',
-					value: attr.buttonLabel,
-					onChange: function ( v ) { set( { buttonLabel: v } ); },
-				} ),
-				el( h.TextControl, {
-					key: 'buttonHref',
-					label: 'Button Link',
-					value: attr.buttonHref,
-					onChange: function ( v ) { set( { buttonHref: v } ); },
-				} ),
+
 				h.imageControl(
 					'Section Image',
 					attr.sectionImage,
@@ -159,6 +149,13 @@
 					style: { width: '100%', justifyContent: 'center' },
 				}, '+ Add Card' )
 			);
+
+			/* Buttons section */
+			controls.push(
+				el( 'hr', { key: 'buttons-sep', style: { margin: '16px 0', opacity: 0.3 } } ),
+				el( 'strong', { key: 'buttons-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Buttons (' + buttons.length + ')' )
+			);
+			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
 			return controls;
 		} ),
