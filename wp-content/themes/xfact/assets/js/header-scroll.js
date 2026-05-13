@@ -28,6 +28,30 @@
 
 		var isAdminBar = document.body.classList.contains( 'admin-bar' );
 
+		/* Active Navigation State logic */
+		var currentPath = window.location.pathname.replace(/\/+$/, '');
+		if (currentPath === '') currentPath = '/';
+
+		var navLinks = header.querySelectorAll( 'nav.wp-block-navigation a' );
+		navLinks.forEach( function( link ) {
+			try {
+				var linkPath = new URL( link.href, window.location.origin ).pathname.replace(/\/+$/, '');
+				if (linkPath === '') linkPath = '/';
+
+				// Highlight if it's an exact match
+				if ( linkPath === currentPath ) {
+					link.setAttribute( 'aria-current', 'page' );
+					
+					// Also mark parent if it's a submenu
+					var parentMenuItem = link.closest( '.wp-block-navigation-item.has-child' );
+					if ( parentMenuItem ) {
+						parentMenuItem.classList.add( 'current-menu-ancestor' );
+					}
+				}
+			} catch ( e ) {}
+		} );
+
+
 		function onScroll() {
 			var scrollY = window.scrollY;
 

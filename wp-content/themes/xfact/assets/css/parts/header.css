@@ -221,7 +221,67 @@ body.has-hero-header .wp-site-blocks {
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item:hover
-    > .wp-block-navigation__submenu-icon {
+    > .wp-block-navigation__submenu-icon,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a[aria-current="page"],
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a[aria-current="page"] *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > a,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > a *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
+    > a,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
+    > a *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content[aria-current="page"],
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content[aria-current="page"] *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > .wp-block-navigation-item__content,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > .wp-block-navigation-item__content *,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
+    > .wp-block-navigation-item__content,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
+    > .wp-block-navigation-item__content * {
     color: #fff !important;
 }
 
@@ -254,6 +314,36 @@ body.has-hero-header .wp-site-blocks {
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item:hover
+    > .wp-block-navigation-item__content::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > a[aria-current="page"]::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > a::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
+    > a::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item
+    > .wp-block-navigation-item__content[aria-current="page"]::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-item
+    > .wp-block-navigation-item__content::after,
+.xfact-header
+    nav.wp-block-navigation
+    > .wp-block-navigation__container
+    > .wp-block-navigation-item.current-menu-ancestor
     > .wp-block-navigation-item__content::after {
     width: 100%;
 }

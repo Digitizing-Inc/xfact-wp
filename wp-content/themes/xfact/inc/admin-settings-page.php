@@ -114,9 +114,6 @@ function xfact_render_admin_settings_page(): void {
 			$show = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
 			update_option( 'xfact_show_floating_logo', $show );
 
-			$editor_dark_mode = isset( $_POST['xfact_editor_dark_mode'] ) ? true : false;
-			update_option( 'xfact_editor_dark_mode', $editor_dark_mode );
-
 			// Typography.
 			if ( isset( $_POST['xfact_font_heading'] ) ) {
 				update_option( 'xfact_font_heading', sanitize_text_field( wp_unslash( $_POST['xfact_font_heading'] ) ) );
@@ -148,9 +145,6 @@ function xfact_render_admin_settings_page(): void {
 				update_option( 'xfact_custom_fonts', array() );
 			}
 
-			$editor_dark_mode = isset( $_POST['xfact_editor_dark_mode'] ) ? true : false;
-			update_option( 'xfact_editor_dark_mode', $editor_dark_mode );
-
 			echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
 		}
 	}
@@ -173,7 +167,6 @@ function xfact_render_admin_settings_page(): void {
 	$favicon_url       = get_option( 'xfact_favicon_url', '' );
 
 	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
-	$editor_dark_mode   = (bool) get_option( 'xfact_editor_dark_mode', false );
 
 	$font_heading = xfact_get_font_heading();
 	$font_body    = xfact_get_font_body();
@@ -188,235 +181,321 @@ function xfact_render_admin_settings_page(): void {
 	?>
 	<div class="wrap xfact-admin-settings">
 		<h1>xFact Branding & Settings</h1>
-		<form method="post" style="margin-top: 24px;">
+		
+		<form method="post" id="xfact-settings-form">
 			<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>
-
-			<!-- Theme Colors -->
-			<div class="xfact-admin-card">
-				<h2>Theme Colors</h2>
-				<p class="description">Configure the primary branding colors for both Light and Dark modes. These variables power all Gutenberg blocks globally.</p>
-				
-				<div class="xfact-palette-container">
-					<!-- Light Mode Palette -->
-					<div class="xfact-palette">
-						<h3>Light Mode</h3>
-						<table class="form-table" role="presentation">
-							<tbody>
-								<tr>
-									<th scope="row"><label for="xfact_color_bg">Background</label></th>
-									<td><input type="text" name="xfact_color_bg" id="xfact_color_bg" value="<?php echo esc_attr( $c_bg ); ?>" class="xfact-color-picker" data-default-color="#f5f7fa" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_bg_alt">Surface / Cards</label></th>
-									<td><input type="text" name="xfact_color_bg_alt" id="xfact_color_bg_alt" value="<?php echo esc_attr( $c_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#ffffff" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_text">Primary Text</label></th>
-									<td><input type="text" name="xfact_color_text" id="xfact_color_text" value="<?php echo esc_attr( $c_text ); ?>" class="xfact-color-picker" data-default-color="#1a202c" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_text_secondary">Secondary Text</label></th>
-									<td><input type="text" name="xfact_color_text_secondary" id="xfact_color_text_secondary" value="<?php echo esc_attr( $c_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#4a5568" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_accent">Accent Color</label></th>
-									<td><input type="text" name="xfact_color_accent" id="xfact_color_accent" value="<?php echo esc_attr( $c_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" /></td>
-								</tr>
-							</tbody>
-						</table>
+			
+			<div class="xfact-settings-container">
+				<div class="xfact-settings-header-bar">
+					<div class="xfact-tabs" id="xfact-tabs">
+						<a href="#tab-branding" class="xfact-tab xfact-active-tab">Branding</a>
+						<a href="#tab-colors" class="xfact-tab">Colors</a>
+						<a href="#tab-typography" class="xfact-tab">Typography</a>
+						<a href="#tab-tools" class="xfact-tab">Tools</a>
 					</div>
-
-					<!-- Dark Mode Palette -->
-					<div class="xfact-palette dark-mode">
-						<h3>Dark Mode</h3>
-						<table class="form-table" role="presentation">
-							<tbody>
-								<tr>
-									<th scope="row"><label for="xfact_color_dark_bg">Background</label></th>
-									<td><input type="text" name="xfact_color_dark_bg" id="xfact_color_dark_bg" value="<?php echo esc_attr( $c_dark_bg ); ?>" class="xfact-color-picker" data-default-color="#09172f" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_dark_bg_alt">Surface / Cards</label></th>
-									<td><input type="text" name="xfact_color_dark_bg_alt" id="xfact_color_dark_bg_alt" value="<?php echo esc_attr( $c_dark_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#022038" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_dark_text">Primary Text</label></th>
-									<td><input type="text" name="xfact_color_dark_text" id="xfact_color_dark_text" value="<?php echo esc_attr( $c_dark_text ); ?>" class="xfact-color-picker" data-default-color="#ffffff" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_dark_text_secondary">Secondary Text</label></th>
-									<td><input type="text" name="xfact_color_dark_text_secondary" id="xfact_color_dark_text_secondary" value="<?php echo esc_attr( $c_dark_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#b3b3b3" /></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="xfact_color_dark_accent">Accent Color</label></th>
-									<td><input type="text" name="xfact_color_dark_accent" id="xfact_color_dark_accent" value="<?php echo esc_attr( $c_dark_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" /></td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="xfact-save-actions">
+						<button type="button" class="button button-secondary" id="xfact-jump-to-preview" style="margin-right: 12px;">Jump to Live Preview ↓</button>
+						<?php submit_button( 'Save Settings', 'primary', 'submit', false, array( 'class' => 'button-primary' ) ); ?>
 					</div>
 				</div>
-			</div>
+				<div class="xfact-settings-body">
 
-			<!-- Typography Settings -->
-			<div class="xfact-admin-card">
-				<h2>Typography Settings</h2>
-				<p class="description">Select the font families for headings and body text. You can also upload custom fonts below.</p>
-				
-				<table class="form-table" role="presentation">
-					<tbody>
-						<tr>
-							<th scope="row"><label for="xfact_font_heading">Heading Font</label></th>
-							<td>
-								<select name="xfact_font_heading" id="xfact_font_heading">
-									<option value="inter" <?php selected( $font_heading, 'inter' ); ?>>Inter (Default)</option>
-									<option value="ibm-plex-mono" <?php selected( $font_heading, 'ibm-plex-mono' ); ?>>IBM Plex Mono</option>
-									<?php foreach ( $custom_fonts as $font ) : ?>
-										<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_heading, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
-									<?php endforeach; ?>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><label for="xfact_font_body">Body Font</label></th>
-							<td>
-								<select name="xfact_font_body" id="xfact_font_body">
-									<option value="inter" <?php selected( $font_body, 'inter' ); ?>>Inter</option>
-									<option value="ibm-plex-mono" <?php selected( $font_body, 'ibm-plex-mono' ); ?>>IBM Plex Mono (Default)</option>
-									<?php foreach ( $custom_fonts as $font ) : ?>
-										<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_body, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
-									<?php endforeach; ?>
-								</select>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<p>
-					<button type="button" class="button button-secondary" id="xfact-reset-typography-btn">Reset Typography to Default</button>
-				</p>
+					<!-- TAB: BRANDING -->
+					<div class="xfact-tab-content xfact-active-tab-content" id="tab-branding">
+						
+						<!-- Primary Brand Assets -->
+						<div class="xfact-settings-section">
+							<h2>Primary Brand Assets</h2>
+							<p class="description">Configure the primary logo used in headers/footers, and the site favicon.</p>
+							
+							<!-- Primary Logo -->
+							<div style="margin-bottom: 24px;">
+								<h3>Primary Logo</h3>
+								<div class="xfact-admin-logo-preview" id="xfact-primary-logo-preview" style="background:#09172f; padding: 20px;">
+									<img src="<?php echo esc_url( $primary_logo_url ? $primary_logo_url : $default_primary_logo ); ?>" alt="Primary logo" style="max-width: 200px; height: auto;" />
+								</div>
+								<input type="hidden" name="xfact_primary_logo_url" id="xfact_primary_logo_url" value="<?php echo esc_attr( $primary_logo_url ); ?>" />
+								<div class="xfact-btn-group" style="margin-top: 12px;">
+									<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img">
+										Replace Primary Logo
+									</button>
+									<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img" data-default="<?php echo esc_url( $default_primary_logo ); ?>" title="Reset to Default" aria-label="Reset to Default">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+									</button>
+								</div>
+							</div>
 
-				<hr style="margin: 24px 0; border: 0; border-top: 1px solid #e2e8f0;" />
-				
-				<h3>Custom Fonts Manager</h3>
-				<p class="description">Upload .woff2 files to register custom fonts. They will appear in the dropdowns above after saving.</p>
+							<!-- Favicon -->
+							<div>
+								<h3>Favicon</h3>
+								<div class="xfact-admin-logo-preview" id="xfact-favicon-preview" style="padding: 20px;">
+									<img src="<?php echo esc_url( $favicon_url ? $favicon_url : $default_favicon ); ?>" alt="Favicon" style="max-width: 64px; height: auto; padding: 8px;" />
+								</div>
+								<input type="hidden" name="xfact_favicon_url" id="xfact_favicon_url" value="<?php echo esc_attr( $favicon_url ); ?>" />
+								<div class="xfact-btn-group" style="margin-top: 12px;">
+									<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img">
+										Replace Favicon
+									</button>
+									<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img" data-default="<?php echo esc_url( $default_favicon ); ?>" title="Reset to Default" aria-label="Reset to Default">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+									</button>
+								</div>
+							</div>
+						</div> <!-- End Primary Brand Assets -->
 
-				<div id="xfact-custom-fonts-container">
-					<?php foreach ( $custom_fonts as $index => $font ) : ?>
-						<div class="xfact-custom-font-row" data-index="<?php echo esc_attr( (string) $index ); ?>">
-							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][name]" value="<?php echo esc_attr( $font['name'] ); ?>" placeholder="Font Name (e.g. Comic Sans)" required />
-							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][fontFamily]" value="<?php echo esc_attr( $font['fontFamily'] ); ?>" placeholder="CSS font-family value" required />
-							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][weight]" value="<?php echo esc_attr( $font['weight'] ); ?>" placeholder="Weight (e.g. 400)" />
-							<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][url]" class="xfact-font-url" value="<?php echo esc_attr( $font['url'] ); ?>" placeholder="URL to .woff2 file" required readonly style="width: 300px;" />
-							<button type="button" class="button button-secondary xfact-upload-font-btn">Upload .woff2</button>
-							<button type="button" class="button xfact-btn-danger xfact-remove-font-btn">Remove</button>
+						<hr class="xfact-section-divider" />
+
+						<!-- Floating Logo -->
+						<div class="xfact-settings-section">
+							<h2>Floating Logo</h2>
+							<p class="description">This logo appears as a watermark globally across all compatible blocks.</p>
+							<div class="xfact-admin-toggle">
+								<label for="xfact_show_floating_logo">
+									<input type="checkbox" name="xfact_show_floating_logo" id="xfact_show_floating_logo" value="1" <?php checked( $show_floating_logo ); ?> />
+									Show Floating Logo
+								</label>
+								<span class="description">Enable or disable the floating watermark globally across the entire site.</span>
+							</div>
+							<div class="xfact-admin-logo-preview" id="xfact-floating-logo-preview">
+								<img src="<?php echo esc_url( $floating_logo_url ? $floating_logo_url : $default_float_logo ); ?>" alt="Floating logo" />
+							</div>
+							<input type="hidden" name="xfact_floating_logo_url" id="xfact_floating_logo_url" value="<?php echo esc_attr( $floating_logo_url ); ?>" />
+							<div class="xfact-btn-group">
+								<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img">
+									Replace Floating Logo
+								</button>
+								<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img" data-default="<?php echo esc_url( $default_float_logo ); ?>" title="Reset to Default" aria-label="Reset to Default">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+								</button>
+							</div>
+						</div> <!-- End Floating Logo -->
+
+					</div> <!-- End TAB: BRANDING -->
+
+					<!-- TAB: COLORS -->
+					<div class="xfact-tab-content" id="tab-colors" style="display: none;">
+						<div class="xfact-settings-section">
+							<h2>Theme Colors</h2>
+							<p class="description">Configure the primary branding colors for both Light and Dark modes. These variables power all Gutenberg blocks globally.</p>
+							
+							<div class="xfact-palette-container">
+								<!-- Light Mode Palette -->
+								<div class="xfact-palette">
+									<h3>Light Mode</h3>
+									<table class="form-table" role="presentation">
+										<tbody>
+											<tr>
+												<th scope="row"><label for="xfact_color_bg">Background</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_bg" id="xfact_color_bg" value="<?php echo esc_attr( $c_bg ); ?>" class="xfact-color-picker" data-default-color="#f5f7fa" />
+														<button type="button" data-target="xfact_color_bg" data-default="#f5f7fa" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_bg_alt">Surface / Cards</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_bg_alt" id="xfact_color_bg_alt" value="<?php echo esc_attr( $c_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#ffffff" />
+														<button type="button" data-target="xfact_color_bg_alt" data-default="#ffffff" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_text">Primary Text</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_text" id="xfact_color_text" value="<?php echo esc_attr( $c_text ); ?>" class="xfact-color-picker" data-default-color="#1a202c" />
+														<button type="button" data-target="xfact_color_text" data-default="#1a202c" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_text_secondary">Secondary Text</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_text_secondary" id="xfact_color_text_secondary" value="<?php echo esc_attr( $c_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#4a5568" />
+														<button type="button" data-target="xfact_color_text_secondary" data-default="#4a5568" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_accent">Accent Color</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_accent" id="xfact_color_accent" value="<?php echo esc_attr( $c_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" />
+														<button type="button" data-target="xfact_color_accent" data-default="#5c8ae6" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<!-- Dark Mode Palette -->
+								<div class="xfact-palette dark-mode">
+									<h3>Dark Mode</h3>
+									<table class="form-table" role="presentation">
+										<tbody>
+											<tr>
+												<th scope="row"><label for="xfact_color_dark_bg">Background</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_dark_bg" id="xfact_color_dark_bg" value="<?php echo esc_attr( $c_dark_bg ); ?>" class="xfact-color-picker" data-default-color="#09172f" />
+														<button type="button" data-target="xfact_color_dark_bg" data-default="#09172f" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_dark_bg_alt">Surface / Cards</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_dark_bg_alt" id="xfact_color_dark_bg_alt" value="<?php echo esc_attr( $c_dark_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#022038" />
+														<button type="button" data-target="xfact_color_dark_bg_alt" data-default="#022038" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_dark_text">Primary Text</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_dark_text" id="xfact_color_dark_text" value="<?php echo esc_attr( $c_dark_text ); ?>" class="xfact-color-picker" data-default-color="#ffffff" />
+														<button type="button" data-target="xfact_color_dark_text" data-default="#ffffff" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_dark_text_secondary">Secondary Text</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_dark_text_secondary" id="xfact_color_dark_text_secondary" value="<?php echo esc_attr( $c_dark_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#b3b3b3" />
+														<button type="button" data-target="xfact_color_dark_text_secondary" data-default="#b3b3b3" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="xfact_color_dark_accent">Accent Color</label></th>
+												<td>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="text" name="xfact_color_dark_accent" id="xfact_color_dark_accent" value="<?php echo esc_attr( $c_dark_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" />
+														<button type="button" data-target="xfact_color_dark_accent" data-default="#5c8ae6" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div> <!-- End Palette Container -->
+						</div> <!-- End Theme Colors -->
+					</div> <!-- End TAB: COLORS -->
+
+					<!-- TAB: TYPOGRAPHY -->
+					<div class="xfact-tab-content" id="tab-typography" style="display: none;">
+						<div class="xfact-settings-section">
+							<h2>Typography Settings</h2>
+							<p class="description">Select the font families for headings and body text. You can also upload custom fonts below.</p>
+							
+							<table class="form-table" role="presentation">
+								<tbody>
+									<tr>
+										<th scope="row"><label for="xfact_font_heading">Heading Font</label></th>
+										<td>
+											<div style="display: flex; align-items: center; gap: 8px;">
+												<select name="xfact_font_heading" id="xfact_font_heading">
+													<option value="inter" <?php selected( $font_heading, 'inter' ); ?>>Inter (Default)</option>
+													<option value="ibm-plex-mono" <?php selected( $font_heading, 'ibm-plex-mono' ); ?>>IBM Plex Mono</option>
+													<?php foreach ( $custom_fonts as $font ) : ?>
+														<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_heading, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
+													<?php endforeach; ?>
+												</select>
+												<button type="button" class="button button-secondary xfact-reset-font-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_heading" data-default="inter"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="xfact_font_body">Body Font</label></th>
+										<td>
+											<div style="display: flex; align-items: center; gap: 8px;">
+												<select name="xfact_font_body" id="xfact_font_body">
+													<option value="inter" <?php selected( $font_body, 'inter' ); ?>>Inter</option>
+													<option value="ibm-plex-mono" <?php selected( $font_body, 'ibm-plex-mono' ); ?>>IBM Plex Mono (Default)</option>
+													<?php foreach ( $custom_fonts as $font ) : ?>
+														<option value="<?php echo esc_attr( $font['slug'] ); ?>" <?php selected( $font_body, $font['slug'] ); ?>><?php echo esc_html( $font['name'] ); ?></option>
+													<?php endforeach; ?>
+												</select>
+												<button type="button" class="button button-secondary xfact-reset-font-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_body" data-default="ibm-plex-mono"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<hr style="margin: 24px 0; border: 0; border-top: 1px solid #e2e8f0;" />
+							
+							<h3>Custom Fonts Manager</h3>
+							<p class="description">Upload .woff2 files to register custom fonts. They will appear in the dropdowns above after saving.</p>
+
+							<div id="xfact-custom-fonts-container">
+								<?php foreach ( $custom_fonts as $index => $font ) : ?>
+									<div class="xfact-custom-font-row" data-index="<?php echo esc_attr( (string) $index ); ?>">
+										<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][name]" value="<?php echo esc_attr( $font['name'] ); ?>" placeholder="Font Name (e.g. Comic Sans)" required />
+										<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][fontFamily]" value="<?php echo esc_attr( $font['fontFamily'] ); ?>" placeholder="CSS font-family value" required />
+										<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][weight]" value="<?php echo esc_attr( $font['weight'] ); ?>" placeholder="Weight (e.g. 400)" />
+										<input type="text" name="xfact_custom_fonts[<?php echo esc_attr( (string) $index ); ?>][url]" class="xfact-font-url" value="<?php echo esc_attr( $font['url'] ); ?>" placeholder="URL to .woff2 file" required readonly style="width: 300px;" />
+										<button type="button" class="button button-secondary xfact-upload-font-btn">Upload .woff2</button>
+										<button type="button" class="button xfact-btn-danger xfact-remove-font-btn">Remove</button>
+									</div>
+								<?php endforeach; ?>
+							</div>
+							<button type="button" class="button button-secondary" id="xfact-add-font-btn" style="margin-top: 12px;">+ Add Custom Font</button>
+						</div> <!-- End Typography Settings -->
+					</div> <!-- End TAB: TYPOGRAPHY -->
+
+					<!-- TAB: TOOLS -->
+					<div class="xfact-tab-content" id="tab-tools" style="display: none;">
+						<!-- Quick Links -->
+						<div class="xfact-settings-section">
+							<h2>Quick Links</h2>
+							<p class="description">Open the Site Editor to edit header or footer template parts.</p>
+							<div class="xfact-admin-quick-links">
+								<a href="<?php echo esc_url( $edit_header_url ); ?>" class="button button-secondary">Edit Header</a>
+								<a href="<?php echo esc_url( $edit_footer_url ); ?>" class="button button-secondary">Edit Footer</a>
+							</div>
+						</div> <!-- End Quick Links -->
+
+						<hr class="xfact-section-divider" />
+
+						<!-- Reset Theme Styles -->
+						<div class="xfact-settings-section xfact-danger-section">
+							<h2>Reset Theme Styles</h2>
+							<p class="description">Revert <strong>all</strong> Gutenberg Site Editor customizations (colors, typography, spacing) back to the theme defaults defined in <code>theme.json</code>. This cannot be undone.</p>
+							<div style="margin-top: 12px;">
+								<input type="hidden" name="xfact_reset_global_styles" value="1" id="xfact_reset_global_styles_input" disabled />
+								<button type="submit" class="xfact-btn-danger" onclick="if(confirm('Are you sure? This will reset ALL customizations. This action cannot be undone.')){ document.getElementById('xfact_reset_global_styles_input').disabled = false; return true; } return false;">Reset to Theme Defaults</button>
+							</div>
+						</div> <!-- End Reset Theme Styles -->
+					</div> <!-- End TAB: TOOLS -->
+
+				</div> <!-- End xfact-settings-body -->
+			</div> <!-- End xfact-settings-container -->
+
+			<!-- LIVE PREVIEW SECTION -->
+			<div class="xfact-live-preview-section" id="xfact-live-preview-section" style="margin-top: 40px;">
+				<div class="xfact-preview-header">
+					<h2>Live Preview</h2>
+					<div class="xfact-preview-controls">
+						<button type="button" class="button button-secondary" id="xfact-back-to-settings" style="margin-right: 12px;">Back to Settings ↑</button>
+						<div class="xfact-preview-theme-toggle">
+							<button type="button" class="xfact-theme-btn active" data-theme="light">Light</button>
+							<button type="button" class="xfact-theme-btn" data-theme="dark">Dark</button>
 						</div>
-					<?php endforeach; ?>
-				</div>
-				<button type="button" class="button button-secondary" id="xfact-add-font-btn" style="margin-top: 12px;">+ Add Custom Font</button>
-			</div>
-
-			<!-- Primary Brand Assets -->
-			<div class="xfact-admin-card">
-				<h2>Primary Brand Assets</h2>
-				<p class="description">Configure the primary logo used in headers/footers, and the site favicon.</p>
-				
-				<!-- Primary Logo -->
-				<div style="margin-bottom: 24px;">
-					<h3>Primary Logo</h3>
-					<div class="xfact-admin-logo-preview" id="xfact-primary-logo-preview" style="background:#09172f; padding: 20px;">
-						<img src="<?php echo esc_url( $primary_logo_url ? $primary_logo_url : $default_primary_logo ); ?>" alt="Primary logo" style="max-width: 200px; height: auto;" />
-					</div>
-					<input type="hidden" name="xfact_primary_logo_url" id="xfact_primary_logo_url" value="<?php echo esc_attr( $primary_logo_url ); ?>" />
-					<div class="xfact-btn-group" style="margin-top: 12px;">
-						<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img">
-							Replace Primary Logo
-						</button>
-						<button type="button" class="button button-secondary xfact-admin-reset-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img" data-default="<?php echo esc_url( $default_primary_logo ); ?>">
-							Reset to Default
-						</button>
 					</div>
 				</div>
-
-				<!-- Favicon -->
-				<div>
-					<h3>Favicon</h3>
-					<div class="xfact-admin-logo-preview" id="xfact-favicon-preview" style="padding: 20px;">
-						<img src="<?php echo esc_url( $favicon_url ? $favicon_url : $default_favicon ); ?>" alt="Favicon" style="max-width: 64px; height: auto; padding: 8px;" />
-					</div>
-					<input type="hidden" name="xfact_favicon_url" id="xfact_favicon_url" value="<?php echo esc_attr( $favicon_url ); ?>" />
-					<div class="xfact-btn-group" style="margin-top: 12px;">
-						<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img">
-							Replace Favicon
-						</button>
-						<button type="button" class="button button-secondary xfact-admin-reset-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img" data-default="<?php echo esc_url( $default_favicon ); ?>">
-							Reset to Default
-						</button>
-					</div>
+				<div class="xfact-preview-canvas">
+					<iframe id="xfact-live-preview-iframe" src="<?php echo esc_url( home_url( '/?xfact_preview=1' ) ); ?>" frameborder="0" title="Live Site Preview"></iframe>
 				</div>
-			</div>
-
-			<!-- Floating Logo -->
-			<div class="xfact-admin-card">
-				<h2>Floating Logo</h2>
-				<p class="description">This logo appears as a watermark globally across all compatible blocks.</p>
-				<div class="xfact-admin-toggle">
-					<label for="xfact_show_floating_logo">
-						<input type="checkbox" name="xfact_show_floating_logo" id="xfact_show_floating_logo" value="1" <?php checked( $show_floating_logo ); ?> />
-						Show Floating Logo
-					</label>
-					<span class="description">Enable or disable the floating watermark globally across the entire site.</span>
-				</div>
-				<div class="xfact-admin-logo-preview" id="xfact-floating-logo-preview">
-					<img src="<?php echo esc_url( $floating_logo_url ? $floating_logo_url : $default_float_logo ); ?>" alt="Floating logo" />
-				</div>
-				<input type="hidden" name="xfact_floating_logo_url" id="xfact_floating_logo_url" value="<?php echo esc_attr( $floating_logo_url ); ?>" />
-				<div class="xfact-btn-group">
-					<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img">
-						Replace Floating Logo
-					</button>
-					<button type="button" class="button button-secondary xfact-admin-reset-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img" data-default="<?php echo esc_url( $default_float_logo ); ?>">
-						Reset to Default
-					</button>
-				</div>
-			</div>
-
-			<!-- Editor Dark Mode -->
-			<div class="xfact-admin-card">
-				<h2>Editor Dark Mode Preview</h2>
-				<p class="description">Toggle dark mode rendering inside the Gutenberg block editor canvas by default.</p>
-				<div class="xfact-admin-toggle">
-					<label for="xfact_editor_dark_mode">
-						<input type="checkbox" name="xfact_editor_dark_mode" id="xfact_editor_dark_mode" value="1" <?php checked( $editor_dark_mode ); ?> />
-						Enable Dark Mode in Editor
-					</label>
-					<span class="description">You can also toggle this instantly via the Gutenberg toolbar icon.</span>
-				</div>
-			</div>
-			<div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
-				<?php submit_button( 'Save Settings', 'primary', 'submit', false, array( 'class' => 'button-primary' ) ); ?>
 			</div>
 		</form>
-
-		<!-- Quick Links -->
-		<div class="xfact-admin-card" style="margin-top: 40px;">
-			<h2>Quick Links</h2>
-			<p class="description">Open the Site Editor to edit header or footer template parts.</p>
-			<div class="xfact-admin-quick-links">
-				<a href="<?php echo esc_url( $edit_header_url ); ?>" class="button button-secondary">Edit Header</a>
-				<a href="<?php echo esc_url( $edit_footer_url ); ?>" class="button button-secondary">Edit Footer</a>
-			</div>
-		</div>
-
-		<!-- Reset Theme Styles -->
-		<div class="xfact-admin-card xfact-danger-card">
-			<h2>Reset Theme Styles</h2>
-			<p class="description">Revert <strong>all</strong> Gutenberg Site Editor customizations (colors, typography, spacing) back to the theme defaults defined in <code>theme.json</code>. This cannot be undone.</p>
-			<form method="post" onsubmit="return confirm('Are you sure? This will reset ALL Gutenberg style customizations (colors, fonts, spacing) back to the theme defaults. This action cannot be undone.');">
-				<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>
-				<input type="hidden" name="xfact_reset_global_styles" value="1" />
-				<button type="submit" class="xfact-btn-danger">Reset to Theme Defaults</button>
-			</form>
-		</div>
 	</div>
 	<?php
 }

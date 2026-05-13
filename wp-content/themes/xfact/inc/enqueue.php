@@ -111,8 +111,23 @@ function xfact_enqueue_assets(): void {
 		$theme_version,
 		true
 	);
+
+	/* Live preview receiver (only for admins or preview mode) */
+	if ( isset( $_GET['xfact_preview'] ) || current_user_can( 'manage_options' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		wp_enqueue_script(
+			'xfact-preview-receiver',
+			get_theme_file_uri( 'assets/js/preview-receiver.js' ),
+			array(),
+			$theme_version,
+			false
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'xfact_enqueue_assets' );
+
+if ( isset( $_GET['xfact_preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	add_filter( 'show_admin_bar', '__return_false' );
+}
 
 /**
  * Output the branded SVG favicon, replacing WP's default site-icon output.
