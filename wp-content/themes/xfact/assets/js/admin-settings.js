@@ -251,6 +251,7 @@
 		if ( typeof $.fn.wpColorPicker !== 'undefined' ) {
 			$( '.xfact-color-picker' ).wpColorPicker( {
 				change: function ( event, ui ) {
+					hasUnsavedChanges = true;
 					clearTimeout( updateTimer );
 					updateTimer = setTimeout( function () {
 						sendPreviewUpdate();
@@ -264,6 +265,28 @@
 			sendPreviewUpdate();
 			var currentTheme = $themeBtns.filter( '.active' ).data( 'theme' ) || 'light';
 			sendPreviewUpdate( { type: 'theme', value: currentTheme } );
+		} );
+
+		// Unsaved Changes Warning
+		var hasUnsavedChanges = false;
+		
+		$( '#xfact-settings-form' ).on( 'change input', function() {
+			hasUnsavedChanges = true;
+		} );
+
+		// Catch reset buttons and media upload triggers
+		$( '.xfact-admin-upload-btn, .xfact-admin-reset-btn, .xfact-reset-color-btn, .xfact-reset-font-btn' ).on( 'click', function() {
+			hasUnsavedChanges = true;
+		} );
+
+		$( window ).on( 'beforeunload', function() {
+			if ( hasUnsavedChanges ) {
+				return 'You have unsaved changes. Are you sure you want to leave without saving?';
+			}
+		} );
+
+		$( '#xfact-settings-form' ).on( 'submit', function() {
+			hasUnsavedChanges = false;
 		} );
 
 	} );

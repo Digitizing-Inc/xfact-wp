@@ -12,7 +12,8 @@
 .xfact-admin-settings h1 {
 	font-size: 28px;
 	font-weight: 800;
-	margin-bottom: 32px;
+	margin-bottom: 24px;
+	margin-top: 16px;
 	background: linear-gradient(135deg, #06384f, #5C8AE6);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -282,7 +283,7 @@
 	border: 1px solid #e2e8f0;
 	border-radius: 12px;
 	box-shadow: 0 4px 6px -1px rgba(9, 23, 47, 0.05);
-	margin-top: 24px;
+	margin-top: 0;
 }
 
 .xfact-settings-header-bar {
