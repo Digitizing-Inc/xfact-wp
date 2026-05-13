@@ -418,6 +418,210 @@
 		);
 	}
 
+	/**
+	 * Build a header for an array item with reordering controls.
+	 *
+	 * @param {string}   label      Item label (e.g., 'Card 1').
+	 * @param {number}   index      Current index of the item.
+	 * @param {number}   total      Total number of items in the array.
+	 * @param {Function} onMoveItem Callback(fromIndex, toIndex, intent) for drag-and-drop.
+	 * @param {boolean}  [isOpen]   Whether the item is currently expanded.
+	 * @param {Function} [toggle]   Callback to toggle expansion.
+	 * @return {Object} React element.
+	 */
+	function arrayItemHeader( label, index, total, onMoveItem, isOpen, toggle ) {
+		var icons = window.xfactLucideIcons || {};
+		var gripSvg = renderSvg( icons['GripVertical'] || '<circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/>' );
+		var chevronSvg = renderSvg( isOpen 
+			? ( icons['ChevronUp'] || '<polyline points="18 15 12 9 6 15"></polyline>' ) 
+			: ( icons['ChevronDown'] || '<polyline points="6 9 12 15 18 9"></polyline>' ) 
+		);
+
+		var dragProps = {};
+		if ( onMoveItem ) {
+			dragProps.draggable = true;
+			dragProps.onDragStart = function( e ) {
+				e.stopPropagation();
+				e.dataTransfer.setData( 'text/plain', index );
+				e.dataTransfer.effectAllowed = 'move';
+				if ( e.target && e.target.parentElement ) {
+					var rect = e.target.parentElement.getBoundingClientRect();
+					window.__xfactDraggedHeight = rect.height;
+				}
+				
+				// Add dragging style to the original element
+				setTimeout(function() {
+					if ( e.target && e.target.parentElement ) {
+						e.target.parentElement.style.opacity = '0.4';
+						e.target.parentElement.style.borderStyle = 'dashed';
+					}
+				}, 0);
+			};
+			dragProps.onDragEnd = function( e ) {
+				if ( e.target && e.target.parentElement ) {
+					e.target.parentElement.style.opacity = '1';
+					e.target.parentElement.style.borderStyle = 'solid';
+				}
+			};
+		}
+
+		return el( 'div', Object.assign( {
+			style: { 
+				display: 'flex', 
+				justifyContent: 'space-between', 
+				alignItems: 'center', 
+				marginBottom: '0',
+				paddingBottom: '0',
+				borderBottom: 'none'
+			}
+		}, dragProps ),
+			el( 'div', { 
+				onClick: toggle,
+				style: { display: 'flex', alignItems: 'center', gap: '8px', flex: '1', minWidth: '0', cursor: 'pointer' } 
+			},
+				el( 'div', {
+					dangerouslySetInnerHTML: { __html: gripSvg },
+					style: { width: '20px', height: '20px', display: 'flex', color: '#888', alignItems: 'center', justifyContent: 'center', cursor: onMoveItem ? 'grab' : 'default' },
+				} ),
+				el( 'strong', { 
+					style: { flex: 1, userSelect: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } 
+				}, label )
+			),
+			el( 'div', { style: { display: 'flex', gap: '4px', alignItems: 'center', flexShrink: 0 } },
+				toggle ? el( Button, {
+					onClick: toggle,
+					variant: 'tertiary',
+					style: { minWidth: 'auto', padding: '2px', marginLeft: '8px' }, // extra margin to separate chevron from arrows
+					title: isOpen ? 'Collapse' : 'Expand'
+				}, el( 'div', { dangerouslySetInnerHTML: { __html: chevronSvg }, style: { width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' } } ) ) : null
+			)
+		);
+	}
+
+	/**
+	 * Wrapper for array items to handle collapsed state and dynamic titles.
+	 */
+	function ArrayItemWrapper( props ) {
+		var isOpenState = useState( false );
+		var isOpen = isOpenState[0];
+		var setIsOpen = isOpenState[1];
+		
+		var dropIntentState = useState( null );
+		var dropIntent = dropIntentState[0];
+		var setDropIntent = dropIntentState[1];
+
+		function toggle() {
+			setIsOpen( ! isOpen );
+		}
+
+		var displayTitle = props.titleText ? props.titleText : props.label;
+
+		function handleRemove() {
+			if ( window.confirm( 'Are you sure you want to remove item "' + displayTitle + '"?' ) ) {
+				props.onRemove();
+			}
+		}
+
+		var onMoveItem = props.onMoveItem;
+		var index = props.index;
+
+		var dragProps = {};
+		if ( onMoveItem ) {
+			dragProps.onDragOver = function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+				e.dataTransfer.dropEffect = 'move';
+				
+				var rect = e.currentTarget.getBoundingClientRect();
+				var y = e.clientY - rect.top;
+				
+				// Calculate bounds of the inner container to prevent flickering
+				var placeholderHeight = window.__xfactDraggedHeight || 48;
+				var innerTop = (dropIntent === 'shift-top') ? placeholderHeight : 0;
+				var innerBottom = (dropIntent === 'shift-bottom') ? rect.height - placeholderHeight : rect.height;
+				var innerHeight = innerBottom - innerTop;
+				
+				var threshold = Math.min( 24, innerHeight * 0.25 ); // 25% of height, max 24px
+				var innerY = y - innerTop;
+				
+				var intent = 'swap';
+				if ( innerY < threshold ) intent = 'shift-top';
+				else if ( innerY > innerHeight - threshold ) intent = 'shift-bottom';
+				
+				if ( dropIntent !== intent ) setDropIntent( intent );
+			};
+			dragProps.onDragEnter = function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+			};
+			dragProps.onDragLeave = function( e ) {
+				e.stopPropagation();
+				if ( !e.currentTarget.contains(e.relatedTarget) ) {
+					setDropIntent( null );
+				}
+			};
+			dragProps.onDrop = function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+				
+				var rect = e.currentTarget.getBoundingClientRect();
+				var y = e.clientY - rect.top;
+				var placeholderHeight = window.__xfactDraggedHeight || 48;
+				var innerTop = (dropIntent === 'shift-top') ? placeholderHeight : 0;
+				var innerBottom = (dropIntent === 'shift-bottom') ? rect.height - placeholderHeight : rect.height;
+				var innerHeight = innerBottom - innerTop;
+				
+				var threshold = Math.min( 24, innerHeight * 0.25 );
+				var innerY = y - innerTop;
+				
+				var finalIntent = 'swap';
+				if ( innerY < threshold ) finalIntent = 'shift-top';
+				else if ( innerY > innerHeight - threshold ) finalIntent = 'shift-bottom';
+
+				setDropIntent( null );
+
+				var draggedIdx = parseInt( e.dataTransfer.getData( 'text/plain' ), 10 );
+				if ( ! isNaN( draggedIdx ) && draggedIdx !== index ) {
+					onMoveItem( draggedIdx, index, finalIntent );
+				}
+			};
+		}
+
+		return el( 'div', Object.assign({
+			style: { position: 'relative' } // Outer container for drop logic
+		}, dragProps),
+			dropIntent === 'shift-top' ? el( 'div', { style: { height: window.__xfactDraggedHeight || 48, border: '2px dashed #007cba', margin: '0', borderRadius: '0', background: 'rgba(0,124,186,0.05)', position: 'relative', zIndex: 1 } } ) : null,
+			el( 'div', { // Inner visual container
+				style: { 
+					border: dropIntent === 'swap' ? '2px solid #007cba' : '1px solid #ddd', 
+					padding: '8px', 
+					marginBottom: '-1px', // Remove spacing and overlap borders for smooth DND
+					position: 'relative', // Ensure borders overlap correctly
+					borderRadius: '0', // Flush items shouldn't have internal border radius
+					transition: 'all 0.2s ease', 
+					background: dropIntent === 'swap' ? 'rgba(0,124,186,0.05)' : (isOpen ? '#fff' : '#f8f9fa'),
+					transform: dropIntent === 'swap' ? 'scale(1.02)' : 'none',
+					boxShadow: dropIntent === 'swap' ? '0 0 0 2px rgba(0,124,186,0.3)' : 'none',
+					zIndex: dropIntent === 'swap' ? 2 : 1
+				}
+			},
+				arrayItemHeader( displayTitle, props.index, props.total, props.onMoveItem, isOpen, toggle ),
+				isOpen ? el( 'div', { style: { marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #eee' } }, 
+					props.children,
+					el( 'div', { style: { marginTop: '16px', paddingTop: '16px', borderTop: '1px dashed #eee', textAlign: 'right' } },
+						el( Button, { 
+							onClick: handleRemove, 
+							variant: 'link', 
+							isDestructive: true, 
+							style: { fontSize: '13px', padding: '0' }
+						}, 'Remove Item' )
+					)
+				) : null
+			),
+			dropIntent === 'shift-bottom' ? el( 'div', { style: { height: window.__xfactDraggedHeight || 48, border: '2px dashed #007cba', margin: '0', borderRadius: '0', background: 'rgba(0,124,186,0.05)', position: 'relative', zIndex: 1 } } ) : null
+		);
+	}
+
 	// Expose to window for use by individual block scripts.
 	window.xfactBlockHelpers = {
 		el: el,
@@ -425,6 +629,8 @@
 		imageControl: imageControl,
 		galleryControl: galleryControl,
 		iconControl: iconControl,
+		arrayItemHeader: arrayItemHeader,
+		ArrayItemWrapper: ArrayItemWrapper,
 		Fragment: Fragment,
 		InspectorControls: InspectorControls,
 		MediaUpload: MediaUpload,

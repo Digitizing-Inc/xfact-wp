@@ -20,6 +20,20 @@
 			arr.splice( i, 1 );
 			set( { items: arr } );
 		}
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = items.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { items: arr } );
+		}
 
 		var options = [];
 		if ( caseStudies ) {
@@ -90,19 +104,22 @@
 				update( 'postId', postId );
 			}
 		}
-
 		return [
-			el( 'div', {
-				key: 'item-' + i,
-				style: { border: '1px solid #ddd', padding: '12px', marginBottom: '12px', borderRadius: '4px' },
+			el( h.ArrayItemWrapper, {
+				key: 'item-',
+				index: i,
+				total: items.length,
+				label: 'Case Study ' + ( i + 1 ),
+				titleText: item.title || item.name || item.label || item.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
 				el( h.ComboboxControl, {
 					label: 'Select Case Study',
 					value: currentPostId || '',
 					options: options,
 					onChange: onSelectCaseStudy
-				} ),
-				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Case Study' )
+				} )
 			),
 		];
 	}

@@ -30,27 +30,36 @@
 			updated.splice( i, 1 );
 			set( { sectors: updated } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var updated = sectors.slice();
+			if ( intent === 'swap' ) {
+				var temp = updated[fromIndex];
+				updated[fromIndex] = updated[toIndex];
+				updated[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = updated.splice( fromIndex, 1 )[ 0 ];
+				updated.splice( insertAt, 0, itm );
+			}
+			set( { sectors: updated } );
+		}
 		return [
-			el( 'hr', { key: 'sep-' + i, style: { margin: '16px 0', opacity: 0.3 } } ),
-			el( 'div', {
-				key: 'card-header-' + i,
-				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'card-' + i,
+				index: i,
+				total: sectors.length,
+				label: 'Card ' + ( i + 1 ),
+				titleText: card.title || card.name || card.label || card.heading || '',
+				onRemove: removeCard,
+				onMoveItem: moveItem,
 			},
-				el( 'strong', null, 'Card ' + ( i + 1 ) ),
-				el( h.Button, {
-					onClick: removeCard,
-					variant: 'link',
-					isDestructive: true,
-					style: { fontSize: '12px' },
-				}, '✕ Remove' )
-			),
-			el( h.TextControl, {
-				key: 'title-' + i,
-				label: 'Title',
-				value: card.title || '',
-				onChange: function ( v ) { updateCard( 'title', v ); },
-			} ),
+				el( h.TextControl, {
+					key: 'title-' + i,
+					label: 'Title',
+					value: card.title || '',
+					onChange: function ( v ) { updateCard( 'title', v ); },
+				} ),
 			el( h.TextControl, {
 				key: 'badge-' + i,
 				label: 'Badge',
@@ -76,14 +85,14 @@
 				value: card.href || '',
 				onChange: function ( v ) { updateCard( 'href', v ); },
 			} ),
-			h.imageControl(
-				'Card Image',
-				card.imageUrl || '',
-				function ( media ) { updateCard( 'imageUrl', media.url ); },
-				function () { updateCard( 'imageUrl', '' ); },
-				'img-' + i
-			),
-		];
+				h.imageControl(
+					'Card Image',
+					card.imageUrl || '',
+					function ( media ) { updateCard( 'imageUrl', media.url ); },
+					function () { updateCard( 'imageUrl', '' ); },
+					'img-' + i
+				)
+			) ];
 	}
 
 	wp.blocks.registerBlockType( 'xfact/solutions-grid', {

@@ -20,17 +20,34 @@
 			arr.splice( i, 1 );
 			set( { items: arr } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = items.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { items: arr } );
+		}
 		return [
-			el( 'div', {
+			el( h.ArrayItemWrapper, {
 				key: 'card-' + i,
-				style: { border: '1px solid #ddd', padding: '12px', marginBottom: '12px', borderRadius: '4px' },
+				index: i,
+				total: items.length,
+				label: 'Card ' + ( i + 1 ),
+				titleText: item.title || item.name || item.label || item.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
 				el( h.TextControl, { label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextControl, { label: 'Subtitle', value: item.subtitle || '', onChange: function ( v ) { update( 'subtitle', v ); } } ),
 				h.iconControl( 'Icon (Lucide name)', item.icon || '', function ( v ) { update( 'icon', v ); } ),
-				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } ),
-				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true }, 'Remove Card' )
+				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } )
 			),
 		];
 	}

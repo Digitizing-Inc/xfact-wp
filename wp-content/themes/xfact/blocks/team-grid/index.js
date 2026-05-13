@@ -20,6 +20,20 @@
 			arr.splice( i, 1 );
 			set( { teamMembers: arr } );
 		}
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = members.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { teamMembers: arr } );
+		}
 
 		// Social links handling
 		var socialLinks = member.socialLinks || [];
@@ -58,17 +72,17 @@
 		});
 
 		socialControls.push( el( h.Button, { key: 'add-social', onClick: addSocial, variant: 'secondary' }, '+ Add Social Link' ) );
-
 		return [
-			el( 'hr', { key: 'sep-' + i, style: { margin: '16px 0', opacity: 0.3 } } ),
-			el( 'div', {
-				key: 'hdr-' + i,
-				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'card-' + i,
+				index: i,
+				total: members.length,
+				label: 'Member ' + ( i + 1 ),
+				titleText: member.title || member.name || member.label || member.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
-				el( 'strong', null, 'Member ' + ( i + 1 ) ),
-				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
-			),
-			h.imageControl(
+				h.imageControl(
 				'Profile Image',
 				member.imageUrl || '',
 				function ( media ) { update( 'imageUrl', media.url ); },
@@ -77,11 +91,11 @@
 			),
 			el( h.TextControl, { key: 'name-' + i, label: 'Name', value: member.name || '', onChange: function ( v ) { update( 'name', v ); } } ),
 			el( h.TextControl, { key: 'title-' + i, label: 'Title', value: member.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
-			el( 'div', { key: 'socials-' + i, style: { marginTop: '12px', padding: '10px', background: '#f5f5f5' } },
-				el( 'strong', { style: { display: 'block', marginBottom: '8px' } }, 'Social Links' ),
-				socialControls
-			)
-		];
+				el( 'div', { key: 'socials-' + i, style: { marginTop: '12px', padding: '10px', background: '#f5f5f5' } },
+					el( 'strong', { style: { display: 'block', marginBottom: '8px' } }, 'Social Links' ),
+					socialControls
+				)
+			) ];
 	}
 
 	wp.blocks.registerBlockType( 'xfact/team-grid', {

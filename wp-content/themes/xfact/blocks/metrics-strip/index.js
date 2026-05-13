@@ -20,19 +20,33 @@
 			arr.splice( i, 1 );
 			set( { metrics: arr } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = metrics.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { metrics: arr } );
+		}
 		return [
-			el( 'hr', { key: 'sep-' + i, style: { margin: '16px 0', opacity: 0.3 } } ),
-			el( 'div', {
-				key: 'hdr-' + i,
-				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'card-' + i,
+				index: i,
+				total: metrics.length,
+				label: 'Metric ' + ( i + 1 ),
+				titleText: m.title || m.name || m.label || m.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
-				el( 'strong', null, 'Metric ' + ( i + 1 ) ),
-				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
-			),
-			el( h.TextControl, { key: 'val-' + i, label: 'Value', value: m.value || '', onChange: function ( v ) { update( 'value', v ); } } ),
-			el( h.TextControl, { key: 'lbl-' + i, label: 'Label', value: m.label || '', onChange: function ( v ) { update( 'label', v ); } } ),
-		];
+				el( h.TextControl, { key: 'val-' + i, label: 'Value', value: m.value || '', onChange: function ( v ) { update( 'value', v ); } } ),
+				el( h.TextControl, { key: 'lbl-' + i, label: 'Label', value: m.label || '', onChange: function ( v ) { update( 'label', v ); } } )
+			) ];
 	}
 
 	wp.blocks.registerBlockType( 'xfact/metrics-strip', {

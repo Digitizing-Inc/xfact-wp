@@ -19,37 +19,38 @@
             arr.splice(i, 1);
             set(Object.fromEntries([[attrKey, arr]]));
         }
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = items.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set(Object.fromEntries([[attrKey, arr]]));
+		}
 
-        return [
-            el(
-                "div",
-                {
-                    key: attrKey + "-item-" + i,
-                    style: {
-                        display: "flex",
-                        gap: "4px",
-                        alignItems: "flex-start",
-                        marginBottom: "8px",
-                    },
-                },
-                el(h.TextControl, {
-                    label: labelPrefix + " " + (i + 1),
-                    value: item || "",
-                    onChange: update,
-                    style: { flex: 1 },
-                }),
-                el(
-                    h.Button,
-                    {
-                        onClick: remove,
-                        variant: "link",
-                        isDestructive: true,
-                        style: { marginTop: "24px", fontSize: "12px" },
-                    },
-                    "✕",
-                ),
-            ),
-        ];
+		return [
+			el( h.ArrayItemWrapper, {
+				key: attrKey + '-item-' + i,
+				index: i,
+				total: items.length,
+				label: labelPrefix + ' ' + ( i + 1 ),
+				titleText: item || '',
+				onRemove: remove,
+				onMoveItem: moveItem
+			},
+				el( h.TextControl, {
+					value: item || '',
+					onChange: update,
+					style: { marginBottom: 0 },
+				} )
+			),
+		];
     }
 
     wp.blocks.registerBlockType("xfact/case-study-details", {

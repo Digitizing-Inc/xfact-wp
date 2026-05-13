@@ -20,12 +20,31 @@
 			arr.splice( i, 1 );
 			set( { tags: arr } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = tags.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { tags: arr } );
+		}
 		return [
-			el( 'div', {
-				key: 'tag-' + i,
-				style: { display: 'flex', gap: '4px', alignItems: 'flex-start', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'tag-',
+				index: i,
+				total: tags.length,
+				label: 'Tag ' + ( i + 1 ),
+				titleText: tag.title || tag.name || tag.label || tag.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
+				el( 'div', { style: { display: 'flex', gap: '4px', alignItems: 'flex-start' } },
 				el( h.TextControl, {
 					label: 'Tag ' + ( i + 1 ) + ' Label',
 					value: tag.label || '',
@@ -38,12 +57,7 @@
 					onChange: function ( v ) { update( 'iconName', v ); },
 					style: { width: '90px' },
 				} ),
-				el( h.Button, {
-					onClick: remove,
-					variant: 'link',
-					isDestructive: true,
-					style: { marginTop: '24px', fontSize: '12px' },
-				}, '✕' )
+				)
 			),
 		];
 	}
@@ -60,24 +74,38 @@
 			arr.splice( i, 1 );
 			set( { keyMessages: arr } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = messages.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { keyMessages: arr } );
+		}
 		return [
-			el( 'div', {
-				key: 'msg-' + i,
-				style: { display: 'flex', gap: '4px', alignItems: 'flex-start', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'msg-',
+				index: i,
+				total: messages.length,
+				label: 'Message ' + ( i + 1 ),
+				titleText: tag.title || tag.name || tag.label || tag.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
+				el( 'div', { style: { display: 'flex', gap: '4px', alignItems: 'flex-start' } },
 				el( h.TextControl, {
 					label: 'Key Message ' + ( i + 1 ),
 					value: msg || '',
 					onChange: update,
 					style: { flex: 1 },
 				} ),
-				el( h.Button, {
-					onClick: remove,
-					variant: 'link',
-					isDestructive: true,
-					style: { marginTop: '24px', fontSize: '12px' },
-				}, '✕' )
+				)
 			),
 		];
 	}

@@ -146,7 +146,7 @@ function xfact_register_editor_helpers(): void {
 		'xfact-editor-helpers',
 		get_theme_file_uri( 'assets/js/editor-helpers.js' ),
 		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-server-side-render' ),
-		$theme_version,
+		(string) filemtime( get_theme_file_path( 'assets/js/editor-helpers.js' ) ),
 		true
 	);
 

@@ -20,23 +20,37 @@
 			arr.splice( i, 1 );
 			set( { assessmentChecklist: arr } );
 		}
-
+		function moveItem( fromIndex, toIndex, intent ) {
+			var arr = items.slice();
+			if ( intent === 'swap' ) {
+				var temp = arr[fromIndex];
+				arr[fromIndex] = arr[toIndex];
+				arr[toIndex] = temp;
+			} else {
+				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+				if ( insertAt > fromIndex ) insertAt--;
+				var itm = arr.splice( fromIndex, 1 )[ 0 ];
+				arr.splice( insertAt, 0, itm );
+			}
+			set( { assessmentChecklist: arr } );
+		}
 		return [
-			el( 'hr', { key: 'sep-' + i, style: { margin: '8px 0', opacity: 0.3 } } ),
-			el( 'div', {
-				key: 'hdr-' + i,
-				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+			el( h.ArrayItemWrapper, {
+				key: 'wrap-',
+				index: i,
+				total: items.length,
+				label: 'Item ' + ( i + 1 ),
+				titleText: item.title || item.name || item.label || item.heading || '',
+				onRemove: remove,
+				onMoveItem: moveItem
 			},
-				el( 'strong', null, 'Item ' + ( i + 1 ) ),
-				el( h.Button, { onClick: remove, variant: 'link', isDestructive: true, style: { fontSize: '12px' } }, '✕ Remove' )
-			),
-			el( h.TextControl, {
-				key: 'text-' + i,
-				label: 'Text',
-				value: item.text || '',
-				onChange: function ( v ) { update( 'text', v ); }
-			} ),
-		];
+				el( h.TextControl, {
+					key: 'text-' + i,
+					label: 'Text',
+					value: item.text || '',
+					onChange: function ( v ) { update( 'text', v ); }
+				} )
+			) ];
 	}
 
 	wp.blocks.registerBlockType( 'xfact/contact-form', {
