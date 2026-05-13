@@ -71,14 +71,14 @@
 }
 
 .xfact-admin-toggle input[type="checkbox"] {
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	cursor: pointer;
 }
 
 .xfact-admin-toggle .description {
 	display: block;
-	margin-left: 32px;
+	margin-left: 28px;
 	color: #94a3b8;
 	font-size: 13px;
 	margin-top: 0;

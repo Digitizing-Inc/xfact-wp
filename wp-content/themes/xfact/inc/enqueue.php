@@ -186,7 +186,7 @@ function xfact_enqueue_editor_assets(): void {
 		'xfactSettingsConfig',
 		array(
 			'currentLogoUrl'   => get_option( 'xfact_floating_logo_url', '' ),
-			'defaultLogoUrl'   => get_theme_file_uri( 'assets/images/xfact-icon.svg' ),
+			'defaultLogoUrl'   => get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' ),
 			'showFloatingLogo' => (bool) get_option( 'xfact_show_floating_logo', false ),
 			'editorDarkMode'   => (bool) get_option( 'xfact_editor_dark_mode', false ),
 			'editHeaderUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' ),

@@ -50,6 +50,28 @@ function xfact_register_settings(): void {
 			'show_in_rest'      => true,
 		)
 	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_primary_logo_url',
+		array(
+			'type'              => 'string',
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_favicon_url',
+		array(
+			'type'              => 'string',
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
 }
 add_action( 'admin_init', 'xfact_register_settings' );
 
@@ -72,7 +94,7 @@ function xfact_get_floating_logo_url(): string {
 	if ( $custom ) {
 		return $custom;
 	}
-	return get_theme_file_uri( 'assets/images/xfact-icon.svg' );
+	return get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' );
 }
 
 /**
@@ -82,4 +104,30 @@ function xfact_get_floating_logo_url(): string {
  */
 function xfact_should_show_floating_logo(): bool {
 	return (bool) get_option( 'xfact_show_floating_logo', false );
+}
+
+/**
+ * Get the resolved primary logo URL.
+ *
+ * @return string Logo URL.
+ */
+function xfact_get_primary_logo_url(): string {
+	$custom = get_option( 'xfact_primary_logo_url', '' );
+	if ( $custom ) {
+		return $custom;
+	}
+	return get_theme_file_uri( 'assets/images/brand/xfact-wordmark-white.png' );
+}
+
+/**
+ * Get the resolved favicon URL.
+ *
+ * @return string Favicon URL.
+ */
+function xfact_get_favicon_url(): string {
+	$custom = get_option( 'xfact_favicon_url', '' );
+	if ( $custom ) {
+		return $custom;
+	}
+	return get_theme_file_uri( 'assets/images/brand/favicon.ico' );
 }

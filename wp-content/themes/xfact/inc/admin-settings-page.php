@@ -105,6 +105,12 @@ function xfact_render_admin_settings_page(): void {
 			if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
 				update_option( 'xfact_floating_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ) );
 			}
+			if ( isset( $_POST['xfact_primary_logo_url'] ) ) {
+				update_option( 'xfact_primary_logo_url', esc_url_raw( wp_unslash( $_POST['xfact_primary_logo_url'] ) ) );
+			}
+			if ( isset( $_POST['xfact_favicon_url'] ) ) {
+				update_option( 'xfact_favicon_url', esc_url_raw( wp_unslash( $_POST['xfact_favicon_url'] ) ) );
+			}
 			$show = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
 			update_option( 'xfact_show_floating_logo', $show );
 
@@ -128,12 +134,19 @@ function xfact_render_admin_settings_page(): void {
 	$c_dark_text_secondary = get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' );
 	$c_dark_accent         = get_option( 'xfact_color_dark_accent', '#5c8ae6' );
 
-	$floating_logo_url  = get_option( 'xfact_floating_logo_url', '' );
+	$floating_logo_url = get_option( 'xfact_floating_logo_url', '' );
+	$primary_logo_url  = get_option( 'xfact_primary_logo_url', '' );
+	$favicon_url       = get_option( 'xfact_favicon_url', '' );
+
 	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
 	$editor_dark_mode   = (bool) get_option( 'xfact_editor_dark_mode', false );
-	$default_float_logo = get_theme_file_uri( 'assets/images/xfact-icon.svg' );
-	$edit_header_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
-	$edit_footer_url    = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
+
+	$default_float_logo   = get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' );
+	$default_primary_logo = get_theme_file_uri( 'assets/images/brand/xfact-wordmark-white.png' );
+	$default_favicon      = get_theme_file_uri( 'assets/images/brand/favicon.ico' );
+
+	$edit_header_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
+	$edit_footer_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
 	?>
 	<div class="wrap xfact-admin-settings">
 		<h1>xFact Branding & Settings</h1>
@@ -202,6 +215,46 @@ function xfact_render_admin_settings_page(): void {
 								</tr>
 							</tbody>
 						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- Primary Brand Assets -->
+			<div class="xfact-admin-card">
+				<h2>Primary Brand Assets</h2>
+				<p class="description">Configure the primary logo used in headers/footers, and the site favicon.</p>
+				
+				<!-- Primary Logo -->
+				<div style="margin-bottom: 24px;">
+					<h3>Primary Logo</h3>
+					<div class="xfact-admin-logo-preview" id="xfact-primary-logo-preview" style="background:#09172f; padding: 20px;">
+						<img src="<?php echo esc_url( $primary_logo_url ? $primary_logo_url : $default_primary_logo ); ?>" alt="Primary logo" style="max-width: 200px; height: auto;" />
+					</div>
+					<input type="hidden" name="xfact_primary_logo_url" id="xfact_primary_logo_url" value="<?php echo esc_attr( $primary_logo_url ); ?>" />
+					<div class="xfact-btn-group" style="margin-top: 12px;">
+						<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img">
+							Replace Primary Logo
+						</button>
+						<button type="button" class="button button-secondary xfact-admin-reset-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img" data-default="<?php echo esc_url( $default_primary_logo ); ?>">
+							Reset to Default
+						</button>
+					</div>
+				</div>
+
+				<!-- Favicon -->
+				<div>
+					<h3>Favicon</h3>
+					<div class="xfact-admin-logo-preview" id="xfact-favicon-preview" style="padding: 20px;">
+						<img src="<?php echo esc_url( $favicon_url ? $favicon_url : $default_favicon ); ?>" alt="Favicon" style="max-width: 64px; height: auto; padding: 8px;" />
+					</div>
+					<input type="hidden" name="xfact_favicon_url" id="xfact_favicon_url" value="<?php echo esc_attr( $favicon_url ); ?>" />
+					<div class="xfact-btn-group" style="margin-top: 12px;">
+						<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img">
+							Replace Favicon
+						</button>
+						<button type="button" class="button button-secondary xfact-admin-reset-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img" data-default="<?php echo esc_url( $default_favicon ); ?>">
+							Reset to Default
+						</button>
 					</div>
 				</div>
 			</div>

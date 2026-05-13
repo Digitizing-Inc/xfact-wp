@@ -42,6 +42,7 @@ require_once get_template_directory() . '/inc/template-parts.php';
 require_once get_template_directory() . '/inc/settings.php';
 require_once get_template_directory() . '/inc/admin-settings-page.php';
 require_once get_template_directory() . '/inc/dynamic-styles.php';
+require_once get_template_directory() . '/inc/branding.php';
 
 /**
  * Show a prominent warning on the Theme/Plugin File Editor pages.
