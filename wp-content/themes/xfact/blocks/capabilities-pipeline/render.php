@@ -58,7 +58,6 @@ $wrapper_attributes = get_block_wrapper_attributes(
 				<?php endforeach; ?>
 			</div>
 
-			<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
 		</div>
 	</div>
 </section>

@@ -20,19 +20,7 @@
 					value: attr.title,
 					onChange: function ( v ) { set( { title: v } ); },
 				} ),
-				el( h.TextareaControl, {
-					key: 'subtitle',
-					label: 'Description',
-					value: attr.subtitle,
-					onChange: function ( v ) { set( { subtitle: v } ); },
-				} ),
-				h.imageControl(
-					'Image',
-					attr.backgroundImage,
-					function ( media ) { set( { backgroundImage: media.url } ); },
-					function () { set( { backgroundImage: '' } ); },
-					'backgroundImage'
-				),
+				el( h.TextareaControl, { key: 'subtitle', label: 'Description', value: attr.subtitle, onChange: function ( v ) { set( { subtitle: v } ); } } ),
 			];
 
 			/* Buttons section */
@@ -66,17 +54,6 @@
 						}
 						set( updates ); 
 					},
-				} ),
-				el( h.SelectControl, {
-					key: 'showFloatingLogo',
-					label: 'Floating Logo',
-					value: attr.showFloatingLogo || 'global',
-					options: [
-						{ label: 'Use Global Setting', value: 'global' },
-						{ label: 'Show', value: 'show' },
-						{ label: 'Hide', value: 'hide' },
-					],
-					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
 				} )
 			);
 

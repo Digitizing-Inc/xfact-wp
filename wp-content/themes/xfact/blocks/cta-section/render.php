@@ -30,12 +30,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	array( 'class' => implode( ' ', $classes ) )
 );
 ?>
-<?php
-$bg_image = $attributes['backgroundImage'] ?? '';
-$bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) . '); background-size: cover; background-position: center;"' : '';
-?>
-
-<section <?php echo wp_kses_post( $wrapper_attributes ); ?><?php echo $bg_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
+<section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 
 	<?php if ( ! $is_light && xfact_should_show_floating_logo( $attributes ) ) : ?>
 		<div class="xfact-cta-section__accents" aria-hidden="true">

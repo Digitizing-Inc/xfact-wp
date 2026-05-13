@@ -68,9 +68,6 @@
 				el( h.TextControl, { key: 'sectionLabel', label: 'Pre-Title Label', value: attr.sectionLabel, onChange: function ( v ) { set( { sectionLabel: v } ); } } ),
 				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
 				el( h.TextareaControl, { key: 'subtitle', label: 'Description', value: attr.subtitle, onChange: function ( v ) { set( { subtitle: v } ); } } ),
-				h.imageControl( 'Image', attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
 			];
 
 			if ( caps.length > 0 ) {

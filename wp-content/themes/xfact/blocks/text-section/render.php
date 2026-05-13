@@ -108,7 +108,6 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 						</div>
 					<?php endif; ?>
 
-					<?php xfact_render_section_image( $attributes['sectionImage'] ?? '', $attributes['sectionImageAlt'] ?? '' ); ?>
 				</div>
 
 				<?php if ( ! empty( $key_messages ) ) : ?>

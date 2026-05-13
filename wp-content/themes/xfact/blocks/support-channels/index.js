@@ -64,11 +64,7 @@
 			var set = props.setAttributes;
 			var channels = attr.channels || [];
 
-			var controls = [
-				h.imageControl( 'Image', attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' )
-			];
+			var controls = [];
 
 			/* Per-channel controls */
 			if ( channels.length > 0 ) {

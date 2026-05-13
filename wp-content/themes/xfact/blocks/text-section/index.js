@@ -118,12 +118,6 @@
 				el( h.TextControl, { key: 'heading', label: 'Title', value: attr.heading, onChange: function ( v ) { set( { heading: v } ); } } ),
 				el( h.TextareaControl, { key: 'body', label: 'Description', value: attr.body, rows: 5, onChange: function ( v ) { set( { body: v } ); } } ),
 				h.iconControl( 'Icon', attr.sectionIcon || '', function ( v ) { set( { sectionIcon: v } ); }, 'sectionIcon' ),
-				h.imageControl( 'Image', attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); }, 'sectionImage' ),
-				attr.sectionImage
-					? el( h.TextControl, { key: 'sectionImageAlt', label: 'Image Alt Text', value: attr.sectionImageAlt, onChange: function ( v ) { set( { sectionImageAlt: v } ); } } )
-					: null,
 			];
 
 			/* Buttons section */

@@ -72,13 +72,6 @@
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-				h.imageControl(
-					'Image',
-					attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); },
-					'sectionImage'
-				),
 				el( 'hr', { key: 'form-settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
 				el( h.TextControl, {
 					key: 'recipientEmail',

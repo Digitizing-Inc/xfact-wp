@@ -33,10 +33,6 @@
 			"type": "array",
 			"default": []
 		},
-		"showFloatingLogo": {
-			"type": "string",
-			"default": "global"
-		},
 		"align": {
 			"type": "string",
 			"default": "full"

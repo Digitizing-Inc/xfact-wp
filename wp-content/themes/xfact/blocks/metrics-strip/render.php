@@ -15,12 +15,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	array( 'class' => 'xfact-metrics-strip xfact-dark-section xfact-section' )
 );
 ?>
-<?php
-$bg_image = $attributes['backgroundImage'] ?? '';
-$bg_style = $bg_image ? ' style="background-image: url(' . esc_url( $bg_image ) . '); background-size: cover; background-position: center;"' : '';
-?>
-
-<section <?php echo wp_kses_post( $wrapper_attributes ); ?><?php echo $bg_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
+<section <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="xfact-container">
 		<div class="xfact-metrics-strip__grid">
 			<?php foreach ( $metrics as $metric ) : ?>

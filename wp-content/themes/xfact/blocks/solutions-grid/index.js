@@ -123,13 +123,6 @@
 					value: attr.subtitle,
 					onChange: function ( v ) { set( { subtitle: v } ); },
 				} ),
-				h.imageControl(
-					'Image',
-					attr.sectionImage,
-					function ( media ) { set( { sectionImage: media.url, sectionImageAlt: media.alt || '' } ); },
-					function () { set( { sectionImage: '', sectionImageAlt: '' } ); },
-					'sectionImage'
-				),
 			];
 
 			/* ── Per-card controls ── */

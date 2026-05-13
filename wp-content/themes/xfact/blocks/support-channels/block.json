@@ -33,14 +33,6 @@
 				}
 			]
 		},
-		"sectionImage": {
-			"type": "string",
-			"default": ""
-		},
-		"sectionImageAlt": {
-			"type": "string",
-			"default": ""
-		},
 		"align": {
 			"type": "string",
 			"default": "full"

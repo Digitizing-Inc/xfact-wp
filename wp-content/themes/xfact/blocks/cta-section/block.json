@@ -21,14 +21,6 @@
 			"type": "array",
 			"default": []
 		},
-		"backgroundImage": {
-			"type": "string",
-			"default": ""
-		},
-		"showFloatingLogo": {
-			"type": "string",
-			"default": "global"
-		},
 		"backgroundColor": {
 			"type": "string"
 		},

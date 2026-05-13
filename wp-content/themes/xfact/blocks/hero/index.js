@@ -62,22 +62,7 @@
 			);
 			controls = controls.concat( h.buttonArrayControls( buttons, set, 'buttons' ) );
 
-			/* Settings section */
-			controls.push(
-				el( 'hr', { key: 'settings-sep', style: { margin: '24px 0', opacity: 0.3 } } ),
-				el( 'strong', { key: 'settings-hdr', style: { display: 'block', marginBottom: '8px' } }, 'Settings' ),
-				el( h.SelectControl, {
-					key: 'showFloatingLogo',
-					label: 'Floating Logo',
-					value: attr.showFloatingLogo || 'global',
-					options: [
-						{ label: 'Use Global Setting', value: 'global' },
-						{ label: 'Show', value: 'show' },
-						{ label: 'Hide', value: 'hide' },
-					],
-					onChange: function ( v ) { set( { showFloatingLogo: v } ); },
-				} )
-			);
+
 
 			return controls;
 		} ),
