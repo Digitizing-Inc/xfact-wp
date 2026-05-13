@@ -9,13 +9,17 @@
 	"description": "Full-width hero section with background image slideshow, video overlay, and CTA.",
 	"textdomain": "xfact",
 	"attributes": {
+		"heroVariant": {
+			"type": "string",
+			"default": "standard"
+		},
 		"title": {
 			"type": "string",
-			"default": "<accent>Your partner</accent> behind the systems communities rely on"
+			"default": ""
 		},
 		"subtitle": {
 			"type": "string",
-			"default": "xFact partners with public institutions to design, integrate, secure, and sustain mission-critical technology systems."
+			"default": ""
 		},
 		"buttons": {
 			"type": "array",
@@ -32,6 +36,38 @@
 		"slides": {
 			"type": "array",
 			"default": []
+		},
+		"sectionLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"useBreadcrumbs": {
+			"type": "boolean",
+			"default": false
+		},
+		"breadcrumbParentLabel": {
+			"type": "string",
+			"default": "Solutions"
+		},
+		"breadcrumbParentHref": {
+			"type": "string",
+			"default": "/solutions"
+		},
+		"badgeText": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImage": {
+			"type": "string",
+			"default": ""
+		},
+		"imageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"bodyText": {
+			"type": "string",
+			"default": ""
 		},
 		"align": {
 			"type": "string",

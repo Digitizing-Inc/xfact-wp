@@ -72,10 +72,10 @@ add_action( 'admin_notices', 'xfact_theme_editor_warning' );
 function xfact_body_classes( array $classes ): array {
 	if ( is_singular() ) {
 		$post = get_post();
-		if ( $post && ( has_block( 'xfact/hero', $post ) || has_block( 'xfact/page-hero', $post ) ) ) {
+		if ( $post && has_block( 'xfact/hero', $post ) ) {
 			// Check if it's the very first block.
 			$blocks = parse_blocks( $post->post_content );
-			if ( ! empty( $blocks[0]['blockName'] ) && in_array( $blocks[0]['blockName'], array( 'xfact/hero', 'xfact/page-hero' ), true ) ) {
+			if ( ! empty( $blocks[0]['blockName'] ) && 'xfact/hero' === $blocks[0]['blockName'] ) {
 				$classes[] = 'has-hero-header';
 			}
 		}
