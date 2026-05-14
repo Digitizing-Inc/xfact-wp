@@ -251,26 +251,32 @@ function xfact_render_admin_settings_page(): void {
 						'primary-1'   => array(
 							'start' => 'blue-500',
 							'end'   => 'blue-500',
+							'angle' => '90',
 						),
 						'primary-2'   => array(
 							'start' => 'blue-900',
 							'end'   => 'blue-300',
+							'angle' => '135',
 						),
 						'secondary-1' => array(
 							'start' => 'navy-900',
 							'end'   => 'navy-900',
+							'angle' => '90',
 						),
 						'secondary-2' => array(
 							'start' => 'navy-900',
 							'end'   => 'orange-500',
+							'angle' => '90',
 						),
 						'secondary-3' => array(
 							'start' => 'navy-900',
 							'end'   => 'red-500',
+							'angle' => '90',
 						),
 						'secondary-4' => array(
 							'start' => 'navy-900',
 							'end'   => 'green-500',
+							'angle' => '90',
 						),
 					);
 					$gradients = array();
@@ -278,6 +284,7 @@ function xfact_render_admin_settings_page(): void {
 						$gradients[ $k ] = array(
 							'start' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_start', $v['start'] ),
 							'end'   => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_end', $v['end'] ),
+							'angle' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_angle', $v['angle'] ),
 						);
 					}
 
@@ -488,6 +495,8 @@ function xfact_render_admin_settings_page(): void {
 										$val_start = $gradients[ $slug ]['start'];
 										$key_end   = 'xfact_gradient_' . str_replace( '-', '_', $slug ) . '_end';
 										$val_end   = $gradients[ $slug ]['end'];
+										$key_angle = 'xfact_gradient_' . str_replace( '-', '_', $slug ) . '_angle';
+										$val_angle = $gradients[ $slug ]['angle'];
 										$label     = ucwords( str_replace( '-', ' ', $slug ) );
 										?>
 									<tr>
@@ -501,6 +510,13 @@ function xfact_render_admin_settings_page(): void {
 												<div>
 													<span style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">End</span>
 													<?php xfact_render_swatch_picker( $key_end, $val_end, $primitives, $default_vals['end'] ); ?>
+												</div>
+												<div>
+													<span style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Angle (deg)</span>
+													<div style="display: flex; align-items: center; gap: 8px;">
+														<input type="number" name="<?php echo esc_attr( $key_angle ); ?>" id="<?php echo esc_attr( $key_angle ); ?>" value="<?php echo esc_attr( $val_angle ); ?>" style="width: 70px; height: 32px;" />
+														<button type="button" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 32px;" title="Reset to Default" aria-label="Reset to Default" data-target="<?php echo esc_attr( $key_angle ); ?>" data-default="<?php echo esc_attr( $default_vals['angle'] ); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+													</div>
 												</div>
 											</div>
 										</td>

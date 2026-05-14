@@ -68,7 +68,7 @@ foreach ( $seo_data as $slug => $meta ) {
 		$page_id = $found_pages[0]->ID;
 		update_post_meta( $page_id, '_yoast_wpseo_title', $meta['title'] . ' %%sep%% %%sitename%%' );
 		update_post_meta( $page_id, '_yoast_wpseo_metadesc', $meta['desc'] );
-		echo '✅ Updated SEO for page: ' . esc_html( $slug ) . ' (ID: ' . esc_html( $page_id ) . ")\n";
+		echo '✅ Updated SEO for page: ' . esc_html( $slug ) . ' (ID: ' . esc_html( (string) $page_id ) . ")\n";
 	} else {
 		echo '⚠️  Page not found for slug: ' . esc_html( $slug ) . "\n";
 	}

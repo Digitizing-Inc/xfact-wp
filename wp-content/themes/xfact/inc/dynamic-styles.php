@@ -90,26 +90,32 @@ function xfact_get_dynamic_css(): string {
 						'primary-1'   => array(
 							'start' => 'blue-500',
 							'end'   => 'blue-500',
+							'angle' => '90',
 						),
 						'primary-2'   => array(
 							'start' => 'blue-900',
 							'end'   => 'blue-300',
+							'angle' => '135',
 						),
 						'secondary-1' => array(
 							'start' => 'navy-900',
 							'end'   => 'navy-900',
+							'angle' => '90',
 						),
 						'secondary-2' => array(
 							'start' => 'navy-900',
 							'end'   => 'orange-500',
+							'angle' => '90',
 						),
 						'secondary-3' => array(
 							'start' => 'navy-900',
 							'end'   => 'red-500',
+							'angle' => '90',
 						),
 						'secondary-4' => array(
 							'start' => 'navy-900',
 							'end'   => 'green-500',
+							'angle' => '90',
 						),
 					);
 					$gradients = array();
@@ -117,6 +123,7 @@ function xfact_get_dynamic_css(): string {
 						$gradients[ $k ] = array(
 							'start' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_start', $v['start'] ),
 							'end'   => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_end', $v['end'] ),
+							'angle' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_angle', $v['angle'] ),
 						);
 					}
 
@@ -134,7 +141,7 @@ function xfact_get_dynamic_css(): string {
 
 					// Output Gradients.
 					foreach ( $gradients as $slug => $grad ) {
-						$css .= "\t--xfact-gradient-{$slug}: linear-gradient(90deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
+						$css .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
 					}
 
 					// Compatibility overrides for Gutenberg Presets.
@@ -151,8 +158,10 @@ function xfact_get_dynamic_css(): string {
 					$css .= "\t--xfact-dark-section-text: var(--xfact-primitive-white);\n";
 
 					// Button Gradient Overrides.
+					$css .= "\t--xfact-btn-angle: {$gradients['primary-2']['angle']}deg;\n";
 					$css .= "\t--xfact-btn-from: var(--xfact-primitive-{$gradients['primary-2']['start']});\n";
 					$css .= "\t--xfact-btn-to: var(--xfact-primitive-{$gradients['primary-2']['end']});\n";
+					$css .= "\t--xfact-btn-hover-angle: {$gradients['secondary-2']['angle']}deg;\n";
 					$css .= "\t--xfact-btn-hover-from: var(--xfact-primitive-{$gradients['secondary-2']['start']});\n";
 					$css .= "\t--xfact-btn-hover-to: var(--xfact-primitive-{$gradients['secondary-2']['end']});\n";
 
