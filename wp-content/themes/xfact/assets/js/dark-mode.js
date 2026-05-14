@@ -35,6 +35,10 @@
 				isDark ? 'Switch to light mode' : 'Switch to dark mode'
 			);
 		}
+		/* Sync with parent frame if in iframe (e.g. Theme Settings Live Preview) */
+		if ( window !== window.parent ) {
+			window.parent.postMessage( { type: 'xfact_theme_changed', value: theme }, '*' );
+		}
 	}
 
 	/* Apply immediately (runs in <head> so no FOUC) */

@@ -136,7 +136,13 @@
 			} else {
 				window.location.hash = target;
 			}
+			
+			// Scroll to top of the settings container
+			$( 'html, body' ).animate( {
+				scrollTop: $( '.xfact-settings-container' ).offset().top - 40
+			}, 300 );
 		} );
+
 
 		// Load active tab on page load
 		var hash = window.location.hash;
@@ -179,6 +185,18 @@
 
 			var theme = $btn.data( 'theme' );
 			sendPreviewUpdate( { type: 'theme', value: theme } );
+		} );
+
+		// Listen for theme changes triggered from inside the iframe
+		window.addEventListener( 'message', function( event ) {
+			if ( event.data && event.data.type === 'xfact_theme_changed' ) {
+				$themeBtns.removeClass( 'active' );
+				$themeBtns.filter( '[data-theme="' + event.data.value + '"]' ).addClass( 'active' );
+				
+				// Echo the theme change back to the iframe so preview-receiver.js 
+				// updates its internal currentTheme state and re-renders the custom color variables
+				sendPreviewUpdate( { type: 'theme', value: event.data.value } );
+			}
 		} );
 
 		// Send form state to iframe
