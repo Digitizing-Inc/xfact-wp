@@ -244,7 +244,7 @@
 				payload.gradients = {};
 				$('[id^="xfact_gradient_"]').each(function() {
 					var id = $(this).attr('id');
-					var parts = id.match(/xfact_gradient_(.+)_(start|end)/);
+					var parts = id.match(/xfact_gradient_(.+)_(start|end|angle)/);
 					if (parts) {
 						var slug = parts[1].replace(/_/g, '-');
 						var type = parts[2];

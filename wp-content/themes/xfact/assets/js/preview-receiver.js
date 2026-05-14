@@ -59,22 +59,23 @@
 			}
 		}
 
-		// Dark Mode Semantic Colors
-		if (currentStyles.darkSemantics) {
-			css += `\n}\nhtml[data-theme="dark"] body {`;
-			for (const [key, value] of Object.entries(currentStyles.darkSemantics)) {
-				css += `
-	--wp--preset--color--${key}: var(--xfact-primitive-${value}) !important;`;
-				css += `
-	--xfact-semantic-${key}: var(--xfact-primitive-${value}) !important;`;
-			}
-		}
-
 		// 3. Gradients
 		if (currentStyles.gradients) {
 			for (const [key, gradient] of Object.entries(currentStyles.gradients)) {
-				css += `\n\t--wp--preset--gradient--${key}: linear-gradient(90deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
-				css += `\n\t--xfact-gradient-${key}: linear-gradient(90deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
+				const angle = gradient.angle || '90';
+				css += `\n\t--wp--preset--gradient--${key}: linear-gradient(${angle}deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
+				css += `\n\t--xfact-gradient-${key}: linear-gradient(${angle}deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
+				
+				if (key === 'primary-2') {
+					css += `\n\t--xfact-btn-angle: ${angle}deg !important;`;
+					css += `\n\t--xfact-btn-from: var(--xfact-primitive-${gradient.start}) !important;`;
+					css += `\n\t--xfact-btn-to: var(--xfact-primitive-${gradient.end}) !important;`;
+				}
+				if (key === 'secondary-2') {
+					css += `\n\t--xfact-btn-hover-angle: ${angle}deg !important;`;
+					css += `\n\t--xfact-btn-hover-from: var(--xfact-primitive-${gradient.start}) !important;`;
+					css += `\n\t--xfact-btn-hover-to: var(--xfact-primitive-${gradient.end}) !important;`;
+				}
 			}
 		}
 
@@ -90,7 +91,18 @@
 				}
 			}
 		}
+		
 		css += '\n}';
+
+		// Dark Mode Semantic Colors
+		if (currentStyles.darkSemantics) {
+			css += `\nhtml[data-theme="dark"] body {`;
+			for (const [key, value] of Object.entries(currentStyles.darkSemantics)) {
+				css += `\n\t--wp--preset--color--${key}: var(--xfact-primitive-${value}) !important;`;
+				css += `\n\t--xfact-semantic-${key}: var(--xfact-primitive-${value}) !important;`;
+			}
+			css += '\n}';
+		}
 
 		if (currentStyles.vars && currentStyles.vars['--wp--preset--font-family--body']) {
 			css += `\nbody { \n\t--wp--preset--font-family--body: ${currentStyles.vars['--wp--preset--font-family--body']}; \n}`;

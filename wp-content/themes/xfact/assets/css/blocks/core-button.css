@@ -9,7 +9,7 @@
     border-radius: 0;
     background: linear-gradient(
         var(--xfact-btn-angle, 90deg),
-        var(--xfact-btn-from) 0%,
+        var(--xfact-btn-from) 30%,
         var(--xfact-btn-to) 100%
     );
     color: #ffffff;
@@ -25,7 +25,7 @@
     inset: 0;
     background: linear-gradient(
         var(--xfact-btn-hover-angle, 90deg),
-        var(--xfact-btn-hover-from) 0%,
+        var(--xfact-btn-hover-from) 30%,
         var(--xfact-btn-hover-to) 100%
     );
     opacity: 0;

@@ -256,7 +256,7 @@ function xfact_render_admin_settings_page(): void {
 						'primary-2'   => array(
 							'start' => 'blue-900',
 							'end'   => 'blue-300',
-							'angle' => '135',
+							'angle' => '90',
 						),
 						'secondary-1' => array(
 							'start' => 'navy-900',
