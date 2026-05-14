@@ -78,3 +78,7 @@ wp-content/themes/xfact/assets/images/xfact-hero-poster.png
 .zed/images
 .phpactor.json
 !backups/*.sql
+
+
+# large blobs
+.design-guide/xFact Creative Summary.pdf
