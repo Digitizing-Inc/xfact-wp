@@ -34,27 +34,25 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 			<div class="xfact-capabilities__pipeline">
 				<?php foreach ( $capabilities as $i => $cap ) : ?>
-					<div class="xfact-capabilities__item">
-						<div class="xfact-capabilities__card xfact-card-interactive">
-							<?php
-							$cap_icon = $cap['iconName'] ?? '';
-							if ( $cap_icon ) {
-								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
-								echo xfact_get_icon( $cap_icon, 'xfact-capabilities__icon' );
-							}
-							?>
-							<h3 class="xfact-capabilities__title xfact-text"><?php echo esc_html( $cap['title'] ?? '' ); ?></h3>
-							<p class="xfact-capabilities__desc xfact-text-muted"><?php echo esc_html( $cap['description'] ?? '' ); ?></p>
-						</div>
-						<?php if ( $i < count( $capabilities ) - 1 ) : ?>
-							<div class="xfact-capabilities__arrow" aria-hidden="true">
-								<svg class="xfact-capabilities__arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M5 12h14M12 5l7 7-7 7"/>
-								</svg>
-								<div class="xfact-capabilities__divider-mobile xfact-gradient-divider"></div>
-							</div>
-						<?php endif; ?>
+					<div class="xfact-capabilities__card xfact-card-interactive">
+						<?php
+						$cap_icon = $cap['iconName'] ?? '';
+						if ( $cap_icon ) {
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
+							echo xfact_get_icon( $cap_icon, 'xfact-capabilities__icon' );
+						}
+						?>
+						<h3 class="xfact-capabilities__title xfact-text"><?php echo esc_html( $cap['title'] ?? '' ); ?></h3>
+						<p class="xfact-capabilities__desc xfact-text-muted"><?php echo esc_html( $cap['description'] ?? '' ); ?></p>
 					</div>
+					<?php if ( $i < count( $capabilities ) - 1 ) : ?>
+						<div class="xfact-capabilities__arrow" aria-hidden="true">
+							<svg class="xfact-capabilities__arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14M12 5l7 7-7 7"/>
+							</svg>
+							<div class="xfact-capabilities__divider-mobile xfact-gradient-divider"></div>
+						</div>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</div>
 

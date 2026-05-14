@@ -9,21 +9,19 @@
 @media (min-width: 768px) {
 	.xfact-capabilities__pipeline {
 		flex-direction: row;
-		align-items: center;
+		align-items: stretch; /* Make items uniform height */
 		gap: 0;
 	}
 }
 
-.xfact-capabilities__item {
-	display: flex;
-	flex: 1;
-	align-items: center;
-}
+
 
 .xfact-capabilities__card {
 	flex: 1;
 	border-radius: 0.75rem;
 	padding: 1.25rem 1.5rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .xfact-capabilities__icon {
