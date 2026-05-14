@@ -16,6 +16,7 @@
 
 	var toggle = document.querySelector( '.xfact-mobile-toggle' );
 	var mobileNav = document.querySelector( '.xfact-mobile-nav' );
+	var header = document.querySelector( '.xfact-header' );
 
 	if ( ! toggle || ! mobileNav ) {
 		return;
@@ -124,6 +125,9 @@
 		isOpen = ! isOpen;
 		mobileNav.classList.toggle( 'xfact-mobile-nav--open', isOpen );
 		toggle.classList.toggle( 'xfact-mobile-toggle--open', isOpen );
+		if ( header ) {
+			header.classList.toggle( 'xfact-header--mobile-open', isOpen );
+		}
 		toggle.setAttribute( 'aria-expanded', String( isOpen ) );
 
 		/* Prevent scroll when menu is open */
@@ -137,6 +141,9 @@
 			isOpen = false;
 			mobileNav.classList.remove( 'xfact-mobile-nav--open' );
 			toggle.classList.remove( 'xfact-mobile-toggle--open' );
+			if ( header ) {
+				header.classList.remove( 'xfact-header--mobile-open' );
+			}
 			toggle.setAttribute( 'aria-expanded', 'false' );
 			document.body.style.overflow = '';
 		} );

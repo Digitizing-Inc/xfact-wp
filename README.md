@@ -85,16 +85,18 @@ xfact/
 ├── inc/
 │   ├── admin-settings-page.php # Standalone admin settings page for the theme
 │   ├── blocks.php     # Auto-registers all blocks from blocks/*/block.json
+│   ├── branding.php   # Handles theme logo and site identity settings
 │   ├── dynamic-styles.php # Fetches configured colors and injects them as CSS variables
 │   ├── enqueue.php    # Frontend CSS/JS enqueueing
 │   ├── icons.php      # Lucide-style SVG icon helper
 │   ├── images.php     # Shared image rendering helpers
 │   ├── post-types.php # Registers custom post types (e.g., case_study)
 │   ├── settings.php   # Registers theme settings via REST API
+│   ├── social-icons.php # Helper for social media icon SVGs
 │   └── template-parts.php # Template-part render filters
 ├── assets/
 │   ├── css/           # Global CSS (animations, dark mode, utilities)
-│   ├── js/            # Dark mode toggle, fade-in, hero slideshow
+│   ├── js/            # Editor scripts, dark mode toggle, interactive behaviors
 │   └── images/        # Hero images, logos, video
 ├── blocks/            # 18 custom dynamic blocks (block.json + render.php + style.css)
 │   ├── capability-areas/
@@ -187,34 +189,28 @@ All 18 blocks are **dynamic** (server-rendered via `render.php`), use `apiVersio
 
 The design system is declared entirely in `theme.json` v3. Change these values to rebrand the theme:
 
-#### Colors (18-color palette)
+#### Colors (13-color semantic palette)
 
-| Token | Default | Usage |
-|-------|---------|-------|
-| `navy-950` | `#09172f` | Darkest background |
-| `navy-900` | `#022038` | Dark background |
-| `navy-800` | `#06384f` | Elevated surfaces |
-| `navy-700` | `#0a4d6b` | Card backgrounds |
-| `navy-600` | `#32558f` | Accent backgrounds |
-| `accent` | `#5C8AE6` | Links, highlights |
-| `accent-dark` | `#3A6BD4` | Hover/focus states |
-| `accent-darkest` | `#123e99` | Buttons |
-| `surface` | `#f5f7fa` | Page background |
-| `surface-alt` | `#ffffff` | Cards, alt sections |
-| `surface-dark` | `#0d1f35` | Dark sections |
-| `surface-raised` | `#06384f` | Raised dark elements |
-| `border` | `#e2e8f0` | Borders, dividers |
-| `text-primary` | `#1a202c` | Body text, headings |
-| `text-secondary` | `#4a5568` | Excerpts, descriptions |
-| `text-muted` | `#718096` | Captions, dates |
-| `dark-section` | `#0d2d6b` | Dark section backgrounds |
-| `white` | `#ffffff` | White text/elements |
+| Token | CSS Variable | Name |
+|-------|--------------|------|
+| `primary` | `var(--xfact-semantic-primary)` | Primary |
+| `primary-dark` | `var(--xfact-semantic-primary-dark)` | Primary Dark |
+| `primary-light` | `var(--xfact-semantic-primary-light)` | Primary Light |
+| `text-primary` | `var(--xfact-semantic-text-primary)` | Text Primary |
+| `text-secondary` | `var(--xfact-semantic-text-secondary)` | Text Secondary |
+| `surface` | `var(--xfact-semantic-surface)` | Surface |
+| `surface-alt` | `var(--xfact-semantic-surface-alt)` | Surface Alt |
+| `success` | `var(--xfact-semantic-success)` | Success |
+| `warning` | `var(--xfact-semantic-warning)` | Warning |
+| `danger` | `var(--xfact-semantic-danger)` | Danger |
+| `white` | `#ffffff` | White |
+| `black` | `#000000` | Black |
+| `transparent` | `transparent` | Transparent |
 
 #### Typography
 
-- **Font**: Inter (Google Fonts, loaded via `fontFace` — no external stylesheet)
-- **Fallback stack**: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ...`
-- **Monospace**: JetBrains Mono / Fira Code / Cascadia Code (system fallback)
+- **Body Text**: IBM Plex Mono (loaded via `fontFace`), falling back to `JetBrains Mono` or `Consolas`.
+- **Headings**: Inter (loaded via `fontFace`), falling back to `-apple-system` and sans-serif stacks.
 - **6 fluid font sizes**: `small` → `hero` with `clamp()`-based fluid scaling
 
 #### Spacing
