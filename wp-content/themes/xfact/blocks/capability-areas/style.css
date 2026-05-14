@@ -83,7 +83,7 @@
 }
 
 .xfact-capability-area__service-tag {
-    border-radius: 9999px;
+    border-radius: 9999px !important;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     background-color: var(--has-surface-alt-background-color);

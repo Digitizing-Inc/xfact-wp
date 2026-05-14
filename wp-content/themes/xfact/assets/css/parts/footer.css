@@ -278,20 +278,35 @@ html[data-theme="dark"] .xfact-footer__copyright {
 
 .xfact-footer__social {
     color: var(--wp--preset--color--text-secondary);
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .xfact-footer__social:hover {
     color: var(--wp--preset--color--primary-dark);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="dark"] .xfact-footer__social {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+    background: var(--xfact-glass-bg);
+    border-color: var(--xfact-glass-border);
 }
 
 html[data-theme="dark"] .xfact-footer__social:hover {
-    color: var(--wp--preset--color--primary);
+    color: #ffffff;
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
 }
 
 .xfact-footer__social-icon {

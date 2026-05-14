@@ -23,11 +23,43 @@ body.has-hero-header .xfact-header:not(.xfact-header--scrolled) {
     border-bottom-color: transparent !important;
 }
 
-/* Editor canvas: make header visible (not transparent) and non-fixed */
+/* Editor canvas: make header visible (not transparent) and non-fixed by default */
 .editor-styles-wrapper .xfact-header {
     position: relative !important;
-    background: #0d2d6b !important;
+    background: var(--xfact-dark-section) !important;
     border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    margin-bottom: 0 !important;
+}
+
+/* If the editor canvas contains a hero block, make the header match the live site overlay */
+.editor-styles-wrapper:has(.wp-block-xfact-hero) .xfact-header,
+.editor-styles-wrapper:has(.wp-block-xfact-page-hero) .xfact-header {
+    position: relative !important;
+    background: transparent !important;
+    border-bottom-color: transparent !important;
+    margin-bottom: -4rem !important;
+    z-index: 1000;
+}
+
+/* Elevate the Gutenberg block wrapper itself so the header doesn't get trapped under the hero's click zone */
+.editor-styles-wrapper .wp-block:has(.xfact-header) {
+    z-index: 1000 !important;
+    position: relative;
+}
+
+@media (min-width: 640px) {
+    .editor-styles-wrapper:has(.wp-block-xfact-hero) .xfact-header,
+    .editor-styles-wrapper:has(.wp-block-xfact-page-hero) .xfact-header {
+        margin-bottom: -5rem !important;
+    }
+}
+
+/* Always keep solid in focus mode (Template Part Editor) */
+body.is-focus-mode .xfact-header {
+    position: relative !important;
+    background: var(--xfact-dark-section) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    margin-bottom: 0 !important;
 }
 
 /* Admin bar offset — WP adds a 32px bar at the top when logged in */
@@ -61,7 +93,8 @@ body.has-hero-header .xfact-header:not(.xfact-header--scrolled) {
 }
 
 /* If body has hero-header, content flows under the transparent header */
-body.has-hero-header .wp-site-blocks {
+body.has-hero-header .wp-site-blocks,
+.is-root-container.wp-site-blocks {
     padding-top: 0 !important;
 }
 
@@ -351,11 +384,11 @@ body.has-hero-header .wp-site-blocks {
 /* ── WP Navigation Submenu in Header ──────────────── */
 
 .xfact-header .wp-block-navigation__submenu-container {
-    background-color: var(--xfact-dark-section) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 0.75rem !important;
+    background-color: color-mix(in srgb, var(--wp--preset--color--primary-dark) 90%, transparent) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: var(--xfact-glass-radius) !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
     padding: 0.5rem 0 !important;
     min-width: 16rem !important;
@@ -411,25 +444,30 @@ body.has-hero-header .wp-site-blocks {
 
 /* ── WP Button in Header (CTA) ───────────────────── */
 
-.xfact-header .wp-block-button__link:not(.xfact-gradient-button) {
+.xfact-header .wp-block-button__link:not(.xfact-btn-primary) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0.5rem 24px;
-    border: 0.5px solid;
-    border-radius: 0 !important;
+    border: 1px solid var(--xfact-glass-border) !important;
+    border-radius: var(--xfact-glass-radius) !important;
     color: #fff !important;
     font-size: 0.875rem;
     font-weight: 500;
     text-decoration: none;
-    background: transparent !important;
-    transition: all 0.2s;
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.xfact-header .wp-block-button__link:not(.xfact-gradient-button):hover {
-    background: #ffffff !important;
-    color: var(--wp--preset--color--primary-dark) !important;
-    border-color: #ffffff !important;
+.xfact-header .wp-block-button__link:not(.xfact-btn-primary):hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    color: #ffffff !important;
+    border-color: var(--xfact-glass-border-hover) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 /* ── Mobile Menu Toggle & Overlay ── */
@@ -493,9 +531,10 @@ body.has-hero-header .wp-site-blocks {
     max-height: 0;
     overflow: hidden;
     border-top: 0 solid transparent;
-    background: var(--xfact-dark-section);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border-bottom: 1px solid var(--xfact-glass-border);
     transition:
         max-height 0.3s ease,
         opacity 0.3s ease,
@@ -659,14 +698,25 @@ body.has-hero-header .wp-site-blocks {
 
 .xfact-header .wp-block-navigation-submenu__toggle,
 .xfact-header .wp-block-navigation__submenu-icon {
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 0 2px !important;
+    margin: 0 0 0 6px !important;
     padding: 0 !important;
-    transform: translateY(-1px);
+    background: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
+    border-radius: var(--xfact-glass-radius);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.xfact-header .wp-block-navigation-submenu__toggle:hover,
+.xfact-header .wp-block-navigation__submenu-icon:hover {
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
 }
 
 .xfact-header .wp-block-navigation-submenu__toggle::after,

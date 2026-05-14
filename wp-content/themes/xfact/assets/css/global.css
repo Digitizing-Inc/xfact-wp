@@ -29,6 +29,14 @@
     --xfact-spacing-section: 5.625rem;
     --xfact-spacing-section-lg: 7rem;
     --xfact-spacing-hero-top: 10rem;
+
+    /* Systems Window Glassmorphism */
+    --xfact-glass-bg: rgba(255, 255, 255, 0.1);
+    --xfact-glass-bg-hover: rgba(255, 255, 255, 0.15);
+    --xfact-glass-border: rgba(255, 255, 255, 0.2);
+    --xfact-glass-border-hover: rgba(255, 255, 255, 0.3);
+    --xfact-glass-blur: blur(12px);
+    --xfact-glass-radius: 12px;
 }
 
 /* ── Base ─────────────────────────────────────────────── */
@@ -88,21 +96,27 @@ button:focus-visible,
 .has-surface-background-color {
     background-color: var(--has-surface-background-color);
 }
+
 .has-surface-alt-background-color {
     background-color: var(--has-surface-alt-background-color);
 }
+
 .has-surface-background-color-card {
     background-color: var(--has-surface-background-color-card);
 }
+
 .xfact-border {
     border-color: color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
 }
+
 .xfact-text {
     color: var(--wp--preset--color--text-primary);
 }
+
 .xfact-text-secondary {
     color: var(--wp--preset--color--text-secondary);
 }
+
 .xfact-text-muted {
     color: var(--wp--preset--color--text-secondary);
 }
@@ -113,13 +127,15 @@ button:focus-visible,
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    max-width: 80rem; /* 1280px / max-w-7xl */
+    max-width: 80rem;
+    /* 1280px / max-w-7xl */
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
 .xfact-container--narrow {
-    max-width: 48rem; /* 768px / max-w-3xl */
+    max-width: 48rem;
+    /* 768px / max-w-3xl */
 }
 
 @media (min-width: 640px) {
@@ -171,8 +187,17 @@ button:focus-visible,
     line-height: 1.1;
 }
 
-@media (min-width: 768px) { .xfact-section-heading { font-size: 1.875rem; } }
-@media (min-width: 1024px) { .xfact-section-heading { font-size: 2.25rem; } }
+@media (min-width: 768px) {
+    .xfact-section-heading {
+        font-size: 1.875rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .xfact-section-heading {
+        font-size: 2.25rem;
+    }
+}
 
 .xfact-section-subtitle {
     margin-top: 1rem;
@@ -181,43 +206,71 @@ button:focus-visible,
     max-width: 48rem;
 }
 
+/* ── Glassmorphism (Systems Window) ───────────────────── */
+
+.xfact-glass {
+    background: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
+    border-radius: var(--xfact-glass-radius);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
 .xfact-dark-section {
     background-color: var(--xfact-dark-section);
 }
+
 .xfact-dark-section-text {
     color: var(--xfact-dark-section-text);
 }
+
 .xfact-dark-section-secondary {
     color: var(--xfact-dark-section-secondary);
 }
+
 .xfact-dark-section-muted {
     color: var(--xfact-dark-section-muted);
 }
 
 /* ── Card Utilities ────────────────────────────────────── */
 
-.xfact-card {
+.xfact-card,
+.xfact-card-interactive {
     background-color: var(--has-surface-background-color-card);
     border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
-    border-radius: 1rem;
+    border-radius: var(--xfact-glass-radius);
     overflow: hidden;
 }
 
 .xfact-card-interactive {
-    background-color: var(--has-surface-background-color-card);
-    border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
-    border-radius: 1rem;
-    overflow: hidden;
     transition: all 0.3s ease;
     text-decoration: none !important;
     display: block;
     color: inherit;
 }
 
+/* Glassmorphism Context for Cards */
+.xfact-dark-section .xfact-card,
+.xfact-dark-section .xfact-card-interactive,
+html[data-theme="dark"] .xfact-card,
+html[data-theme="dark"] .xfact-card-interactive {
+    background: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
+}
+
 .xfact-card-interactive:hover {
     border-color: var(--wp--preset--color--primary);
     transform: translateY(-4px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.xfact-dark-section .xfact-card-interactive:hover,
+html[data-theme="dark"] .xfact-card-interactive:hover {
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
 }
 
 .xfact-card-interactive:focus-visible {
@@ -245,19 +298,32 @@ button.xfact-theme-toggle:focus-visible {
 }
 
 button.xfact-theme-toggle--icon-only {
-    width: 2rem !important;
-    height: 2rem !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
     border-radius: 50% !important;
     color: var(--wp--preset--color--text-secondary) !important;
-    background: transparent !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    -webkit-backdrop-filter: var(--xfact-glass-blur) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-theme="dark"] button.xfact-theme-toggle--icon-only,
+.xfact-dark-section button.xfact-theme-toggle--icon-only {
+    background: var(--xfact-glass-bg) !important;
+    border-color: var(--xfact-glass-border) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
 }
 
 button.xfact-theme-toggle--icon-only:hover {
-    background: rgba(0, 0, 0, 0.05) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
 }
 
-html[data-theme="dark"] button.xfact-theme-toggle--icon-only:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+html[data-theme="dark"] button.xfact-theme-toggle--icon-only:hover,
+.xfact-dark-section button.xfact-theme-toggle--icon-only:hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    border-color: var(--xfact-glass-border-hover) !important;
+    color: #ffffff !important;
 }
 
 button.xfact-theme-toggle--icon-only svg {
@@ -334,15 +400,15 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 /* WordPress adds default margins between blocks.
    The source template has seamless section transitions. */
 
-.wp-site-blocks > * + * {
+.wp-site-blocks>*+* {
     margin-block-start: 0 !important;
 }
 
-.wp-site-blocks > .xfact-header + * {
+.wp-site-blocks>.xfact-header+* {
     margin-block-start: 0 !important;
 }
 
-.entry-content > * + * {
+.entry-content>*+* {
     margin-block-start: 0 !important;
 }
 
@@ -382,14 +448,14 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 }
 
 /* Also strip from has-global-padding on full-width custom blocks */
-.wp-site-blocks > .alignfull.wp-block-xfact-hero,
-.wp-site-blocks > .alignfull.wp-block-xfact-cta-section,
-.wp-site-blocks > .alignfull.wp-block-xfact-page-hero,
-.wp-site-blocks > .alignfull.wp-block-xfact-metrics-strip,
-.wp-site-blocks > .alignfull:where(.xfact-hero),
-.wp-site-blocks > .alignfull:where(.xfact-cta-section),
-.wp-site-blocks > .alignfull:where(.xfact-page-hero),
-.wp-site-blocks > .alignfull:where(.xfact-metrics-strip) {
+.wp-site-blocks>.alignfull.wp-block-xfact-hero,
+.wp-site-blocks>.alignfull.wp-block-xfact-cta-section,
+.wp-site-blocks>.alignfull.wp-block-xfact-page-hero,
+.wp-site-blocks>.alignfull.wp-block-xfact-metrics-strip,
+.wp-site-blocks>.alignfull:where(.xfact-hero),
+.wp-site-blocks>.alignfull:where(.xfact-cta-section),
+.wp-site-blocks>.alignfull:where(.xfact-page-hero),
+.wp-site-blocks>.alignfull:where(.xfact-metrics-strip) {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -436,8 +502,10 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 
 /* Compensate for the missing absolute header overlay in the editor */
 .editor-styles-wrapper .xfact-page-hero {
-    padding-top: 10rem !important; /* Match frontend exactly */
-    min-height: 38rem !important; /* Match frontend exactly */
+    padding-top: 10rem !important;
+    /* Match frontend exactly */
+    min-height: 38rem !important;
+    /* Match frontend exactly */
 }
 
 /* Careers: Current Openings block container in editor */

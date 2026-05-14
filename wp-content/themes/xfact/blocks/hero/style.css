@@ -451,11 +451,10 @@ html[data-theme="dark"] .xfact-page-hero__text-gradient {
     color: #ffffff;
 }
 
-/* Badge Styling */
 .xfact-hero-badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 9999px;
+    border-radius: 9999px !important;
     border: 1px solid rgba(92, 138, 230, 0.4);
     background-color: rgba(92, 138, 230, 0.1);
     padding: 0.25rem 0.75rem;
@@ -464,6 +463,15 @@ html[data-theme="dark"] .xfact-page-hero__text-gradient {
     color: var(--wp--preset--color--primary);
     margin-top: 0.75rem;
     margin-bottom: 1rem;
+}
+
+.xfact-dark-section .xfact-hero-badge,
+html[data-theme="dark"] .xfact-hero-badge {
+    background: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
+    color: #ffffff;
 }
 
 /* Ensure proper spacing when following breadcrumb */

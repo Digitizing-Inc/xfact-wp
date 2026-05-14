@@ -48,12 +48,13 @@
 .xfact-contact-form__input,
 .xfact-contact-form__textarea {
     border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
-    border-radius: 0.5rem;
+    border-radius: var(--xfact-glass-radius); /* Use global glass radius */
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     background-color: var(--has-surface-alt-background-color);
-    transition: border-color 0.2s;
+    transition: all 0.2s;
     font-family: inherit;
+    color: inherit;
 }
 
 .xfact-contact-form__input:focus,
@@ -61,6 +62,26 @@
     outline: none;
     border-color: var(--wp--preset--color--primary);
     box-shadow: 0 0 0 3px rgba(92, 138, 230, 0.1);
+}
+
+/* Glassmorphism Context for Inputs */
+html[data-theme="dark"] .xfact-contact-form__input,
+html[data-theme="dark"] .xfact-contact-form__textarea,
+.xfact-dark-section .xfact-contact-form__input,
+.xfact-dark-section .xfact-contact-form__textarea {
+    background-color: var(--xfact-glass-bg);
+    backdrop-filter: var(--xfact-glass-blur);
+    -webkit-backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
+}
+
+html[data-theme="dark"] .xfact-contact-form__input:focus,
+html[data-theme="dark"] .xfact-contact-form__textarea:focus,
+.xfact-dark-section .xfact-contact-form__input:focus,
+.xfact-dark-section .xfact-contact-form__textarea:focus {
+    background-color: var(--xfact-glass-bg-hover);
+    border-color: var(--wp--preset--color--primary);
+    box-shadow: 0 0 0 3px rgba(92, 138, 230, 0.2);
 }
 
 .xfact-contact-form__textarea {

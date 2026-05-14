@@ -74,7 +74,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 						$link_class = 'xfact-btn-link';
 						if ( 'primary' === $btn_variant ) {
-							$link_class = 'xfact-gradient-button xfact-btn-lg';
+							$link_class = 'xfact-btn-primary xfact-btn-lg';
 						} elseif ( 'secondary' === $btn_variant ) {
 							$link_class = 'xfact-btn-secondary xfact-btn-lg'; }
 

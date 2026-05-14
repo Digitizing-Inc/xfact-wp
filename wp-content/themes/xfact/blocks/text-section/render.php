@@ -92,7 +92,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
 								$link_class = 'xfact-text-section__link';
 								if ( 'primary' === $btn_variant ) {
-									$link_class = 'xfact-gradient-button wp-block-button__link wp-element-button xfact-btn-lg';
+									$link_class = 'xfact-btn-primary wp-block-button__link wp-element-button xfact-btn-lg';
 								} elseif ( 'secondary' === $btn_variant ) {
 									$link_class = 'xfact-btn-secondary xfact-btn-lg'; }
 

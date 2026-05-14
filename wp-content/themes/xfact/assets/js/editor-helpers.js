@@ -727,7 +727,7 @@
 							label: 'Variant',
 							value: btn.variant || 'primary',
 							options: [
-								{ label: 'Primary (Gradient)', value: 'primary' },
+								{ label: 'Primary', value: 'primary' },
 								{ label: 'Secondary (Outline)', value: 'secondary' },
 								{ label: 'Text Link', value: 'link' },
 							],

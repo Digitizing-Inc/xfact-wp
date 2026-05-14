@@ -72,7 +72,7 @@ $buttons            = $attributes['buttons'] ?? array();
 
 						$link_class = 'xfact-btn-link';
 						if ( 'primary' === $btn_variant ) {
-							$link_class = 'xfact-gradient-button xfact-btn-default';
+							$link_class = 'xfact-btn-primary xfact-btn-default';
 						} elseif ( 'secondary' === $btn_variant ) {
 							$link_class = 'xfact-btn-secondary xfact-btn-default'; }
 
