@@ -206,23 +206,6 @@ function xfact_enqueue_editor_assets(): void {
 			'editorDarkMode'   => (bool) get_option( 'xfact_editor_dark_mode', false ),
 			'editHeaderUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' ),
 			'editFooterUrl'    => admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' ),
-			'darkVars'         => array(
-				'--xfact-bg'                          => get_option( 'xfact_color_dark_bg', '#09172f' ),
-				'--xfact-bg-alt'                      => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
-				'--xfact-bg-card'                     => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
-				'--xfact-text'                        => get_option( 'xfact_color_dark_text', '#ffffff' ),
-				'--xfact-text-secondary'              => get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' ),
-				'--xfact-accent'                      => get_option( 'xfact_color_dark_accent', '#5c8ae6' ),
-				'--xfact-surface'                     => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
-				'--xfact-surface-alt'                 => get_option( 'xfact_color_dark_bg', '#09172f' ),
-				'--xfact-dark-section'                => get_option( 'xfact_color_dark_bg', '#09172f' ),
-				'--xfact-dark-section-text'           => get_option( 'xfact_color_dark_text', '#ffffff' ),
-				'--wp--preset--color--surface'        => get_option( 'xfact_color_dark_bg', '#09172f' ),
-				'--wp--preset--color--surface-alt'    => get_option( 'xfact_color_dark_bg_alt', '#022038' ),
-				'--wp--preset--color--text-primary'   => get_option( 'xfact_color_dark_text', '#ffffff' ),
-				'--wp--preset--color--text-secondary' => get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' ),
-				'--wp--preset--color--accent'         => get_option( 'xfact_color_dark_accent', '#5c8ae6' ),
-			),
 		)
 	);
 }

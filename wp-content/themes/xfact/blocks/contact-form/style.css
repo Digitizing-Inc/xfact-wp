@@ -42,16 +42,16 @@
 }
 
 .xfact-contact-form__required {
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-contact-form__input,
 .xfact-contact-form__textarea {
-    border: 1px solid var(--xfact-border);
+    border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
-    background-color: var(--xfact-bg-alt);
+    background-color: var(--has-surface-alt-background-color);
     transition: border-color 0.2s;
     font-family: inherit;
 }
@@ -59,7 +59,7 @@
 .xfact-contact-form__input:focus,
 .xfact-contact-form__textarea:focus {
     outline: none;
-    border-color: var(--xfact-accent);
+    border-color: var(--wp--preset--color--primary);
     box-shadow: 0 0 0 3px rgba(92, 138, 230, 0.1);
 }
 
@@ -128,7 +128,7 @@
     height: 1.25rem;
     flex-shrink: 0;
     margin-top: 0.125rem;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-contact-form__checklist-item span {

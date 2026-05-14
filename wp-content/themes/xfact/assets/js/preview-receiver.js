@@ -39,57 +39,61 @@
 		}
 	});
 
-	function renderStyles() {
+		function renderStyles() {
 		let css = ':root, html, body {';
 		
-		// If dark mode is active, use darkVars where available, fallback to light vars
-		// If light mode is active, use only light vars
-		const activeVars = currentTheme === 'dark' && currentStyles.darkVars 
-			? { ...currentStyles.vars, ...currentStyles.darkVars } 
-			: currentStyles.vars;
-
-		// We need to map some specific standard CSS variables
-		if (activeVars['--xfact-bg']) {
-			activeVars['--xfact-surface-alt'] = activeVars['--xfact-bg'];
-			activeVars['--wp--preset--color--surface'] = activeVars['--xfact-bg'];
-			if (currentTheme === 'dark') {
-				activeVars['--xfact-dark-section'] = activeVars['--xfact-bg'];
-				activeVars['--wp--preset--color--dark-section'] = activeVars['--xfact-bg'];
+		// 1. Primitive Colors
+		if (currentStyles.primitives) {
+			for (const [key, value] of Object.entries(currentStyles.primitives)) {
+				css += `\n\t--xfact-primitive-${key}: ${value} !important;`;
 			}
 		}
-		if (activeVars['--xfact-bg-alt']) {
-			activeVars['--xfact-surface'] = activeVars['--xfact-bg-alt'];
-			activeVars['--xfact-bg-card'] = activeVars['--xfact-bg-alt'];
-			activeVars['--wp--preset--color--surface-alt'] = activeVars['--xfact-bg-alt'];
-		}
-		if (activeVars['--xfact-text']) {
-			activeVars['--wp--preset--color--text-primary'] = activeVars['--xfact-text'];
-			if (currentTheme === 'dark') {
-				activeVars['--xfact-dark-section-text'] = activeVars['--xfact-text'];
+
+		// 2. Semantic Colors
+		if (currentStyles.semantics) {
+			for (const [key, value] of Object.entries(currentStyles.semantics)) {
+				css += `
+	--wp--preset--color--${key}: var(--xfact-primitive-${value}) !important;`;
+				css += `
+	--xfact-semantic-${key}: var(--xfact-primitive-${value}) !important;`;
 			}
 		}
-		if (activeVars['--xfact-text-secondary']) {
-			activeVars['--wp--preset--color--text-secondary'] = activeVars['--xfact-text-secondary'];
-		}
-		if (activeVars['--xfact-accent']) {
-			activeVars['--wp--preset--color--accent'] = activeVars['--xfact-accent'];
+
+		// Dark Mode Semantic Colors
+		if (currentStyles.darkSemantics) {
+			css += `\n}\nhtml[data-theme="dark"] body {`;
+			for (const [key, value] of Object.entries(currentStyles.darkSemantics)) {
+				css += `
+	--wp--preset--color--${key}: var(--xfact-primitive-${value}) !important;`;
+				css += `
+	--xfact-semantic-${key}: var(--xfact-primitive-${value}) !important;`;
+			}
 		}
 
-		for (const [key, value] of Object.entries(activeVars)) {
-			if (value) {
-				// Handle important tags for WP preset fonts
-				if (value.includes('!important')) {
-					css += `\n\t${key}: ${value};`;
-				} else {
-					css += `\n\t${key}: ${value} !important;`;
+		// 3. Gradients
+		if (currentStyles.gradients) {
+			for (const [key, gradient] of Object.entries(currentStyles.gradients)) {
+				css += `\n\t--wp--preset--gradient--${key}: linear-gradient(90deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
+				css += `\n\t--xfact-gradient-${key}: linear-gradient(90deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
+			}
+		}
+
+		// 4. Typography / legacy vars
+		if (currentStyles.vars) {
+			for (const [key, value] of Object.entries(currentStyles.vars)) {
+				if (key && value && typeof key === 'string' && key.indexOf('--wp--preset--font') === 0) {
+					if (value.includes('!important')) {
+						css += `\n\t${key}: ${value};`;
+					} else {
+						css += `\n\t${key}: ${value} !important;`;
+					}
 				}
 			}
 		}
 		css += '\n}';
 
-		// Make sure body font applies specifically if present
-		if (activeVars['--wp--preset--font-family--body']) {
-			css += `\nbody { \n\t--wp--preset--font-family--body: ${activeVars['--wp--preset--font-family--body']}; \n}`;
+		if (currentStyles.vars && currentStyles.vars['--wp--preset--font-family--body']) {
+			css += `\nbody { \n\t--wp--preset--font-family--body: ${currentStyles.vars['--wp--preset--font-family--body']}; \n}`;
 		}
 
 		styleEl.textContent = css;

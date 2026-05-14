@@ -22,8 +22,8 @@
 }
 
 .xfact-team-grid__card {
-	background-color: var(--xfact-bg-card);
-	border: 1px solid var(--xfact-border);
+	background-color: var(--has-surface-background-color-card);
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
 	border-radius: 1rem;
 	overflow: hidden;
 	display: flex;
@@ -32,7 +32,7 @@
 }
 
 .xfact-team-grid__card:hover {
-	border-color: var(--xfact-accent);
+	border-color: var(--wp--preset--color--primary);
 	transform: translateY(-4px);
 	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
@@ -41,7 +41,7 @@
 	width: 100%;
 	aspect-ratio: 1 / 1;
 	overflow: hidden;
-	background-color: var(--xfact-bg);
+	background-color: var(--has-surface-background-color);
 }
 
 .xfact-team-grid__image {
@@ -71,13 +71,13 @@
 	font-weight: 700;
 	margin: 0 0 0.25rem 0;
 	letter-spacing: -0.025em;
-	color: var(--xfact-text);
+	color: var(--wp--preset--color--text-primary);
 }
 
 .xfact-team-grid__title {
 	font-size: 0.875rem;
 	margin: 0;
-	color: var(--xfact-text-secondary);
+	color: var(--wp--preset--color--text-secondary);
 	line-height: 1.5;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .xfact-team-grid__social-link {
-	color: var(--xfact-text-muted);
+	color: var(--wp--preset--color--text-secondary);
 	transition: color 0.2s ease, transform 0.2s ease;
 	display: inline-flex;
 	align-items: center;
@@ -97,7 +97,7 @@
 }
 
 .xfact-team-grid__social-link:hover {
-	color: var(--xfact-accent);
+	color: var(--wp--preset--color--primary);
 	transform: scale(1.1);
 }
 

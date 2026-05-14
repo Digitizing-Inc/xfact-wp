@@ -29,7 +29,7 @@
 .xfact-support-channels__icon {
     width: 1.5rem;
     height: 1.5rem;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-support-channels__title {

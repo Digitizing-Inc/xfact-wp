@@ -21,11 +21,14 @@
 		return window.matchMedia( '(prefers-color-scheme: light)' ).matches ? 'light' : 'dark';
 	}
 
-	function apply( theme ) {
+	function apply( theme, isExplicit = true ) {
 		var isDark = theme === 'dark';
 		document.documentElement.setAttribute( 'data-theme', theme );
 		document.documentElement.setAttribute( 'data-xfact-dark', String( isDark ) );
-		localStorage.setItem( STORAGE_KEY, theme );
+		
+		if ( isExplicit ) {
+			localStorage.setItem( STORAGE_KEY, theme );
+		}
 
 		/* Update all toggle buttons' aria-label */
 		var toggles = document.querySelectorAll( '.xfact-dark-mode-toggle, .xfact-theme-toggle' );
@@ -41,8 +44,8 @@
 		}
 	}
 
-	/* Apply immediately (runs in <head> so no FOUC) */
-	apply( getPreference() );
+	/* Apply immediately (runs in <head> so no FOUC), don't set explicit storage */
+	apply( getPreference(), false );
 
 	/* Bind toggle buttons after DOM ready */
 	document.addEventListener( 'DOMContentLoaded', function () {

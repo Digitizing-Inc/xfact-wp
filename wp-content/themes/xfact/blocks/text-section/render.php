@@ -17,7 +17,7 @@ $tags        = $attributes['tags'] ?? array();
 $use_alt_bg  = $attributes['useAltBackground'] ?? false;
 $is_centered = ! empty( $attributes['isCenteredCard'] );
 
-$bg_class     = $use_alt_bg ? 'xfact-bg-alt' : 'xfact-bg';
+$bg_class     = $use_alt_bg ? 'has-surface-alt-background-color' : 'has-surface-background-color';
 $card_class   = $is_centered ? ' xfact-text-section--centered-card' : '';
 $wrapper_args = array( 'class' => "xfact-text-section {$bg_class}{$card_class} xfact-section xfact-section-border" );
 

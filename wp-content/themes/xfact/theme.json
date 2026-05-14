@@ -13,106 +13,101 @@
 			"defaultGradients": false,
 			"palette": [
 				{
-					"slug": "navy-950",
-					"color": "#09172f",
-					"name": "Navy 950"
+					"slug": "primary",
+					"color": "var(--xfact-semantic-primary)",
+					"name": "Primary"
 				},
 				{
-					"slug": "navy-900",
-					"color": "#022038",
-					"name": "Navy 900"
+					"slug": "primary-dark",
+					"color": "var(--xfact-semantic-primary-dark)",
+					"name": "Primary Dark"
 				},
 				{
-					"slug": "navy-800",
-					"color": "#06384f",
-					"name": "Navy 800"
-				},
-				{
-					"slug": "navy-700",
-					"color": "#0a4d6b",
-					"name": "Navy 700"
-				},
-				{
-					"slug": "navy-600",
-					"color": "#32558f",
-					"name": "Navy 600"
-				},
-				{
-					"slug": "accent",
-					"color": "var(--xfact-accent, #5C8AE6)",
-					"name": "Accent"
-				},
-				{
-					"slug": "accent-dark",
-					"color": "#3A6BD4",
-					"name": "Accent Dark"
-				},
-				{
-					"slug": "accent-darkest",
-					"color": "#123e99",
-					"name": "Accent Darkest"
-				},
-				{
-					"slug": "surface",
-					"color": "var(--xfact-bg, #f5f7fa)",
-					"name": "Surface"
-				},
-				{
-					"slug": "surface-alt",
-					"color": "var(--xfact-bg-alt, #ffffff)",
-					"name": "Surface Alt"
-				},
-				{
-					"slug": "surface-dark",
-					"color": "#0d1f35",
-					"name": "Surface Dark"
-				},
-				{
-					"slug": "surface-raised",
-					"color": "#06384f",
-					"name": "Surface Raised"
-				},
-				{
-					"slug": "border",
-					"color": "#e2e8f0",
-					"name": "Border"
+					"slug": "primary-light",
+					"color": "var(--xfact-semantic-primary-light)",
+					"name": "Primary Light"
 				},
 				{
 					"slug": "text-primary",
-					"color": "var(--xfact-text, #1a202c)",
+					"color": "var(--xfact-semantic-text-primary)",
 					"name": "Text Primary"
 				},
 				{
 					"slug": "text-secondary",
-					"color": "var(--xfact-text-secondary, #4a5568)",
+					"color": "var(--xfact-semantic-text-secondary)",
 					"name": "Text Secondary"
 				},
 				{
-					"slug": "text-muted",
-					"color": "#718096",
-					"name": "Text Muted"
+					"slug": "surface",
+					"color": "var(--xfact-semantic-surface)",
+					"name": "Surface"
 				},
 				{
-					"slug": "dark-section",
-					"color": "#0d2d6b",
-					"name": "Dark Section"
+					"slug": "surface-alt",
+					"color": "var(--xfact-semantic-surface-alt)",
+					"name": "Surface Alt"
+				},
+				{
+					"slug": "success",
+					"color": "var(--xfact-semantic-success)",
+					"name": "Success"
+				},
+				{
+					"slug": "warning",
+					"color": "var(--xfact-semantic-warning)",
+					"name": "Warning"
+				},
+				{
+					"slug": "danger",
+					"color": "var(--xfact-semantic-danger)",
+					"name": "Danger"
 				},
 				{
 					"slug": "white",
 					"color": "#ffffff",
 					"name": "White"
+				},
+				{
+					"slug": "black",
+					"color": "#000000",
+					"name": "Black"
+				},
+				{
+					"slug": "transparent",
+					"color": "transparent",
+					"name": "Transparent"
 				}
 			],
 			"gradients": [
 				{
-					"slug": "button-primary",
-					"gradient": "linear-gradient(90deg, var(--wp--preset--color--accent-darkest) 0%, var(--wp--preset--color--accent-dark) 100%)",
-					"name": "Button Primary"
+					"slug": "primary-1",
+					"gradient": "var(--xfact-gradient-primary-1)",
+					"name": "Primary 1"
 				},
 				{
-					"slug": "button-hover",
-					"gradient": "linear-gradient(90deg, var(--wp--preset--color--accent-dark) 0%, var(--wp--preset--color--accent) 100%)",
-					"name": "Button Hover"
+					"slug": "primary-2",
+					"gradient": "var(--xfact-gradient-primary-2)",
+					"name": "Primary 2"
+				},
+				{
+					"slug": "secondary-1",
+					"gradient": "var(--xfact-gradient-secondary-1)",
+					"name": "Secondary 1"
+				},
+				{
+					"slug": "secondary-2",
+					"gradient": "var(--xfact-gradient-secondary-2)",
+					"name": "Secondary 2"
+				},
+				{
+					"slug": "secondary-3",
+					"gradient": "var(--xfact-gradient-secondary-3)",
+					"name": "Secondary 3"
+				},
+				{
+					"slug": "secondary-4",
+					"gradient": "var(--xfact-gradient-secondary-4)",
+					"name": "Secondary 4"
 				}
 			]
 		},
@@ -155,35 +150,45 @@
 							"fontWeight": "400",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": [ "file:./assets/fonts/ibm-plex-mono-latin-400-normal.woff2" ]
+							"src": [
+								"file:./assets/fonts/ibm-plex-mono-latin-400-normal.woff2"
+							]
 						},
 						{
 							"fontFamily": "IBM Plex Mono",
 							"fontWeight": "400",
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
-							"src": [ "file:./assets/fonts/ibm-plex-mono-latin-400-italic.woff2" ]
+							"src": [
+								"file:./assets/fonts/ibm-plex-mono-latin-400-italic.woff2"
+							]
 						},
 						{
 							"fontFamily": "IBM Plex Mono",
 							"fontWeight": "500",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": [ "file:./assets/fonts/ibm-plex-mono-latin-500-normal.woff2" ]
+							"src": [
+								"file:./assets/fonts/ibm-plex-mono-latin-500-normal.woff2"
+							]
 						},
 						{
 							"fontFamily": "IBM Plex Mono",
 							"fontWeight": "600",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": [ "file:./assets/fonts/ibm-plex-mono-latin-600-normal.woff2" ]
+							"src": [
+								"file:./assets/fonts/ibm-plex-mono-latin-600-normal.woff2"
+							]
 						},
 						{
 							"fontFamily": "IBM Plex Mono",
 							"fontWeight": "700",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": [ "file:./assets/fonts/ibm-plex-mono-latin-700-normal.woff2" ]
+							"src": [
+								"file:./assets/fonts/ibm-plex-mono-latin-700-normal.woff2"
+							]
 						}
 					]
 				},
@@ -251,7 +256,14 @@
 			]
 		},
 		"spacing": {
-			"units": ["px", "em", "rem", "vh", "vw", "%"],
+			"units": [
+				"px",
+				"em",
+				"rem",
+				"vh",
+				"vw",
+				"%"
+			],
 			"spacingScale": {
 				"steps": 7,
 				"mediumStep": 1.5,

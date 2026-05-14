@@ -301,7 +301,7 @@ body.has-hero-header .wp-site-blocks {
     left: 0;
     width: 0;
     height: 1.5px;
-    background: var(--xfact-accent, #5c8ae6);
+    background: var(--wp--preset--color--primary);
     transition: width 0.25s ease;
 }
 
@@ -351,7 +351,7 @@ body.has-hero-header .wp-site-blocks {
 /* ── WP Navigation Submenu in Header ──────────────── */
 
 .xfact-header .wp-block-navigation__submenu-container {
-    background-color: rgba(9, 23, 47, 0.95) !important;
+    background-color: var(--xfact-dark-section) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -428,7 +428,7 @@ body.has-hero-header .wp-site-blocks {
 
 .xfact-header .wp-block-button__link:not(.xfact-gradient-button):hover {
     background: #ffffff !important;
-    color: var(--xfact-accent-darkest, #123e99) !important;
+    color: var(--wp--preset--color--primary-dark) !important;
     border-color: #ffffff !important;
 }
 
@@ -450,7 +450,7 @@ body.has-hero-header .wp-site-blocks {
 }
 
 .xfact-mobile-toggle:focus-visible {
-    outline: 2px solid var(--xfact-accent);
+    outline: 2px solid var(--wp--preset--color--primary);
     outline-offset: 2px;
 }
 

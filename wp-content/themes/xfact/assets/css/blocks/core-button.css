@@ -64,14 +64,18 @@
     transition: all 0.2s;
     border-radius: 0;
     border: 1px solid rgba(26, 32, 44, 0.2);
-    color: var(--xfact-text, #1a202c);
+    color: var(--wp--preset--color--text-primary);
     background: transparent;
     text-decoration: none;
 }
 
 .xfact-btn-secondary:hover {
-    border-color: var(--xfact-accent);
-    color: var(--xfact-accent-dark);
+    border-color: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--primary-dark);
+}
+
+html[data-theme="dark"] .xfact-btn-secondary:hover {
+    color: var(--wp--preset--color--white);
 }
 
 
@@ -84,6 +88,6 @@
 
 .xfact-dark-section .xfact-btn-secondary:hover {
     background: #ffffff;
-    color: var(--xfact-accent-darkest);
+    color: var(--wp--preset--color--primary-dark);
     border-color: #ffffff;
 }

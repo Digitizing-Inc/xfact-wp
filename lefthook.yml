@@ -20,5 +20,5 @@ pre-commit:
 
     phpstan-check:
       glob: "*.php"
-      run: vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress
+      run: vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress {staged_files}
       exclude: "^(vendor|node_modules)/"

@@ -175,6 +175,11 @@
 				scrollTop: $( '.xfact-settings-container' ).offset().top - 40
 			}, 500 );
 		} );
+		
+		// Initialize the active theme button based on localStorage to avoid iframe race conditions
+		var storedTheme = localStorage.getItem( 'xfact-theme' );
+		var initialTheme = (storedTheme === 'dark' || storedTheme === 'light') ? storedTheme : (window.matchMedia( '(prefers-color-scheme: light)' ).matches ? 'light' : 'dark');
+		$themeBtns.filter( '[data-theme="' + initialTheme + '"]' ).addClass( 'active' );
 
 		// Toggle Theme
 		$themeBtns.on( 'click', function ( e ) {
@@ -208,21 +213,45 @@
 			var payload = explicitPayload || { type: 'styles', vars: {} };
 
 			if ( ! explicitPayload ) {
-				// Gather Colors
-				payload.vars['--xfact-bg'] = $( '#xfact_color_bg' ).val();
-				payload.vars['--xfact-bg-alt'] = $( '#xfact_color_bg_alt' ).val();
-				payload.vars['--xfact-text'] = $( '#xfact_color_text' ).val();
-				payload.vars['--xfact-text-secondary'] = $( '#xfact_color_text_secondary' ).val();
-				payload.vars['--xfact-accent'] = $( '#xfact_color_accent' ).val();
+				// Gather Primitive Colors
+				payload.primitives = {};
+				$('.xfact-primitive-input').each(function() {
+					var slug = $(this).data('slug');
+					payload.primitives[slug] = $(this).val();
+				});
 
-				// Gather Dark Colors (mapped to same variables when in dark mode)
-				payload.darkVars = {
-					'--xfact-bg': $( '#xfact_color_dark_bg' ).val(),
-					'--xfact-bg-alt': $( '#xfact_color_dark_bg_alt' ).val(),
-					'--xfact-text': $( '#xfact_color_dark_text' ).val(),
-					'--xfact-text-secondary': $( '#xfact_color_dark_text_secondary' ).val(),
-					'--xfact-accent': $( '#xfact_color_dark_accent' ).val()
-				};
+				// Gather Semantic Colors
+				payload.semantics = {};
+				$('.xfact-semantic-input').each(function() {
+					var id = $(this).attr('id'); // e.g. xfact_semantic_primary
+					if (id && id.indexOf('xfact_semantic_') === 0) {
+						var slug = id.replace('xfact_semantic_', '').replace(/_/g, '-');
+						payload.semantics[slug] = $(this).val(); // This will be the primitive slug
+					}
+				});
+
+								// Gather Dark Semantic Colors
+				payload.darkSemantics = {};
+				$('.xfact-dark-semantic-input').each(function() {
+					var id = $(this).attr('id'); // e.g. xfact_dark_semantic_primary
+					if (id && id.indexOf('xfact_dark_semantic_') === 0) {
+						var slug = id.replace('xfact_dark_semantic_', '').replace(/_/g, '-');
+						payload.darkSemantics[slug] = $(this).val();
+					}
+				});
+
+				// Gather Gradients
+				payload.gradients = {};
+				$('[id^="xfact_gradient_"]').each(function() {
+					var id = $(this).attr('id');
+					var parts = id.match(/xfact_gradient_(.+)_(start|end)/);
+					if (parts) {
+						var slug = parts[1].replace(/_/g, '-');
+						var type = parts[2];
+						if (!payload.gradients[slug]) payload.gradients[slug] = {};
+						payload.gradients[slug][type] = $(this).val();
+					}
+				});
 
 				// Gather Typography
 				var headingFont = $( '#xfact_font_heading' ).val();
@@ -256,7 +285,84 @@
 			$previewIframe[0].contentWindow.postMessage( payload, '*' );
 		}
 
-		// Listen to all inputs
+		
+		// Swatch Picker Logic
+		$(document).on('click', '.xfact-swatch-trigger', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			
+			var $popover = $(this).siblings('.xfact-swatch-popover');
+			var isVisible = $popover.is(':visible');
+			
+			// Close all other popovers
+			$('.xfact-swatch-popover').hide();
+			
+			// Toggle this popover correctly
+			if (!isVisible) {
+				$popover.show();
+			}
+		});
+
+		// Close popovers when clicking outside
+		$(document).on('click', function(e) {
+			if (!$(e.target).closest('.xfact-swatch-picker').length) {
+				$('.xfact-swatch-popover').hide();
+			}
+		});
+
+		$(document).on('click', '.xfact-swatch-popover-item', function(e) {
+			e.preventDefault();
+			var $swatch = $(this);
+			var $picker = $swatch.closest('.xfact-swatch-picker');
+			var $input = $picker.find('input[type="hidden"]');
+			var $trigger = $picker.find('.xfact-swatch-trigger');
+			
+			// Update UI
+			$picker.find('.xfact-swatch-popover-item').removeClass('active');
+			$swatch.addClass('active');
+			
+			// Update Trigger UI
+			$trigger.find('.xfact-swatch-preview').css('background-color', $swatch.data('hex'));
+			$trigger.find('.xfact-swatch-label').text($swatch.data('value'));
+			
+			// Close popover
+			$picker.find('.xfact-swatch-popover').hide();
+			
+			// Update value
+			$input.val($swatch.data('value')).trigger('change');
+			
+			// Explicitly trigger preview update
+			if (typeof sendPreviewUpdate === 'function') {
+				sendPreviewUpdate();
+			}
+		});
+
+		// Sync Swatch UI when input changes programmatically (e.g. reset)
+		$( '.xfact-semantic-input, .xfact-dark-semantic-input, .xfact-gradient-input' ).on( 'change', function() {
+			var val = $(this).val();
+			var $picker = $(this).closest('.xfact-swatch-picker');
+			if ($picker.length === 0) {
+				$picker = $(this).parent().find('.xfact-swatch-picker');
+			}
+			if ($picker.length === 0) {
+				$picker = $(this).closest('td').find('.xfact-swatch-picker');
+			}
+			
+			$picker = $(this).closest('.xfact-swatch-picker');
+			
+			var $swatch = $picker.find('.xfact-swatch-popover-item[data-value="' + val + '"]');
+			
+			$picker.find('.xfact-swatch-popover-item').removeClass('active');
+			$swatch.addClass('active');
+			
+			var $trigger = $picker.find('.xfact-swatch-trigger');
+			if ($swatch.length && $trigger.length) {
+				$trigger.find('.xfact-swatch-preview').css('background-color', $swatch.data('hex'));
+				$trigger.find('.xfact-swatch-label').text(val);
+			}
+		});
+
+// Listen to all inputs
 		var updateTimer;
 		$( '#xfact-settings-form' ).on( 'change keyup', 'input, select', function () {
 			clearTimeout( updateTimer );

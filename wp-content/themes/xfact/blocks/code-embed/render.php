@@ -12,7 +12,7 @@ declare(strict_types=1);
 $code = $attributes['code'] ?? '';
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-code-embed xfact-bg xfact-section-lg' )
+	array( 'class' => 'xfact-code-embed has-surface-background-color xfact-section-lg' )
 );
 ?>
 

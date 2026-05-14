@@ -8,20 +8,20 @@
 /* ── CSS Custom Properties (Light Mode) ──────────────── */
 
 :root {
-    --xfact-bg: #f5f7fa;
-    --xfact-bg-alt: #ffffff;
-    --xfact-bg-card: #ffffff;
-    --xfact-border: #e2e8f0;
-    --xfact-text: #1a202c;
-    --xfact-text-secondary: #4a5568;
-    --xfact-text-muted: #718096;
+    --has-surface-background-color: #f5f7fa;
+    --has-surface-alt-background-color: #ffffff;
+    --has-surface-background-color-card: #ffffff;
+    --wp--preset--color--surface-alt: #e2e8f0;
+    --wp--preset--color--text-primary: #1a202c;
+    --wp--preset--color--text-secondary: #4a5568;
+    --wp--preset--color--text-secondary: #718096;
     --xfact-dark-section: #0d2d6b;
     --xfact-dark-section-text: #ffffff;
     --xfact-dark-section-secondary: rgba(255, 255, 255, 0.75);
     --xfact-dark-section-muted: rgba(255, 255, 255, 0.55);
-    --xfact-accent: #5c8ae6;
-    --xfact-accent-dark: #3a6bd4;
-    --xfact-accent-darkest: #123e99;
+    --wp--preset--color--primary: #5c8ae6;
+    --wp--preset--color--primary-dark: #3a6bd4;
+    --wp--preset--color--primary-dark: #123e99;
     --xfact-btn-from: #123e99;
     --xfact-btn-to: #2a5bb8;
     --xfact-btn-hover-from: #1a4fb3;
@@ -40,8 +40,8 @@ html {
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--xfact-bg);
-    color: var(--xfact-text);
+    background-color: var(--has-surface-background-color);
+    color: var(--wp--preset--color--text-primary);
     transition:
         background-color 0.3s ease,
         color 0.3s ease;
@@ -58,7 +58,7 @@ body {
 a:focus-visible,
 button:focus-visible,
 [role="button"]:focus-visible {
-    outline: 2px solid var(--xfact-accent);
+    outline: 2px solid var(--wp--preset--color--primary);
     outline-offset: 2px;
     border-radius: 2px;
 }
@@ -71,7 +71,7 @@ button:focus-visible,
     top: 0;
     z-index: 100;
     padding: 0.75rem 1.5rem;
-    background: var(--xfact-accent);
+    background: var(--wp--preset--color--primary);
     color: #ffffff;
     font-weight: 600;
     font-size: 0.875rem;
@@ -85,26 +85,26 @@ button:focus-visible,
 
 /* ── Theme Utility Classes ─────────────────────────────── */
 
-.xfact-bg {
-    background-color: var(--xfact-bg);
+.has-surface-background-color {
+    background-color: var(--has-surface-background-color);
 }
-.xfact-bg-alt {
-    background-color: var(--xfact-bg-alt);
+.has-surface-alt-background-color {
+    background-color: var(--has-surface-alt-background-color);
 }
-.xfact-bg-card {
-    background-color: var(--xfact-bg-card);
+.has-surface-background-color-card {
+    background-color: var(--has-surface-background-color-card);
 }
 .xfact-border {
-    border-color: var(--xfact-border);
+    border-color: color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
 }
 .xfact-text {
-    color: var(--xfact-text);
+    color: var(--wp--preset--color--text-primary);
 }
 .xfact-text-secondary {
-    color: var(--xfact-text-secondary);
+    color: var(--wp--preset--color--text-secondary);
 }
 .xfact-text-muted {
-    color: var(--xfact-text-muted);
+    color: var(--wp--preset--color--text-secondary);
 }
 
 /* ── Layout Utilities ──────────────────────────────────── */
@@ -147,7 +147,7 @@ button:focus-visible,
 }
 
 .xfact-section-border {
-    border-bottom: 1px solid var(--xfact-border);
+    border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
 }
 
 
@@ -158,7 +158,7 @@ button:focus-visible,
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--xfact-accent, #5C8AE6);
+    color: var(--wp--preset--color--primary);
     margin: 0 0 0.25rem;
 }
 
@@ -167,7 +167,7 @@ button:focus-visible,
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: var(--xfact-text);
+    color: var(--wp--preset--color--text-primary);
     line-height: 1.1;
 }
 
@@ -177,7 +177,7 @@ button:focus-visible,
 .xfact-section-subtitle {
     margin-top: 1rem;
     font-size: 1.125rem;
-    color: var(--xfact-text-secondary);
+    color: var(--wp--preset--color--text-secondary);
     max-width: 48rem;
 }
 
@@ -197,15 +197,15 @@ button:focus-visible,
 /* ── Card Utilities ────────────────────────────────────── */
 
 .xfact-card {
-    background-color: var(--xfact-bg-card);
-    border: 1px solid var(--xfact-border);
+    background-color: var(--has-surface-background-color-card);
+    border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
     border-radius: 1rem;
     overflow: hidden;
 }
 
 .xfact-card-interactive {
-    background-color: var(--xfact-bg-card);
-    border: 1px solid var(--xfact-border);
+    background-color: var(--has-surface-background-color-card);
+    border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
     border-radius: 1rem;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -215,13 +215,13 @@ button:focus-visible,
 }
 
 .xfact-card-interactive:hover {
-    border-color: var(--xfact-accent);
+    border-color: var(--wp--preset--color--primary);
     transform: translateY(-4px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
 .xfact-card-interactive:focus-visible {
-    outline: 2px solid var(--xfact-accent);
+    outline: 2px solid var(--wp--preset--color--primary);
     outline-offset: 2px;
 }
 
@@ -240,7 +240,7 @@ button.xfact-theme-toggle {
 }
 
 button.xfact-theme-toggle:focus-visible {
-    outline: 2px solid var(--xfact-accent);
+    outline: 2px solid var(--wp--preset--color--primary);
     outline-offset: 2px;
 }
 
@@ -248,7 +248,7 @@ button.xfact-theme-toggle--icon-only {
     width: 2rem !important;
     height: 2rem !important;
     border-radius: 50% !important;
-    color: var(--xfact-text-secondary) !important;
+    color: var(--wp--preset--color--text-secondary) !important;
     background: transparent !important;
 }
 
@@ -280,7 +280,7 @@ span.xfact-theme-toggle__track {
 }
 
 html[data-theme="dark"] span.xfact-theme-toggle__track {
-    background: var(--xfact-accent, #5c8ae6) !important;
+    background: var(--wp--preset--color--primary) !important;
 }
 
 span.xfact-theme-toggle__thumb {
@@ -313,7 +313,7 @@ svg.xfact-theme-toggle__icon-sun {
 
 svg.xfact-theme-toggle__icon-moon {
     display: none !important;
-    color: var(--xfact-accent, #5c8ae6) !important;
+    color: var(--wp--preset--color--primary) !important;
 }
 
 svg.xfact-theme-toggle__icon-sun {
@@ -323,6 +323,7 @@ svg.xfact-theme-toggle__icon-sun {
 
 html[data-theme="dark"] svg.xfact-theme-toggle__icon-moon {
     display: block !important;
+    color: rgba(255, 255, 255, 0.7) !important;
 }
 
 html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {

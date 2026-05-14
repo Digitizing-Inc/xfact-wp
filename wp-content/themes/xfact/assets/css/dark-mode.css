@@ -3,46 +3,36 @@
  * =========================================== */
 
 [data-theme="dark"] {
-    --xfact-border: rgba(255, 255, 255, 0.1);
-    --xfact-text-muted: rgba(255, 255, 255, 0.45);
+    --wp--preset--color--surface-alt: rgba(255, 255, 255, 0.1);
+    --wp--preset--color--text-secondary: rgba(255, 255, 255, 0.45);
     --xfact-dark-section-secondary: rgba(255, 255, 255, 0.6);
     --xfact-dark-section-muted: rgba(255, 255, 255, 0.45);
 }
 
 /* Override WP generated colors in dark mode */
 [data-theme="dark"] body {
-    background-color: var(--xfact-bg);
-    color: var(--xfact-text);
+    background-color: var(--has-surface-background-color);
+    color: var(--wp--preset--color--text-primary);
 
     /* Override WP Block Theme Presets */
-    --wp--preset--color--surface: var(--xfact-bg);
-    --wp--preset--color--surface-alt: var(--xfact-bg-alt);
-    --wp--preset--color--border: var(--xfact-border);
-    --wp--preset--color--text-primary: var(--xfact-text);
-    --wp--preset--color--text-secondary: var(--xfact-text-secondary);
-    --wp--preset--color--text-muted: var(--xfact-text-muted);
+    --wp--preset--color--surface: var(--has-surface-background-color);
+    --wp--preset--color--surface-alt: var(--has-surface-alt-background-color);
+    --wp--preset--color--text-primary: var(--wp--preset--color--text-primary);
+    --wp--preset--color--text-secondary: var(--wp--preset--color--text-secondary);
 }
 
 [data-theme="dark"] .wp-block-group,
 [data-theme="dark"] .wp-block-cover,
 [data-theme="dark"] .wp-site-blocks {
-    color: var(--xfact-text);
+    color: var(--wp--preset--color--text-primary);
 }
 
-/* Secondary button dark mode */
-[data-theme="dark"] .xfact-btn-secondary {
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
 
-[data-theme="dark"] .xfact-btn-secondary:hover {
-    color: var(--xfact-accent);
-}
 
 /* Footer dark mode overrides */
 [data-theme="dark"] .xfact-footer {
     border-color: rgba(255, 255, 255, 0.1);
-    background-color: var(--xfact-bg);
+    background-color: var(--has-surface-background-color);
 }
 
 /* Dark mode toggle button */
@@ -92,5 +82,5 @@
 
 [data-theme="dark"] .xfact-header,
 [data-theme="dark"] .xfact-header--scrolled {
-    background: var(--xfact-bg) !important;
+    background: var(--has-surface-background-color) !important;
 }

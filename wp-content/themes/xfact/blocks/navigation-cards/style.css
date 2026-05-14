@@ -31,7 +31,7 @@
 .xfact-nav-card__icon {
     width: 1.5rem;
     height: 1.5rem;
-    color: var(--xfact-accent, #5C8AE6);
+    color: var(--wp--preset--color--primary);
     flex-shrink: 0;
 }
 
@@ -61,12 +61,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--xfact-text-muted);
+    color: var(--wp--preset--color--text-secondary);
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .xfact-nav-card:hover .xfact-nav-card__arrow {
-    color: var(--xfact-accent, #5C8AE6);
+    color: var(--wp--preset--color--primary);
     transform: translateX(4px);
 }
 

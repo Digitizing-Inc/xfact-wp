@@ -20,7 +20,7 @@ $is_default = 'default' === $variant;
 $classes = array( 'xfact-cta-section', 'xfact-section-lg' );
 
 if ( $is_light ) {
-	$classes[] = 'xfact-bg-alt';
+	$classes[] = 'has-surface-alt-background-color';
 	$classes[] = 'xfact-border-top';
 } elseif ( ! $is_default ) {
 	$classes[] = 'xfact-dark-section';

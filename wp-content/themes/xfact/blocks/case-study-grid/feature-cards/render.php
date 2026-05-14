@@ -14,7 +14,7 @@ $heading = $attributes['heading'] ?? '';
 $cards   = $attributes['cards'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-feature-cards xfact-bg xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-feature-cards has-surface-background-color xfact-section xfact-section-border' )
 );
 ?>
 

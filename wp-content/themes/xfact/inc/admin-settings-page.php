@@ -56,6 +56,46 @@ function xfact_admin_settings_enqueue( string $hook ): void {
 add_action( 'admin_enqueue_scripts', 'xfact_admin_settings_enqueue' );
 
 /**
+ * Helper function for rendering swatch pickers.
+ *
+ * @param string               $name        The field name.
+ * @param string               $current_val The current value.
+ * @param array<string,string> $primitives  The available primitive colors.
+ * @param string               $default_val The default value.
+ * @param bool                 $is_dark     Whether it's a dark mode semantic.
+ */
+function xfact_render_swatch_picker( string $name, string $current_val, array $primitives, string $default_val, bool $is_dark = false ): void {
+	echo '<div style="display: flex; align-items: center; gap: 12px;">';
+	echo '<div class="xfact-swatch-picker" data-target="' . esc_attr( $name ) . '" data-default="' . esc_attr( $default_val ) . '" style="position: relative;">';
+
+	$input_class = $is_dark ? 'xfact-dark-semantic-input' : 'xfact-semantic-input';
+	if ( strpos( $name, 'xfact_gradient_' ) === 0 ) {
+		$input_class = 'xfact-gradient-input';
+	}
+	echo '<input type="hidden" name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" value="' . esc_attr( $current_val ) . '" class="' . esc_attr( $input_class ) . '" />';
+
+	$current_hex = isset( $primitives[ $current_val ] ) ? $primitives[ $current_val ] : '#000000';
+	echo '<button type="button" class="xfact-swatch-trigger" style="display: flex; align-items: center; gap: 8px; padding: 4px 10px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; cursor: pointer; height: 32px; width: 140px; justify-content: flex-start;">';
+	echo '<span class="xfact-swatch-preview" style="width: 16px; height: 16px; border-radius: 50%; background-color: ' . esc_attr( $current_hex ) . '; border: 1px solid #cbd5e1; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex-shrink: 0;"></span>';
+	echo '<span class="xfact-swatch-label" style="font-size: 13px; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; flex-grow: 1;">' . esc_html( $current_val ) . '</span>';
+	echo '</button>';
+
+	echo '<div class="xfact-swatch-popover" style="display: none; position: absolute; top: 100%; left: 0; margin-top: 6px; padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 8px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); z-index: 100; min-width: 320px;">';
+	echo '<div class="xfact-swatches" style="display: flex; flex-wrap: wrap; gap: 12px;">';
+	foreach ( $primitives as $slug => $hex ) {
+		$active = ( $slug === $current_val ) ? ' active' : '';
+		// Wrapper for circle + text.
+		echo '<button type="button" class="xfact-swatch-popover-item' . esc_attr( $active ) . '" data-value="' . esc_attr( $slug ) . '" data-hex="' . esc_attr( $hex ) . '" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border: 1px solid transparent; background: transparent; cursor: pointer; padding: 4px; border-radius: 6px; flex: 0 0 auto; width: 68px;">';
+		echo '<span style="width: 24px; height: 24px; border-radius: 50%; background-color: ' . esc_attr( $hex ) . '; border: 1px solid #cbd5e1; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);"></span>';
+		echo '<span style="font-size: 10px; font-family: monospace; color: #475569; text-align: center;">' . esc_html( $slug ) . '</span>';
+		echo '</button>';
+	}
+	echo '</div></div></div>';
+	echo '<button type="button" data-target="' . esc_attr( $name ) . '" data-default="' . esc_attr( $default_val ) . '" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 32px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>';
+	echo '</div>';
+}
+
+/**
  * Render the admin settings page.
  */
 function xfact_render_admin_settings_page(): void {
@@ -82,23 +122,27 @@ function xfact_render_admin_settings_page(): void {
 				echo '<div class="notice notice-info is-dismissible"><p>Theme styles are already at defaults — nothing to reset.</p></div>';
 			}
 		} else {
-			/* Normal settings save */
-			$colors = array(
-				'bg',
-				'bg_alt',
-				'text',
-				'text_secondary',
-				'accent',
-				'dark_bg',
-				'dark_bg_alt',
-				'dark_text',
-				'dark_text_secondary',
-				'dark_accent',
-			);
+			/*
+			Normal settings save.
+			*/
+			// Save legacy colors just in case.
+			$colors = array( 'bg', 'bg_alt', 'text', 'text_secondary', 'accent', 'dark_bg', 'dark_bg_alt', 'dark_text', 'dark_text_secondary', 'dark_accent' );
 			foreach ( $colors as $color ) {
 				$key = 'xfact_color_' . $color;
 				if ( isset( $_POST[ $key ] ) ) {
 					update_option( $key, sanitize_hex_color( wp_unslash( $_POST[ $key ] ) ) );
+				}
+			}
+
+			// Save new dynamic colors.
+			foreach ( $_POST as $key => $val ) {
+				if ( strpos( $key, 'xfact_primitive_' ) === 0 || strpos( $key, 'xfact_semantic_' ) === 0 || strpos( $key, 'xfact_dark_semantic_' ) === 0 || strpos( $key, 'xfact_gradient_' ) === 0 ) {
+					// validate if it's a hex or a string slug.
+					if ( strpos( $val, '#' ) === 0 ) {
+						update_option( $key, sanitize_hex_color( wp_unslash( $val ) ) );
+					} else {
+						update_option( $key, sanitize_text_field( wp_unslash( $val ) ) );
+					}
 				}
 			}
 
@@ -145,40 +189,115 @@ function xfact_render_admin_settings_page(): void {
 				update_option( 'xfact_custom_fonts', array() );
 			}
 
-			echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
+			echo '<div class="notice notice-success is-dismissible xfact-toast"><p>Settings saved.</p></div>';
 		}
 	}
 
-	// Fetch color settings.
-	$c_bg             = get_option( 'xfact_color_bg', '#f5f7fa' );
-	$c_bg_alt         = get_option( 'xfact_color_bg_alt', '#ffffff' );
-	$c_text           = get_option( 'xfact_color_text', '#1a202c' );
-	$c_text_secondary = get_option( 'xfact_color_text_secondary', '#4a5568' );
-	$c_accent         = get_option( 'xfact_color_accent', '#5c8ae6' );
+	// Fetch Primitives.
+				$prim_defs  = array(
+					'blue-900'   => '#14419F',
+					'blue-500'   => '#007AFF',
+					'blue-300'   => '#83CBFF',
+					'navy-900'   => '#182849',
+					'red-500'    => '#CD163F',
+					'orange-500' => '#FF9300',
+					'green-500'  => '#379B53',
+					'black'      => '#000000',
+					'white'      => '#ffffff',
+				);
+				$primitives = array();
+				foreach ( $prim_defs as $slug => $hex ) {
+					$primitives[ $slug ] = get_option( 'xfact_primitive_' . str_replace( '-', '_', $slug ), $hex );
+				}
 
-	$c_dark_bg             = get_option( 'xfact_color_dark_bg', '#09172f' );
-	$c_dark_bg_alt         = get_option( 'xfact_color_dark_bg_alt', '#022038' );
-	$c_dark_text           = get_option( 'xfact_color_dark_text', '#ffffff' );
-	$c_dark_text_secondary = get_option( 'xfact_color_dark_text_secondary', '#b3b3b3' );
-	$c_dark_accent         = get_option( 'xfact_color_dark_accent', '#5c8ae6' );
+				// Fetch Semantics.
+				$sem_defs  = array(
+					'primary'        => 'blue-500',
+					'primary-dark'   => 'blue-900',
+					'primary-light'  => 'blue-300',
+					'text-primary'   => 'black',
+					'text-secondary' => 'navy-900',
+					'surface'        => 'white',
+					'surface-alt'    => 'white',
+					'success'        => 'green-500',
+					'warning'        => 'orange-500',
+					'danger'         => 'red-500',
+				);
+				$semantics = array();
+				foreach ( $sem_defs as $k => $v ) {
+					$semantics[ $k ] = get_option( 'xfact_semantic_' . str_replace( '-', '_', $k ), $v );
+				}
 
-	$floating_logo_url = get_option( 'xfact_floating_logo_url', '' );
-	$primary_logo_url  = get_option( 'xfact_primary_logo_url', '' );
-	$favicon_url       = get_option( 'xfact_favicon_url', '' );
+				// Fetch Dark Semantics.
+					$dark_sem_defs  = array(
+						'primary'        => 'blue-300',
+						'primary-dark'   => 'white',
+						'primary-light'  => 'navy-900',
+						'text-primary'   => 'white',
+						'text-secondary' => 'white',
+						'surface'        => 'black',
+						'surface-alt'    => 'navy-900',
+						'success'        => 'green-500',
+						'warning'        => 'orange-500',
+						'danger'         => 'red-500',
+					);
+					$dark_semantics = array();
+					foreach ( $dark_sem_defs as $k => $v ) {
+						$dark_semantics[ $k ] = get_option( 'xfact_dark_semantic_' . str_replace( '-', '_', $k ), $v );
+					}
 
-	$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
+					// Fetch Gradients.
+					$grad_defs = array(
+						'primary-1'   => array(
+							'start' => 'blue-500',
+							'end'   => 'blue-500',
+						),
+						'primary-2'   => array(
+							'start' => 'blue-900',
+							'end'   => 'blue-300',
+						),
+						'secondary-1' => array(
+							'start' => 'navy-900',
+							'end'   => 'navy-900',
+						),
+						'secondary-2' => array(
+							'start' => 'navy-900',
+							'end'   => 'orange-500',
+						),
+						'secondary-3' => array(
+							'start' => 'navy-900',
+							'end'   => 'red-500',
+						),
+						'secondary-4' => array(
+							'start' => 'navy-900',
+							'end'   => 'green-500',
+						),
+					);
+					$gradients = array();
+					foreach ( $grad_defs as $k => $v ) {
+						$gradients[ $k ] = array(
+							'start' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_start', $v['start'] ),
+							'end'   => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_end', $v['end'] ),
+						);
+					}
 
-	$font_heading = xfact_get_font_heading();
-	$font_body    = xfact_get_font_body();
-	$custom_fonts = xfact_get_custom_fonts();
+					$floating_logo_url = get_option( 'xfact_floating_logo_url', '' );
+					$primary_logo_url  = get_option( 'xfact_primary_logo_url', '' );
+					$favicon_url       = get_option( 'xfact_favicon_url', '' );
 
-	$default_float_logo   = get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' );
-	$default_primary_logo = get_theme_file_uri( 'assets/images/brand/xfact-wordmark-white.png' );
-	$default_favicon      = get_theme_file_uri( 'assets/images/brand/favicon.ico' );
+					$show_floating_logo = (bool) get_option( 'xfact_show_floating_logo', false );
 
-	$edit_header_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
-	$edit_footer_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
-	?>
+					$font_heading = xfact_get_font_heading();
+					$font_body    = xfact_get_font_body();
+					$custom_fonts = xfact_get_custom_fonts();
+
+					$default_float_logo   = get_theme_file_uri( 'assets/images/brand/xfact-logomark.png' );
+					$default_primary_logo = get_theme_file_uri( 'assets/images/brand/xfact-wordmark-white.png' );
+					$default_favicon      = get_theme_file_uri( 'assets/images/brand/favicon.ico' );
+
+					$edit_header_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Fheader&canvas=edit' );
+					$edit_footer_url = admin_url( 'site-editor.php?p=%2Fwp_template_part%2Fxfact%2F%2Ffooter&canvas=edit' );
+					?>
 	<div class="wrap xfact-admin-settings">
 		<h1>xFact Branding & Settings</h1>
 		
@@ -274,120 +393,122 @@ function xfact_render_admin_settings_page(): void {
 
 					<!-- TAB: COLORS -->
 					<div class="xfact-tab-content" id="tab-colors" style="display: none;">
+						
+						<!-- PRIMITIVE COLORS -->
 						<div class="xfact-settings-section">
-							<h2>Theme Colors</h2>
-							<p class="description">Configure the primary branding colors for both Light and Dark modes. These variables power all Gutenberg blocks globally.</p>
+							<h2>Primitive Colors</h2>
+							<p class="description">The foundational hex codes from the design guide. Change these to update all semantic colors referencing them.</p>
 							
-							<div class="xfact-palette-container">
-								<!-- Light Mode Palette -->
-								<div class="xfact-palette">
-									<h3>Light Mode</h3>
-									<table class="form-table" role="presentation">
-										<tbody>
-											<tr>
-												<th scope="row"><label for="xfact_color_bg">Background</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_bg" id="xfact_color_bg" value="<?php echo esc_attr( $c_bg ); ?>" class="xfact-color-picker" data-default-color="#f5f7fa" />
-														<button type="button" data-target="xfact_color_bg" data-default="#f5f7fa" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_bg_alt">Surface / Cards</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_bg_alt" id="xfact_color_bg_alt" value="<?php echo esc_attr( $c_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#ffffff" />
-														<button type="button" data-target="xfact_color_bg_alt" data-default="#ffffff" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_text">Primary Text</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_text" id="xfact_color_text" value="<?php echo esc_attr( $c_text ); ?>" class="xfact-color-picker" data-default-color="#1a202c" />
-														<button type="button" data-target="xfact_color_text" data-default="#1a202c" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_text_secondary">Secondary Text</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_text_secondary" id="xfact_color_text_secondary" value="<?php echo esc_attr( $c_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#4a5568" />
-														<button type="button" data-target="xfact_color_text_secondary" data-default="#4a5568" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_accent">Accent Color</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_accent" id="xfact_color_accent" value="<?php echo esc_attr( $c_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" />
-														<button type="button" data-target="xfact_color_accent" data-default="#5c8ae6" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+							<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;">
+								<?php
+								foreach ( $prim_defs as $slug => $default_hex ) :
+									$key   = 'xfact_primitive_' . str_replace( '-', '_', $slug );
+									$val   = $primitives[ $slug ];
+									$label = $slug;
+									?>
+									<div class="xfact-primitive-item" style="display: flex; flex-direction: column; gap: 8px;">
+										<label for="<?php echo esc_attr( $key ); ?>"><strong><?php echo esc_html( $label ); ?></strong></label>
+										<div style="display: flex; align-items: center; gap: 8px;">
+											<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $val ); ?>" class="xfact-color-picker xfact-primitive-input" data-default-color="<?php echo esc_attr( $default_hex ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>" />
+											<button type="button" data-target="<?php echo esc_attr( $key ); ?>" data-default="<?php echo esc_attr( $default_hex ); ?>" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+										</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
 
-								<!-- Dark Mode Palette -->
-								<div class="xfact-palette dark-mode">
-									<h3>Dark Mode</h3>
-									<table class="form-table" role="presentation">
-										<tbody>
-											<tr>
-												<th scope="row"><label for="xfact_color_dark_bg">Background</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_dark_bg" id="xfact_color_dark_bg" value="<?php echo esc_attr( $c_dark_bg ); ?>" class="xfact-color-picker" data-default-color="#09172f" />
-														<button type="button" data-target="xfact_color_dark_bg" data-default="#09172f" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_dark_bg_alt">Surface / Cards</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_dark_bg_alt" id="xfact_color_dark_bg_alt" value="<?php echo esc_attr( $c_dark_bg_alt ); ?>" class="xfact-color-picker" data-default-color="#022038" />
-														<button type="button" data-target="xfact_color_dark_bg_alt" data-default="#022038" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_dark_text">Primary Text</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_dark_text" id="xfact_color_dark_text" value="<?php echo esc_attr( $c_dark_text ); ?>" class="xfact-color-picker" data-default-color="#ffffff" />
-														<button type="button" data-target="xfact_color_dark_text" data-default="#ffffff" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_dark_text_secondary">Secondary Text</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_dark_text_secondary" id="xfact_color_dark_text_secondary" value="<?php echo esc_attr( $c_dark_text_secondary ); ?>" class="xfact-color-picker" data-default-color="#b3b3b3" />
-														<button type="button" data-target="xfact_color_dark_text_secondary" data-default="#b3b3b3" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row"><label for="xfact_color_dark_accent">Accent Color</label></th>
-												<td>
-													<div style="display: flex; align-items: center; gap: 8px;">
-														<input type="text" name="xfact_color_dark_accent" id="xfact_color_dark_accent" value="<?php echo esc_attr( $c_dark_accent ); ?>" class="xfact-color-picker" data-default-color="#5c8ae6" />
-														<button type="button" data-target="xfact_color_dark_accent" data-default="#5c8ae6" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div> <!-- End Palette Container -->
-						</div> <!-- End Theme Colors -->
+						<hr class="xfact-section-divider" />
+
+						<!-- SEMANTIC COLORS -->
+						<div class="xfact-settings-section">
+							<h2>Semantic Colors</h2>
+							<p class="description">Map your functional tokens to Primitive Colors. Configure both Light and Dark mode mappings side-by-side.</p>
+							
+							<table class="form-table" role="presentation">
+								<thead>
+									<tr>
+										<th scope="col" style="padding-bottom: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Token</strong></th>
+										<th scope="col" style="padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; width: 35%;"><strong>Light Mode</strong></th>
+										<th scope="col" style="padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; width: 35%; background: #f1f5f9; padding-left: 16px; border-radius: 8px 8px 0 0;"><strong>Dark Mode</strong></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$sem_descriptions = array(
+										'primary'        => 'Main brand color. Used for primary buttons, active links, and focus rings.',
+										'primary-dark'   => 'Dark brand accent. Used for Header/Hero backgrounds, button hover states, and dark sections.',
+										'primary-light'  => 'Light brand accent. Reserved for subtle highlights and accents.',
+										'text-primary'   => 'Main text color for body paragraphs and headings.',
+										'text-secondary' => 'Muted text color for captions, list items, borders, and footer links.',
+										'surface'        => 'Main background color. Used for the default page background and Feature Cards.',
+										'surface-alt'    => 'Secondary background. Used for the Footer, Contact form, Cards, and alternating sections.',
+										'success'        => 'Reserved for future use (e.g., success messages and positive indicators).',
+										'warning'        => 'Reserved for future use (e.g., warning alerts and pending statuses).',
+										'danger'         => 'Reserved for future use (e.g., error messages and destructive actions).',
+									);
+									foreach ( $sem_defs as $slug => $default_val ) :
+										$key_light = 'xfact_semantic_' . str_replace( '-', '_', $slug );
+										$val_light = $semantics[ $slug ];
+										$label     = ucwords( str_replace( '-', ' ', $slug ) );
+										$desc      = $sem_descriptions[ $slug ];
+
+										$key_dark         = 'xfact_dark_semantic_' . str_replace( '-', '_', $slug );
+										$val_dark         = $dark_semantics[ $slug ];
+										$default_val_dark = $dark_sem_defs[ $slug ];
+										?>
+									<tr>
+										<th scope="row" style="border-bottom: none; vertical-align: top; padding-top: 20px;">
+											<label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 4px;"><?php echo esc_html( $label ); ?></label>
+											<p class="description" style="font-size: 12px; margin: 0; line-height: 1.4; max-width: 250px;"><?php echo esc_html( $desc ); ?></p>
+										</th>
+										<td style="border-bottom: none; vertical-align: top; padding-top: 20px;">
+											<?php xfact_render_swatch_picker( $key_light, $val_light, $primitives, $default_val ); ?>
+										</td>
+										<td style="background: #f1f5f9; padding-left: 16px; border-bottom: none; vertical-align: top; padding-top: 20px;">
+											<?php xfact_render_swatch_picker( $key_dark, $val_dark, $primitives, $default_val_dark, true ); ?>
+										</td>
+									</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+
+						<hr class="xfact-section-divider" />
+
+						<!-- GRADIENTS -->
+						<div class="xfact-settings-section">
+							<h2>Gradients</h2>
+							<p class="description">Select Start and End primitive colors for the theme's gradients.</p>
+							
+							<table class="form-table" role="presentation">
+								<tbody>
+									<?php
+									foreach ( $grad_defs as $slug => $default_vals ) :
+										$key_start = 'xfact_gradient_' . str_replace( '-', '_', $slug ) . '_start';
+										$val_start = $gradients[ $slug ]['start'];
+										$key_end   = 'xfact_gradient_' . str_replace( '-', '_', $slug ) . '_end';
+										$val_end   = $gradients[ $slug ]['end'];
+										$label     = ucwords( str_replace( '-', ' ', $slug ) );
+										?>
+									<tr>
+										<th scope="row"><label><?php echo esc_html( $label ); ?></label></th>
+										<td>
+											<div style="display: flex; align-items: center; gap: 16px;">
+												<div>
+													<span style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Start</span>
+													<?php xfact_render_swatch_picker( $key_start, $val_start, $primitives, $default_vals['start'] ); ?>
+												</div>
+												<div>
+													<span style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">End</span>
+													<?php xfact_render_swatch_picker( $key_end, $val_end, $primitives, $default_vals['end'] ); ?>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
 					</div> <!-- End TAB: COLORS -->
 
 					<!-- TAB: TYPOGRAPHY -->
@@ -486,7 +607,7 @@ function xfact_render_admin_settings_page(): void {
 					<div class="xfact-preview-controls">
 						<button type="button" class="button button-secondary" id="xfact-back-to-settings" style="margin-right: 12px;">Back to Settings ↑</button>
 						<div class="xfact-preview-theme-toggle">
-							<button type="button" class="xfact-theme-btn active" data-theme="light">Light</button>
+							<button type="button" class="xfact-theme-btn" data-theme="light">Light</button>
 							<button type="button" class="xfact-theme-btn" data-theme="dark">Dark</button>
 						</div>
 					</div>

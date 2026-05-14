@@ -1,14 +1,14 @@
 .xfact-capability-area {
-    border-bottom: 1px solid var(--xfact-border);
+    border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
     scroll-margin-top: 5rem;
 }
 
-.xfact-bg {
-    background-color: var(--xfact-bg) !important;
+.has-surface-background-color {
+    background-color: var(--has-surface-background-color) !important;
 }
 
-.xfact-bg-alt {
-    background-color: var(--xfact-bg-alt) !important;
+.has-surface-alt-background-color {
+    background-color: var(--has-surface-alt-background-color) !important;
 }
 
 .xfact-capability-area__grid {
@@ -31,14 +31,14 @@
         display: block;
         width: 2.5rem;
         height: 2.5rem;
-        color: var(--xfact-accent);
+        color: var(--wp--preset--color--primary);
         margin-bottom: 1rem;
     }
 }
 
 .xfact-capability-area__number {
     display: block;
-    color: var(--xfact-text-muted) !important;
+    color: var(--wp--preset--color--text-secondary) !important;
 }
 
 .xfact-capability-area__title {
@@ -86,9 +86,9 @@
     border-radius: 9999px;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    background-color: var(--xfact-bg-alt);
-    color: var(--xfact-text-secondary);
-    border: 1px solid var(--xfact-border);
+    background-color: var(--has-surface-alt-background-color);
+    color: var(--wp--preset--color--text-secondary);
+    border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
 }
 
 html[data-theme="dark"] .xfact-capability-area__service-tag {

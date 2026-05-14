@@ -42,7 +42,7 @@
 .xfact-solutions-grid__icon {
     width: 1.75rem;
     height: 1.75rem;
-    color: var(--xfact-accent);
+    color: var(--wp--preset--color--primary);
     flex-shrink: 0;
 }
 
@@ -55,7 +55,7 @@
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--xfact-accent);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-solutions-grid__title {
@@ -78,7 +78,7 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--xfact-accent);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-solutions-grid__link-arrow {

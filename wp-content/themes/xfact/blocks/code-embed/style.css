@@ -3,7 +3,7 @@
     overflow: hidden;
     padding-top: var(--xfact-spacing-section);
     padding-bottom: var(--xfact-spacing-section);
-    background-color: var(--xfact-bg) !important;
+    background-color: var(--has-surface-background-color) !important;
 }
 
 @media (min-width: 1024px) {

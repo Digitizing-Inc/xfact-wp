@@ -5,7 +5,7 @@
 .xfact-text-section__section-icon {
     width: 2rem;
     height: 2rem;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
     stroke-width: 1.5;
 }
 
@@ -23,7 +23,7 @@
 .xfact-text-section__badge span {
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--xfact-accent);
+    color: var(--wp--preset--color--primary);
 }
 
 .xfact-text-section__body {
@@ -57,7 +57,7 @@
 .xfact-text-section__tag-icon {
     width: 1rem;
     height: 1rem;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
     flex-shrink: 0;
 }
 
@@ -70,13 +70,13 @@
     align-items: center;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .xfact-text-section__link:hover {
-    color: var(--xfact-accent-dark, #3a6bd4);
+    color: var(--wp--preset--color--primary-dark);
 }
 
 /* Grid layout for Key Messages */
@@ -127,7 +127,7 @@
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;
-    color: var(--xfact-accent, #5c8ae6);
+    color: var(--wp--preset--color--primary);
     stroke-width: 2;
 }
 
