@@ -42,6 +42,8 @@
 			}
 
 			var value = props.attributes.xfactHoverColor || '';
+			// Strip '-horizontal' for the UI so it matches predefined colors in brandColorControl
+			var uiValue = value ? value.replace('-horizontal', '') : '';
 
 			return h.el(
 				h.Fragment,
@@ -58,9 +60,11 @@
 						},
 						h.brandColorControl(
 							'Submenu Hover Background',
-							value,
+							uiValue,
 							function( newVal ) {
-								props.setAttributes( { xfactHoverColor: newVal } );
+								// Re-append '-horizontal' before saving
+								var finalVal = newVal ? newVal.replace(')', '-horizontal)') : '';
+								props.setAttributes( { xfactHoverColor: finalVal } );
 							}
 						)
 					)
