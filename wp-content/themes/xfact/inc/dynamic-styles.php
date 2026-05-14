@@ -69,8 +69,8 @@ function xfact_get_dynamic_css(): string {
 
 				// Fetch Dark Semantic Colors.
 					$dark_sem_defs  = array(
-						'primary'        => 'blue-500',
-						'primary-dark'   => 'white',
+						'primary'        => 'blue-300',
+						'primary-dark'   => 'black',
 						'primary-light'  => 'navy-900',
 						'text-primary'   => 'white',
 						'text-secondary' => 'white',
@@ -90,32 +90,32 @@ function xfact_get_dynamic_css(): string {
 						'primary-1'   => array(
 							'start' => 'blue-500',
 							'end'   => 'blue-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'primary-2'   => array(
 							'start' => 'blue-900',
 							'end'   => 'blue-300',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-1' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'navy-900',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-2' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'orange-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-3' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'red-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-4' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'green-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 					);
 					$gradients = array();
@@ -141,7 +141,12 @@ function xfact_get_dynamic_css(): string {
 
 					// Output Gradients.
 					foreach ( $gradients as $slug => $grad ) {
-						$css .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
+						$css             .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
+						$horizontal_angle = ( (int) $grad['angle'] - 90 ) % 360;
+						if ( $horizontal_angle < 0 ) {
+							$horizontal_angle += 360;
+						}
+						$css .= "\t--xfact-gradient-{$slug}-horizontal: linear-gradient({$horizontal_angle}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
 					}
 
 					// Compatibility overrides for Gutenberg Presets.
@@ -172,6 +177,11 @@ function xfact_get_dynamic_css(): string {
 					foreach ( $dark_semantics as $slug => $prim_slug ) {
 						$css .= "\t--wp--preset--color--{$slug}: var(--xfact-primitive-{$prim_slug});\n";
 						$css .= "\t--xfact-semantic-{$slug}: var(--xfact-primitive-{$prim_slug});\n";
+					}
+
+					// Make dark mode gradients darker by setting the start color to black.
+					foreach ( $gradients as $slug => $grad ) {
+						$css .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-black) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
 					}
 					$css .= "}\n";
 					return $css;

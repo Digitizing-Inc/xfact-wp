@@ -765,6 +765,75 @@
 	 * @return {Array} React elements.
 	 */
 
+	/**
+	 * Build a brand color/gradient control.
+	 */
+	function brandColorControl( label, value, onChange, key ) {
+		var gradients = [
+			{ name: 'None (Transparent)', slug: 'transparent', color: '' },
+			{ name: 'Primary 1', slug: 'primary-1', color: 'var(--xfact-gradient-primary-1)' },
+			{ name: 'Primary 2', slug: 'primary-2', color: 'var(--xfact-gradient-primary-2)' },
+			{ name: 'Secondary 1', slug: 'secondary-1', color: 'var(--xfact-gradient-secondary-1)' },
+			{ name: 'Secondary 2', slug: 'secondary-2', color: 'var(--xfact-gradient-secondary-2)' },
+			{ name: 'Secondary 3', slug: 'secondary-3', color: 'var(--xfact-gradient-secondary-3)' },
+			{ name: 'Secondary 4', slug: 'secondary-4', color: 'var(--xfact-gradient-secondary-4)' },
+		];
+
+		function renderSwatches( items ) {
+			return el( 'div', { style: { display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' } },
+				items.map( function ( item ) {
+					var isActive = value === item.color;
+					return el( wp.components.Button, {
+						key: item.slug,
+						variant: isActive ? 'primary' : 'secondary',
+						onClick: function () { onChange( item.color ); },
+						style: {
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'flex-start',
+							gap: '12px',
+							width: '100%',
+							padding: '8px 12px',
+							height: 'auto'
+						}
+					},
+						el( 'div', {
+							style: {
+								width: '24px',
+								height: '24px',
+								borderRadius: '4px',
+								background: item.color || 'transparent',
+								border: '1px solid rgba(0,0,0,0.1)',
+								flexShrink: 0
+							}
+						}),
+						el( 'span', null, item.name )
+					);
+				} )
+			);
+		}
+
+		return el( 'div', { key: key || 'brand-color-' + label, style: { marginBottom: '24px' } },
+			el( 'label', {
+				style: {
+					display: 'block',
+					marginBottom: '12px',
+					fontWeight: 600,
+					fontSize: '11px',
+					textTransform: 'uppercase',
+					letterSpacing: '0.5px',
+				},
+			}, label ),
+			renderSwatches( gradients ),
+			el( wp.components.Button, {
+				variant: 'link',
+				isDestructive: true,
+				onClick: function () { onChange( '' ); },
+				style: { fontSize: '12px', padding: 0 }
+			}, 'Clear Selection' )
+		);
+	}
+
 	// Expose to window for use by individual block scripts.
 	window.xfactBlockHelpers = {
 		el: el,
@@ -772,6 +841,7 @@
 		imageControl: imageControl,
 		galleryControl: galleryControl,
 		iconControl: iconControl,
+		brandColorControl: brandColorControl,
 		arrayItemHeader: arrayItemHeader,
 		ArrayItemWrapper: ArrayItemWrapper,
 		Fragment: Fragment,

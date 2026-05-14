@@ -24,6 +24,7 @@ if ( empty( $sectors ) ) {
 			'description' => __( 'Mission-critical systems that require continuous availability and uncompromising security.', 'xfact' ),
 			'href'        => '/solutions#public-safety',
 			'iconName'    => 'Shield',
+			'bgColor'     => 'var(--xfact-gradient-secondary-1)',
 		),
 		array(
 			'title'       => __( 'Government & municipal', 'xfact' ),
@@ -31,6 +32,7 @@ if ( empty( $sectors ) ) {
 			'description' => __( 'Integrated systems that support public works, digital services, and civic infrastructure.', 'xfact' ),
 			'href'        => '/solutions#government',
 			'iconName'    => 'Landmark',
+			'bgColor'     => 'var(--xfact-gradient-secondary-3)',
 		),
 		array(
 			'title'       => __( 'Education', 'xfact' ),
@@ -38,6 +40,7 @@ if ( empty( $sectors ) ) {
 			'description' => __( 'Secure infrastructure that protects student data and supports continuous learning.', 'xfact' ),
 			'href'        => '/solutions#education',
 			'iconName'    => 'GraduationCap',
+			'bgColor'     => 'var(--xfact-gradient-secondary-2)',
 		),
 		array(
 			'title'       => __( 'Health & human services', 'xfact' ),
@@ -45,6 +48,7 @@ if ( empty( $sectors ) ) {
 			'description' => __( 'Compliant environments that balance accessibility with strict privacy requirements.', 'xfact' ),
 			'href'        => '/solutions#hhs',
 			'iconName'    => 'HeartPulse',
+			'bgColor'     => 'var(--xfact-gradient-secondary-4)',
 		),
 		array(
 			'title'       => __( 'Infrastructure & managed services', 'xfact' ),
@@ -53,6 +57,7 @@ if ( empty( $sectors ) ) {
 			'href'        => '/solutions#infrastructure',
 			'iconName'    => 'ServerCog',
 			'badge'       => 'DataServ',
+			'bgColor'     => 'var(--xfact-gradient-primary-2)',
 		),
 	);
 }
@@ -79,7 +84,15 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 			<div class="xfact-solutions-grid__grid">
 				<?php foreach ( $sectors as $sector ) : ?>
-					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="xfact-solutions-grid__card xfact-card-interactive">
+					<?php
+					$bg_color     = ! empty( $sector['bgColor'] ) ? $sector['bgColor'] : '';
+					$inline_style = $bg_color ? sprintf( 'style="--xfact-card-bg: %s;"', esc_attr( $bg_color ) ) : '';
+					$card_class   = 'xfact-solutions-grid__card xfact-card-interactive';
+					if ( $bg_color ) {
+						$card_class .= ' has-xfact-gradient-bg';
+					}
+					?>
+					<a href="<?php echo esc_url( $sector['href'] ?? '#' ); ?>" class="<?php echo esc_attr( $card_class ); ?>" <?php echo $inline_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 						<div class="xfact-solutions-grid__card-header">
 							<?php
 							$icon_name = $sector['iconName'] ?? '';

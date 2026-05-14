@@ -460,8 +460,88 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
     padding-right: 0 !important;
 }
 
-
 /* Block-scoped Fade-in Pattern */
+.xfact-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.xfact-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Gradient Overlay Utilities ────────────────────────── */
+
+.has-xfact-gradient-bg,
+.has-xfact-hover-bg {
+    --xfact-overlay-angle: to bottom;
+    position: relative;
+    isolation: isolate;
+}
+
+/* ── Global Gradient Base ── */
+.has-xfact-gradient-bg::before,
+.has-xfact-hover-bg a:hover::before,
+.has-xfact-hover-bg .wp-block-navigation-item__content:hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: var(--xfact-card-bg, var(--xfact-hover-bg));
+    opacity: 1;
+    z-index: -2;
+}
+
+/* ── Light Mode Fade Overlay ── */
+.has-xfact-gradient-bg::after,
+.has-xfact-hover-bg a:hover::after,
+.has-xfact-hover-bg .wp-block-navigation-item__content:hover::after {
+    content: "";
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(var(--xfact-overlay-angle), rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── Dark Mode Only Black Fade Overlay ── */
+.xfact-dark-section .has-xfact-gradient-bg::after,
+html[data-theme="dark"] .has-xfact-gradient-bg::after,
+.xfact-dark-section .has-xfact-hover-bg a:hover::after,
+.xfact-dark-section .has-xfact-hover-bg .wp-block-navigation-item__content:hover::after,
+html[data-theme="dark"] .has-xfact-hover-bg a:hover::after,
+html[data-theme="dark"] .has-xfact-hover-bg .wp-block-navigation-item__content:hover::after {
+    content: "";
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(var(--xfact-overlay-angle), rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── Header Submenu Sleek Glow Override ── */
+/* The header is dark blue (primary-dark), so black/white overlays clash. We use a contextual primary-dark fade. */
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg a:hover::before,
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg .wp-block-navigation-item__content:hover::before {
+    opacity: 1 !important; /* Fully saturated gradient base */
+}
+
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg a:hover::after,
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg .wp-block-navigation-item__content:hover::after {
+    display: block !important;
+    background: linear-gradient(
+        var(--xfact-overlay-angle), 
+        var(--xfact-semantic-primary-dark) 0%, 
+        color-mix(in srgb, var(--xfact-semantic-primary-dark) 80%, transparent) 100%
+    );
+}
 /* ===========================================
  * WP-Admin Editor Overrides
  * ===========================================

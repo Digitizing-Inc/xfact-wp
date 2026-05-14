@@ -117,10 +117,16 @@ function xfact_render_admin_settings_page(): void {
 			);
 			if ( ! empty( $global_styles ) ) {
 				wp_delete_post( $global_styles[0]->ID, true );
-				echo '<div class="notice notice-success is-dismissible xfact-toast"><p>Theme styles reset to defaults. All Gutenberg color, typography, and spacing customizations have been reverted.</p></div>';
-			} else {
-				echo '<div class="notice notice-info is-dismissible xfact-toast"><p>Theme styles are already at defaults — nothing to reset.</p></div>';
 			}
+
+			// Reset all theme options.
+			global $wpdb;
+			// Delete all options starting with 'xfact_' to completely reset the theme config.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'xfact\_%'" );
+			wp_cache_flush();
+
+			echo '<div class="notice notice-success is-dismissible xfact-toast"><p>Theme configuration and styles reset to defaults. All custom colors, typography, logos, and gradients have been reverted.</p></div>';
 		} else {
 			/*
 			Normal settings save.
@@ -231,7 +237,7 @@ function xfact_render_admin_settings_page(): void {
 				// Fetch Dark Semantics.
 					$dark_sem_defs  = array(
 						'primary'        => 'blue-300',
-						'primary-dark'   => 'white',
+						'primary-dark'   => 'black',
 						'primary-light'  => 'navy-900',
 						'text-primary'   => 'white',
 						'text-secondary' => 'white',
@@ -251,32 +257,32 @@ function xfact_render_admin_settings_page(): void {
 						'primary-1'   => array(
 							'start' => 'blue-500',
 							'end'   => 'blue-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'primary-2'   => array(
 							'start' => 'blue-900',
 							'end'   => 'blue-300',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-1' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'navy-900',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-2' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'orange-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-3' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'red-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 						'secondary-4' => array(
-							'start' => 'navy-900',
+							'start' => 'blue-500',
 							'end'   => 'green-500',
-							'angle' => '90',
+							'angle' => '180',
 						),
 					);
 					$gradients = array();

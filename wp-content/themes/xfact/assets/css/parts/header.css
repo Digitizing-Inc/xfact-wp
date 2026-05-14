@@ -435,6 +435,23 @@ body.has-hero-header .wp-site-blocks,
     color: #ffffff !important;
 }
 
+html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container a:hover,
+html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
+    color: #ffffff !important;
+}
+
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg a:hover,
+.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg .wp-block-navigation-item__content:hover {
+    background: transparent !important;
+    position: relative;
+    z-index: 0;
+    --xfact-overlay-angle: to right;
+}
+
+
+
+
+
 .xfact-header .wp-block-navigation__submenu-container a::after,
 .xfact-header
     .wp-block-navigation__submenu-container

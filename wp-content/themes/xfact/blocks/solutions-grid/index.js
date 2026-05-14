@@ -80,6 +80,7 @@
 				onChange: function ( v ) { updateCard( 'description', v ); },
 			} ),
 			h.iconControl( 'Icon (Lucide)', card.iconName || '', function ( v ) { updateCard( 'iconName', v ); }, 'icon-' + i ),
+			h.brandColorControl( 'Background Color', card.bgColor || '', function( v ) { updateCard( 'bgColor', v ); }, 'bgcolor-' + i ),
 			el( h.TextControl, {
 				key: 'href-' + i,
 				label: 'Link URL',

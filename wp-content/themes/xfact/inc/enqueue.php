@@ -170,6 +170,14 @@ function xfact_register_editor_helpers(): void {
 		'window.xfactLucideIcons = ' . wp_json_encode( xfact_get_all_icons() ) . ';',
 		'before'
 	);
+
+	wp_register_script(
+		'xfact-editor-navigation-hover',
+		get_theme_file_uri( 'assets/js/editor-navigation-hover.js' ),
+		array( 'xfact-editor-helpers', 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-hooks', 'wp-compose' ),
+		(string) filemtime( get_theme_file_path( 'assets/js/editor-navigation-hover.js' ) ),
+		true
+	);
 }
 add_action( 'init', 'xfact_register_editor_helpers', 5 );
 
@@ -180,6 +188,7 @@ function xfact_enqueue_editor_assets(): void {
 	$theme_version = wp_get_theme()->get( 'Version' );
 
 	wp_enqueue_script( 'xfact-editor-helpers' );
+	wp_enqueue_script( 'xfact-editor-navigation-hover' );
 
 	wp_enqueue_style(
 		'xfact-core-button-editor',

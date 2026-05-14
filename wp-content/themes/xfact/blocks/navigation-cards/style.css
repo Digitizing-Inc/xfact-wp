@@ -26,7 +26,33 @@
     gap: 1.5rem;
     padding: 1.5rem;
     border-radius: 1rem;
+    position: relative;
+    isolation: isolate;
 }
+
+.xfact-nav-card.has-xfact-gradient-bg {
+    background-clip: padding-box !important;
+    --xfact-overlay-angle: to right;
+}
+
+.xfact-nav-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.xfact-nav-card:hover::before,
+.xfact-nav-card.has-xfact-gradient-bg::before {
+    opacity: 1;
+}
+
+
 
 .xfact-nav-card__icon {
     width: 2.25rem;

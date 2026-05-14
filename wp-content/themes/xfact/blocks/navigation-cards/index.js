@@ -48,7 +48,8 @@
 				el( h.TextControl, { label: 'Title', value: item.title || '', onChange: function ( v ) { update( 'title', v ); } } ),
 				el( h.TextControl, { label: 'Subtitle', value: item.subtitle || '', onChange: function ( v ) { update( 'subtitle', v ); } } ),
 				h.iconControl( 'Icon (Lucide name)', item.icon || '', function ( v ) { update( 'icon', v ); } ),
-				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } )
+				el( h.TextControl, { label: 'Link URL', value: item.href || '', onChange: function ( v ) { update( 'href', v ); } } ),
+				h.brandColorControl( 'Background Color', item.bgColor || '', function( v ) { update( 'bgColor', v ); }, 'bgcolor-' + i )
 			),
 		];
 	}
