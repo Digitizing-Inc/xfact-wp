@@ -567,16 +567,51 @@
 /* Toast Notification */
 .xfact-toast {
     position: fixed !important;
-    bottom: 24px;
-    right: 24px;
+    bottom: 32px;
+    right: 32px;
     margin: 0 !important;
     z-index: 99999;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-    border-left: 4px solid #00a32a !important;
-    background: #fff;
-    padding: 12px 24px 12px 12px;
-    border-radius: 4px;
-    animation: xfact-fade-in-up 0.3s ease-out forwards;
+    box-shadow: 0 20px 25px -5px rgba(9, 23, 47, 0.1), 0 8px 10px -6px rgba(9, 23, 47, 0.1) !important;
+    background: #09172f !important;
+    border: 1px solid #1e293b !important;
+    border-left: 4px solid #007AFF !important;
+    padding: 16px 48px 16px 20px !important;
+    border-radius: 8px !important;
+    animation: xfact-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    display: flex;
+    align-items: center;
+}
+
+.xfact-toast p {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #f8fafc !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.xfact-toast.notice-success {
+    border-left-color: #379B53 !important;
+}
+
+.xfact-toast.notice-info {
+    border-left-color: #83CBFF !important;
+}
+
+.xfact-toast.notice-error {
+    border-left-color: #CD163F !important;
+}
+
+.xfact-toast .notice-dismiss {
+    text-decoration: none;
+}
+
+.xfact-toast .notice-dismiss::before {
+    color: #94a3b8 !important;
+}
+
+.xfact-toast .notice-dismiss:hover::before {
+    color: #ffffff !important;
 }
 
 @keyframes xfact-fade-in-up {

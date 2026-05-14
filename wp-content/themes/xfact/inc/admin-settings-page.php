@@ -117,9 +117,9 @@ function xfact_render_admin_settings_page(): void {
 			);
 			if ( ! empty( $global_styles ) ) {
 				wp_delete_post( $global_styles[0]->ID, true );
-				echo '<div class="notice notice-success is-dismissible"><p>Theme styles reset to defaults. All Gutenberg color, typography, and spacing customizations have been reverted.</p></div>';
+				echo '<div class="notice notice-success is-dismissible xfact-toast"><p>Theme styles reset to defaults. All Gutenberg color, typography, and spacing customizations have been reverted.</p></div>';
 			} else {
-				echo '<div class="notice notice-info is-dismissible"><p>Theme styles are already at defaults — nothing to reset.</p></div>';
+				echo '<div class="notice notice-info is-dismissible xfact-toast"><p>Theme styles are already at defaults — nothing to reset.</p></div>';
 			}
 		} else {
 			/*
