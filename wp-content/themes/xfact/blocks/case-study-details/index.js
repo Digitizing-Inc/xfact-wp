@@ -1,124 +1,145 @@
 /**
  * xFact Case Study Page — editor script.
  */
-(function () {
-    "use strict";
-
-    var h = window.xfactBlockHelpers;
-    var el = h.el;
+(() => {
+    const h = window.xfactBlockHelpers;
+    const el = h.el;
 
     function listControls(items, i, set, attrKey, labelPrefix) {
-        var item = items[i];
+        const item = items[i];
         function update(v) {
-            var arr = items.slice();
+            const arr = items.slice();
             arr[i] = v;
             set(Object.fromEntries([[attrKey, arr]]));
         }
         function remove() {
-            var arr = items.slice();
+            const arr = items.slice();
             arr.splice(i, 1);
             set(Object.fromEntries([[attrKey, arr]]));
         }
-		function moveItem( fromIndex, toIndex, intent ) {
-			var arr = items.slice();
-			if ( intent === 'swap' ) {
-				var temp = arr[fromIndex];
-				arr[fromIndex] = arr[toIndex];
-				arr[toIndex] = temp;
-			} else {
-				var insertAt = intent === 'shift-bottom' ? toIndex + 1 : toIndex;
-				if ( insertAt > fromIndex ) insertAt--;
-				var itm = arr.splice( fromIndex, 1 )[ 0 ];
-				arr.splice( insertAt, 0, itm );
-			}
-			set(Object.fromEntries([[attrKey, arr]]));
-		}
+        function moveItem(fromIndex, toIndex, intent) {
+            const arr = items.slice();
+            if (intent === 'swap') {
+                const temp = arr[fromIndex];
+                arr[fromIndex] = arr[toIndex];
+                arr[toIndex] = temp;
+            } else {
+                let insertAt =
+                    intent === 'shift-bottom' ? toIndex + 1 : toIndex;
+                if (insertAt > fromIndex) insertAt--;
+                const itm = arr.splice(fromIndex, 1)[0];
+                arr.splice(insertAt, 0, itm);
+            }
+            set(Object.fromEntries([[attrKey, arr]]));
+        }
 
-		return [
-			el( h.ArrayItemWrapper, {
-				key: attrKey + '-item-' + i,
-				index: i,
-				total: items.length,
-				label: labelPrefix + ' ' + ( i + 1 ),
-				titleText: item || '',
-				onRemove: remove,
-				onMoveItem: moveItem
-			},
-				el( h.TextControl, {
-					value: item || '',
-					onChange: update,
-					style: { marginBottom: 0 },
-				} )
-			),
-		];
+        return [
+            el(
+                h.ArrayItemWrapper,
+                {
+                    key: `${attrKey}-item-${i}`,
+                    index: i,
+                    total: items.length,
+                    label: `${labelPrefix} ${i + 1}`,
+                    titleText: item || '',
+                    onRemove: remove,
+                    onMoveItem: moveItem,
+                },
+                el(h.TextControl, {
+                    value: item || '',
+                    onChange: update,
+                    style: { marginBottom: 0 },
+                }),
+            ),
+        ];
     }
 
-    wp.blocks.registerBlockType("xfact/case-study-details", {
+    wp.blocks.registerBlockType('xfact/case-study-details', {
         edit: h.createEdit(
-            "xfact/case-study-details",
-            "Case Study Content Settings",
-            function (props) {
-                var attr = props.attributes;
-                var set = props.setAttributes;
+            'xfact/case-study-details',
+            'Case Study Content Settings',
+            (props) => {
+                const attr = props.attributes;
+                const set = props.setAttributes;
 
-                var challenge = attr.challenge || [];
-                var services = attr.services || [];
-                var outcomes = attr.outcomes || [];
+                const challenge = attr.challenge || [];
+                const services = attr.services || [];
+                const outcomes = attr.outcomes || [];
 
-                var controls = [
+                let controls = [
                     el(
-                        "div",
+                        'div',
                         {
-                            key: "group-grid-cards",
+                            key: 'group-grid-cards',
                             style: {
-                                border: "1px solid #ddd",
-                                padding: "12px",
-                                borderRadius: "4px",
-                                backgroundColor: "#f8f9f9",
-                                marginBottom: "24px"
-                            }
+                                border: '1px solid #ddd',
+                                padding: '12px',
+                                borderRadius: '4px',
+                                backgroundColor:
+                                    'var(--wp--preset--color--surface)',
+                                marginBottom: '24px',
+                            },
                         },
                         el(
-                            "strong",
-                            { style: { display: "block", marginBottom: "8px", fontSize: "13px" } },
-                            "Grid Card Appearance"
+                            'strong',
+                            {
+                                style: {
+                                    display: 'block',
+                                    marginBottom: '8px',
+                                    fontSize: '13px',
+                                },
+                            },
+                            'Grid Card Appearance',
                         ),
                         el(
-                            "p",
-                            { style: { fontSize: "12px", color: "#666", marginBottom: "16px", marginTop: "0" } },
-                            "These fields control how this case study appears when selected in a Case Study Grid block."
+                            'p',
+                            {
+                                style: {
+                                    fontSize: '12px',
+                                    color: 'var(--wp--preset--color--text-primary)',
+                                    marginBottom: '16px',
+                                    marginTop: '0',
+                                },
+                            },
+                            'These fields control how this case study appears when selected in a Case Study Grid block.',
                         ),
                         el(h.TextareaControl, {
-                            key: "summary",
-                            label: "Summary",
-                            value: attr.summary || "",
+                            key: 'summary',
+                            label: 'Summary',
+                            value: attr.summary || '',
                             rows: 3,
-                            onChange: function (v) {
+                            onChange: (v) => {
                                 set({ summary: v });
                             },
                         }),
                         el(h.TextControl, {
-                            key: "source",
-                            label: "Source (e.g. xFact)",
-                            value: attr.source || "",
-                            onChange: function (v) {
+                            key: 'source',
+                            label: 'Source (e.g. xFact)',
+                            value: attr.source || '',
+                            onChange: (v) => {
                                 set({ source: v });
                             },
-                        })
+                        }),
                     ),
                     el(
-                        "strong",
+                        'strong',
                         {
-                            key: "hdr-content",
-                            style: { display: "block", marginBottom: "16px", fontSize: "14px", borderBottom: "1px solid #ddd", paddingBottom: "8px" },
+                            key: 'hdr-content',
+                            style: {
+                                display: 'block',
+                                marginBottom: '16px',
+                                fontSize: '14px',
+                                borderBottom: '1px solid #ddd',
+                                paddingBottom: '8px',
+                            },
                         },
-                        "Case Study Page Content"
+                        'Case Study Page Content',
                     ),
                     el(h.TextControl, {
-                        key: "client",
-                        label: "Client",
-                        value: attr.client || "",
-                        onChange: function (v) {
+                        key: 'client',
+                        label: 'Client',
+                        value: attr.client || '',
+                        onChange: (v) => {
                             set({ client: v });
                         },
                     }),
@@ -126,141 +147,141 @@
 
                 /* Challenge Section */
                 controls.push(
-                    el("hr", {
-                        key: "sep-challenge",
-                        style: { margin: "24px 0", opacity: 0.3 },
+                    el('hr', {
+                        key: 'sep-challenge',
+                        style: { margin: '24px 0', opacity: 0.3 },
                     }),
                 );
                 controls.push(
                     el(
-                        "strong",
+                        'strong',
                         {
-                            key: "hdr-challenge",
-                            style: { display: "block", marginBottom: "8px" },
+                            key: 'hdr-challenge',
+                            style: { display: 'block', marginBottom: '8px' },
                         },
-                        "Challenge Items (" + challenge.length + ")",
+                        `Challenge Items (${challenge.length})`,
                     ),
                 );
-                challenge.forEach(function (_item, i) {
+                challenge.forEach((_item, i) => {
                     controls = controls.concat(
-                        listControls(challenge, i, set, "challenge", "Item"),
+                        listControls(challenge, i, set, 'challenge', 'Item'),
                     );
                 });
                 controls.push(
                     el(
                         h.Button,
                         {
-                            key: "add-challenge",
-                            onClick: function () {
-                                set({ challenge: challenge.concat([""]) });
+                            key: 'add-challenge',
+                            onClick: () => {
+                                set({ challenge: challenge.concat(['']) });
                             },
-                            variant: "secondary",
+                            variant: 'secondary',
                             style: {
-                                width: "100%",
-                                justifyContent: "center",
-                                marginTop: "8px",
+                                width: '100%',
+                                justifyContent: 'center',
+                                marginTop: '8px',
                             },
                         },
-                        "+ Add Challenge Item",
+                        '+ Add Challenge Item',
                     ),
                 );
 
                 /* Services Section */
                 controls.push(
-                    el("hr", {
-                        key: "sep-services",
-                        style: { margin: "24px 0", opacity: 0.3 },
+                    el('hr', {
+                        key: 'sep-services',
+                        style: { margin: '24px 0', opacity: 0.3 },
                     }),
                 );
                 controls.push(
                     el(
-                        "strong",
+                        'strong',
                         {
-                            key: "hdr-services",
-                            style: { display: "block", marginBottom: "8px" },
+                            key: 'hdr-services',
+                            style: { display: 'block', marginBottom: '8px' },
                         },
-                        "Services Items (" + services.length + ")",
+                        `Services Items (${services.length})`,
                     ),
                 );
-                services.forEach(function (_item, i) {
+                services.forEach((_item, i) => {
                     controls = controls.concat(
-                        listControls(services, i, set, "services", "Item"),
+                        listControls(services, i, set, 'services', 'Item'),
                     );
                 });
                 controls.push(
                     el(
                         h.Button,
                         {
-                            key: "add-services",
-                            onClick: function () {
-                                set({ services: services.concat([""]) });
+                            key: 'add-services',
+                            onClick: () => {
+                                set({ services: services.concat(['']) });
                             },
-                            variant: "secondary",
+                            variant: 'secondary',
                             style: {
-                                width: "100%",
-                                justifyContent: "center",
-                                marginTop: "8px",
+                                width: '100%',
+                                justifyContent: 'center',
+                                marginTop: '8px',
                             },
                         },
-                        "+ Add Service Item",
+                        '+ Add Service Item',
                     ),
                 );
 
                 /* Outcomes Section */
                 controls.push(
-                    el("hr", {
-                        key: "sep-outcomes",
-                        style: { margin: "24px 0", opacity: 0.3 },
+                    el('hr', {
+                        key: 'sep-outcomes',
+                        style: { margin: '24px 0', opacity: 0.3 },
                     }),
                 );
                 controls.push(
                     el(
-                        "strong",
+                        'strong',
                         {
-                            key: "hdr-outcomes",
-                            style: { display: "block", marginBottom: "8px" },
+                            key: 'hdr-outcomes',
+                            style: { display: 'block', marginBottom: '8px' },
                         },
-                        "Outcomes Items (" + outcomes.length + ")",
+                        `Outcomes Items (${outcomes.length})`,
                     ),
                 );
-                outcomes.forEach(function (_item, i) {
+                outcomes.forEach((_item, i) => {
                     controls = controls.concat(
-                        listControls(outcomes, i, set, "outcomes", "Item"),
+                        listControls(outcomes, i, set, 'outcomes', 'Item'),
                     );
                 });
                 controls.push(
                     el(
                         h.Button,
                         {
-                            key: "add-outcomes",
-                            onClick: function () {
-                                set({ outcomes: outcomes.concat([""]) });
+                            key: 'add-outcomes',
+                            onClick: () => {
+                                set({ outcomes: outcomes.concat(['']) });
                             },
-                            variant: "secondary",
+                            variant: 'secondary',
                             style: {
-                                width: "100%",
-                                justifyContent: "center",
-                                marginTop: "8px",
+                                width: '100%',
+                                justifyContent: 'center',
+                                marginTop: '8px',
                             },
                         },
-                        "+ Add Outcome Item",
+                        '+ Add Outcome Item',
                     ),
                 );
 
                 /* Narrative Section */
                 controls.push(
-                    el("hr", {
-                        key: "sep-narrative",
-                        style: { margin: "24px 0", opacity: 0.3 },
+                    el('hr', {
+                        key: 'sep-narrative',
+                        style: { margin: '24px 0', opacity: 0.3 },
                     }),
                 );
                 controls.push(
                     el(h.TextareaControl, {
-                        key: "narrative",
-                        label: "Narrative",
-                        value: attr.narrative || "",
+                        key: 'narrative',
+                        label: 'Narrative',
+                        value: attr.narrative || '',
                         rows: 5,
-                        onChange: function (v) {
+                        onChange: (v) => {
                             set({ narrative: v });
                         },
                     }),
@@ -269,8 +290,6 @@
                 return controls;
             },
         ),
-        save: function () {
-            return null;
-        },
+        save: () => null,
     });
 })();

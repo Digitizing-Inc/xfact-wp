@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-$wrapper_args = array( 'class' => 'xfact-case-study-grid xfact-section has-surface-alt-background-color' );
+$wrapper_args = array( 'class' => 'xfact-case-study-grid xfact-section xfact-dark-section' );
 
 $anchor = $attributes['anchor'] ?? '';
 if ( $anchor ) {

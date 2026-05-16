@@ -1,90 +1,87 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/hero",
-	"version": "1.0.0",
-	"title": "xFact Hero",
-	"category": "theme",
-	"icon": "format-video",
-	"description": "Full-width hero section with background image slideshow, video overlay, and CTA.",
-	"textdomain": "xfact",
-	"attributes": {
-		"heroVariant": {
-			"type": "string",
-			"default": "standard"
-		},
-		"title": {
-			"type": "string",
-			"default": ""
-		},
-		"subtitle": {
-			"type": "string",
-			"default": ""
-		},
-		"buttons": {
-			"type": "array",
-			"default": []
-		},
-		"videoUrl": {
-			"type": "string",
-			"default": ""
-		},
-		"posterImage": {
-			"type": "string",
-			"default": ""
-		},
-		"slides": {
-			"type": "array",
-			"default": []
-		},
-		"sectionLabel": {
-			"type": "string",
-			"default": ""
-		},
-		"useBreadcrumbs": {
-			"type": "boolean",
-			"default": false
-		},
-		"breadcrumbParentLabel": {
-			"type": "string",
-			"default": "Solutions"
-		},
-		"breadcrumbParentHref": {
-			"type": "string",
-			"default": "/solutions"
-		},
-		"badgeText": {
-			"type": "string",
-			"default": ""
-		},
-		"backgroundImage": {
-			"type": "string",
-			"default": ""
-		},
-		"imageAlt": {
-			"type": "string",
-			"default": ""
-		},
-		"bodyText": {
-			"type": "string",
-			"default": ""
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"align": [
-			"full",
-			"wide"
-		],
-		"spacing": {
-			"padding": true
-		}
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/hero",
+  "version": "1.0.0",
+  "title": "xFact Hero",
+  "category": "theme",
+  "icon": "format-video",
+  "description": "Full-width hero section with background image slideshow, video overlay, and CTA.",
+  "textdomain": "xfact",
+  "attributes": {
+    "heroVariant": {
+      "type": "string",
+      "default": "standard"
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttons": {
+      "type": "array",
+      "default": []
+    },
+    "videoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "posterImage": {
+      "type": "string",
+      "default": ""
+    },
+    "slides": {
+      "type": "array",
+      "default": []
+    },
+    "sectionLabel": {
+      "type": "string",
+      "default": ""
+    },
+    "useBreadcrumbs": {
+      "type": "boolean",
+      "default": false
+    },
+    "breadcrumbParentLabel": {
+      "type": "string",
+      "default": "Solutions"
+    },
+    "breadcrumbParentHref": {
+      "type": "string",
+      "default": "/solutions"
+    },
+    "badgeText": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundImage": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "bodyText": {
+      "type": "string",
+      "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"],
+    "spacing": {
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

@@ -64,7 +64,13 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							<label for="xfact-message" class="xfact-contact-form__label xfact-text"><?php esc_html_e( 'How can we help?', 'xfact' ); ?> <span class="xfact-contact-form__required">*</span></label>
 							<textarea id="xfact-message" name="message" rows="4" required class="xfact-contact-form__textarea"></textarea>
 						</div>
-						<button type="submit" class="xfact-btn-primary xfact-btn-default">
+						<style>
+							.xfact-contact-form__form:invalid button[type="submit"] {
+								opacity: 0.5;
+								cursor: not-allowed;
+							}
+						</style>
+						<button type="submit" id="xfact-contact-submit" class="xfact-btn-primary xfact-btn-default">
 							<?php esc_html_e( 'Send Message', 'xfact' ); ?>
 						</button>
 					</form>

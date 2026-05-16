@@ -1,22 +1,22 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/feature-cards",
-	"version": "1.0.0",
-	"title": "xFact Feature Cards",
-	"category": "theme",
-	"icon": "columns",
-	"description": "Grid of feature/value cards with titles and descriptions.",
-	"textdomain": "xfact",
-	"attributes": {
-		"sectionLabel": { "type": "string", "default": "" },
-		"heading": { "type": "string", "default": "" },
-		"cards": { "type": "array", "default": [] },
-		"sectionImage": { "type": "string", "default": "" },
-		"sectionImageAlt": { "type": "string", "default": "" }
-	},
-	"supports": { "html": false },
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/feature-cards",
+  "version": "1.0.0",
+  "title": "xFact Feature Cards",
+  "category": "theme",
+  "icon": "columns",
+  "description": "Grid of feature/value cards with titles and descriptions.",
+  "textdomain": "xfact",
+  "attributes": {
+    "sectionLabel": { "type": "string", "default": "" },
+    "heading": { "type": "string", "default": "" },
+    "cards": { "type": "array", "default": [] },
+    "sectionImage": { "type": "string", "default": "" },
+    "sectionImageAlt": { "type": "string", "default": "" }
+  },
+  "supports": { "html": false },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

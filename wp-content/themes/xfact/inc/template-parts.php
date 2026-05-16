@@ -48,14 +48,22 @@ add_filter(
 		if ( ! $footer_done && isset( $block['attrs']['slug'] ) && 'footer' === $block['attrs']['slug'] && false !== strpos( $content, 'xfact-footer__theme-label' ) ) {
 			$footer_done = true;
 
-			/* Inject theme toggle button after the Theme label paragraph */
-			$toggle_html = xfact_get_theme_toggle_html();
-			$needle      = 'class="xfact-footer__theme-label">Theme</p>';
-			$content     = str_replace(
-				$needle,
-				$needle . $toggle_html,
-				$content
-			);
+			/* Inject theme toggle button after the Theme label paragraph, or remove label if disabled */
+			if ( get_option( 'xfact_disable_dark_mode', false ) ) {
+				$content = preg_replace(
+					'/<p class="xfact-footer__theme-label">Theme<\/p>/',
+					'',
+					$content
+				);
+			} else {
+				$toggle_html = xfact_get_theme_toggle_html();
+				$needle      = 'class="xfact-footer__theme-label">Theme</p>';
+				$content     = str_replace(
+					$needle,
+					$needle . $toggle_html,
+					$content
+				);
+			}
 
 			/* Replace hardcoded year with dynamic year */
 			$content = preg_replace(
@@ -117,6 +125,7 @@ function xfact_get_mobile_toggle_html(): string {
  * @return string
  */
 function xfact_get_mobile_nav_html(): string {
+	$disable_dark = get_option( 'xfact_disable_dark_mode', false );
 	ob_start();
 	?>
 	<nav class="xfact-mobile-nav" aria-label="Mobile navigation">
@@ -125,10 +134,12 @@ function xfact_get_mobile_nav_html(): string {
 		</div>
 		<div class="xfact-mobile-nav__bottom">
 			<a href="/contact" class="xfact-mobile-nav__cta" data-xfact-mobile-cta>Contact</a>
+			<?php if ( ! $disable_dark ) : ?>
 			<div class="xfact-mobile-nav__theme">
 				<span class="xfact-mobile-nav__theme-label">Theme</span>
 				<?php echo xfact_get_theme_toggle_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted HTML component. ?>
 			</div>
+			<?php endif; ?>
 		</div>
 	</nav>
 	<?php

@@ -141,6 +141,10 @@ if [ -f "/usr/local/bin/wp-seed-seo.php" ]; then
     wp eval-file /usr/local/bin/wp-seed-seo.php
 fi
 
+# Clean up any stale database options for theme colors so defaults apply
+echo "🧹 Clearing stale theme options..."
+wp db query "DELETE FROM \$(wp db prefix)options WHERE option_name LIKE 'xfact\_%';" 2>/dev/null || true
+
 # Clean up any DB-stored template-part overrides so the theme files are used
 echo "🧹 Clearing template-part overrides..."
 for part_slug in header footer; do

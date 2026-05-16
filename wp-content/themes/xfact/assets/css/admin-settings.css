@@ -5,9 +5,9 @@
 .xfact-admin-settings {
     margin-top: 24px;
     font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
-        Cantarell, "Helvetica Neue", sans-serif;
-    color: #1e293b;
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
+        Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: var(--xfact-semantic-text-primary);
     padding-right: 20px;
 }
 
@@ -16,42 +16,39 @@
     font-weight: 800;
     margin-bottom: 24px;
     margin-top: 16px;
-    background: linear-gradient(135deg, #06384f, #5c8ae6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-admin-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--xfact-semantic-surface);
+    border: 1px solid var(--xfact-semantic-surface-alt);
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
     box-shadow:
-        0 4px 6px -1px rgba(9, 23, 47, 0.05),
-        0 2px 4px -1px rgba(9, 23, 47, 0.03);
+        0 4px 6px -1px rgb(9 23 47 / 5%),
+        0 2px 4px -1px rgb(9 23 47 / 3%);
     transition: box-shadow 0.2s ease;
 }
 
 .xfact-admin-card:hover {
     box-shadow:
-        0 10px 15px -3px rgba(9, 23, 47, 0.08),
-        0 4px 6px -2px rgba(9, 23, 47, 0.04);
+        0 10px 15px -3px rgb(9 23 47 / 8%),
+        0 4px 6px -2px rgb(9 23 47 / 4%);
 }
 
 .xfact-admin-card h2 {
     margin-top: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #09172f;
-    border-bottom: 1px solid #f1f5f9;
+    color: var(--xfact-semantic-text-primary);
+    border-bottom: 1px solid var(--xfact-semantic-surface-alt);
     padding-bottom: 16px;
     margin-bottom: 20px;
 }
 
 .xfact-admin-card p.description {
-    color: #64748b;
+    color: var(--xfact-semantic-text-secondary);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 24px;
@@ -60,10 +57,10 @@
 
 .xfact-admin-toggle {
     margin-bottom: 20px;
-    background: #f8fafc;
+    background: #f1f5f9;
     padding: 16px;
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--xfact-semantic-surface);
 }
 
 .xfact-admin-toggle label {
@@ -73,7 +70,7 @@
     gap: 12px;
     margin-bottom: 6px;
     font-size: 15px;
-    color: #334155;
+    color: var(--xfact-semantic-text-primary);
     cursor: pointer;
 }
 
@@ -86,10 +83,61 @@
 .xfact-admin-toggle .description {
     display: block;
     margin-left: 28px;
-    color: #94a3b8;
+    color: var(--xfact-semantic-text-secondary);
     font-size: 13px;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+/* Radio Button Group (Tab Style) */
+.xfact-radio-group {
+    display: inline-flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 6px;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.xfact-radio-group label {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--xfact-semantic-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0;
+}
+
+.xfact-radio-group label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.xfact-radio-group label:hover:not(.disabled) {
+    color: var(--xfact-semantic-text-primary);
+}
+
+.xfact-radio-group input[type="radio"] {
+    display: none;
+}
+
+.xfact-radio-group input[type="radio"]:checked + span {
+    background: var(--xfact-semantic-surface);
+    color: var(--xfact-semantic-text-primary);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    border-radius: 4px;
+    padding: 4px 12px;
+}
+
+.xfact-radio-group span {
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
 .xfact-admin-logo-preview {
@@ -98,17 +146,17 @@
     background: #f1f5f9;
     padding: 32px;
     border-radius: 12px;
-    border: 1px dashed #cbd5e1;
+    border: 1px dashed var(--xfact-semantic-surface-alt);
 }
 
 .xfact-admin-logo-preview img {
     max-width: 200px;
     height: auto;
-    background: #09172f;
-    border: 1px solid #022038;
+    background: var(--xfact-semantic-text-primary);
+    border: 1px solid var(--xfact-semantic-text-primary);
     border-radius: 8px;
     padding: 24px;
-    box-shadow: inset 0 2px 4px 0 rgba(2, 32, 56, 0.2);
+    box-shadow: inset 0 2px 4px 0 rgb(2 32 56 / 20%);
 }
 
 .xfact-btn-group {
@@ -136,37 +184,37 @@
     margin-top: 24px;
 }
 
-@media (max-width: 782px) {
+@media (width <= 782px) {
     .xfact-palette-container {
         grid-template-columns: 1fr;
     }
 }
 
 .xfact-palette {
-    background: #f8fafc;
+    background: var(--xfact-semantic-surface);
     padding: 24px;
     border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--xfact-semantic-surface-alt);
 }
 
 .xfact-palette.dark-mode {
-    background: #09172f;
-    border-color: #06384f;
-    color: #f5f7fa;
+    background: var(--xfact-semantic-text-primary);
+    border-color: var(--xfact-semantic-primary-dark);
+    color: var(--xfact-semantic-surface-alt);
 }
 
 .xfact-palette h3 {
     margin-top: 0;
     font-size: 18px;
     font-weight: 600;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--xfact-semantic-surface-alt);
     padding-bottom: 12px;
     margin-bottom: 20px;
 }
 
 .xfact-palette.dark-mode h3 {
-    color: #ffffff;
-    border-bottom-color: #334155;
+    color: var(--xfact-semantic-surface);
+    border-bottom-color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-palette .form-table {
@@ -180,7 +228,7 @@
 }
 
 .xfact-palette.dark-mode .form-table th {
-    color: #cbd5e1;
+    color: var(--xfact-semantic-surface-alt);
 }
 
 .xfact-palette .form-table td {
@@ -189,71 +237,95 @@
 
 /* Buttons */
 .xfact-admin-settings .button-primary {
-    background: #09172f;
-    border: 1px solid #09172f;
+    background: var(--xfact-semantic-primary-dark);
+    border: 1px solid color-mix(in srgb, #ffffff 20%, transparent);
     color: #ffffff;
     padding: 8px 24px;
-    border-radius: 8px;
+    border-radius: var(--xfact-glass-radius);
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(9, 23, 47, 0.06);
-    transition: all 0.2s ease;
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, #ffffff 10%, transparent),
+        0 2px 4px rgb(9 23 47 / 10%);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     line-height: normal;
     height: auto;
 }
 
 .xfact-admin-settings .button-primary:hover {
-    background: #1a2b4c;
-    border-color: #1a2b4c;
-    box-shadow: 0 4px 10px rgba(9, 23, 47, 0.12);
+    background: var(--xfact-semantic-primary-dark);
+    border-color: color-mix(in srgb, #ffffff 40%, transparent);
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, #ffffff 20%, transparent),
+        0 4px 12px rgb(9 23 47 / 15%);
     transform: translateY(-1px);
 }
 
 .xfact-admin-settings .button-primary:focus {
-    outline: 2px solid #3a6bd4;
+    outline: 2px solid var(--xfact-semantic-primary);
     outline-offset: 2px;
     box-shadow: none;
 }
 
 .xfact-admin-settings .button-secondary {
     padding: 8px 20px;
-    border-radius: 8px;
+    border-radius: var(--xfact-glass-radius);
     font-weight: 600;
     font-size: 14px;
     line-height: normal;
     height: auto;
-    border: 1px solid #cbd5e1;
-    color: #475569;
-    background: #ffffff;
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--xfact-semantic-text-secondary) 25%,
+            transparent
+        );
+    color: var(--xfact-semantic-text-secondary);
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-secondary) 5%,
+        transparent
+    );
+    backdrop-filter: var(--xfact-glass-blur);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .xfact-admin-settings .button-secondary:hover {
-    background: #f8fafc;
-    color: #0f172a;
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-secondary) 10%,
+        transparent
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-secondary) 40%,
+        transparent
+    );
+    color: var(--xfact-semantic-text-primary);
+    transform: translateY(-1px);
 }
 
 /* Danger card */
 .xfact-danger-card {
-    border-left: 4px solid #ef4444;
-    background: #fef2f2;
-    border-color: #fecaca;
-    border-left-color: #ef4444;
+    border-left: 4px solid var(--xfact-semantic-danger);
+    background: var(--xfact-semantic-surface);
+    border-color: var(--xfact-semantic-danger);
 }
 
 .xfact-danger-card h2 {
-    color: #991b1b;
-    border-bottom-color: #fecaca;
+    color: var(--xfact-semantic-danger);
+    border-bottom-color: var(--xfact-semantic-danger);
 }
 
 .xfact-danger-card p.description {
-    color: #7f1d1d;
+    color: var(--xfact-semantic-danger);
 }
 
 .xfact-btn-danger {
-    color: #ef4444;
-    border: 1px solid #ef4444;
-    background: #fff;
+    color: var(--xfact-semantic-danger);
+    border: 1px solid var(--xfact-semantic-danger);
+    background: var(--xfact-semantic-surface);
     padding: 8px 20px;
     border-radius: 6px;
     font-weight: 600;
@@ -262,8 +334,8 @@
 }
 
 .xfact-btn-danger:hover {
-    background: #ef4444;
-    color: #fff;
+    background: var(--xfact-semantic-danger);
+    color: var(--xfact-semantic-surface);
 }
 
 .xfact-custom-font-row {
@@ -272,9 +344,9 @@
     gap: 8px;
     margin-bottom: 12px;
     align-items: center;
-    background: #f8fafc;
+    background: var(--xfact-semantic-surface);
     padding: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--xfact-semantic-surface-alt);
     border-radius: 6px;
 }
 
@@ -292,10 +364,11 @@
 }
 
 .xfact-settings-container {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--xfact-semantic-surface);
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 20%, transparent);
     border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(9, 23, 47, 0.05);
+    box-shadow: 0 4px 6px -1px rgb(9 23 47 / 5%);
     margin-top: 0;
     display: flex;
     flex-direction: column;
@@ -307,8 +380,9 @@
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+    background: var(--xfact-semantic-surface);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 20%, transparent);
     padding: 0 32px;
     position: sticky;
     top: 32px;
@@ -318,7 +392,7 @@
     height: 60px;
 }
 
-@media screen and (max-width: 782px) {
+@media screen and (width <= 782px) {
     .xfact-settings-header-bar {
         flex-direction: column;
         align-items: stretch;
@@ -329,7 +403,12 @@
     .xfact-save-actions {
         padding: 16px 0;
         text-align: right;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid
+            color-mix(
+                in srgb,
+                var(--xfact-semantic-text-primary) 20%,
+                transparent
+            );
     }
 
     .xfact-tabs {
@@ -353,7 +432,7 @@
     align-items: center;
     padding: 0 4px;
     text-decoration: none;
-    color: #64748b;
+    color: var(--xfact-semantic-text-secondary);
     font-weight: 600;
     font-size: 14px;
     border: none;
@@ -365,19 +444,23 @@
 }
 
 .xfact-tab:hover {
-    color: #0f172a;
-    border-bottom-color: #cbd5e1;
+    color: var(--xfact-semantic-text-primary);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-primary) 20%,
+        transparent
+    );
 }
 
 .xfact-tab:focus {
     outline: none;
     box-shadow: none;
-    color: #0f172a;
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-tab.xfact-active-tab {
-    color: #09172f;
-    border-bottom-color: #09172f;
+    color: var(--xfact-semantic-text-primary);
+    border-bottom-color: var(--xfact-semantic-primary);
 }
 
 .xfact-settings-body {
@@ -395,12 +478,12 @@
     margin-top: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #09172f;
+    color: var(--xfact-semantic-text-primary);
     margin-bottom: 12px;
 }
 
 .xfact-settings-section p.description {
-    color: #64748b;
+    color: var(--xfact-semantic-text-secondary);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 24px;
@@ -410,7 +493,7 @@
 .xfact-section-divider {
     margin: 40px 0;
     border: 0;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--xfact-semantic-surface-alt);
 }
 
 .xfact-tab-content {
@@ -436,12 +519,13 @@
 
 /* Live Preview Section */
 .xfact-live-preview-section {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--xfact-semantic-surface);
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 20%, transparent);
     border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(9 23 47 / 5%);
     padding: 0;
     margin-top: 0;
-    box-shadow: inset 0 2px 4px 0 rgba(9, 23, 47, 0.02);
     display: flex;
     flex-direction: column;
     height: calc(100vh - 120px);
@@ -454,7 +538,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 24px;
-    margin-bottom: 0;
+    background: var(--xfact-semantic-surface);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 20%, transparent);
     height: 60px;
 }
 
@@ -462,7 +548,7 @@
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #09172f;
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-preview-controls {
@@ -473,14 +559,14 @@
 
 .xfact-preview-controls select {
     border-radius: 6px;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--xfact-semantic-surface-alt);
     padding: 4px 12px;
     font-size: 14px;
 }
 
 .xfact-preview-theme-toggle {
     display: flex;
-    background: #e2e8f0;
+    background: #f1f5f9;
     border-radius: 6px;
     padding: 4px;
     gap: 4px;
@@ -493,23 +579,23 @@
     border-radius: 4px;
     font-size: 13px;
     font-weight: 500;
-    color: #475569;
+    color: var(--xfact-semantic-text-secondary);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .xfact-theme-btn.active {
-    background: #ffffff;
-    color: #09172f;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    background: var(--xfact-semantic-surface);
+    color: var(--xfact-semantic-text-primary);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
 }
 
 .xfact-preview-canvas {
     width: 100%;
     flex: 1;
-    background: #ffffff;
+    background: var(--xfact-semantic-surface);
     border: none;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--xfact-semantic-surface-alt);
     border-radius: 0;
     overflow: hidden;
     box-shadow: none;
@@ -526,92 +612,128 @@
     display: inline-flex;
     align-items: center;
 }
+
 .xfact-swatches {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
 }
+
 .xfact-swatch {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--xfact-semantic-surface-alt);
     cursor: pointer;
     padding: 0;
-    transition: transform 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition:
+        transform 0.1s ease,
+        border-color 0.1s ease,
+        box-shadow 0.1s ease;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    position: relative;
+    z-index: 1;
 }
+
 .xfact-swatch:hover {
-    transform: scale(1.1);
+    transform: scale(1.25);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
+    z-index: 10;
 }
+
 .xfact-swatch.active {
-    border-color: #1a202c;
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #1a202c;
-    transform: scale(1.15);
+    border-color: var(--xfact-semantic-text-primary);
+    box-shadow:
+        0 0 0 2px var(--xfact-semantic-surface),
+        0 0 0 4px var(--xfact-semantic-text-primary),
+        0 8px 16px rgb(0 0 0 / 15%);
+    transform: scale(1.35);
+    z-index: 20;
 }
 
 .xfact-swatch-popover-item {
-    transition: background 0.1s ease, border-color 0.1s ease;
-}
-.xfact-swatch-popover-item:hover {
-    background: #f1f5f9 !important;
-    border-color: #cbd5e1 !important;
-}
-.xfact-swatch-popover-item.active {
-    background: #e2e8f0 !important;
-    border-color: #94a3b8 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition:
+        background 0.1s ease,
+        border-color 0.1s ease;
 }
 
+.xfact-swatch-popover-item:hover {
+    background: var(--xfact-semantic-surface-alt);
+    border-color: var(--xfact-semantic-surface-alt);
+}
+
+.xfact-swatch-popover-item.active {
+    background: var(--xfact-semantic-surface-alt);
+    border-color: var(--xfact-semantic-text-secondary);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+}
 
 /* Toast Notification */
 .xfact-toast {
     position: fixed !important;
-    bottom: 32px;
-    right: 32px;
+    bottom: 32px !important;
+    right: 32px !important;
     margin: 0 !important;
-    z-index: 99999;
-    box-shadow: 0 20px 25px -5px rgba(9, 23, 47, 0.1), 0 8px 10px -6px rgba(9, 23, 47, 0.1) !important;
-    background: #09172f !important;
-    border: 1px solid #1e293b !important;
-    border-left: 4px solid #007AFF !important;
-    padding: 16px 48px 16px 20px !important;
-    border-radius: 8px !important;
+    z-index: 99999 !important;
+    box-shadow:
+        0 20px 25px -5px rgb(9 23 47 / 10%),
+        0 8px 10px -6px rgb(9 23 47 / 10%);
+    border-radius: 8px;
+    padding: 16px 48px 16px 24px !important;
     animation: xfact-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    display: flex;
-    align-items: center;
+    border: 1px solid transparent;
 }
 
 .xfact-toast p {
     margin: 0 !important;
     padding: 0 !important;
-    color: #f8fafc !important;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 500;
 }
 
 .xfact-toast.notice-success {
-    border-left-color: #379B53 !important;
+    background: var(--xfact-semantic-success);
+    border-color: var(--xfact-semantic-success);
 }
 
-.xfact-toast.notice-info {
-    border-left-color: #83CBFF !important;
+.xfact-toast.notice-info,
+.xfact-toast.notice-primary {
+    background: var(--xfact-semantic-primary);
+    border-color: var(--xfact-semantic-primary);
+}
+
+.xfact-toast.notice-warning {
+    background: var(--xfact-semantic-warning);
+    border-color: var(--xfact-semantic-warning);
 }
 
 .xfact-toast.notice-error {
-    border-left-color: #CD163F !important;
+    background: var(--xfact-semantic-danger);
+    border-color: var(--xfact-semantic-danger);
 }
 
 .xfact-toast .notice-dismiss {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
     text-decoration: none;
+    border: none;
+    background: transparent;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .xfact-toast .notice-dismiss::before {
-    color: #94a3b8 !important;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
 }
 
 .xfact-toast .notice-dismiss:hover::before {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 @keyframes xfact-fade-in-up {
@@ -619,6 +741,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

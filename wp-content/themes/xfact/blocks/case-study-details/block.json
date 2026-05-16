@@ -1,55 +1,52 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/case-study-details",
-	"version": "1.0.0",
-	"title": "Case Study Details",
-	"category": "xfact-blocks",
-	"icon": "media-document",
-	"description": "Displays the full content of a case study.",
-	"attributes": {
-		"client": {
-			"type": "string",
-			"default": ""
-		},
-		"summary": {
-			"type": "string",
-			"default": ""
-		},
-		"source": {
-			"type": "string",
-			"default": ""
-		},
-		"challenge": {
-			"type": "array",
-			"default": []
-		},
-		"services": {
-			"type": "array",
-			"default": []
-		},
-		"outcomes": {
-			"type": "array",
-			"default": []
-		},
-		"narrative": {
-			"type": "string",
-			"default": ""
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"anchor": true,
-		"align": [
-			"full",
-			"wide"
-		]
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/case-study-details",
+  "version": "1.0.0",
+  "title": "Case Study Details",
+  "category": "xfact-blocks",
+  "icon": "media-document",
+  "description": "Displays the full content of a case study.",
+  "attributes": {
+    "client": {
+      "type": "string",
+      "default": ""
+    },
+    "summary": {
+      "type": "string",
+      "default": ""
+    },
+    "source": {
+      "type": "string",
+      "default": ""
+    },
+    "challenge": {
+      "type": "array",
+      "default": []
+    },
+    "services": {
+      "type": "array",
+      "default": []
+    },
+    "outcomes": {
+      "type": "array",
+      "default": []
+    },
+    "narrative": {
+      "type": "string",
+      "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["full", "wide"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

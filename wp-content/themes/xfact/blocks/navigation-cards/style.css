@@ -3,7 +3,7 @@
     margin-bottom: 2rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .xfact-navigation-cards__heading {
         margin-bottom: 3rem;
     }
@@ -14,7 +14,7 @@
     gap: 1rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .xfact-navigation-cards__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -31,7 +31,8 @@
 }
 
 .xfact-nav-card.has-xfact-gradient-bg {
-    background-clip: padding-box !important;
+    background-clip: padding-box;
+
     --xfact-overlay-angle: to right;
 }
 
@@ -52,8 +53,6 @@
     opacity: 1;
 }
 
-
-
 .xfact-nav-card__icon {
     width: 2.25rem;
     height: 2.25rem;
@@ -61,10 +60,9 @@
     color: var(--wp--preset--color--primary);
     flex-shrink: 0;
     border-radius: calc(var(--xfact-glass-radius) / 4);
-    background: rgba(0, 0, 0, 0.05);
+    background: rgb(0 0 0 / 5%);
     backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(0 0 0 / 5%);
 }
 
 .xfact-dark-section .xfact-nav-card__icon,
@@ -100,7 +98,9 @@ html[data-theme="dark"] .xfact-nav-card__icon {
     align-items: center;
     justify-content: center;
     color: var(--wp--preset--color--text-secondary);
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition:
+        transform 0.2s ease-in-out,
+        color 0.2s ease-in-out;
 }
 
 .xfact-nav-card:hover .xfact-nav-card__arrow {

@@ -172,7 +172,7 @@ if ( 'media' === $hero_variant || 'front-page' === $hero_variant ) {
 	$focal_point = $focal_points[ $filename ] ?? 'center';
 
 	$wrapper_attributes = get_block_wrapper_attributes(
-		array( 'class' => 'xfact-page-hero xfact-fade-in' )
+		array( 'class' => 'xfact-page-hero xfact-dark-section' )
 	);
 	?>
 
@@ -187,7 +187,6 @@ if ( 'media' === $hero_variant || 'front-page' === $hero_variant ) {
 				fetchpriority="high"
 			/>
 		<?php endif; ?>
-
 		<div class="xfact-page-hero__overlay" aria-hidden="true"></div>
 		<div class="xfact-page-hero__text-gradient" aria-hidden="true"></div>
 

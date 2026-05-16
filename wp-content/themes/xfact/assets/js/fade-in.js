@@ -16,61 +16,63 @@
  * @package xfact
  */
 
-( function () {
-	'use strict';
+(() => {
+    if (!('IntersectionObserver' in window)) {
+        /* No observer support — just leave everything visible */
+        return;
+    }
 
-	if ( ! ( 'IntersectionObserver' in window ) ) {
-		/* No observer support — just leave everything visible */
-		return;
-	}
+    /* Enable the hidden-by-default state now that JS is confirmed working */
+    document.documentElement.classList.add('xfact-has-fade');
 
-	/* Enable the hidden-by-default state now that JS is confirmed working */
-	document.documentElement.classList.add( 'xfact-has-fade' );
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (let i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                    entries[i].target.classList.add('is-visible');
+                    observer.unobserve(entries[i].target);
+                }
+            }
+        },
+        {
+            threshold: 0.01,
+            rootMargin: '0px 0px 200px 0px',
+        },
+    );
 
-	var observer = new IntersectionObserver(
-		function ( entries ) {
-			for ( var i = 0; i < entries.length; i++ ) {
-				if ( entries[ i ].isIntersecting ) {
-					entries[ i ].target.classList.add( 'is-visible' );
-					observer.unobserve( entries[ i ].target );
-				}
-			}
-		},
-		{
-			threshold: 0.01,
-			rootMargin: '0px 0px 200px 0px',
-		}
-	);
+    /**
+     * Observe all fade-in targets.
+     * Script loads in footer, so the DOM is already available.
+     */
+    function observeAll() {
+        const elements = document.querySelectorAll(
+            '.xfact-fade-in:not(.is-visible)',
+        );
+        for (let i = 0; i < elements.length; i++) {
+            observer.observe(elements[i]);
+        }
+    }
 
-	/**
-	 * Observe all fade-in targets.
-	 * Script loads in footer, so the DOM is already available.
-	 */
-	function observeAll() {
-		var elements = document.querySelectorAll( '.xfact-fade-in:not(.is-visible)' );
-		for ( var i = 0; i < elements.length; i++ ) {
-			observer.observe( elements[ i ] );
-		}
-	}
+    /**
+     * Safety net: force-reveal any elements that the observer missed
+     * after 1.5 seconds. This handles edge cases where the observer
+     * does not fire (e.g. unusual viewport states, certain browsers).
+     */
+    function forceRevealAll() {
+        const hidden = document.querySelectorAll(
+            '.xfact-fade-in:not(.is-visible)',
+        );
+        for (let i = 0; i < hidden.length; i++) {
+            hidden[i].classList.add('is-visible');
+        }
+    }
 
-	/**
-	 * Safety net: force-reveal any elements that the observer missed
-	 * after 1.5 seconds. This handles edge cases where the observer
-	 * does not fire (e.g. unusual viewport states, certain browsers).
-	 */
-	function forceRevealAll() {
-		var hidden = document.querySelectorAll( '.xfact-fade-in:not(.is-visible)' );
-		for ( var i = 0; i < hidden.length; i++ ) {
-			hidden[ i ].classList.add( 'is-visible' );
-		}
-	}
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', observeAll);
+    } else {
+        observeAll();
+    }
 
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', observeAll );
-	} else {
-		observeAll();
-	}
-
-	/* Safety timer — ensure nothing stays hidden */
-	setTimeout( forceRevealAll, 1500 );
-} )();
+    /* Safety timer — ensure nothing stays hidden */
+    setTimeout(forceRevealAll, 1500);
+})();

@@ -1,60 +1,57 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/logo-strip",
-	"version": "1.0.0",
-	"title": "xFact Logo Strip",
-	"category": "theme",
-	"icon": "images-alt2",
-	"description": "Partner logo strip with heading.",
-	"textdomain": "xfact",
-	"attributes": {
-		"heading": {
-			"type": "string",
-			"default": "Working with leading technology providers to deliver proven solutions."
-		},
-		"logos": {
-			"type": "array",
-			"default": [
-				{
-					"name": "Microsoft",
-					"imageUrl": "/wp-content/themes/xfact/assets/images/Microsoft_logo_2012.svg"
-				},
-				{
-					"name": "Cisco",
-					"imageUrl": "/wp-content/themes/xfact/assets/images/Cisco_logo_blue_2016.svg"
-				},
-				{
-					"name": "Pure Storage",
-					"imageUrl": "/wp-content/themes/xfact/assets/images/Pure-storage-vector-logo.svg"
-				},
-				{
-					"name": "Fortinet",
-					"imageUrl": "/wp-content/themes/xfact/assets/images/Fortinet_logo.svg"
-				},
-				{
-					"name": "Dell",
-					"imageUrl": "/wp-content/themes/xfact/assets/images/Dell_logo_2016.svg"
-				}
-			]
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"color": {
-			"background": true,
-			"text": true
-		},
-		"align": [
-			"full",
-			"wide"
-		]
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/logo-strip",
+  "version": "1.0.0",
+  "title": "xFact Logo Strip",
+  "category": "theme",
+  "icon": "images-alt2",
+  "description": "Partner logo strip with heading.",
+  "textdomain": "xfact",
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Working with leading technology providers to deliver proven solutions."
+    },
+    "logos": {
+      "type": "array",
+      "default": [
+        {
+          "name": "Microsoft",
+          "imageUrl": "/wp-content/themes/xfact/assets/images/Microsoft_logo_2012.svg"
+        },
+        {
+          "name": "Cisco",
+          "imageUrl": "/wp-content/themes/xfact/assets/images/Cisco_logo_blue_2016.svg"
+        },
+        {
+          "name": "Pure Storage",
+          "imageUrl": "/wp-content/themes/xfact/assets/images/Pure-storage-vector-logo.svg"
+        },
+        {
+          "name": "Fortinet",
+          "imageUrl": "/wp-content/themes/xfact/assets/images/Fortinet_logo.svg"
+        },
+        {
+          "name": "Dell",
+          "imageUrl": "/wp-content/themes/xfact/assets/images/Dell_logo_2016.svg"
+        }
+      ]
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "align": ["full", "wide"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

@@ -36,17 +36,9 @@ $buttons            = $attributes['buttons'] ?? array();
 			<div class="xfact-navigation-cards__grid">
 				<?php foreach ( $items as $item ) : ?>
 					<?php
-					$bg_color     = ! empty( $item['bgColor'] ) ? $item['bgColor'] : '';
 					$card_classes = 'xfact-nav-card xfact-card-interactive';
-					$style        = '';
-
-					if ( $bg_color ) {
-						$horizontal_bg = str_replace( ')', '-horizontal)', $bg_color );
-						$card_classes .= ' has-xfact-gradient-bg';
-						$style         = ' style="--xfact-card-bg: ' . esc_attr( $horizontal_bg ) . ';"';
-					}
 					?>
-					<a href="<?php echo esc_url( $item['href'] ?? '#' ); ?>" class="<?php echo esc_attr( $card_classes ); ?>"<?php echo wp_kses_post( $style ); ?>>
+					<a href="<?php echo esc_url( $item['href'] ?? '#' ); ?>" class="<?php echo esc_attr( $card_classes ); ?>">
 						<?php if ( ! empty( $item['icon'] ) ) : ?>
 							<?php
 							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.

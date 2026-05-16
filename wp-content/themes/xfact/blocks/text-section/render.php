@@ -17,7 +17,7 @@ $tags        = $attributes['tags'] ?? array();
 $use_alt_bg  = $attributes['useAltBackground'] ?? false;
 $is_centered = ! empty( $attributes['isCenteredCard'] );
 
-$bg_class     = $use_alt_bg ? 'has-surface-alt-background-color' : 'has-surface-background-color';
+$bg_class     = $use_alt_bg ? 'xfact-dark-section' : 'has-surface-background-color';
 $card_class   = $is_centered ? ' xfact-text-section--centered-card' : '';
 $wrapper_args = array( 'class' => "xfact-text-section {$bg_class}{$card_class} xfact-section xfact-section-border" );
 
@@ -65,7 +65,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 					<?php if ( ! empty( $tags ) ) : ?>
 						<div class="xfact-text-section__tags">
 							<?php foreach ( $tags as $tag_item ) : ?>
-								<span class="xfact-text-section__tag xfact-card xfact-text-secondary">
+								<span class="xfact-text-section__tag">
 									<?php
 									$tag_icon = $tag_item['iconName'] ?? '';
 									if ( $tag_icon ) {

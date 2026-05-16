@@ -53,6 +53,28 @@ function xfact_register_settings(): void {
 
 	register_setting(
 		'xfact_settings',
+		'xfact_theme_mode',
+		array(
+			'type'              => 'string',
+			'default'           => 'light',
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_setting(
+		'xfact_settings',
+		'xfact_disable_dark_mode',
+		array(
+			'type'              => 'boolean',
+			'default'           => false,
+			'sanitize_callback' => 'rest_sanitize_boolean',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_setting(
+		'xfact_settings',
 		'xfact_primary_logo_url',
 		array(
 			'type'              => 'string',

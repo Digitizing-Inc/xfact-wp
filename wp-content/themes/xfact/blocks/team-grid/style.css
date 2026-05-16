@@ -1,107 +1,121 @@
 .xfact-team-grid {
-	padding: 4rem 0;
+    padding: 4rem 0;
 }
 
 .xfact-team-grid__grid {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 1.5rem;
-	margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
-@media (min-width: 640px) {
-	.xfact-team-grid__grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
+@media (width >= 640px) {
+    .xfact-team-grid__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media (min-width: 1024px) {
-	.xfact-team-grid__grid {
-		grid-template-columns: repeat(3, 1fr);
-	}
+@media (width >= 1024px) {
+    .xfact-team-grid__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .xfact-team-grid__card {
-	background-color: var(--has-surface-background-color-card);
-	border: 1px solid color-mix(in srgb, var(--wp--preset--color--text-primary), transparent 80%);
-	border-radius: 1rem;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	transition: all 0.3s ease;
+    background-color: var(--has-surface-background-color-card);
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--wp--preset--color--text-primary),
+            transparent 80%
+        );
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
 }
 
 .xfact-team-grid__card:hover {
-	border-color: var(--wp--preset--color--primary);
-	transform: translateY(-4px);
-	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border-color: var(--wp--preset--color--primary);
+    transform: translateY(-4px);
+    box-shadow:
+        0 10px 25px -5px rgb(0 0 0 / 10%),
+        0 8px 10px -6px rgb(0 0 0 / 10%);
 }
 
 .xfact-team-grid__image-wrapper {
-	width: 100%;
-	aspect-ratio: 1 / 1;
-	overflow: hidden;
-	background-color: var(--has-surface-background-color);
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--has-surface-background-color);
 }
 
 .xfact-team-grid__image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center top;
-	display: block;
-	transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-theme="dark"] .xfact-team-grid__image {
+    opacity: 0.85;
+    filter: grayscale(15%);
 }
 
 .xfact-team-grid__card:hover .xfact-team-grid__image {
-	transform: scale(1.04);
+    transform: scale(1.04);
 }
 
 .xfact-team-grid__content {
-	padding: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	align-items: center;
-	text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    text-align: center;
 }
 
 .xfact-team-grid__name {
-	font-size: 1.25rem;
-	font-weight: 700;
-	margin: 0 0 0.25rem 0;
-	letter-spacing: -0.025em;
-	color: var(--wp--preset--color--text-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.025em;
+    color: var(--wp--preset--color--text-primary);
 }
 
 .xfact-team-grid__title {
-	font-size: 0.875rem;
-	margin: 0;
-	color: var(--wp--preset--color--text-secondary);
-	line-height: 1.5;
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--wp--preset--color--text-secondary);
+    line-height: 1.5;
 }
 
 .xfact-team-grid__socials {
-	display: flex;
-	gap: 0.75rem;
-	margin-top: auto;
-	padding-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .xfact-team-grid__social-link {
-	color: var(--wp--preset--color--text-secondary);
-	transition: color 0.2s ease, transform 0.2s ease;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+    color: var(--wp--preset--color--primary);
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .xfact-team-grid__social-link:hover {
-	color: var(--wp--preset--color--primary);
-	transform: scale(1.1);
+    color: var(--wp--preset--color--primary);
+    transform: scale(1.1);
 }
 
 .xfact-team-grid__social-icon {
-	width: 1.25rem;
-	height: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
 }

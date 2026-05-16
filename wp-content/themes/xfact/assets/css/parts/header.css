@@ -2,64 +2,103 @@
 
 /* Default state: Solid dark header for pages without hero */
 .xfact-header {
-    position: fixed !important;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 50;
     width: 100%;
-    background: var(--xfact-dark-section);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--wp--preset--color--surface-alt);
+    border-bottom: 1px solid
+        color-mix(
+            in srgb,
+            var(--wp--preset--color--text-primary) 10%,
+            transparent
+        );
+    color: var(--wp--preset--color--text-primary);
     transition:
         background-color 0.5s ease,
         border-color 0.5s ease,
         box-shadow 0.5s ease,
         top 0.3s ease;
+
+    /* Enforce white glassmorphism inside header since it becomes dark */
+    --xfact-glass-bg: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 10%,
+        transparent
+    );
+    --xfact-glass-bg-hover: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 15%,
+        transparent
+    );
+    --xfact-glass-border: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 20%,
+        transparent
+    );
+    --xfact-glass-border-hover: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 30%,
+        transparent
+    );
 }
 
 /* When the page has a hero, make the header transparent until scrolled (unless mobile nav is open) */
-body.has-hero-header .xfact-header:not(.xfact-header--scrolled):not(.xfact-header--mobile-open) {
-    background: transparent !important;
-    border-bottom-color: transparent !important;
+body.has-hero-header
+.xfact-header:not(.xfact-header--scrolled, .xfact-header--mobile-open) {
+    background: transparent;
+    border-bottom-color: transparent;
 }
+
+/* Hover effect removed per user request: header only becomes solid on scroll */
 
 /* Editor canvas: make header visible (not transparent) and non-fixed by default */
 .editor-styles-wrapper .xfact-header {
-    position: relative !important;
-    background: var(--xfact-dark-section) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-    margin-bottom: 0 !important;
+    position: relative;
+    background: var(--wp--preset--color--surface-alt);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--text-primary) 10%,
+        transparent
+    );
+    margin-bottom: 0;
 }
 
 /* If the editor canvas contains a hero block, make the header match the live site overlay */
 .editor-styles-wrapper:has(.wp-block-xfact-hero) .xfact-header,
 .editor-styles-wrapper:has(.wp-block-xfact-page-hero) .xfact-header {
-    position: relative !important;
-    background: transparent !important;
-    border-bottom-color: transparent !important;
-    margin-bottom: -4rem !important;
+    position: relative;
+    background: transparent;
+    border-bottom-color: transparent;
+    margin-bottom: -4rem;
     z-index: 1000;
 }
 
 /* Elevate the Gutenberg block wrapper itself so the header doesn't get trapped under the hero's click zone */
 .editor-styles-wrapper .wp-block:has(.xfact-header) {
-    z-index: 1000 !important;
+    z-index: 1000;
     position: relative;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .editor-styles-wrapper:has(.wp-block-xfact-hero) .xfact-header,
     .editor-styles-wrapper:has(.wp-block-xfact-page-hero) .xfact-header {
-        margin-bottom: -5rem !important;
+        margin-bottom: -5rem;
     }
 }
 
 /* Always keep solid in focus mode (Template Part Editor) */
 body.is-focus-mode .xfact-header {
-    position: relative !important;
-    background: var(--xfact-dark-section) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-    margin-bottom: 0 !important;
+    position: relative;
+    background: var(--wp--preset--color--primary);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 10%,
+        transparent
+    );
+    margin-bottom: 0;
 }
 
 /* Admin bar offset — WP adds a 32px bar at the top when logged in */
@@ -67,35 +106,58 @@ body.is-focus-mode .xfact-header {
     top: 32px;
 }
 
-@media (max-width: 782px) {
+@media (width <= 782px) {
     .admin-bar .xfact-header {
         top: 46px;
     }
 }
 
 .xfact-header--scrolled {
-    background: var(--xfact-dark-section);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: var(--wp--preset--color--surface-alt);
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 10%,
+        transparent
+    );
+    box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+    /* Instant background/border change when scrolling down, but smooth top adjustment */
+    transition:
+        background-color 0s,
+        border-color 0s,
+        box-shadow 0s,
+        top 0.3s ease;
 }
 
 /* Push content below the solid header by default */
 .wp-site-blocks {
-    padding-top: 4rem !important;
+    padding-top: 4rem;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .wp-site-blocks {
-        padding-top: 5rem !important;
+        padding-top: 5rem;
     }
 }
 
 /* If body has hero-header, content flows under the transparent header */
 body.has-hero-header .wp-site-blocks,
 .is-root-container.wp-site-blocks {
-    padding-top: 0 !important;
+    padding-top: 0;
+}
+
+/* Header Nav Buttons - Always Glassmorphism */
+.xfact-header .wp-element-button,
+.xfact-header .xfact-btn-primary {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border-color: var(--xfact-glass-border) !important;
+    color: var(--wp--preset--color--white) !important;
+}
+
+.xfact-header .wp-element-button:hover,
+.xfact-header .xfact-btn-primary:hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    border-color: var(--xfact-glass-border-hover) !important;
 }
 
 /* ── Header Inner Container ──────────────────────── */
@@ -110,14 +172,14 @@ body.has-hero-header .wp-site-blocks,
     padding: 0 1rem;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-header__inner {
         height: 5rem;
         padding: 0 1.5rem;
     }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .xfact-header__inner {
         padding: 0 2rem;
     }
@@ -132,7 +194,7 @@ body.has-hero-header .wp-site-blocks,
     padding: 0.5rem 0;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-header__logo-link {
         padding: 0.75rem 0;
     }
@@ -144,7 +206,7 @@ body.has-hero-header .wp-site-blocks,
     transition: all 0.3s;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-header__logo {
         height: 3.5rem;
     }
@@ -153,7 +215,7 @@ body.has-hero-header .wp-site-blocks,
 /* ── Header Logo (wordmark image block) ──────────── */
 
 .xfact-header__logo-block {
-    margin: 0 !important;
+    margin: 0;
     line-height: 0;
 }
 
@@ -164,18 +226,17 @@ body.has-hero-header .wp-site-blocks,
     padding: 0.5rem 0;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-header__logo-block a {
         padding: 0.75rem 0;
     }
 }
 
 .xfact-header__logo-block img {
-    width: 130px !important;
+    width: 130px;
     height: auto;
     transition: all 0.3s;
 }
-
 
 /* ── WP Navigation in Header ─────────────────────── */
 
@@ -209,13 +270,32 @@ body.has-hero-header .wp-site-blocks,
     position: relative;
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7) !important;
-    text-decoration: none !important;
+    color: color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent);
+    text-decoration: none;
     transition: color 0.2s;
     padding: 0;
     margin: 0;
     border: none;
     background: transparent;
+    outline: none;
+}
+
+.xfact-header nav.wp-block-navigation a:focus,
+.xfact-header nav.wp-block-navigation a:active,
+.xfact-header nav.wp-block-navigation .wp-block-navigation-item__content:focus,
+.xfact-header
+    nav.wp-block-navigation
+    .wp-block-navigation-item__content:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.xfact-header nav.wp-block-navigation a:focus-visible,
+.xfact-header
+    nav.wp-block-navigation
+    .wp-block-navigation-item__content:focus-visible {
+    outline: 2px solid var(--wp--preset--color--primary);
+    outline-offset: 4px;
 }
 
 .xfact-header
@@ -264,7 +344,8 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item
-    > a[aria-current="page"] *,
+    > a[aria-current="page"]
+    *,
 .xfact-header
     nav.wp-block-navigation
     > .wp-block-navigation__container
@@ -274,7 +355,8 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item.current-menu-item
-    > a *,
+    > a
+    *,
 .xfact-header
     nav.wp-block-navigation
     > .wp-block-navigation__container
@@ -284,7 +366,8 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item.current-menu-ancestor
-    > a *,
+    > a
+    *,
 .xfact-header
     nav.wp-block-navigation
     > .wp-block-navigation__container
@@ -294,7 +377,8 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item
-    > .wp-block-navigation-item__content[aria-current="page"] *,
+    > .wp-block-navigation-item__content[aria-current="page"]
+    *,
 .xfact-header
     nav.wp-block-navigation
     > .wp-block-navigation__container
@@ -304,7 +388,8 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item.current-menu-item
-    > .wp-block-navigation-item__content *,
+    > .wp-block-navigation-item__content
+    *,
 .xfact-header
     nav.wp-block-navigation
     > .wp-block-navigation__container
@@ -314,8 +399,9 @@ body.has-hero-header .wp-site-blocks,
     nav.wp-block-navigation
     > .wp-block-navigation__container
     > .wp-block-navigation-item.current-menu-ancestor
-    > .wp-block-navigation-item__content * {
-    color: #fff !important;
+    > .wp-block-navigation-item__content
+    * {
+    color: var(--wp--preset--color--white);
 }
 
 .xfact-header
@@ -334,7 +420,7 @@ body.has-hero-header .wp-site-blocks,
     left: 0;
     width: 0;
     height: 1.5px;
-    background: var(--wp--preset--color--primary);
+    background: var(--wp--preset--color--primary-light);
     transition: width 0.25s ease;
 }
 
@@ -381,21 +467,59 @@ body.has-hero-header .wp-site-blocks,
     width: 100%;
 }
 
+/* Prevent animation flash on page load when JS applies active state */
+.xfact-header nav.wp-block-navigation a[aria-current="page"]::after,
+.xfact-header
+    nav.wp-block-navigation
+    .wp-block-navigation-item__content[aria-current="page"]::after,
+.xfact-header nav.wp-block-navigation .current-menu-item > a::after,
+.xfact-header
+    nav.wp-block-navigation
+    .current-menu-item
+    > .wp-block-navigation-item__content::after,
+.xfact-header nav.wp-block-navigation .current-menu-ancestor > a::after,
+.xfact-header
+    nav.wp-block-navigation
+    .current-menu-ancestor
+    > .wp-block-navigation-item__content::after {
+    transition: none;
+}
+
 /* ── WP Navigation Submenu in Header ──────────────── */
 
 .xfact-header .wp-block-navigation__submenu-container {
-    background-color: color-mix(in srgb, var(--wp--preset--color--primary-dark) 90%, transparent) !important;
-    backdrop-filter: blur(16px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: var(--xfact-glass-radius) !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-    padding: 0.5rem 0 !important;
-    min-width: 16rem !important;
-    margin-top: 0.75rem !important;
+    background-color: var(--wp--preset--color--surface-alt) !important;
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--wp--preset--color--text-primary) 15%,
+            transparent
+        );
+    border-radius: var(--xfact-glass-radius);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
+    padding: 0.5rem 0;
+    min-width: 16rem;
+    margin-top: 0.75rem;
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
+    /* Remove transition when hovering out so it disappears instantly */
+    transition: none !important;
+}
+
+/* Dark mode specific pop for the submenu */
+[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container {
+    background-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--surface-alt) 93%,
+        white
+    ) !important;
+    border-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--text-primary) 25%,
+        transparent
+    );
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 80%);
 }
 
 /* Invisible bridge to prevent dropdown from closing when cursor moves across the gap */
@@ -417,74 +541,51 @@ body.has-hero-header .wp-site-blocks,
     .wp-block-navigation__submenu-container
     .wp-block-navigation-item__content
     * {
-    color: rgba(255, 255, 255, 0.8) !important;
-    padding: 0.625rem 1.25rem !important;
-    display: block !important;
-    font-size: 0.875rem !important;
-    font-weight: 400 !important;
+    color: var(--wp--preset--color--white);
+    opacity: 0.9;
+    padding: 0.625rem 1.25rem;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 400;
     transition:
         background-color 0.15s,
-        color 0.15s !important;
+        opacity 0.15s,
+        color 0.15s;
 }
 
 .xfact-header .wp-block-navigation__submenu-container a:hover,
 .xfact-header
     .wp-block-navigation__submenu-container
     .wp-block-navigation-item__content:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    color: #ffffff !important;
+    background-color: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 15%,
+        transparent
+    );
+    color: var(--wp--preset--color--white);
+    opacity: 1;
 }
 
-html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container a:hover,
-html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
-    color: #ffffff !important;
-}
-
-.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg a:hover,
-.xfact-header .wp-block-navigation__submenu-container .has-xfact-hover-bg .wp-block-navigation-item__content:hover {
-    background: transparent !important;
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .has-xfact-hover-bg
+    a:hover,
+.xfact-header
+    .wp-block-navigation__submenu-container
+    .has-xfact-hover-bg
+    .wp-block-navigation-item__content:hover {
+    background: transparent;
     position: relative;
     z-index: 0;
+
     --xfact-overlay-angle: to right;
 }
-
-
-
-
 
 .xfact-header .wp-block-navigation__submenu-container a::after,
 .xfact-header
     .wp-block-navigation__submenu-container
     .wp-block-navigation-item__content::after {
-    display: none !important;
-}
-
-/* ── WP Button in Header (CTA) ───────────────────── */
-
-.xfact-header .wp-block-button__link:not(.xfact-btn-primary) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 24px;
-    border: 1px solid var(--xfact-glass-border) !important;
-    border-radius: var(--xfact-glass-radius) !important;
-    color: #fff !important;
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    background: var(--xfact-glass-bg) !important;
-    backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.xfact-header .wp-block-button__link:not(.xfact-btn-primary):hover {
-    background: var(--xfact-glass-bg-hover) !important;
-    color: #ffffff !important;
-    border-color: var(--xfact-glass-border-hover) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
+    display: none;
 }
 
 /* ── Mobile Menu Toggle & Overlay ── */
@@ -500,7 +601,7 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    color: #fff;
+    color: var(--wp--preset--color--white);
     transition: color 0.2s;
 }
 
@@ -521,7 +622,7 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     display: block;
 }
 
-@media (max-width: 767px) {
+@media (width <= 1199px) {
     .xfact-header .xfact-mobile-toggle {
         display: flex;
         position: absolute;
@@ -548,8 +649,9 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     max-height: 0;
     overflow: hidden;
     border-top: 0 solid transparent;
-    background: var(--xfact-dark-section);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--wp--preset--color--surface-alt);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
     transition:
         max-height 0.3s ease,
         opacity 0.3s ease,
@@ -557,7 +659,7 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     opacity: 0;
 }
 
-@media (max-width: 767px) {
+@media (width <= 1199px) {
     .xfact-mobile-nav {
         display: block;
         position: absolute;
@@ -567,9 +669,19 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     }
 
     .xfact-mobile-nav--open {
-        max-height: 32rem;
+        max-height: calc(100vh - 4rem);
         opacity: 1;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid
+            color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
+
+        /* Let it scroll if the list is too long */
+        overflow-y: auto;
+    }
+}
+
+@media (width >= 640px) and (width <= 1199px) {
+    .xfact-mobile-nav--open {
+        max-height: calc(100vh - 5rem);
     }
 }
 
@@ -602,13 +714,38 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     align-items: center;
     font-size: 1rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--wp--preset--color--white);
+    opacity: 0.7;
     text-decoration: none;
-    transition: color 0.2s;
+    transition:
+        color 0.2s,
+        opacity 0.2s;
 }
 
 .xfact-mobile-nav__link:hover {
-    color: #fff;
+    color: var(--wp--preset--color--white);
+    opacity: 1;
+}
+
+.xfact-mobile-nav__text {
+    position: relative;
+    display: inline-block;
+}
+
+.xfact-mobile-nav__text::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--wp--preset--color--primary);
+    transition: width 0.25s ease;
+}
+
+.xfact-mobile-nav__link:hover .xfact-mobile-nav__text::after,
+.xfact-mobile-nav__sublink:hover .xfact-mobile-nav__text::after {
+    width: 100%;
 }
 
 .xfact-mobile-nav__submenu-toggle {
@@ -617,15 +754,19 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     height: 3rem;
     align-items: center;
     justify-content: flex-end;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--wp--preset--color--white);
+    opacity: 0.7;
     background: transparent;
     border: none;
     cursor: pointer;
-    transition: color 0.2s;
+    transition:
+        color 0.2s,
+        opacity 0.2s;
 }
 
 .xfact-mobile-nav__submenu-toggle:hover {
-    color: #fff;
+    color: var(--wp--preset--color--white);
+    opacity: 1;
 }
 
 .xfact-mobile-nav__submenu-toggle svg {
@@ -644,7 +785,8 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     margin-left: 0.75rem;
     padding-left: 1rem;
     padding-top: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid
+        color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
     list-style: none;
 }
 
@@ -653,49 +795,57 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     min-height: 2.5rem;
     align-items: center;
     font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--wp--preset--color--white);
+    opacity: 0.7;
     text-decoration: none;
-    transition: color 0.2s;
+    transition:
+        color 0.2s,
+        opacity 0.2s;
 }
 
 .xfact-mobile-nav__sublink:hover {
-    color: #fff;
+    color: var(--wp--preset--color--white);
+    opacity: 1;
 }
 
 .xfact-mobile-nav__bottom {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1.5rem;
     margin-top: 0.5rem;
     padding: 1rem 1.5rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid
+        color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
 }
 
 .xfact-mobile-nav__cta {
-    flex: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 24px;
+    padding: 0.5rem 48px;
     border: 1px solid var(--xfact-glass-border);
     border-radius: var(--xfact-glass-radius);
-    color: #fff;
+    color: var(--wp--preset--color--white);
     font-size: 0.875rem;
     font-weight: 500;
     text-align: center;
     text-decoration: none;
     background: var(--xfact-glass-bg);
     backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 10%),
+        0 2px 4px rgb(0 0 0 / 5%);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .xfact-mobile-nav__cta:hover {
     background: var(--xfact-glass-bg-hover);
-    color: #ffffff;
+    color: var(--wp--preset--color--white);
     border-color: var(--xfact-glass-border-hover);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 20%),
+        0 4px 12px rgb(0 0 0 / 15%);
     transform: translateY(-1px);
 }
 
@@ -703,18 +853,27 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-left: 1rem;
+    color: var(--wp--preset--color--white);
+}
+
+.xfact-mobile-nav__theme .xfact-theme-toggle__icon-moon,
+.xfact-mobile-nav__theme .xfact-theme-toggle__icon-sun {
+    color: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 70%,
+        transparent
+    ) !important;
 }
 
 .xfact-mobile-nav__theme-label {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
+    opacity: 0.7;
 }
 
 /* Fix submenu caret icon to match Lucide ChevronDown from theme source */
 .xfact-header .wp-block-navigation-submenu__toggle svg,
 .xfact-header .wp-block-navigation__submenu-icon svg {
-    display: none !important;
+    display: none;
 }
 
 .xfact-header .wp-block-navigation-submenu__toggle,
@@ -724,20 +883,22 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 0 6px !important;
-    padding: 0 !important;
-    background: var(--xfact-glass-bg);
-    backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid var(--xfact-glass-border);
-    border-radius: var(--xfact-glass-radius);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    margin-left: 4px !important;
+    padding: 0;
+    background: transparent;
+    border: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .xfact-header .wp-block-navigation-submenu__toggle:hover,
 .xfact-header .wp-block-navigation__submenu-icon:hover {
-    background: var(--xfact-glass-bg-hover);
-    border-color: var(--xfact-glass-border-hover);
+    background: color-mix(
+        in srgb,
+        var(--wp--preset--color--white) 15%,
+        transparent
+    );
 }
 
 .xfact-header .wp-block-navigation-submenu__toggle::after,
@@ -746,14 +907,10 @@ html[data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container .w
     display: block;
     width: 14px;
     height: 14px;
-    background-color: currentColor;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-color: currentcolor;
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
     mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
     transition: transform 0.2s;
 }

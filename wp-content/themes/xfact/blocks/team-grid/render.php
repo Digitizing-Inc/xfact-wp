@@ -32,7 +32,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			<?php if ( ! empty( $members ) ) : ?>
 				<div class="xfact-team-grid__grid">
 					<?php foreach ( $members as $member ) : ?>
-						<div class="xfact-team-grid__card">
+						<div class="xfact-team-grid__card xfact-card">
 							<?php if ( ! empty( $member['imageUrl'] ) ) : ?>
 								<div class="xfact-team-grid__image-wrapper">
 									<img src="<?php echo esc_url( $member['imageUrl'] ); ?>" alt="<?php echo esc_attr( $member['name'] ?? '' ); ?>" class="xfact-team-grid__image" loading="lazy" />

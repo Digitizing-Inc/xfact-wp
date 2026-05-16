@@ -19,7 +19,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<?php foreach ( $areas as $index => $area ) : ?>
 		<?php
-		$bg_class = ( 0 === $index % 2 ) ? 'has-surface-alt-background-color' : 'has-surface-background-color';
+		$bg_class = ( 0 === $index % 2 ) ? 'xfact-dark-section' : 'has-surface-background-color';
 		$number   = str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT );
 		$total    = count( $areas );
 		?>

@@ -92,6 +92,7 @@ A core pillar of the v3 design system is the "Systems Window" aesthetic, which l
 ### Usage Scenarios
 * **Desktop Header Navigation**: The header floats above the page content. As the user scrolls, the hero gradient remains visible underneath the frosted glass header, creating a dynamic parallax effect.
 * **Interactive Cards**: High-value cards (e.g., Case Studies) utilize the Systems Window aesthetic when hovering or when positioned over dynamic backgrounds.
+* **Buttons in Dark Contexts**: Primary buttons *always* utilize glassmorphism when placed inside dark containers (`.xfact-dark-section`) or the header navigation, overriding standard primitive backgrounds to maintain the premium translucent aesthetic.
 * **Mobile Overlays**: Dropdowns and mobile menus use solid, high-contrast dark sections (`var(--xfact-dark-section)`) to ensure legibility while matching the technical aesthetic.
 
 ---

@@ -1,48 +1,48 @@
 .xfact-section-list {
-	padding-top: 2rem; /* Reduced from section spacing to match hero gap */
-	padding-bottom: var(--xfact-spacing-section);
+    padding-top: 2rem; /* Reduced from section spacing to match hero gap */
+    padding-bottom: var(--xfact-spacing-section);
 }
 
 .xfact-section-list .xfact-container {
-	max-width: 48rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 1.5rem; /* Wider horizontal margins on mobile */
-	padding-right: 1.5rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem; /* Wider horizontal margins on mobile */
+    padding-right: 1.5rem;
 }
 
-@media (min-width: 640px) {
-	.xfact-section-list .xfact-container {
-		padding-left: 2rem;
-		padding-right: 2rem;
-	}
+@media (width >= 640px) {
+    .xfact-section-list .xfact-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 .xfact-section-list__intro {
-	font-size: 1rem;
-	line-height: 1.6;
-	font-weight: 300; /* More delicate rendering */
-	margin-bottom: 2.5rem; /* Reduced gap */
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 300; /* More delicate rendering */
+    margin-bottom: 2.5rem; /* Reduced gap */
 }
 
 .xfact-section-list__items {
-	display: flex;
-	flex-direction: column;
-	gap: 2rem; /* Reduced gap between numbered sections */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Reduced gap between numbered sections */
 }
 
 .xfact-section-list__title {
-	font-size: 1.125rem;
-	font-weight: 600;
-	margin-bottom: 0.75rem;
-	margin-top: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
 }
 
 .xfact-section-list__content {
-	font-size: 1rem;
-	line-height: 1.6;
-	font-weight: 300; /* More delicate rendering */
-	margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 300; /* More delicate rendering */
+    margin: 0;
 }
 
 /* Block-scoped Fade-in Pattern */

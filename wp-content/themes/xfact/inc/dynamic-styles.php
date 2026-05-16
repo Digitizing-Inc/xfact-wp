@@ -11,17 +11,18 @@
 declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit();
 }
 
 /**
  * Generate and output the dynamic CSS variables.
  */
 function xfact_output_dynamic_styles(): void {
-	$css = xfact_get_dynamic_css();
-	?>
+	$css = xfact_get_dynamic_css(); ?>
 	<style id="xfact-dynamic-theme-colors">
-		<?php echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally. ?>
+		<?php
+		echo $css;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is generated internally.
+		?>
 	</style>
 	<?php
 }
@@ -33,158 +34,110 @@ function xfact_output_dynamic_styles(): void {
  */
 function xfact_get_dynamic_css(): string {
 	// Fetch Primitive Colors.
-				$prim_defs  = array(
-					'blue-900'   => '#14419F',
-					'blue-500'   => '#007AFF',
-					'blue-300'   => '#83CBFF',
-					'navy-900'   => '#182849',
-					'red-500'    => '#CD163F',
-					'orange-500' => '#FF9300',
-					'green-500'  => '#379B53',
-					'black'      => '#000000',
-					'white'      => '#ffffff',
-				);
-				$primitives = array();
-				foreach ( $prim_defs as $k => $v ) {
-					$primitives[ $k ] = get_option( 'xfact_primitive_' . str_replace( '-', '_', $k ), $v );
-				}
+	$prim_defs  = array(
+		'blue-900'   => '#14419F',
+		'blue-500'   => '#007AFF',
+		'blue-300'   => '#83CBFF',
+		'navy-900'   => '#182849',
+		'red-500'    => '#CD163F',
+		'orange-500' => '#FF9300',
+		'green-500'  => '#379B53',
+		'black'      => '#000000',
+		'white'      => '#ffffff',
+	);
+	$primitives = array();
+	foreach ( $prim_defs as $k => $v ) {
+		$primitives[ $k ] = get_option(
+			'xfact_primitive_' . str_replace( '-', '_', $k ),
+			$v,
+		);
+	}
 
-				// Fetch Semantic Colors.
-				$sem_defs  = array(
-					'primary'        => 'blue-500',
-					'primary-dark'   => 'blue-900',
-					'primary-light'  => 'blue-300',
-					'text-primary'   => 'black',
-					'text-secondary' => 'navy-900',
-					'surface'        => 'white',
-					'surface-alt'    => 'white',
-					'success'        => 'green-500',
-					'warning'        => 'orange-500',
-					'danger'         => 'red-500',
-				);
-				$semantics = array();
-				foreach ( $sem_defs as $k => $v ) {
-					$semantics[ $k ] = get_option( 'xfact_semantic_' . str_replace( '-', '_', $k ), $v );
-				}
+	// Fetch Semantic Colors.
+	$sem_defs  = array(
+		'primary'        => 'blue-500',
+		'primary-dark'   => 'blue-900',
+		'primary-light'  => 'blue-300',
+		'text-primary'   => 'black',
+		'text-secondary' => 'navy-900',
+		'surface'        => 'white',
+		'surface-alt'    => 'blue-900',
+		'success'        => 'green-500',
+		'warning'        => 'orange-500',
+		'danger'         => 'red-500',
+	);
+	$semantics = array();
+	foreach ( $sem_defs as $k => $v ) {
+		$semantics[ $k ] = get_option( 'xfact_semantic_' . str_replace( '-', '_', $k ), $v );
+	}
 
-				// Fetch Dark Semantic Colors.
-					$dark_sem_defs  = array(
-						'primary'        => 'blue-300',
-						'primary-dark'   => 'black',
-						'primary-light'  => 'navy-900',
-						'text-primary'   => 'white',
-						'text-secondary' => 'white',
-						'surface'        => 'black',
-						'surface-alt'    => 'navy-900',
-						'success'        => 'green-500',
-						'warning'        => 'orange-500',
-						'danger'         => 'red-500',
-					);
-					$dark_semantics = array();
-					foreach ( $dark_sem_defs as $k => $v ) {
-						$dark_semantics[ $k ] = get_option( 'xfact_dark_semantic_' . str_replace( '-', '_', $k ), $v );
-					}
+	// Fetch Dark Semantic Colors.
+	$dark_sem_defs  = array(
+		'primary'        => 'blue-300',
+		'primary-dark'   => 'blue-300',
+		'primary-light'  => 'blue-300',
+		'text-primary'   => 'white',
+		'text-secondary' => 'white',
+		'surface'        => 'black',
+		'surface-alt'    => 'black',
+		'success'        => 'green-500',
+		'warning'        => 'orange-500',
+		'danger'         => 'red-500',
+	);
+	$dark_semantics = array();
+	foreach ( $dark_sem_defs as $k => $v ) {
+		$dark_semantics[ $k ] = get_option(
+			'xfact_dark_semantic_' . str_replace( '-', '_', $k ),
+			$v,
+		);
+	}
 
-					// Fetch Gradients.
-					$grad_defs = array(
-						'primary-1'   => array(
-							'start' => 'blue-500',
-							'end'   => 'blue-500',
-							'angle' => '180',
-						),
-						'primary-2'   => array(
-							'start' => 'blue-900',
-							'end'   => 'blue-300',
-							'angle' => '180',
-						),
-						'secondary-1' => array(
-							'start' => 'blue-500',
-							'end'   => 'navy-900',
-							'angle' => '180',
-						),
-						'secondary-2' => array(
-							'start' => 'blue-500',
-							'end'   => 'orange-500',
-							'angle' => '180',
-						),
-						'secondary-3' => array(
-							'start' => 'blue-500',
-							'end'   => 'red-500',
-							'angle' => '180',
-						),
-						'secondary-4' => array(
-							'start' => 'blue-500',
-							'end'   => 'green-500',
-							'angle' => '180',
-						),
-					);
-					$gradients = array();
-					foreach ( $grad_defs as $k => $v ) {
-						$gradients[ $k ] = array(
-							'start' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_start', $v['start'] ),
-							'end'   => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_end', $v['end'] ),
-							'angle' => get_option( 'xfact_gradient_' . str_replace( '-', '_', $k ) . '_angle', $v['angle'] ),
-						);
-					}
+	$css = ":root, html, body {\n";
 
-					$css = ":root, html, body {\n";
+	// Output Primitives.
+	foreach ( $primitives as $slug => $hex ) {
+		$css .= "\t--xfact-primitive-{$slug}: {$hex};\n";
+	}
 
-					// Output Primitives.
-					foreach ( $primitives as $slug => $hex ) {
-						$css .= "\t--xfact-primitive-{$slug}: {$hex};\n";
-					}
+	// Output Semantics mapping to primitives.
+	foreach ( $semantics as $slug => $prim_slug ) {
+		$css .= "\t--xfact-semantic-{$slug}: var(--xfact-primitive-{$prim_slug});\n";
+	}
 
-					// Output Semantics mapping to primitives.
-					foreach ( $semantics as $slug => $prim_slug ) {
-						$css .= "\t--xfact-semantic-{$slug}: var(--xfact-primitive-{$prim_slug});\n";
-					}
+	// Compatibility overrides for Gutenberg Presets.
+	$css .= "\t--wp--preset--color--surface: var(--xfact-semantic-surface);\n";
+	$css .= "\t--wp--preset--color--surface-alt: var(--xfact-semantic-surface-alt);\n";
+	$css .=
+		"\t--wp--preset--color--text-primary: var(--xfact-semantic-text-primary);\n";
+	$css .=
+		"\t--wp--preset--color--text-secondary: color-mix(in srgb, var(--xfact-semantic-text-secondary) 60%, transparent);\n";
 
-					// Output Gradients.
-					foreach ( $gradients as $slug => $grad ) {
-						$css             .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
-						$horizontal_angle = ( (int) $grad['angle'] - 90 ) % 360;
-						if ( $horizontal_angle < 0 ) {
-							$horizontal_angle += 360;
-						}
-						$css .= "\t--xfact-gradient-{$slug}-horizontal: linear-gradient({$horizontal_angle}deg, var(--xfact-primitive-{$grad['start']}) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
-					}
+	// Theme custom CSS variable mappings.
+	$css .= "\t--has-surface-background-color: var(--xfact-semantic-surface);\n";
 
-					// Compatibility overrides for Gutenberg Presets.
-					$css .= "\t--wp--preset--color--surface: var(--xfact-semantic-surface);\n";
-					$css .= "\t--wp--preset--color--surface-alt: var(--xfact-semantic-surface-alt);\n";
-					$css .= "\t--wp--preset--color--text-primary: var(--xfact-semantic-text-primary);\n";
-					$css .= "\t--wp--preset--color--text-secondary: var(--xfact-semantic-text-secondary);\n";
+	$css .=
+		"\t--has-surface-background-color-card: var(--xfact-semantic-surface);\n";
+	$css .= "\t--xfact-dark-section: var(--xfact-semantic-primary-dark);\n";
+	$css .= "\t--xfact-dark-section-text: var(--xfact-primitive-white);\n";
+	$css .= "}\n\n";
 
-					// Theme custom CSS variable mappings.
-					$css .= "\t--has-surface-background-color: var(--xfact-semantic-surface);\n";
-					$css .= "\t--has-surface-alt-background-color: var(--xfact-semantic-surface-alt);\n";
-					$css .= "\t--has-surface-background-color-card: var(--xfact-semantic-surface-alt);\n";
-					$css .= "\t--xfact-dark-section: var(--xfact-semantic-primary-dark);\n";
-					$css .= "\t--xfact-dark-section-text: var(--xfact-primitive-white);\n";
+	// Output Dark Mode Semantic Overrides.
+	$css .=
+		"html[data-theme=\"dark\"] body, [data-theme=\"dark\"] .editor-styles-wrapper, .editor-styles-wrapper[data-theme=\"dark\"] {\n";
+	foreach ( $dark_semantics as $slug => $prim_slug ) {
+		$var_val = "var(--xfact-primitive-{$prim_slug})";
 
-					// Button Gradient Overrides.
-					$css .= "\t--xfact-btn-angle: {$gradients['primary-2']['angle']}deg;\n";
-					$css .= "\t--xfact-btn-from: var(--xfact-primitive-{$gradients['primary-2']['start']});\n";
-					$css .= "\t--xfact-btn-to: var(--xfact-primitive-{$gradients['primary-2']['end']});\n";
-					$css .= "\t--xfact-btn-hover-angle: {$gradients['secondary-2']['angle']}deg;\n";
-					$css .= "\t--xfact-btn-hover-from: var(--xfact-primitive-{$gradients['secondary-2']['start']});\n";
-					$css .= "\t--xfact-btn-hover-to: var(--xfact-primitive-{$gradients['secondary-2']['end']});\n";
+		$css .= "\t--xfact-semantic-{$slug}: {$var_val};\n";
 
-					$css .= "}\n";
+		if ( 'text-secondary' === $slug ) {
+			$css .= "\t--wp--preset--color--{$slug}: color-mix(in srgb, var(--xfact-semantic-{$slug}) 60%, transparent);\n";
+		} else {
+			$css .= "\t--wp--preset--color--{$slug}: {$var_val};\n";
+		}
+	}
+	$css .= "}\n";
 
-					// Output Dark Mode Semantic Overrides.
-					$css .= "html[data-theme=\"dark\"] body, [data-theme=\"dark\"] .editor-styles-wrapper, .editor-styles-wrapper[data-theme=\"dark\"] {\n";
-					foreach ( $dark_semantics as $slug => $prim_slug ) {
-						$css .= "\t--wp--preset--color--{$slug}: var(--xfact-primitive-{$prim_slug});\n";
-						$css .= "\t--xfact-semantic-{$slug}: var(--xfact-primitive-{$prim_slug});\n";
-					}
-
-					// Make dark mode gradients darker by setting the start color to black.
-					foreach ( $gradients as $slug => $grad ) {
-						$css .= "\t--xfact-gradient-{$slug}: linear-gradient({$grad['angle']}deg, var(--xfact-primitive-black) 0%, var(--xfact-primitive-{$grad['end']}) 100%);\n";
-					}
-					$css .= "}\n";
-					return $css;
+	return $css;
 }
 
 // Inject into frontend <head> late enough to override global.css.
@@ -198,5 +151,5 @@ add_action(
 		$css = xfact_get_dynamic_css();
 		wp_add_inline_style( 'wp-block-library', $css );
 	},
-	100
+	100,
 );

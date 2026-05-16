@@ -1,50 +1,47 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/cta-section",
-	"version": "1.0.0",
-	"title": "xFact CTA Section",
-	"category": "theme",
-	"icon": "megaphone",
-	"description": "Call-to-action section with dark background and optional secondary button.",
-	"textdomain": "xfact",
-	"attributes": {
-		"title": {
-			"type": "string",
-			"default": "Ready to talk about your systems?"
-		},
-		"subtitle": {
-			"type": "string",
-			"default": ""
-		},
-		"buttons": {
-			"type": "array",
-			"default": []
-		},
-		"backgroundColor": {
-			"type": "string"
-		},
-		"variant": {
-			"type": "string",
-			"default": "dark"
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"align": [
-			"full",
-			"wide"
-		],
-		"color": {
-			"background": true,
-			"text": true
-		}
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/cta-section",
+  "version": "1.0.0",
+  "title": "xFact CTA Section",
+  "category": "theme",
+  "icon": "megaphone",
+  "description": "Call-to-action section with dark background and optional secondary button.",
+  "textdomain": "xfact",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Ready to talk about your systems?"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttons": {
+      "type": "array",
+      "default": []
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "variant": {
+      "type": "string",
+      "default": "dark"
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"],
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

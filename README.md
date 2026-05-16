@@ -191,15 +191,17 @@ The design system is declared entirely in `theme.json` v3. Change these values t
 
 #### Colors (13-color semantic palette)
 
+> **Strict Semantic Architecture**: The xFact theme enforces a strict semantic color system. Direct use of primitive colors (`#ffffff`, `black`, `rgba()`) is strictly prohibited in custom CSS to ensure seamless Light/Dark mode transitions. Always map components to the `text-*` and `surface*` semantic tokens.
+
 | Token | CSS Variable | Name |
 |-------|--------------|------|
 | `primary` | `var(--xfact-semantic-primary)` | Primary |
 | `primary-dark` | `var(--xfact-semantic-primary-dark)` | Primary Dark |
 | `primary-light` | `var(--xfact-semantic-primary-light)` | Primary Light |
 | `text-primary` | `var(--xfact-semantic-text-primary)` | Text Primary |
-| `text-secondary` | `var(--xfact-semantic-text-secondary)` | Text Secondary |
-| `surface` | `var(--xfact-semantic-surface)` | Surface |
-| `surface-alt` | `var(--xfact-semantic-surface-alt)` | Surface Alt |
+| `text-secondary` | `var(--xfact-semantic-text-secondary)` | Text Secondary (Muted, independent of primary) |
+| `surface` | `var(--xfact-semantic-surface)` | Surface (Main background, cards) |
+| `surface-alt` | `var(--xfact-semantic-surface-alt)` | Surface Alt (Alternating sections, borders) |
 | `success` | `var(--xfact-semantic-success)` | Success |
 | `warning` | `var(--xfact-semantic-warning)` | Warning |
 | `danger` | `var(--xfact-semantic-danger)` | Danger |

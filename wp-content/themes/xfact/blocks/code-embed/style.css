@@ -3,10 +3,10 @@
     overflow: hidden;
     padding-top: var(--xfact-spacing-section);
     padding-bottom: var(--xfact-spacing-section);
-    background-color: var(--has-surface-background-color) !important;
+    background-color: var(--has-surface-background-color);
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .xfact-code-embed {
         padding-top: var(--xfact-spacing-section-lg);
         padding-bottom: var(--xfact-spacing-section-lg);
@@ -16,6 +16,15 @@
 .xfact-code-embed__inner {
     position: relative;
     width: 100%;
+}
+
+/* Scale iframe to increase font size and readability */
+.xfact-code-embed__inner iframe {
+    display: block;
+    margin: 0 auto;
+    width: 75.187% !important; /* 100 / 1.33 */
+    transform: scale(1.33);
+    transform-origin: top center;
 }
 
 [data-theme="dark"] .xfact-code-embed__inner * {

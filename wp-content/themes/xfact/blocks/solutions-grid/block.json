@@ -1,51 +1,48 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/solutions-grid",
-	"version": "1.0.0",
-	"title": "xFact Solutions Grid",
-	"category": "theme",
-	"icon": "grid-view",
-	"description": "Grid of sector/solution cards with icons and links.",
-	"textdomain": "xfact",
-	"attributes": {
-		"sectionLabel": {
-			"type": "string",
-			"default": "Solutions Overview"
-		},
-		"heading": {
-			"type": "string",
-			"default": "Purpose-Built for Public-Sector Environments"
-		},
-		"subtitle": {
-			"type": "string",
-			"default": "Serving the institutions communities depend on."
-		},
-		"sectors": {
-			"type": "array",
-			"default": []
-		},
-		"buttons": {
-			"type": "array",
-			"default": []
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"color": {
-			"background": true,
-			"text": true
-		},
-		"align": [
-			"full",
-			"wide"
-		]
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/solutions-grid",
+  "version": "1.0.0",
+  "title": "xFact Solutions Grid",
+  "category": "theme",
+  "icon": "grid-view",
+  "description": "Grid of sector/solution cards with icons and links.",
+  "textdomain": "xfact",
+  "attributes": {
+    "sectionLabel": {
+      "type": "string",
+      "default": "Solutions Overview"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Purpose-Built for Public-Sector Environments"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Serving the institutions communities depend on."
+    },
+    "sectors": {
+      "type": "array",
+      "default": []
+    },
+    "buttons": {
+      "type": "array",
+      "default": []
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "align": ["full", "wide"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

@@ -5,12 +5,13 @@
     gap: 1.5rem;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-solutions-grid__grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-@media (min-width: 1024px) {
+
+@media (width >= 1024px) {
     .xfact-solutions-grid__grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -25,12 +26,6 @@
     position: relative;
     isolation: isolate;
 }
-
-
-
-
-
-
 
 .xfact-solutions-grid__card-header {
     display: flex;
@@ -58,13 +53,11 @@
     color: var(--wp--preset--color--primary);
     flex-shrink: 0;
     border-radius: calc(var(--xfact-glass-radius) / 4);
-    background: rgba(0, 0, 0, 0.05);
+    background: rgb(0 0 0 / 5%);
     backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(0 0 0 / 5%);
 }
 
-.xfact-dark-section .xfact-solutions-grid__icon,
 html[data-theme="dark"] .xfact-solutions-grid__icon {
     background: var(--xfact-glass-bg);
     border-color: var(--xfact-glass-border);
@@ -74,19 +67,17 @@ html[data-theme="dark"] .xfact-solutions-grid__icon {
     display: inline-flex;
     align-items: center;
     border-radius: 9999px !important;
-    border: 1px solid rgba(92, 138, 230, 0.3);
-    background-color: rgba(92, 138, 230, 0.1);
+    border: 1px solid var(--xfact-semantic-surface-alt);
+    background-color: var(--wp--preset--color--surface);
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--wp--preset--color--primary);
 }
 
-.xfact-dark-section .xfact-solutions-grid__badge,
 html[data-theme="dark"] .xfact-solutions-grid__badge {
     background: var(--xfact-glass-bg);
     backdrop-filter: var(--xfact-glass-blur);
-    -webkit-backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid var(--xfact-glass-border);
 }
 
@@ -132,4 +123,6 @@ html[data-theme="dark"] .xfact-solutions-grid__badge {
 .xfact-solutions-grid__grid > * {
     min-width: 0;
 }
-.xfact-solutions-grid__card-content .xfact-section-label { margin-bottom: 0; }
+.xfact-solutions-grid__card-content .xfact-section-label {
+    margin-bottom: 0;
+}

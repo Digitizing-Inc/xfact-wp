@@ -1,39 +1,36 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/navigation-cards",
-	"version": "1.0.0",
-	"title": "xFact Navigation Cards",
-	"category": "xfact-blocks",
-	"icon": "index-card",
-	"description": "Displays a grid of navigation cards with icons and hover effects.",
-	"attributes": {
-		"heading": {
-			"type": "string",
-			"default": ""
-		},
-		"items": {
-			"type": "array",
-			"default": []
-		},
-		"buttons": {
-			"type": "array",
-			"default": []
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"anchor": true,
-		"align": [
-			"full",
-			"wide"
-		]
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/navigation-cards",
+  "version": "1.0.0",
+  "title": "xFact Navigation Cards",
+  "category": "xfact-blocks",
+  "icon": "index-card",
+  "description": "Displays a grid of navigation cards with icons and hover effects.",
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "default": []
+    },
+    "buttons": {
+      "type": "array",
+      "default": []
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["full", "wide"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

@@ -1,55 +1,52 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "xfact/support-channels",
-	"version": "1.0.0",
-	"title": "xFact Support Channels",
-	"category": "theme",
-	"icon": "sos",
-	"description": "Grid of support channel cards.",
-	"textdomain": "xfact",
-	"attributes": {
-		"heading": {
-			"type": "string",
-			"default": "Support Channels"
-		},
-		"channels": {
-			"type": "array",
-			"default": [
-				{
-					"title": "Help Desk",
-					"description": "Submit and track support tickets for immediate assistance with your systems and services.",
-					"iconName": "Ticket"
-				},
-				{
-					"title": "Phone Support",
-					"description": "Speak directly with our support team for urgent issues requiring immediate attention.",
-					"iconName": "Phone"
-				},
-				{
-					"title": "Knowledge Base",
-					"description": "Browse documentation, guides, and FAQs to find answers and resolve common issues.",
-					"iconName": "BookOpen"
-				}
-			]
-		},
-		"align": {
-			"type": "string",
-			"default": "full"
-		}
-	},
-	"supports": {
-		"html": false,
-		"color": {
-			"background": true,
-			"text": true
-		},
-		"align": [
-			"full",
-			"wide"
-		]
-	},
-	"editorScript": "file:./index.js",
-	"render": "file:./render.php",
-	"style": "file:./style.css"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "xfact/support-channels",
+  "version": "1.0.0",
+  "title": "xFact Support Channels",
+  "category": "theme",
+  "icon": "sos",
+  "description": "Grid of support channel cards.",
+  "textdomain": "xfact",
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Support Channels"
+    },
+    "channels": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Help Desk",
+          "description": "Submit and track support tickets for immediate assistance with your systems and services.",
+          "iconName": "Ticket"
+        },
+        {
+          "title": "Phone Support",
+          "description": "Speak directly with our support team for urgent issues requiring immediate attention.",
+          "iconName": "Phone"
+        },
+        {
+          "title": "Knowledge Base",
+          "description": "Browse documentation, guides, and FAQs to find answers and resolve common issues.",
+          "iconName": "BookOpen"
+        }
+      ]
+    },
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "align": ["full", "wide"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "style": "file:./style.css"
 }

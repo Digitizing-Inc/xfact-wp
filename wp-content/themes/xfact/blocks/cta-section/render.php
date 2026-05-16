@@ -13,17 +13,17 @@ $cta_title = $attributes['title'] ?? '';
 $subtitle  = $attributes['subtitle'] ?? '';
 $buttons   = $attributes['buttons'] ?? array();
 
-$variant    = $attributes['variant'] ?? 'dark';
-$is_light   = 'light' === $variant;
-$is_default = 'default' === $variant;
+$variant  = $attributes['variant'] ?? 'dark';
+$is_light = 'light' === $variant;
 
 $classes = array( 'xfact-cta-section', 'xfact-section-lg' );
 
-if ( $is_light ) {
-	$classes[] = 'has-surface-alt-background-color';
-	$classes[] = 'xfact-border-top';
-} elseif ( ! $is_default ) {
+if ( ! $is_light ) {
 	$classes[] = 'xfact-dark-section';
+}
+
+if ( $is_light ) {
+	$classes[] = 'xfact-border-top';
 }
 
 $wrapper_attributes = get_block_wrapper_attributes(
@@ -45,23 +45,10 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 	<div class="xfact-container">
 		<div class="xfact-cta-section__inner xfact-fade-in">
-			<?php
-			$title_class = $is_light ? 'xfact-text' : '';
-			if ( $title_class ) {
-				$title_class = ' ' . $title_class;
-			}
-			?>
-			<h2 class="xfact-cta-section__title<?php echo esc_attr( $title_class ); ?>"><?php echo esc_html( $cta_title ); ?></h2>
+			<h2 class="xfact-cta-section__title"><?php echo esc_html( $cta_title ); ?></h2>
 
-			<?php
-			if ( $subtitle ) :
-				$subtitle_class = $is_light ? 'xfact-text-secondary' : '';
-				if ( $subtitle_class ) {
-					$subtitle_class = ' ' . $subtitle_class;
-				}
-				$subtitle_style = '';
-				?>
-				<p class="xfact-cta-section__subtitle<?php echo esc_attr( $subtitle_class ); ?>"<?php echo $subtitle_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $subtitle ); ?></p>
+			<?php if ( $subtitle ) : ?>
+				<p class="xfact-cta-section__subtitle"><?php echo esc_html( $subtitle ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $buttons ) ) : ?>

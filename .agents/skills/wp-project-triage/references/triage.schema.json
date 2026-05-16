@@ -53,14 +53,16 @@
             "themesDir": { "type": "string" }
           },
           "additionalProperties": true
-        }
-        ,
+        },
         "usesInteractivityApi": { "type": "boolean" },
         "usesAbilitiesApi": { "type": "boolean" },
         "usesInnerBlocks": { "type": "boolean" },
         "usesWpCli": { "type": "boolean" },
         "performanceHints": { "type": "object", "additionalProperties": true },
-        "interactivityHints": { "type": "object", "additionalProperties": true },
+        "interactivityHints": {
+          "type": "object",
+          "additionalProperties": true
+        },
         "abilitiesHints": { "type": "object", "additionalProperties": true },
         "innerBlocksHints": { "type": "object", "additionalProperties": true },
         "wpCliHints": { "type": "object", "additionalProperties": true }
@@ -84,7 +86,10 @@
           "type": "object",
           "properties": {
             "hasPackageJson": { "type": "boolean" },
-            "packageManager": { "type": ["string", "null"], "enum": ["npm", "yarn", "pnpm", "bun", null] },
+            "packageManager": {
+              "type": ["string", "null"],
+              "enum": ["npm", "yarn", "pnpm", "bun", null]
+            },
             "usesWordpressScripts": { "type": "boolean" }
           },
           "additionalProperties": true

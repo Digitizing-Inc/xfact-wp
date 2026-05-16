@@ -5,7 +5,7 @@
     padding-bottom: var(--xfact-spacing-section);
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .xfact-cta-section {
         padding-top: var(--xfact-spacing-section-lg);
         padding-bottom: var(--xfact-spacing-section-lg);
@@ -28,7 +28,7 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(92, 138, 230, 0.6),
+        rgb(92 138 230 / 60%),
         transparent
     );
 }
@@ -48,7 +48,7 @@ svg.xfact-cta-section__watermark {
 }
 
 .xfact-dark-section svg.xfact-cta-section__watermark {
-    color: var(--xfact-dark-section-text, #ffffff);
+    color: var(--wp--preset--color--text-primary);
 }
 
 img.xfact-cta-section__watermark {
@@ -59,7 +59,7 @@ img.xfact-cta-section__watermark {
     filter: brightness(0) invert(1);
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-cta-section__watermark {
         width: 20rem;
         height: 20rem;
@@ -83,14 +83,10 @@ img.xfact-cta-section__watermark {
 }
 
 .xfact-dark-section .xfact-cta-section__title {
-    color: var(--xfact-dark-section-text, #ffffff);
-}
-
-.has-surface-alt-background-color .xfact-cta-section__title {
     color: var(--wp--preset--color--text-primary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .xfact-cta-section__title {
         font-size: 3rem;
     }
@@ -104,10 +100,6 @@ img.xfact-cta-section__watermark {
 }
 
 .xfact-dark-section .xfact-cta-section__subtitle {
-    color: var(--xfact-dark-section-secondary, rgba(255, 255, 255, 0.75));
-}
-
-.has-surface-alt-background-color .xfact-cta-section__subtitle {
     color: var(--wp--preset--color--text-secondary);
 }
 
@@ -120,7 +112,7 @@ img.xfact-cta-section__watermark {
     gap: 1rem;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .xfact-cta-section__buttons {
         flex-direction: row;
     }
