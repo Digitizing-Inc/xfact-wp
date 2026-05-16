@@ -9,6 +9,8 @@
     z-index: 50;
     width: 100%;
     background: var(--wp--preset--color--surface-alt);
+    background-image: none !important;
+    backdrop-filter: none !important;
     border-bottom: 1px solid
         color-mix(
             in srgb,
@@ -21,35 +23,13 @@
         border-color 0.5s ease,
         box-shadow 0.5s ease,
         top 0.3s ease;
-
-    /* Enforce white glassmorphism inside header since it becomes dark */
-    --xfact-glass-bg: color-mix(
-        in srgb,
-        var(--wp--preset--color--white) 10%,
-        transparent
-    );
-    --xfact-glass-bg-hover: color-mix(
-        in srgb,
-        var(--wp--preset--color--white) 15%,
-        transparent
-    );
-    --xfact-glass-border: color-mix(
-        in srgb,
-        var(--wp--preset--color--white) 20%,
-        transparent
-    );
-    --xfact-glass-border-hover: color-mix(
-        in srgb,
-        var(--wp--preset--color--white) 30%,
-        transparent
-    );
 }
 
 /* When the page has a hero, make the header transparent until scrolled (unless mobile nav is open) */
 body.has-hero-header
 .xfact-header:not(.xfact-header--scrolled, .xfact-header--mobile-open) {
-    background: transparent;
-    border-bottom-color: transparent;
+    background: transparent !important;
+    border-bottom-color: transparent !important;
 }
 
 /* Hover effect removed per user request: header only becomes solid on scroll */
@@ -145,19 +125,32 @@ body.has-hero-header .wp-site-blocks,
     padding-top: 0;
 }
 
-/* Header Nav Buttons - Always Glassmorphism */
+/* Header Nav Buttons - Exact Match to Hero Glassmorphism */
+.xfact-header .wp-block-button .wp-block-button__link.wp-element-button,
 .xfact-header .wp-element-button,
 .xfact-header .xfact-btn-primary {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border-color: var(--xfact-glass-border) !important;
     color: var(--wp--preset--color--white) !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    width: max-content !important;
+    height: 3rem !important;
+    padding: 0 1.5rem !important;
+    font-size: 0.875rem !important;
 }
 
+.xfact-header .wp-block-button .wp-block-button__link.wp-element-button:hover,
 .xfact-header .wp-element-button:hover,
 .xfact-header .xfact-btn-primary:hover {
     background: var(--xfact-glass-bg-hover) !important;
     border-color: var(--xfact-glass-border-hover) !important;
+}
+
+/* Prevent the button container from squishing in flex layouts */
+.xfact-header .wp-block-button {
+    flex-shrink: 0 !important;
 }
 
 /* ── Header Inner Container ──────────────────────── */
@@ -244,30 +237,10 @@ body.has-hero-header .wp-site-blocks,
     gap: 2.5rem;
 }
 
-.xfact-header .wp-block-navigation a,
-.xfact-header
-    nav.wp-block-navigation
-    > .wp-block-navigation__container
-    > .wp-block-navigation-item
-    > .wp-block-navigation-item__content,
-.xfact-header
-    nav.wp-block-navigation
-    > .wp-block-navigation__container
-    > .wp-block-navigation-item
-    > .wp-block-navigation-item__content
-    *,
-.xfact-header
-    nav.wp-block-navigation
-    > .wp-block-navigation__container
-    > .wp-block-navigation-item
-    > .wp-block-navigation-submenu__toggle,
-.xfact-header
-    nav.wp-block-navigation
-    > .wp-block-navigation__container
-    > .wp-block-navigation-item
-    > .wp-block-navigation__submenu-icon {
-    display: inline-block;
-    position: relative;
+.xfact-header .wp-block-navigation .wp-block-navigation-item__content,
+.xfact-header .wp-block-navigation .wp-block-navigation-item__content *,
+.xfact-header .wp-block-navigation .wp-block-navigation-submenu__toggle,
+.xfact-header .wp-block-navigation .wp-block-navigation__submenu-icon {
     font-size: 0.875rem;
     font-weight: 500;
     color: color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent);
@@ -500,20 +473,20 @@ body.has-hero-header .wp-site-blocks,
     padding: 0.5rem 0;
     min-width: 16rem;
     margin-top: 0.75rem;
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
     /* Remove transition when hovering out so it disappears instantly */
     transition: none !important;
 }
 
-/* Dark mode specific pop for the submenu */
+/* Center the submenu dropdown to its parent navigation item */
+.xfact-header .wp-block-navigation__submenu-container {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+}
+
+/* Dark mode specific pop for the submenu border/shadow only, keeping the background same as header */
 [data-theme="dark"] .xfact-header .wp-block-navigation__submenu-container {
-    background-color: color-mix(
-        in srgb,
-        var(--wp--preset--color--surface-alt) 93%,
-        white
-    ) !important;
+    background-color: var(--wp--preset--color--surface-alt) !important;
     border-color: color-mix(
         in srgb,
         var(--wp--preset--color--text-primary) 25%,
@@ -637,7 +610,8 @@ body.has-hero-header .wp-site-blocks,
         z-index: 10;
     }
 
-    .xfact-desktop-nav {
+    /* Hide on frontend mobile/tablet, but NOT in the Site Editor */
+    body:not(.editor-styles-wrapper) .xfact-desktop-nav {
         display: none !important;
     }
 }
@@ -883,10 +857,17 @@ body.has-hero-header .wp-site-blocks,
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 4px !important;
+    margin: 0 !important;
     padding: 0;
     background: transparent;
     border: none;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    vertical-align: middle !important;
     transition:
         background 0.2s ease,
         border-color 0.2s ease;

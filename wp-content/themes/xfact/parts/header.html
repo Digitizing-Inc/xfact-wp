@@ -3,7 +3,14 @@
     <!-- wp:group {"className":"xfact-header__inner","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
     <div class="wp-block-group xfact-header__inner">
         <!-- wp:image {"width":"130px","sizeSlug":"full","linkDestination":"custom","className":"xfact-header__logo-block"} -->
-        <figure class="wp-block-image size-full is-resized xfact-header__logo-block"><a href="/"><img src="/wp-content/themes/xfact/assets/images/brand/xfact-wordmark-white.png" alt="xFact" style="width:130px"/></a></figure>
+        <figure class="wp-block-image size-full is-resized xfact-header__logo-block">
+            <a href="/"
+                ><img
+                    src="/wp-content/themes/xfact/assets/images/brand/xfact-wordmark-white.png"
+                    alt="xFact"
+                    style="width: 130px"
+            /></a>
+        </figure>
         <!-- /wp:image -->
 
         <!-- wp:group {"className":"xfact-desktop-nav","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
@@ -25,9 +32,13 @@
             <!-- /wp:navigation -->
             <!-- wp:buttons -->
             <div class="wp-block-buttons">
-            <!-- wp:button {"className":"is-style-fill"} -->
-            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button xfact-btn-primary" href="/contact">Contact</a></div>
-            <!-- /wp:button -->
+                <!-- wp:button {"className":"is-style-fill xfact-btn-primary"} -->
+                <div class="wp-block-button is-style-fill xfact-btn-primary">
+                    <a class="wp-block-button__link wp-element-button" href="/contact"
+                        >Contact</a
+                    >
+                </div>
+                <!-- /wp:button -->
             </div>
             <!-- /wp:buttons -->
         </div>

@@ -304,7 +304,7 @@ div.xfact-separator {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border: 1px solid var(--xfact-glass-border) !important;
-    color: var(--wp--preset--color--surface) !important;
+    color: var(--wp--preset--color--white) !important;
 }
 
 .xfact-dark-section .xfact-card-interactive.xfact-card-interactive:hover,
@@ -317,7 +317,10 @@ div.xfact-separator {
     border-color: var(--xfact-glass-border-hover);
 }
 
-.xfact-dark-section .xfact-btn-primary,
+.xfact-dark-section a.xfact-btn-primary,
+.xfact-dark-section button.xfact-btn-primary,
+.xfact-dark-section .wp-block-button.xfact-btn-primary .wp-element-button,
+.xfact-dark-section .wp-block-button .wp-block-button__link.wp-element-button,
 .xfact-dark-section .wp-element-button {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
@@ -325,7 +328,12 @@ div.xfact-separator {
     color: var(--wp--preset--color--white) !important;
 }
 
-.xfact-dark-section .xfact-btn-primary:hover,
+.xfact-dark-section a.xfact-btn-primary:hover,
+.xfact-dark-section button.xfact-btn-primary:hover,
+.xfact-dark-section .wp-block-button.xfact-btn-primary .wp-element-button:hover,
+.xfact-dark-section
+    .wp-block-button
+    .wp-block-button__link.wp-element-button:hover,
 .xfact-dark-section .wp-element-button:hover {
     background: var(--xfact-glass-bg-hover) !important;
     border-color: var(--xfact-glass-border-hover) !important;

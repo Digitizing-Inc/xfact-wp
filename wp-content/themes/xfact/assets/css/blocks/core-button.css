@@ -1,6 +1,10 @@
 /* ── Primary Button ──────────────────────────────────────── */
 
-.xfact-btn-primary,
+/* Apply styles directly to standard elements, or to the inner link of a Gutenberg block */
+a.xfact-btn-primary,
+button.xfact-btn-primary,
+.wp-block-button.xfact-btn-primary .wp-element-button,
+.wp-block-button .wp-block-button__link.wp-element-button,
 .wp-element-button {
     display: inline-flex;
     align-items: center;
@@ -20,7 +24,11 @@
         color-mix(in srgb, var(--wp--preset--color--black) 10%, transparent) !important;
 }
 
-.xfact-btn-primary:hover,
+/* Hover States */
+a.xfact-btn-primary:hover,
+button.xfact-btn-primary:hover,
+.wp-block-button.xfact-btn-primary .wp-element-button:hover,
+.wp-block-button .wp-block-button__link.wp-element-button:hover,
 .wp-element-button:hover {
     background: var(--wp--preset--color--primary-dark) !important;
     border-color: color-mix(
@@ -35,6 +43,14 @@
         0 4px 12px
         color-mix(in srgb, var(--wp--preset--color--black) 15%, transparent) !important;
     transform: translateY(-1px);
+}
+
+/* Strip background/border leaks from Gutenberg's wrapper div */
+div.wp-block-button.xfact-btn-primary {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 
 .xfact-btn-default {
