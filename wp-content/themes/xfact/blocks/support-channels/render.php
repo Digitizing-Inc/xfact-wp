@@ -13,7 +13,7 @@ $heading  = $attributes['heading'] ?? '';
 $channels = $attributes['channels'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-support-channels xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-support-channels xfact-section xfact-separator' )
 );
 ?>
 

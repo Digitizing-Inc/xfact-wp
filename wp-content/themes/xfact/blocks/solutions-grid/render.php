@@ -63,7 +63,7 @@ if ( empty( $sectors ) ) {
 }
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-solutions-grid xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-solutions-grid xfact-section xfact-separator' )
 );
 ?>
 

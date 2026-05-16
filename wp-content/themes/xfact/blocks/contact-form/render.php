@@ -19,7 +19,7 @@ $assess_checklist = $attributes['assessmentChecklist'] ?? array();
 $buttons          = $attributes['buttons'] ?? array();
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'class' => 'xfact-contact-form xfact-section xfact-section-border' )
+	array( 'class' => 'xfact-contact-form xfact-section xfact-separator' )
 );
 ?>
 

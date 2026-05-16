@@ -23,7 +23,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		$number   = str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT );
 		$total    = count( $areas );
 		?>
-		<section id="<?php echo esc_attr( $area['anchor'] ?? '' ); ?>" class="xfact-capability-area xfact-section xfact-section-border <?php echo esc_attr( $bg_class ); ?>">
+		<section id="<?php echo esc_attr( $area['anchor'] ?? '' ); ?>" class="xfact-capability-area xfact-section xfact-separator <?php echo esc_attr( $bg_class ); ?>">
 			<div class="xfact-container">
 				<div class="xfact-fade-in xfact-capability-area__grid">
 					<div class="xfact-capability-area__left">

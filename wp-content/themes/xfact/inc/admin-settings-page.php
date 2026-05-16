@@ -39,6 +39,7 @@ function xfact_admin_settings_enqueue( string $hook ): void {
 	}
 	wp_enqueue_media();
 	wp_enqueue_style( 'wp-color-picker' );
+	xfact_enqueue_dynamic_fonts();
 	wp_enqueue_style(
 		'xfact-admin-settings',
 		get_theme_file_uri( 'assets/css/admin-settings.css' ),
@@ -419,7 +420,7 @@ function xfact_render_admin_settings_page(): void {
 							<p class="description">Configure the primary logo used in headers/footers, and the site favicon.</p>
 
 							<!-- Primary Logo -->
-							<div style="margin-bottom: 24px;">
+							<div style="margin-bottom: 40px;">
 								<h3>Primary Logo</h3>
 								<div class="xfact-admin-logo-preview" id="xfact-primary-logo-preview">
 									<img src="
@@ -489,7 +490,7 @@ function xfact_render_admin_settings_page(): void {
 							</div>
 						</div> <!-- End Primary Brand Assets -->
 
-						<hr class="xfact-section-divider" />
+						<hr class="xfact-separator" />
 
 						<!-- Floating Logo -->
 						<div class="xfact-settings-section">
@@ -540,108 +541,12 @@ function xfact_render_admin_settings_page(): void {
 							</div>
 						</div> <!-- End Floating Logo -->
 
-						<hr class="xfact-section-divider" />
 
-						<!-- Theme Mode Settings -->
-						<div class="xfact-settings-section">
-							<h2>Theme Mode Settings</h2>
-							<p class="description">Control the default theme mode and visibility of the dark mode toggle.</p>
-
-							<div class="xfact-admin-toggle" style="margin-bottom: 24px;">
-								<label for="xfact_disable_dark_mode">
-									<input type="checkbox" name="xfact_disable_dark_mode" id="xfact_disable_dark_mode" value="1" 
-									<?php
-									checked(
-										$disable_dark_mode,
-									);
-									?>
-		/>
-									Disable Dark Mode Entirely
-								</label>
-								<span class="description">If checked, the site will be locked to Light Mode, and the frontend toggle will be hidden.</span>
-							</div>
-
-							<div style="margin-bottom: 24px;">
-								<fieldset>
-									<legend style="display: block; font-weight: 600; margin-bottom: 8px;">Default Theme Mode</legend>
-									<div class="xfact-radio-group">
-										<label>
-											<input type="radio" name="xfact_theme_mode" value="light" 
-											<?php
-											checked(
-												$theme_mode,
-												'light',
-											);
-											?>
-			/>
-											<span>Light Mode</span>
-										</label>
-										<label>
-											<input type="radio" name="xfact_theme_mode" value="dark" 
-											<?php
-											checked(
-												$theme_mode,
-												'dark',
-											);
-											?>
-			/>
-											<span>Dark Mode</span>
-										</label>
-										<label>
-											<input type="radio" name="xfact_theme_mode" value="system" 
-											<?php
-											checked(
-												$theme_mode,
-												'system',
-											);
-											?>
-			/>
-											<span>System</span>
-										</label>
-									</div>
-								</fieldset>
-								<p class="description">The initial theme mode visitors will see. They can still toggle it unless dark mode is disabled above.</p>
-							</div>
-						</div> <!-- End Theme Mode Settings -->
 
 					</div> <!-- End TAB: BRANDING -->
 
 					<!-- TAB: COLORS -->
 					<div class="xfact-tab-content" id="tab-colors" style="display: none;">
-
-						<!-- PRIMITIVE COLORS -->
-						<div class="xfact-settings-section">
-							<h2>Primitive Colors</h2>
-							<p class="description">The foundational hex codes from the design guide. Change these to update all semantic colors referencing them.</p>
-
-							<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;">
-								<?php
-								foreach ( $prim_defs as $slug => $default_hex ) :
-
-									$key   = 'xfact_primitive_' . str_replace( '-', '_', $slug );
-									$val   = $primitives[ $slug ];
-									$label = $slug;
-									?>
-									<div class="xfact-primitive-item" style="display: flex; flex-direction: column; gap: 8px;">
-										<label for="<?php echo esc_attr( $key ); ?>"><strong>
-										<?php
-										echo esc_html(
-											$label,
-										);
-										?>
-													</strong></label>
-										<div style="display: flex; align-items: center; gap: 8px;">
-											<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $val ); ?>" class="xfact-color-picker xfact-primitive-input" data-default-color="<?php echo esc_attr( $default_hex ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>" />
-											<button type="button" data-target="<?php echo esc_attr( $key ); ?>" data-default="<?php echo esc_attr( $default_hex ); ?>" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-										</div>
-									</div>
-									<?php
-		endforeach;
-								?>
-							</div>
-						</div>
-
-						<hr class="xfact-section-divider" />
 
 						<!-- SEMANTIC COLORS -->
 						<div class="xfact-settings-section">
@@ -691,7 +596,7 @@ function xfact_render_admin_settings_page(): void {
 										$default_val_dark = $dark_sem_defs[ $slug ];
 										?>
 									<tr>
-										<th scope="row" style="border-bottom: none; vertical-align: top; padding-top: 20px;">
+										<th scope="row" style="border-bottom: none; vertical-align: top; padding-top: 32px; padding-bottom: 16px;">
 											<label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 4px;">
 											<?php
 											echo esc_html(
@@ -707,10 +612,10 @@ function xfact_render_admin_settings_page(): void {
 											?>
 			</p>
 										</th>
-										<td style="border-bottom: none; vertical-align: top; padding-top: 20px;">
+										<td style="border-bottom: none; vertical-align: top; padding-top: 32px; padding-bottom: 16px;">
 											<?php xfact_render_swatch_picker( $key_light, $val_light, $primitives, $default_val ); ?>
 										</td>
-										<td style="background: #f1f5f9; padding-left: 16px; border-bottom: none; vertical-align: top; padding-top: 20px;">
+										<td style="background: #f1f5f9; padding-left: 16px; border-bottom: none; vertical-align: top; padding-top: 32px; padding-bottom: 16px;">
 											<?php
 											xfact_render_swatch_picker(
 												$key_dark,
@@ -728,6 +633,105 @@ function xfact_render_admin_settings_page(): void {
 								</tbody>
 							</table>
 						</div>
+
+						<hr class="xfact-separator" />
+
+						<!-- PRIMITIVE COLORS -->
+						<div class="xfact-settings-section">
+							<h2>Primitive Colors</h2>
+							<p class="description">The foundational hex codes from the design guide. Change these to update all semantic colors referencing them.</p>
+
+							<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;">
+								<?php
+								foreach ( $prim_defs as $slug => $default_hex ) :
+
+									$key   = 'xfact_primitive_' . str_replace( '-', '_', $slug );
+									$val   = $primitives[ $slug ];
+									$label = $slug;
+									?>
+									<div class="xfact-primitive-item" style="display: flex; flex-direction: column; gap: 8px;">
+										<label for="<?php echo esc_attr( $key ); ?>"><strong>
+										<?php
+										echo esc_html(
+											$label,
+										);
+										?>
+													</strong></label>
+										<div style="display: flex; align-items: center; gap: 8px;">
+											<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $val ); ?>" class="xfact-color-picker xfact-primitive-input" data-default-color="<?php echo esc_attr( $default_hex ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>" />
+											<button type="button" data-target="<?php echo esc_attr( $key ); ?>" data-default="<?php echo esc_attr( $default_hex ); ?>" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+										</div>
+									</div>
+									<?php
+		endforeach;
+								?>
+							</div>
+						</div>
+
+						<hr class="xfact-separator" />
+
+												<!-- Theme Mode Settings -->
+						<div class="xfact-settings-section">
+							<h2>Theme Mode Settings</h2>
+							<p class="description">Control the default theme mode and visibility of the dark mode toggle.</p>
+
+							<div class="xfact-admin-toggle" style="margin-bottom: 40px;">
+								<label for="xfact_disable_dark_mode">
+									<input type="checkbox" name="xfact_disable_dark_mode" id="xfact_disable_dark_mode" value="1" 
+									<?php
+									checked(
+										$disable_dark_mode,
+									);
+									?>
+		/>
+									Disable Dark Mode Entirely
+								</label>
+								<span class="description">If checked, the site will be locked to Light Mode, and the frontend toggle will be hidden.</span>
+							</div>
+
+							<div style="margin-bottom: 40px;">
+								<fieldset>
+									<legend style="display: block; font-weight: 600; margin-bottom: 8px;">Default Theme Mode</legend>
+									<div class="xfact-radio-group">
+										<label>
+											<input type="radio" name="xfact_theme_mode" value="light" 
+											<?php
+											checked(
+												$theme_mode,
+												'light',
+											);
+											?>
+			/>
+											<span>Light Mode</span>
+										</label>
+										<label>
+											<input type="radio" name="xfact_theme_mode" value="dark" 
+											<?php
+											checked(
+												$theme_mode,
+												'dark',
+											);
+											?>
+			/>
+											<span>Dark Mode</span>
+										</label>
+										<label>
+											<input type="radio" name="xfact_theme_mode" value="system" 
+											<?php
+											checked(
+												$theme_mode,
+												'system',
+											);
+											?>
+			/>
+											<span>System</span>
+										</label>
+									</div>
+								</fieldset>
+								<p class="description">The initial theme mode visitors will see. They can still toggle it unless dark mode is disabled above.</p>
+							</div>
+						</div> <!-- End Theme Mode Settings -->
+
 					</div> <!-- End TAB: COLORS -->
 
 					<!-- TAB: TYPOGRAPHY -->
@@ -805,7 +809,7 @@ function xfact_render_admin_settings_page(): void {
 									</tr>
 								</tbody>
 							</table>
-							<hr style="margin: 24px 0; border: 0; border-top: 1px solid #e2e8f0;" />
+							<hr class="xfact-separator" />
 
 							<h3>Custom Fonts Manager</h3>
 							<p class="description">Upload .woff2 files to register custom fonts. They will appear in the dropdowns above after saving.</p>
@@ -904,7 +908,7 @@ function xfact_render_admin_settings_page(): void {
 							</div>
 						</div> <!-- End Quick Links -->
 
-						<hr class="xfact-section-divider" />
+						<hr class="xfact-separator" />
 
 						<!-- Reset Theme Styles -->
 						<div class="xfact-settings-section xfact-danger-section">

@@ -159,15 +159,6 @@ button:focus-visible,
     padding-bottom: var(--xfact-spacing-section-lg);
 }
 
-.xfact-section-border {
-    border-bottom: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
-}
-
 /* ── Typography Utilities ─────────────────────────────── */
 
 .xfact-section-label {
@@ -249,6 +240,29 @@ footer.xfact-dark-section {
 
 .xfact-dark-section-muted {
     color: var(--xfact-dark-section-muted);
+}
+
+/* ── Separator Utilities ───────────────────────────────── */
+
+hr.xfact-separator {
+    border: 0;
+    border-top: 1px solid
+        color-mix(
+            in srgb,
+            var(--wp--preset--color--text-primary),
+            transparent 80%
+        );
+    margin: 2.5rem 0;
+}
+
+section.xfact-separator,
+div.xfact-separator {
+    border-bottom: 1px solid
+        color-mix(
+            in srgb,
+            var(--wp--preset--color--text-primary),
+            transparent 80%
+        );
 }
 
 /* ── Card Utilities ────────────────────────────────────── */

@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-$wrapper_args = array( 'class' => 'xfact-navigation-cards xfact-section xfact-section-border' );
+$wrapper_args = array( 'class' => 'xfact-navigation-cards xfact-section xfact-separator' );
 
 $anchor = $attributes['anchor'] ?? '';
 if ( $anchor ) {
