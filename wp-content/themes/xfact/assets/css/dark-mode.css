@@ -45,26 +45,26 @@
         135deg,
         transparent 0%,
         var(--xfact-glass-bg) 100%
-    ) !important;
-    backdrop-filter: none !important;
-    border: none !important;
+    );
+    backdrop-filter: none;
+    border: none;
 }
 
 [data-theme="dark"] section.xfact-dark-section,
 [data-theme="dark"] .xfact-section.xfact-dark-section,
 [data-theme="dark"] header.xfact-dark-section,
 [data-theme="dark"] footer.xfact-dark-section {
-    border: none !important;
+    border: none;
 }
 
 [data-theme="dark"] .has-surface-alt-background-color {
-    background-color: var(--wp--preset--color--surface-alt) !important;
+    background-color: var(--wp--preset--color--surface-alt);
     background-image: linear-gradient(
         var(--xfact-glass-bg),
         var(--xfact-glass-bg)
-    ) !important;
-    backdrop-filter: var(--xfact-glass-blur) !important;
-    border: 1px solid var(--xfact-glass-border) !important;
+    );
+    backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid var(--xfact-glass-border);
 }
 
 /* Footer dark mode overrides */
@@ -198,7 +198,7 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 /* Button Text Colors in Dark Mode */
 
 html[data-theme="dark"] .xfact-btn-secondary {
-    color: var(--wp--preset--color--primary) !important;
+    color: var(--wp--preset--color--primary);
 }
 
 /* Badge Text Colors in Dark Mode */
@@ -207,11 +207,11 @@ html[data-theme="dark"] .xfact-solutions-grid__badge,
 html[data-theme="dark"] .xfact-hero-badge,
 html[data-theme="dark"] .xfact-support-channels__icon-badge,
 html[data-theme="dark"] .xfact-solutions-grid__icon {
-    color: var(--wp--preset--color--text-primary) !important;
+    color: var(--wp--preset--color--text-primary);
 }
 
 /* Tag Text Colors in Dark Mode */
 html[data-theme="dark"] .xfact-text-section__tag,
 html[data-theme="dark"] .xfact-capability-area__service-tag {
-    color: var(--wp--preset--color--text-primary) !important;
+    color: var(--wp--preset--color--text-primary);
 }
