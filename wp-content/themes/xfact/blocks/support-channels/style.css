@@ -56,22 +56,3 @@ html[data-theme="dark"] .xfact-support-channels__icon-badge {
     font-size: 0.875rem;
     line-height: 1.6;
 }
-
-.xfact-support-channels__existing-inner {
-    max-width: 42rem;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.xfact-support-channels__existing-heading {
-    margin: 0;
-}
-
-.xfact-support-channels__existing-desc {
-    margin-top: 1rem;
-    font-size: 1.125rem;
-}
-
-.xfact-support-channels__existing-cta {
-    margin-top: 2rem;
-}

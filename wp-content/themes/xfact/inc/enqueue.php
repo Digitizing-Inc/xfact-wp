@@ -142,24 +142,7 @@ if ( isset( $_GET['xfact_preview'] ) ) { // phpcs:ignore WordPress.Security.Nonc
 	add_filter( 'show_admin_bar', '__return_false' );
 }
 
-/**
- * Output the branded SVG favicon, replacing WP's default site-icon output.
- *
- * Modern browsers support SVG favicons via <link rel="icon" type="image/svg+xml">.
- * The SVG lives in assets/images/favicon.svg (dark-blue rounded rect + white mark)
- * and matches the source site's src/app/icon.svg exactly.
- */
-function xfact_favicon(): void {
-	$icon_url = get_theme_file_uri( 'assets/images/favicon.svg' );
-	echo '<link rel="icon" type="image/svg+xml" href="' . esc_url( $icon_url ) . '">' . "\n";
-}
-add_action( 'wp_head', 'xfact_favicon', 1 );
 
-/**
- * Remove WordPress's default site-icon meta so it doesn't conflict
- * with our SVG favicon.
- */
-remove_action( 'wp_head', 'wp_site_icon', 99 );
 
 /**
  * Register shared editor helpers script early so blocks can declare

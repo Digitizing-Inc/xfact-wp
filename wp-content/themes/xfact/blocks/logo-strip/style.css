@@ -61,17 +61,6 @@
     opacity: 0.8;
 }
 
-.xfact-logo-strip__logo-svg {
-    height: 1.75rem;
-    width: auto;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-}
-
-.xfact-logo-strip__logo:hover .xfact-logo-strip__logo-svg {
-    opacity: 0.8;
-}
-
 /* ── Logo Images ── */
 
 .xfact-logo-strip__logo-img {
@@ -88,13 +77,11 @@
 }
 
 /* ── Dark Mode ── */
-[data-theme="dark"] .xfact-logo-strip__logo-img,
-[data-theme="dark"] .xfact-logo-strip__logo-svg {
+[data-theme="dark"] .xfact-logo-strip__logo-img {
     filter: brightness(0) invert(1) opacity(0.5);
 }
 
-[data-theme="dark"] .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-img,
-[data-theme="dark"] .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-svg {
+[data-theme="dark"] .xfact-logo-strip__logo:hover .xfact-logo-strip__logo-img {
     filter: brightness(0) invert(1) opacity(1);
 }
 

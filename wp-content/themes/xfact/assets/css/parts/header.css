@@ -178,33 +178,6 @@ body.has-hero-header .wp-site-blocks,
     }
 }
 
-/* ── Header Logo ──────────────────────────────────── */
-
-.xfact-header__logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 0.5rem 0;
-}
-
-@media (width >= 640px) {
-    .xfact-header__logo-link {
-        padding: 0.75rem 0;
-    }
-}
-
-.xfact-header__logo {
-    height: 3rem;
-    width: auto;
-    transition: all 0.3s;
-}
-
-@media (width >= 640px) {
-    .xfact-header__logo {
-        height: 3.5rem;
-    }
-}
-
 /* ── Header Logo (wordmark image block) ──────────── */
 
 .xfact-header__logo-block {

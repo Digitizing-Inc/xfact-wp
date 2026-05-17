@@ -61,6 +61,12 @@ add_action( 'admin_head', 'xfact_output_favicon', 99 );
 add_action( 'login_head', 'xfact_output_favicon', 99 );
 
 /**
+ * Remove WordPress's default site-icon meta so it doesn't conflict
+ * with our custom favicon.
+ */
+remove_action( 'wp_head', 'wp_site_icon', 99 );
+
+/**
  * Output dynamic typography CSS variables and custom @font-face rules.
  * Uses enqueue_block_assets so it works inside the block editor iframe.
  */

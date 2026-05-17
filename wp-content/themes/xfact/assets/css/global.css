@@ -410,30 +410,6 @@ button.xfact-theme-toggle--icon-only svg {
     transform: translate(-50%, -50%);
 }
 
-span.xfact-theme-toggle__track {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 9999px;
-    background: #d1d5db;
-    transition: background 0.3s;
-}
-
-span.xfact-theme-toggle__thumb {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
-    transform: translateX(4px);
-    transition: transform 0.3s;
-}
-
 svg.xfact-theme-toggle__icon-moon,
 svg.xfact-theme-toggle__icon-sun {
     position: absolute;

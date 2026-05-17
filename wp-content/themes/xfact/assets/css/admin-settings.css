@@ -34,41 +34,6 @@
     font-family: var(--wp--preset--font-family--heading);
 }
 
-.xfact-admin-card {
-    background: var(--xfact-semantic-surface);
-    border: 1px solid var(--xfact-semantic-surface-alt);
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 24px;
-    box-shadow:
-        0 4px 6px -1px rgb(9 23 47 / 5%),
-        0 2px 4px -1px rgb(9 23 47 / 3%);
-    transition: box-shadow 0.2s ease;
-}
-
-.xfact-admin-card:hover {
-    box-shadow:
-        0 10px 15px -3px rgb(9 23 47 / 8%),
-        0 4px 6px -2px rgb(9 23 47 / 4%);
-}
-
-.xfact-admin-card h2 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--xfact-semantic-text-primary);
-    border-bottom: 1px solid var(--xfact-semantic-surface-alt);
-    padding-bottom: 16px;
-    margin-bottom: 20px;
-}
-
-.xfact-admin-card p.description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 24px;
-    margin-top: 0;
-}
-
 .xfact-admin-toggle {
     margin-bottom: 24px;
     background: color-mix(
@@ -203,70 +168,6 @@
     border-radius: 6px;
 }
 
-/* Palette Grids */
-.xfact-palette-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-top: 24px;
-}
-
-@media (width <= 782px) {
-    .xfact-palette-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-.xfact-palette {
-    background: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-secondary) 3%,
-        transparent
-    );
-    padding: 32px;
-    border-radius: 16px;
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent);
-}
-
-.xfact-palette.dark-mode {
-    background: var(--xfact-semantic-text-primary);
-    border-color: var(--xfact-semantic-primary-dark);
-    color: var(--xfact-semantic-surface-alt);
-}
-
-.xfact-palette h3 {
-    margin-top: 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-bottom: 1px solid var(--xfact-semantic-surface-alt);
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-}
-
-.xfact-palette.dark-mode h3 {
-    color: var(--xfact-semantic-surface);
-    border-bottom-color: var(--xfact-semantic-text-primary);
-}
-
-.xfact-palette .form-table {
-    margin-top: 0;
-}
-
-.xfact-palette .form-table th {
-    padding: 16px 20px 16px 0;
-    width: 160px;
-    font-weight: 500;
-}
-
-.xfact-palette.dark-mode .form-table th {
-    color: var(--xfact-semantic-surface-alt);
-}
-
-.xfact-palette .form-table td {
-    padding: 12px 0;
-}
-
 /* Buttons */
 .xfact-admin-settings .button-primary {
     background: var(--xfact-semantic-primary-dark);
@@ -336,22 +237,6 @@
     );
     color: var(--xfact-semantic-text-primary);
     transform: translateY(-1px);
-}
-
-/* Danger card */
-.xfact-danger-card {
-    border-left: 4px solid var(--xfact-semantic-danger);
-    background: var(--xfact-semantic-surface);
-    border-color: var(--xfact-semantic-danger);
-}
-
-.xfact-danger-card h2 {
-    color: var(--xfact-semantic-danger);
-    border-bottom-color: var(--xfact-semantic-danger);
-}
-
-.xfact-danger-card p.description {
-    color: var(--xfact-semantic-danger);
 }
 
 .xfact-btn-danger {
@@ -756,8 +641,7 @@
     border-color: var(--xfact-semantic-success);
 }
 
-.xfact-toast.xfact-toast-info,
-.xfact-toast.xfact-toast-primary {
+.xfact-toast.xfact-toast-info {
     background: var(--xfact-semantic-primary);
     border-color: var(--xfact-semantic-primary);
 }
@@ -765,11 +649,6 @@
 .xfact-toast.xfact-toast-warning {
     background: var(--xfact-semantic-warning);
     border-color: var(--xfact-semantic-warning);
-}
-
-.xfact-toast.xfact-toast-error {
-    background: var(--xfact-semantic-danger);
-    border-color: var(--xfact-semantic-danger);
 }
 
 .xfact-toast .xfact-toast-dismiss {
