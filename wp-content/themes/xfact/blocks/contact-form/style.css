@@ -42,17 +42,13 @@
 }
 
 .xfact-contact-form__required {
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-contact-form__input,
 .xfact-contact-form__textarea {
     border: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     border-radius: var(--xfact-glass-radius); /* Use global glass radius */
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
@@ -64,7 +60,7 @@
 .xfact-contact-form__input:focus,
 .xfact-contact-form__textarea:focus {
     outline: none;
-    border-color: var(--wp--preset--color--primary);
+    border-color: var(--xfact-semantic-primary);
     box-shadow: 0 0 0 3px rgb(92 138 230 / 10%);
 }
 
@@ -83,7 +79,7 @@ html[data-theme="dark"] .xfact-contact-form__textarea:focus,
 .xfact-dark-section .xfact-contact-form__input:focus,
 .xfact-dark-section .xfact-contact-form__textarea:focus {
     background-color: var(--xfact-glass-bg-hover);
-    border-color: var(--wp--preset--color--primary);
+    border-color: var(--xfact-semantic-primary);
     box-shadow: 0 0 0 3px rgb(92 138 230 / 20%);
 }
 
@@ -152,7 +148,7 @@ html[data-theme="dark"] .xfact-contact-form__textarea:focus,
     height: 1.25rem;
     flex-shrink: 0;
     margin-top: 0.125rem;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-contact-form__checklist-item span {

@@ -374,6 +374,14 @@ Run `make help` to see all commands:
 
 ## Code Quality
 
+### Automated Skills Enforcement
+
+This repository is continuously audited against a strict set of AI-enforced development skills defined in `.agents/skills/`. This guarantees compliance with the WordPress Design System (WPDS), strict PHPStan typing, and modern Block Development architectures.
+
+- **Security & Performance**: Strict enforcement of WPCS (nonces, escaping, capability checks) and backend optimization patterns.
+- **WPDS Compliance**: Strict mapping of semantic tokens in custom CSS, avoiding hardcoded hex values to support seamless Light/Dark modes.
+- **Block Architecture**: Enforcement of Full Site Editing (FSE) patterns, `apiVersion: 3` compliance, and PHP server-side rendering for dynamic blocks.
+
 ### Tools
 
 | Tool | Config | Purpose |

@@ -171,16 +171,19 @@
 /* Buttons */
 .xfact-admin-settings .button-primary {
     background: var(--xfact-semantic-primary-dark);
-    border: 1px solid color-mix(in srgb, #ffffff 20%, transparent);
-    color: #ffffff;
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent);
+    color: var(--xfact-semantic-text-primary);
     padding: 8px 24px;
     border-radius: 8px;
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
     box-shadow:
-        inset 0 1px 0 color-mix(in srgb, #ffffff 10%, transparent),
-        0 2px 4px color-mix(in srgb, #000000 10%, transparent);
+        inset 0 1px 0
+        color-mix(in srgb, var(--xfact-semantic-surface) 10%, transparent),
+        0 2px 4px
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     line-height: normal;
     height: auto;
@@ -188,10 +191,16 @@
 
 .xfact-admin-settings .button-primary:hover {
     background: var(--xfact-semantic-primary-dark);
-    border-color: color-mix(in srgb, #ffffff 40%, transparent);
+    border-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface) 40%,
+        transparent
+    );
     box-shadow:
-        inset 0 1px 0 color-mix(in srgb, #ffffff 20%, transparent),
-        0 4px 12px color-mix(in srgb, #000000 15%, transparent);
+        inset 0 1px 0
+        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent),
+        0 4px 12px
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 15%, transparent);
     transform: translateY(-1px);
 }
 
@@ -252,7 +261,7 @@
 
 .xfact-btn-danger:hover {
     background: var(--xfact-semantic-danger);
-    color: var(--xfact-semantic-surface);
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-custom-font-row {
@@ -631,7 +640,7 @@
 .xfact-toast p {
     margin: 0 !important;
     padding: 0 !important;
-    color: #ffffff;
+    color: var(--xfact-semantic-text-primary);
     font-size: 14px;
     font-weight: 500;
 }
@@ -675,7 +684,7 @@
 }
 
 .xfact-toast .xfact-toast-dismiss:hover::before {
-    color: #ffffff;
+    color: var(--xfact-semantic-text-primary);
 }
 
 @keyframes xfact-fade-in-up {

@@ -1,10 +1,6 @@
 .xfact-capability-area {
     border-bottom: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     scroll-margin-top: 5rem;
 }
 
@@ -32,14 +28,14 @@
         display: block;
         width: 2.5rem;
         height: 2.5rem;
-        color: var(--wp--preset--color--primary);
+        color: var(--xfact-semantic-primary);
         margin-bottom: 1rem;
     }
 }
 
 .xfact-capability-area__number {
     display: block;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 .xfact-capability-area__title {
@@ -87,14 +83,10 @@
     border-radius: 9999px;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    color: var(--wp--preset--color--text-secondary);
-    background-color: var(--wp--preset--color--surface);
+    color: var(--xfact-semantic-text-secondary);
+    background-color: var(--xfact-semantic-surface);
     border: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
 }
 
 html[data-theme="dark"] .xfact-capability-area__service-tag {

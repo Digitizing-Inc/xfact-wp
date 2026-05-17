@@ -8,15 +8,19 @@
 /* ── CSS Custom Properties (Light Mode) ──────────────── */
 
 :root {
-    --has-surface-background-color: #f5f7fa;
-    --has-surface-background-color-card: #fff;
-    --wp--preset--color--text-primary: #1a202c;
-    --wp--preset--color--text-secondary: #718096;
-    --xfact-dark-section-text: #fff;
-    --xfact-dark-section-secondary: rgb(255 255 255 / 75%);
-    --xfact-dark-section-muted: rgb(255 255 255 / 55%);
-    --wp--preset--color--primary: #5c8ae6;
-    --wp--preset--color--primary-dark: #123e99;
+    --has-surface-background-color: var(--xfact-semantic-text-primary);
+    --has-surface-background-color-card: var(--xfact-semantic-surface);
+    --xfact-dark-section-text: var(--xfact-semantic-surface);
+    --xfact-dark-section-secondary: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface) 75%,
+        transparent
+    );
+    --xfact-dark-section-muted: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface) 55%,
+        transparent
+    );
 
     --xfact-spacing-section: 5.625rem;
     --xfact-spacing-section-lg: 7rem;
@@ -41,7 +45,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--has-surface-background-color);
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
     transition:
         background-color 0.3s ease,
         color 0.3s ease;
@@ -58,7 +62,7 @@ body {
 a:focus-visible,
 button:focus-visible,
 [role="button"]:focus-visible {
-    outline: 2px solid var(--wp--preset--color--primary);
+    outline: 2px solid var(--xfact-semantic-primary);
     outline-offset: 2px;
     border-radius: 2px;
 }
@@ -71,8 +75,8 @@ button:focus-visible,
     top: 0;
     z-index: 100;
     padding: 0.75rem 1.5rem;
-    background: var(--wp--preset--color--primary);
-    color: #fff;
+    background: var(--xfact-semantic-primary);
+    color: var(--xfact-semantic-text-primary);
     font-weight: 600;
     font-size: 0.875rem;
 }
@@ -96,21 +100,21 @@ button:focus-visible,
 .xfact-border {
     border-color: color-mix(
         in srgb,
-        var(--wp--preset--color--text-primary),
+        var(--xfact-semantic-text-primary),
         transparent 80%
     );
 }
 
 .xfact-text {
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-text-secondary {
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 .xfact-text-muted {
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 /* ── Layout Utilities ──────────────────────────────────── */
@@ -163,7 +167,7 @@ button:focus-visible,
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     margin: 0 0 0.25rem;
 }
 
@@ -172,7 +176,7 @@ button:focus-visible,
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
     line-height: 1.1;
 }
 
@@ -191,7 +195,7 @@ button:focus-visible,
 .xfact-section-subtitle {
     margin-top: 1rem;
     font-size: 1.125rem;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
     max-width: 48rem;
 }
 
@@ -208,12 +212,14 @@ button:focus-visible,
 }
 
 .xfact-dark-section {
-    background-color: var(--wp--preset--color--surface-alt);
+    background-color: var(--xfact-semantic-surface-alt);
     color: var(--xfact-dark-section-text);
 
-    --wp--preset--color--text-primary: var(--xfact-dark-section-text);
-    --wp--preset--color--text-secondary: var(--xfact-dark-section-secondary);
-    --wp--preset--color--primary: var(--wp--preset--color--primary-light);
+    --xfact-semantic-text-primary: var(--xfact-dark-section-text);
+
+    --xfact-semantic-text-secondary: var(--xfact-dark-section-secondary);
+
+    --xfact-semantic-primary: var(--xfact-semantic-primary-light);
 }
 
 .xfact-dark-section:not(body) {
@@ -244,22 +250,14 @@ footer.xfact-dark-section {
 hr.xfact-separator {
     border: 0;
     border-top: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     margin: 2.5rem 0;
 }
 
 section.xfact-separator,
 div.xfact-separator {
     border-bottom: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
 }
 
 /* ── Card Utilities ────────────────────────────────────── */
@@ -268,14 +266,10 @@ div.xfact-separator {
 .xfact-card-interactive {
     background-color: var(--has-surface-background-color-card);
     border: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     border-radius: var(--xfact-glass-radius);
     overflow: hidden;
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-card-interactive {
@@ -294,18 +288,16 @@ div.xfact-separator {
 .xfact-dark-section .xfact-hero-badge,
 .xfact-dark-section .xfact-support-channels__icon-badge,
 .xfact-dark-section .xfact-solutions-grid__icon,
-.xfact-dark-section .xfact-capability-area__service-tag,
-.xfact-dark-section .xfact-btn-secondary {
+.xfact-dark-section .xfact-capability-area__service-tag {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border: 1px solid var(--xfact-glass-border) !important;
-    color: var(--wp--preset--color--white) !important;
+    color: var(--xfact-semantic-text-primary) !important;
 }
 
 .xfact-dark-section .xfact-card-interactive.xfact-card-interactive:hover,
 .xfact-dark-section .xfact-text-section__tag:hover,
-.xfact-dark-section .xfact-capability-area__service-tag:hover,
-.xfact-dark-section .xfact-btn-secondary:hover {
+.xfact-dark-section .xfact-capability-area__service-tag:hover {
     background: var(--xfact-glass-bg-hover);
     border-color: var(--xfact-glass-border-hover);
 }
@@ -318,7 +310,7 @@ div.xfact-separator {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border-color: var(--xfact-glass-border) !important;
-    color: var(--wp--preset--color--white) !important;
+    color: var(--xfact-semantic-text-primary) !important;
 }
 
 .xfact-dark-section a.xfact-btn-primary:hover,
@@ -340,11 +332,11 @@ div.xfact-separator {
 .xfact-dark-section .xfact-solutions-grid__icon,
 .xfact-dark-section .xfact-capability-areas__icon,
 .xfact-dark-section .xfact-hero__accent {
-    color: var(--wp--preset--color--primary-light) !important;
+    color: var(--xfact-semantic-primary-light) !important;
 }
 
 .xfact-card-interactive:hover {
-    border-color: var(--wp--preset--color--primary);
+    border-color: var(--xfact-semantic-primary);
     transform: translateY(-4px);
     box-shadow:
         0 10px 25px -5px rgb(0 0 0 / 10%),
@@ -352,7 +344,7 @@ div.xfact-separator {
 }
 
 .xfact-card-interactive:focus-visible {
-    outline: 2px solid var(--wp--preset--color--primary);
+    outline: 2px solid var(--xfact-semantic-primary);
     outline-offset: 2px;
 }
 
@@ -371,7 +363,7 @@ button.xfact-theme-toggle {
 }
 
 button.xfact-theme-toggle:focus-visible {
-    outline: 2px solid var(--wp--preset--color--primary);
+    outline: 2px solid var(--xfact-semantic-primary);
     outline-offset: 2px;
 }
 
@@ -379,7 +371,7 @@ button.xfact-theme-toggle--icon-only {
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 50%;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
     background: rgb(0 0 0 / 5%);
     backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid rgb(0 0 0 / 5%);
@@ -398,7 +390,7 @@ button.xfact-theme-toggle--icon-only:hover {
 .xfact-dark-section button.xfact-theme-toggle--icon-only:hover {
     background: var(--xfact-glass-bg-hover);
     border-color: var(--xfact-glass-border-hover);
-    color: #fff;
+    color: var(--xfact-semantic-text-primary);
 }
 
 button.xfact-theme-toggle--icon-only svg {
@@ -422,12 +414,12 @@ svg.xfact-theme-toggle__icon-sun {
 
 svg.xfact-theme-toggle__icon-moon {
     display: block;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 svg.xfact-theme-toggle__icon-sun {
     display: none;
-    color: #718096;
+    color: var(--xfact-semantic-text-secondary);
 }
 
 /* ── Remove WP Default Block Margins ──────────────── */
@@ -667,7 +659,8 @@ html.xfact-has-fade .xfact-fade-in.is-visible {
 }
 
 .editor-styles-wrapper .xfact-border-top {
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 15%, transparent);
 }
 
 /* Fix for disabled wrapper from SSR */

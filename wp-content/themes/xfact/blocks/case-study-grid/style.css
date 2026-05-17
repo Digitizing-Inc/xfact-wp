@@ -1,16 +1,8 @@
 .xfact-case-study-grid {
     border-top: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     border-bottom: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
 }
 
 .xfact-case-study-grid__list {
@@ -67,7 +59,7 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-case-study-card__link-text svg {
@@ -85,6 +77,6 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     margin: 0 0 1rem;
 }

@@ -56,7 +56,7 @@
                                   key: 'breadcrumb-group',
                                   style: {
                                       background:
-                                          'var(--wp--preset--color--surface)',
+                                          'var(--xfact-semantic-surface)',
                                       border: '1px solid #e2e8f0',
                                       borderRadius: '4px',
                                       padding: '12px',

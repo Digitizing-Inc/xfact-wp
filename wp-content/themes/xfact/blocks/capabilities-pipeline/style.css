@@ -31,7 +31,7 @@
     background: rgb(0 0 0 / 5%);
     backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid rgb(0 0 0 / 5%);
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-dark-section .xfact-capabilities__icon,
@@ -63,7 +63,7 @@ html[data-theme="dark"] .xfact-capabilities__icon {
 .xfact-capabilities__arrow-icon {
     display: none;
     margin: 0 0.5rem;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 .xfact-capabilities__divider-mobile {

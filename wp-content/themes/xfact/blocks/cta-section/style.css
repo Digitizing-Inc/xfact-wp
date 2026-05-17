@@ -43,12 +43,12 @@
 }
 
 svg.xfact-cta-section__watermark {
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
     opacity: 0.03;
 }
 
 .xfact-dark-section svg.xfact-cta-section__watermark {
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
 }
 
 img.xfact-cta-section__watermark {
@@ -77,13 +77,13 @@ img.xfact-cta-section__watermark {
     font-size: 1.875rem;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
     line-height: 1.1;
     margin: 0;
 }
 
 .xfact-dark-section .xfact-cta-section__title {
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
 }
 
 @media (width >= 768px) {
@@ -96,11 +96,11 @@ img.xfact-cta-section__watermark {
     margin-top: 1.5rem;
     font-size: 1.125rem;
     line-height: 1.625;
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 .xfact-dark-section .xfact-cta-section__subtitle {
-    color: var(--wp--preset--color--text-secondary);
+    color: var(--xfact-semantic-text-secondary);
 }
 
 .xfact-cta-section__buttons {

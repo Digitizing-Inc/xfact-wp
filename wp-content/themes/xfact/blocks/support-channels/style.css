@@ -24,12 +24,12 @@
     border-radius: calc(var(--xfact-glass-radius) / 4);
     background: color-mix(
         in srgb,
-        var(--wp--preset--color--primary) 10%,
+        var(--xfact-semantic-primary) 10%,
         transparent
     );
     backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid
-        color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
+        color-mix(in srgb, var(--xfact-semantic-primary) 10%, transparent);
     margin-bottom: 1.25rem;
 }
 
@@ -42,7 +42,7 @@ html[data-theme="dark"] .xfact-support-channels__icon-badge {
 .xfact-support-channels__icon {
     width: 1.5rem;
     height: 1.5rem;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-support-channels__title {

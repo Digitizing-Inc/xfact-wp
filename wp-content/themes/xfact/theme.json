@@ -262,8 +262,8 @@
   },
   "styles": {
     "color": {
-      "background": "var(--wp--preset--color--surface)",
-      "text": "var(--wp--preset--color--text-primary)"
+      "background": "var(--xfact-semantic-surface)",
+      "text": "var(--xfact-semantic-text-primary)"
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--body, var(--wp--preset--font-family--ibm-plex-mono))",
@@ -282,7 +282,7 @@
     "elements": {
       "heading": {
         "color": {
-          "text": "var(--wp--preset--color--text-primary)"
+          "text": "var(--xfact-semantic-text-primary)"
         },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--heading, var(--wp--preset--font-family--inter))",
@@ -312,14 +312,14 @@
       },
       "link": {
         "color": {
-          "text": "var(--wp--preset--color--primary)"
+          "text": "var(--xfact-semantic-primary)"
         },
         "typography": {
           "textDecoration": "underline"
         },
         ":hover": {
           "color": {
-            "text": "var(--wp--preset--color--primary-dark)"
+            "text": "var(--xfact-semantic-primary-dark)"
           },
           "typography": {
             "textDecoration": "none"
@@ -327,14 +327,14 @@
         },
         ":focus": {
           "color": {
-            "text": "var(--wp--preset--color--primary-dark)"
+            "text": "var(--xfact-semantic-primary-dark)"
           }
         }
       },
       "button": {
         "color": {
-          "background": "var(--wp--preset--color--primary)",
-          "text": "var(--wp--preset--color--white)"
+          "background": "var(--xfact-semantic-primary)",
+          "text": "#ffffff"
         },
         "border": {
           "radius": "var(--xfact-glass-radius)",
@@ -346,20 +346,20 @@
         },
         ":hover": {
           "color": {
-            "background": "var(--wp--preset--color--primary-dark)",
-            "text": "var(--wp--preset--color--white)"
+            "background": "var(--xfact-semantic-primary-dark)",
+            "text": "#ffffff"
           }
         },
         ":focus": {
           "color": {
-            "background": "var(--wp--preset--color--primary-dark)",
-            "text": "var(--wp--preset--color--white)"
+            "background": "var(--xfact-semantic-primary-dark)",
+            "text": "#ffffff"
           }
         }
       },
       "caption": {
         "color": {
-          "text": "var(--wp--preset--color--text-muted)"
+          "text": "var(--xfact-semantic-text-muted)"
         },
         "typography": {
           "fontSize": "var(--wp--preset--font-size--small)"
@@ -375,14 +375,14 @@
         "elements": {
           "link": {
             "color": {
-              "text": "var(--wp--preset--color--white)"
+              "text": "#ffffff"
             },
             "typography": {
               "textDecoration": "none"
             },
             ":hover": {
               "color": {
-                "text": "var(--wp--preset--color--accent)"
+                "text": "var(--xfact-semantic-primary)"
               }
             }
           }
@@ -398,14 +398,14 @@
         "elements": {
           "link": {
             "color": {
-              "text": "var(--wp--preset--color--text-primary)"
+              "text": "var(--xfact-semantic-text-primary)"
             },
             "typography": {
               "textDecoration": "none"
             },
             ":hover": {
               "color": {
-                "text": "var(--wp--preset--color--accent)"
+                "text": "var(--xfact-semantic-primary)"
               }
             }
           }
@@ -413,7 +413,7 @@
       },
       "core/post-date": {
         "color": {
-          "text": "var(--wp--preset--color--text-muted)"
+          "text": "var(--xfact-semantic-text-muted)"
         },
         "typography": {
           "fontSize": "var(--wp--preset--font-size--small)"
@@ -421,12 +421,12 @@
       },
       "core/post-excerpt": {
         "color": {
-          "text": "var(--wp--preset--color--text-secondary)"
+          "text": "var(--xfact-semantic-text-secondary)"
         }
       },
       "core/separator": {
         "color": {
-          "text": "var(--wp--preset--color--border)"
+          "text": "var(--xfact-semantic-surface-alt)"
         },
         "border": {
           "color": "currentColor",

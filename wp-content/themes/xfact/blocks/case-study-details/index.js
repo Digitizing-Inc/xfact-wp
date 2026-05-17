@@ -76,7 +76,7 @@
                                 padding: '12px',
                                 borderRadius: '4px',
                                 backgroundColor:
-                                    'var(--wp--preset--color--surface)',
+                                    'var(--xfact-semantic-surface)',
                                 marginBottom: '24px',
                             },
                         },
@@ -96,7 +96,7 @@
                             {
                                 style: {
                                     fontSize: '12px',
-                                    color: 'var(--wp--preset--color--text-primary)',
+                                    color: 'var(--xfact-semantic-text-primary)',
                                     marginBottom: '16px',
                                     marginTop: '0',
                                 },

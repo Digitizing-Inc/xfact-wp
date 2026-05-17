@@ -5,7 +5,7 @@
 .xfact-text-section__section-icon {
     width: 2rem;
     height: 2rem;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     stroke-width: 1.5;
 }
 
@@ -15,8 +15,13 @@
     align-items: center;
     gap: 0.5rem;
     border-radius: 9999px !important;
-    border: 1px solid var(--xfact-semantic-surface-alt);
-    background: var(--wp--preset--color--surface);
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-primary) 20%, transparent);
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-primary) 10%,
+        transparent
+    );
     padding: 0.375rem 1rem;
 }
 
@@ -27,13 +32,13 @@ html[data-theme="dark"] .xfact-text-section__badge {
 }
 
 html[data-theme="dark"] .xfact-text-section__badge span {
-    color: var(--wp--preset--color--text-primary);
+    color: var(--xfact-semantic-text-primary);
 }
 
 .xfact-text-section__badge span {
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
 }
 
 .xfact-text-section__body {
@@ -57,13 +62,9 @@ html[data-theme="dark"] .xfact-text-section__badge span {
     border-radius: 9999px !important;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    background: var(--wp--preset--color--surface);
+    background: var(--xfact-semantic-surface);
     border: 1px solid
-        color-mix(
-            in srgb,
-            var(--wp--preset--color--text-primary),
-            transparent 80%
-        );
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
     transition: all 0.2s;
 }
 
@@ -75,7 +76,7 @@ html[data-theme="dark"] .xfact-text-section__tag {
     background: var(--xfact-glass-bg);
     backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid var(--xfact-glass-border);
-    color: var(--wp--preset--color--text-primary) !important;
+    color: var(--xfact-semantic-text-primary) !important;
 }
 
 html[data-theme="dark"] .xfact-text-section__tag:hover {
@@ -86,7 +87,7 @@ html[data-theme="dark"] .xfact-text-section__tag:hover {
 .xfact-text-section__tag-icon {
     width: 1rem;
     height: 1rem;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     flex-shrink: 0;
 }
 
@@ -99,13 +100,13 @@ html[data-theme="dark"] .xfact-text-section__tag:hover {
     align-items: center;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .xfact-text-section__link:hover {
-    color: var(--wp--preset--color--primary-dark);
+    color: var(--xfact-semantic-primary-dark);
 }
 
 /* Grid layout for Key Messages */
@@ -156,7 +157,7 @@ html[data-theme="dark"] .xfact-text-section__tag:hover {
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;
-    color: var(--wp--preset--color--primary);
+    color: var(--xfact-semantic-primary);
     stroke-width: 2;
 }
 
