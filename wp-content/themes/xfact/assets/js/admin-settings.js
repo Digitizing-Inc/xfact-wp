@@ -505,6 +505,8 @@
 
         $('#xfact-settings-form').on('change input', () => {
             hasUnsavedChanges = true;
+            // Instantly clear any lingering toast as soon as the user starts a new edit
+            $('.xfact-toast').remove();
         });
 
         // Catch reset buttons and media upload triggers
@@ -512,6 +514,7 @@
             '.xfact-admin-upload-btn, .xfact-admin-reset-btn, .xfact-reset-color-btn, .xfact-reset-font-btn',
         ).on('click', () => {
             hasUnsavedChanges = true;
+            $('.xfact-toast').remove();
         });
 
         $(window).on('beforeunload', () => {
@@ -523,5 +526,35 @@
         $('#xfact-settings-form').on('submit', () => {
             hasUnsavedChanges = false;
         });
+
+        // Auto-fade toasts after 3 seconds
+        const $toast = $('.xfact-toast');
+        if ($toast.length) {
+            setTimeout(() => {
+                $toast.css('animation', 'none').fadeOut(400, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+
+            // Allow manual dismissal via custom button
+            $toast.on('click', '.xfact-toast-dismiss', () => {
+                $toast.css('animation', 'none').fadeOut(400, function () {
+                    $(this).remove();
+                });
+            });
+        }
+
+        // Clean up URL parameters to prevent recurring toasts on manual refresh
+        if (window.history && window.history.replaceState) {
+            const url = new URL(window.location.href);
+            if (
+                url.searchParams.has('xfact-saved') ||
+                url.searchParams.has('settings-reset')
+            ) {
+                url.searchParams.delete('xfact-saved');
+                url.searchParams.delete('settings-reset');
+                window.history.replaceState({}, document.title, url.toString());
+            }
+        }
     });
 })(jQuery);

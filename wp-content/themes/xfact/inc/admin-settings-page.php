@@ -29,6 +29,175 @@ function xfact_register_admin_settings_page(): void {
 add_action( 'admin_menu', 'xfact_register_admin_settings_page' );
 
 /**
+ * Process admin settings POST requests securely on admin_init.
+ */
+function xfact_process_admin_settings(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if (
+		isset( $_POST['xfact_settings_nonce'] ) &&
+		wp_verify_nonce(
+			sanitize_text_field( wp_unslash( $_POST['xfact_settings_nonce'] ) ),
+			'xfact_save_settings',
+		)
+	) {
+		/* Reset Global Styles to theme.json defaults */
+		if ( isset( $_POST['xfact_reset_global_styles'] ) ) {
+			$global_styles = get_posts(
+				array(
+					'post_type'   => 'wp_global_styles',
+					'post_status' => array( 'publish', 'draft' ),
+					'numberposts' => 1,
+				)
+			);
+			if ( ! empty( $global_styles ) ) {
+				wp_delete_post( $global_styles[0]->ID, true );
+			}
+
+			// Reset all theme options.
+			global $wpdb;
+			// Delete all options starting with 'xfact_' to completely reset the theme config.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->query(
+				"DELETE FROM {$wpdb->options} WHERE option_name LIKE 'xfact\_%'",
+			);
+			wp_cache_flush();
+
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page'           => 'xfact-settings',
+						'settings-reset' => 'true',
+					),
+					admin_url( 'themes.php' )
+				)
+			);
+			exit;
+		} else {
+			/* Normal settings save. */
+			$settings_changed = false;
+
+			// Save new dynamic colors.
+			foreach ( $_POST as $key => $val ) {
+				if (
+					strpos( $key, 'xfact_primitive_' ) === 0 ||
+					strpos( $key, 'xfact_semantic_' ) === 0 ||
+					strpos( $key, 'xfact_dark_semantic_' ) === 0
+				) {
+					// validate if it's a hex or a string slug.
+					if ( strpos( $val, '#' ) === 0 ) {
+						$settings_changed = update_option( $key, sanitize_hex_color( wp_unslash( $val ) ) ) || $settings_changed;
+					} else {
+						$settings_changed = update_option( $key, sanitize_text_field( wp_unslash( $val ) ) ) || $settings_changed;
+					}
+				}
+			}
+
+			if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
+				$settings_changed = update_option(
+					'xfact_floating_logo_url',
+					esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ),
+				) || $settings_changed;
+			}
+			if ( isset( $_POST['xfact_primary_logo_url'] ) ) {
+				$settings_changed = update_option(
+					'xfact_primary_logo_url',
+					esc_url_raw( wp_unslash( $_POST['xfact_primary_logo_url'] ) ),
+				) || $settings_changed;
+			}
+			if ( isset( $_POST['xfact_favicon_url'] ) ) {
+				$settings_changed = update_option(
+					'xfact_favicon_url',
+					esc_url_raw( wp_unslash( $_POST['xfact_favicon_url'] ) ),
+				) || $settings_changed;
+			}
+			$show             = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
+			$settings_changed = update_option( 'xfact_show_floating_logo', $show ) || $settings_changed;
+
+			if ( isset( $_POST['xfact_theme_mode'] ) ) {
+				$settings_changed = update_option(
+					'xfact_theme_mode',
+					sanitize_text_field( wp_unslash( $_POST['xfact_theme_mode'] ) ),
+				) || $settings_changed;
+			}
+			$disable_dark_mode = isset( $_POST['xfact_disable_dark_mode'] )
+				? true
+				: false;
+			$settings_changed  = update_option( 'xfact_disable_dark_mode', $disable_dark_mode ) || $settings_changed;
+
+			// Typography.
+			if ( isset( $_POST['xfact_font_heading'] ) ) {
+				$settings_changed = update_option(
+					'xfact_font_heading',
+					sanitize_text_field( wp_unslash( $_POST['xfact_font_heading'] ) ),
+				) || $settings_changed;
+			}
+			if ( isset( $_POST['xfact_font_body'] ) ) {
+				$settings_changed = update_option(
+					'xfact_font_body',
+					sanitize_text_field( wp_unslash( $_POST['xfact_font_body'] ) ),
+				) || $settings_changed;
+			}
+
+			// Process custom fonts.
+			if (
+				isset( $_POST['xfact_custom_fonts'] ) &&
+				is_array( $_POST['xfact_custom_fonts'] )
+			) {
+				$sanitized_fonts = array();
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We sanitize individual fields below.
+				foreach ( wp_unslash( $_POST['xfact_custom_fonts'] ) as $font ) {
+					if ( empty( $font['name'] ) || empty( $font['url'] ) ) {
+						continue;
+					}
+					$slug              = sanitize_title( $font['name'] );
+					$sanitized_fonts[] = array(
+						'name'       => sanitize_text_field( $font['name'] ),
+						'slug'       => $slug,
+						'url'        => esc_url_raw( $font['url'] ),
+						'weight'     => sanitize_text_field( $font['weight'] ?? '400' ),
+						'fontFamily' => sanitize_text_field(
+							$font['fontFamily'] ?? $font['name'],
+						),
+					);
+				}
+				$settings_changed = update_option( 'xfact_custom_fonts', $sanitized_fonts ) || $settings_changed;
+			} else {
+				// If submitted but empty, clear it.
+				$settings_changed = update_option( 'xfact_custom_fonts', array() ) || $settings_changed;
+			}
+
+			if ( $settings_changed ) {
+				wp_safe_redirect(
+					add_query_arg(
+						array(
+							'page'        => 'xfact-settings',
+							'xfact-saved' => 'true',
+						),
+						admin_url( 'themes.php' )
+					)
+				);
+				exit;
+			} else {
+				wp_safe_redirect(
+					add_query_arg(
+						array(
+							'page'        => 'xfact-settings',
+							'xfact-saved' => 'false',
+						),
+						admin_url( 'themes.php' )
+					)
+				);
+				exit;
+			}
+		}
+	}
+}
+add_action( 'admin_init', 'xfact_process_admin_settings' );
+
+/**
  * Enqueue media uploader on the settings page.
  *
  * @param string $hook Current admin page hook.
@@ -140,160 +309,17 @@ function xfact_render_admin_settings_page(): void {
 		return;
 	}
 
-	/* Handle form submission */
-	if (
-		isset( $_POST['xfact_settings_nonce'] ) &&
-		wp_verify_nonce(
-			sanitize_text_field( wp_unslash( $_POST['xfact_settings_nonce'] ) ),
-			'xfact_save_settings',
-		)
-	) {
-		/* Reset Global Styles to theme.json defaults */
-		if ( isset( $_POST['xfact_reset_global_styles'] ) ) {
-			$global_styles = get_posts(
-				array(
-					'post_type'   => 'wp_global_styles',
-					'post_status' => array( 'publish', 'draft' ),
-					'numberposts' => 1,
-				)
-			);
-			if ( ! empty( $global_styles ) ) {
-				wp_delete_post( $global_styles[0]->ID, true );
-			}
-
-			// Reset all theme options.
-			global $wpdb;
-			// Delete all options starting with 'xfact_' to completely reset the theme config.
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query(
-				"DELETE FROM {$wpdb->options} WHERE option_name LIKE 'xfact\_%'",
-			);
-			wp_cache_flush();
-
-			echo '<div class="notice notice-warning is-dismissible xfact-toast"><p>Theme configuration and styles reset to defaults. All custom colors, typography, and logos have been reverted.</p></div>';
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_GET['settings-reset'] ) && 'true' === $_GET['settings-reset'] ) {
+		echo '<div class="xfact-toast xfact-toast-warning"><p>Theme configuration and styles reset to defaults. All custom colors, typography, and logos have been reverted.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+	} elseif ( isset( $_GET['xfact-saved'] ) ) {
+		if ( 'true' === $_GET['xfact-saved'] ) {
+			echo '<div class="xfact-toast xfact-toast-success"><p>Settings saved.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
 		} else {
-			/*
-			Normal settings save.
-			*/
-			$settings_changed = false;
-
-			// Save legacy colors just in case.
-			$colors = array(
-				'bg',
-				'bg_alt',
-				'text',
-				'text_secondary',
-				'accent',
-				'dark_bg',
-				'dark_bg_alt',
-				'dark_text',
-				'dark_text_secondary',
-				'dark_accent',
-			);
-			foreach ( $colors as $color ) {
-				$key = 'xfact_color_' . $color;
-				if ( isset( $_POST[ $key ] ) ) {
-					$settings_changed = update_option( $key, sanitize_hex_color( wp_unslash( $_POST[ $key ] ) ) ) || $settings_changed;
-				}
-			}
-
-			// Save new dynamic colors.
-			foreach ( $_POST as $key => $val ) {
-				if (
-					strpos( $key, 'xfact_primitive_' ) === 0 ||
-					strpos( $key, 'xfact_semantic_' ) === 0 ||
-					strpos( $key, 'xfact_dark_semantic_' ) === 0
-				) {
-					// validate if it's a hex or a string slug.
-					if ( strpos( $val, '#' ) === 0 ) {
-						$settings_changed = update_option( $key, sanitize_hex_color( wp_unslash( $val ) ) ) || $settings_changed;
-					} else {
-						$settings_changed = update_option( $key, sanitize_text_field( wp_unslash( $val ) ) ) || $settings_changed;
-					}
-				}
-			}
-
-			if ( isset( $_POST['xfact_floating_logo_url'] ) ) {
-				$settings_changed = update_option(
-					'xfact_floating_logo_url',
-					esc_url_raw( wp_unslash( $_POST['xfact_floating_logo_url'] ) ),
-				) || $settings_changed;
-			}
-			if ( isset( $_POST['xfact_primary_logo_url'] ) ) {
-				$settings_changed = update_option(
-					'xfact_primary_logo_url',
-					esc_url_raw( wp_unslash( $_POST['xfact_primary_logo_url'] ) ),
-				) || $settings_changed;
-			}
-			if ( isset( $_POST['xfact_favicon_url'] ) ) {
-				$settings_changed = update_option(
-					'xfact_favicon_url',
-					esc_url_raw( wp_unslash( $_POST['xfact_favicon_url'] ) ),
-				) || $settings_changed;
-			}
-			$show             = isset( $_POST['xfact_show_floating_logo'] ) ? true : false;
-			$settings_changed = update_option( 'xfact_show_floating_logo', $show ) || $settings_changed;
-
-			if ( isset( $_POST['xfact_theme_mode'] ) ) {
-				$settings_changed = update_option(
-					'xfact_theme_mode',
-					sanitize_text_field( wp_unslash( $_POST['xfact_theme_mode'] ) ),
-				) || $settings_changed;
-			}
-			$disable_dark_mode = isset( $_POST['xfact_disable_dark_mode'] )
-				? true
-				: false;
-			$settings_changed  = update_option( 'xfact_disable_dark_mode', $disable_dark_mode ) || $settings_changed;
-
-			// Typography.
-			if ( isset( $_POST['xfact_font_heading'] ) ) {
-				$settings_changed = update_option(
-					'xfact_font_heading',
-					sanitize_text_field( wp_unslash( $_POST['xfact_font_heading'] ) ),
-				) || $settings_changed;
-			}
-			if ( isset( $_POST['xfact_font_body'] ) ) {
-				$settings_changed = update_option(
-					'xfact_font_body',
-					sanitize_text_field( wp_unslash( $_POST['xfact_font_body'] ) ),
-				) || $settings_changed;
-			}
-
-			// Process custom fonts.
-			if (
-				isset( $_POST['xfact_custom_fonts'] ) &&
-				is_array( $_POST['xfact_custom_fonts'] )
-			) {
-				$sanitized_fonts = array();
-				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We sanitize individual fields below.
-				foreach ( wp_unslash( $_POST['xfact_custom_fonts'] ) as $font ) {
-					if ( empty( $font['name'] ) || empty( $font['url'] ) ) {
-						continue;
-					}
-					$slug              = sanitize_title( $font['name'] );
-					$sanitized_fonts[] = array(
-						'name'       => sanitize_text_field( $font['name'] ),
-						'slug'       => $slug,
-						'url'        => esc_url_raw( $font['url'] ),
-						'weight'     => sanitize_text_field( $font['weight'] ?? '400' ),
-						'fontFamily' => sanitize_text_field(
-							$font['fontFamily'] ?? $font['name'],
-						),
-					);
-				}
-				$settings_changed = update_option( 'xfact_custom_fonts', $sanitized_fonts ) || $settings_changed;
-			} else {
-				// If submitted but empty, clear it.
-				$settings_changed = update_option( 'xfact_custom_fonts', array() ) || $settings_changed;
-			}
-
-			if ( $settings_changed ) {
-				echo '<div class="notice notice-success is-dismissible xfact-toast"><p>Settings saved.</p></div>';
-			} else {
-				echo '<div class="notice notice-info is-dismissible xfact-toast"><p>No changes were made.</p></div>';
-			}
+			echo '<div class="xfact-toast xfact-toast-info"><p>No changes were made.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
 		}
 	}
+	// phpcs:enable
 
 	// Fetch Primitives.
 	$prim_defs  = array(

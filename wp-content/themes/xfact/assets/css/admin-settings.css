@@ -751,28 +751,28 @@
     font-weight: 500;
 }
 
-.xfact-toast.notice-success {
+.xfact-toast.xfact-toast-success {
     background: var(--xfact-semantic-success);
     border-color: var(--xfact-semantic-success);
 }
 
-.xfact-toast.notice-info,
-.xfact-toast.notice-primary {
+.xfact-toast.xfact-toast-info,
+.xfact-toast.xfact-toast-primary {
     background: var(--xfact-semantic-primary);
     border-color: var(--xfact-semantic-primary);
 }
 
-.xfact-toast.notice-warning {
+.xfact-toast.xfact-toast-warning {
     background: var(--xfact-semantic-warning);
     border-color: var(--xfact-semantic-warning);
 }
 
-.xfact-toast.notice-error {
+.xfact-toast.xfact-toast-error {
     background: var(--xfact-semantic-danger);
     border-color: var(--xfact-semantic-danger);
 }
 
-.xfact-toast .notice-dismiss {
+.xfact-toast .xfact-toast-dismiss {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -784,14 +784,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-.xfact-toast .notice-dismiss::before {
+.xfact-toast .xfact-toast-dismiss::before {
+    content: "✕";
+    font-size: 16px;
+    line-height: 1;
     color: rgba(255, 255, 255, 0.8);
-    background: transparent;
+    transition: color 0.2s ease;
 }
 
-.xfact-toast .notice-dismiss:hover::before {
+.xfact-toast .xfact-toast-dismiss:hover::before {
     color: #ffffff;
 }
 

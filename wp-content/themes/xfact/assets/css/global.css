@@ -17,10 +17,7 @@
     --xfact-dark-section-muted: rgb(255 255 255 / 55%);
     --wp--preset--color--primary: #5c8ae6;
     --wp--preset--color--primary-dark: #123e99;
-    --xfact-btn-from: #123e99;
-    --xfact-btn-to: #2a5bb8;
-    --xfact-btn-hover-from: #1a4fb3;
-    --xfact-btn-hover-to: #3a6bd4;
+
     --xfact-spacing-section: 5.625rem;
     --xfact-spacing-section-lg: 7rem;
     --xfact-spacing-hero-top: 10rem;
@@ -298,9 +295,7 @@ div.xfact-separator {
 .xfact-dark-section .xfact-support-channels__icon-badge,
 .xfact-dark-section .xfact-solutions-grid__icon,
 .xfact-dark-section .xfact-capability-area__service-tag,
-.xfact-dark-section .xfact-btn-secondary,
-.xfact-dark-section .xfact-btn-default,
-.xfact-dark-section .wp-block-button__link:not(.xfact-btn-primary) {
+.xfact-dark-section .xfact-btn-secondary {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border: 1px solid var(--xfact-glass-border) !important;
@@ -310,9 +305,7 @@ div.xfact-separator {
 .xfact-dark-section .xfact-card-interactive.xfact-card-interactive:hover,
 .xfact-dark-section .xfact-text-section__tag:hover,
 .xfact-dark-section .xfact-capability-area__service-tag:hover,
-.xfact-dark-section .xfact-btn-secondary:hover,
-.xfact-dark-section .xfact-btn-default:hover,
-.xfact-dark-section .wp-block-button__link:not(.xfact-btn-primary):hover {
+.xfact-dark-section .xfact-btn-secondary:hover {
     background: var(--xfact-glass-bg-hover);
     border-color: var(--xfact-glass-border-hover);
 }

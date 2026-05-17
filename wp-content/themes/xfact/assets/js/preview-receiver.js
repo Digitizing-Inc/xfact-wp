@@ -72,34 +72,6 @@
             }
         }
 
-        // 3. Gradients
-        if (currentStyles.gradients) {
-            for (const [key, gradient] of Object.entries(
-                currentStyles.gradients,
-            )) {
-                const angle = parseInt(gradient.angle || '90', 10);
-                css += `\n\t--wp--preset--gradient--${key}: linear-gradient(${angle}deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
-                css += `\n\t--xfact-gradient-${key}: linear-gradient(${angle}deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
-
-                let horizontal_angle = (angle - 90) % 360;
-                if (horizontal_angle < 0) {
-                    horizontal_angle += 360;
-                }
-                css += `\n\t--xfact-gradient-${key}-horizontal: linear-gradient(${horizontal_angle}deg, var(--xfact-primitive-${gradient.start}) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
-
-                if (key === 'primary-2') {
-                    css += `\n\t--xfact-btn-angle: ${angle}deg !important;`;
-                    css += `\n\t--xfact-btn-from: var(--xfact-primitive-${gradient.start}) !important;`;
-                    css += `\n\t--xfact-btn-to: var(--xfact-primitive-${gradient.end}) !important;`;
-                }
-                if (key === 'secondary-2') {
-                    css += `\n\t--xfact-btn-hover-angle: ${angle}deg !important;`;
-                    css += `\n\t--xfact-btn-hover-from: var(--xfact-primitive-${gradient.start}) !important;`;
-                    css += `\n\t--xfact-btn-hover-to: var(--xfact-primitive-${gradient.end}) !important;`;
-                }
-            }
-        }
-
         // 4. Typography / legacy vars
         if (currentStyles.vars) {
             for (const [key, value] of Object.entries(currentStyles.vars)) {
@@ -128,16 +100,6 @@
             )) {
                 css += `\n\t--wp--preset--color--${key}: var(--xfact-primitive-${value}) !important;`;
                 css += `\n\t--xfact-semantic-${key}: var(--xfact-primitive-${value}) !important;`;
-            }
-
-            // Make dark mode gradients darker by setting the start color to black.
-            if (currentStyles.gradients) {
-                for (const [key, gradient] of Object.entries(
-                    currentStyles.gradients,
-                )) {
-                    const angle = gradient.angle || '90';
-                    css += `\n\t--xfact-gradient-${key}: linear-gradient(${angle}deg, var(--xfact-primitive-black) 0%, var(--xfact-primitive-${gradient.end}) 100%) !important;`;
-                }
             }
 
             css += '\n}';
