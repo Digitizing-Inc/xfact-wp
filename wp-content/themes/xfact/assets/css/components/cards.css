@@ -1,0 +1,45 @@
+/* ── Card Component ────────────────────────────────────── */
+
+.xfact-card,
+.xfact-card-interactive {
+    background-color: var(--has-surface-background-color-card);
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
+    border-radius: var(--xfact-glass-radius);
+    overflow: hidden;
+    color: var(--xfact-semantic-text-primary);
+}
+
+.xfact-card-interactive {
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.xfact-card-interactive:hover {
+    border-color: var(--xfact-semantic-primary);
+    transform: translateY(-4px);
+    box-shadow:
+        0 10px 25px -5px rgb(0 0 0 / 10%),
+        0 8px 10px -6px rgb(0 0 0 / 10%);
+}
+
+.xfact-card-interactive:focus-visible {
+    outline: 2px solid var(--xfact-semantic-primary);
+    outline-offset: 2px;
+}
+
+/* Glassmorphism Context for Cards in Dark Sections */
+.xfact-dark-section .xfact-card.xfact-card,
+.xfact-dark-section .xfact-card-interactive.xfact-card-interactive {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border: 1px solid var(--xfact-glass-border) !important;
+    color: var(--xfact-semantic-text-primary) !important;
+}
+
+.xfact-dark-section .xfact-card-interactive.xfact-card-interactive:hover {
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
+}

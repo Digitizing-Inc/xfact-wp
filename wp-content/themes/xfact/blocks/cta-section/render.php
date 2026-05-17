@@ -48,7 +48,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			<h2 class="xfact-cta-section__title"><?php echo esc_html( $cta_title ); ?></h2>
 
 			<?php if ( $subtitle ) : ?>
-				<p class="xfact-cta-section__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+				<p class="xfact-cta-section__subtitle xfact-text-secondary"><?php echo esc_html( $subtitle ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $buttons ) ) : ?>

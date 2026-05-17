@@ -97,7 +97,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 							}
 							?>
 							<?php if ( ! empty( $sector['badge'] ) ) : ?>
-								<span class="xfact-solutions-grid__badge"><?php echo esc_html( $sector['badge'] ); ?></span>
+								<div class="xfact-badge" style="margin-top: 0;">
+									<span><?php echo esc_html( $sector['badge'] ); ?></span>
+								</div>
 							<?php endif; ?>
 						</div>
 						<div class="xfact-solutions-grid__card-content">

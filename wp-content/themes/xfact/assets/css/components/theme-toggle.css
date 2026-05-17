@@ -1,0 +1,73 @@
+/* ── Theme Toggle Button ── */
+button.xfact-theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 3rem;
+    height: 1.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
+}
+
+button.xfact-theme-toggle:focus-visible {
+    outline: 2px solid var(--xfact-semantic-primary);
+    outline-offset: 2px;
+}
+
+button.xfact-theme-toggle--icon-only {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    color: var(--xfact-semantic-text-secondary);
+    background: rgb(0 0 0 / 5%);
+    backdrop-filter: var(--xfact-glass-blur);
+    border: 1px solid rgb(0 0 0 / 5%);
+}
+
+.xfact-dark-section button.xfact-theme-toggle--icon-only {
+    background: var(--xfact-glass-bg);
+    border-color: var(--xfact-glass-border);
+    color: rgb(255 255 255 / 80%);
+}
+
+button.xfact-theme-toggle--icon-only:hover {
+    background: rgb(0 0 0 / 10%);
+}
+
+.xfact-dark-section button.xfact-theme-toggle--icon-only:hover {
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
+    color: var(--xfact-semantic-text-primary);
+}
+
+button.xfact-theme-toggle--icon-only svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+svg.xfact-theme-toggle__icon-moon,
+svg.xfact-theme-toggle__icon-sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+svg.xfact-theme-toggle__icon-moon {
+    display: block;
+    color: var(--xfact-semantic-text-secondary);
+}
+
+svg.xfact-theme-toggle__icon-sun {
+    display: none;
+    color: var(--xfact-semantic-text-secondary);
+}

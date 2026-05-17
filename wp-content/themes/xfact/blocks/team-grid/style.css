@@ -22,22 +22,9 @@
 }
 
 .xfact-team-grid__card {
-    background-color: var(--has-surface-background-color-card);
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
-    border-radius: 1rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
-}
-
-.xfact-team-grid__card:hover {
-    border-color: var(--xfact-semantic-primary);
-    transform: translateY(-4px);
-    box-shadow:
-        0 10px 25px -5px rgb(0 0 0 / 10%),
-        0 8px 10px -6px rgb(0 0 0 / 10%);
 }
 
 .xfact-team-grid__image-wrapper {
@@ -109,6 +96,11 @@ html[data-theme="dark"] .xfact-team-grid__image {
 .xfact-team-grid__social-link:hover {
     color: var(--xfact-semantic-primary);
     transform: scale(1.1);
+}
+
+.xfact-dark-section .xfact-team-grid__social-link,
+html[data-theme="dark"] .xfact-team-grid__social-link {
+    color: var(--xfact-semantic-primary-light);
 }
 
 .xfact-team-grid__social-icon {

@@ -2,6 +2,16 @@
  * xFact Admin Settings page styles.
  */
 
+:root {
+    /* Systems Window Glassmorphism */
+    --xfact-glass-bg: rgb(255 255 255 / 10%);
+    --xfact-glass-bg-hover: rgb(255 255 255 / 15%);
+    --xfact-glass-border: rgb(255 255 255 / 20%);
+    --xfact-glass-border-hover: rgb(255 255 255 / 30%);
+    --xfact-glass-blur: blur(12px);
+    --xfact-glass-radius: 12px;
+}
+
 .xfact-admin-settings {
     margin-top: 24px;
     font-family:
@@ -168,106 +178,6 @@
     border-radius: 6px;
 }
 
-/* Buttons */
-.xfact-admin-settings .button-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 12px !important;
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent) !important;
-    color: #ffffff !important;
-    background: var(--xfact-semantic-primary-dark) !important;
-    padding: 0 1.5rem;
-    height: 2.75rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    box-shadow:
-        inset 0 1px 0
-        color-mix(in srgb, var(--xfact-semantic-surface) 10%, transparent),
-        0 2px 4px
-        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent) !important;
-    line-height: normal;
-}
-
-.xfact-admin-settings .button-primary:hover {
-    background: var(--xfact-semantic-primary-dark) !important;
-    border-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-surface) 40%,
-        transparent
-    ) !important;
-    color: #ffffff !important;
-    box-shadow:
-        inset 0 1px 0
-        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent),
-        0 4px 12px
-        color-mix(in srgb, var(--xfact-semantic-text-primary) 15%, transparent) !important;
-    transform: translateY(-1px);
-}
-
-.xfact-admin-settings .button-primary:focus {
-    outline: 2px solid var(--xfact-semantic-primary);
-    outline-offset: 2px;
-    box-shadow: none;
-}
-
-.xfact-admin-settings .button-secondary {
-    padding: 8px 20px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: normal;
-    height: auto;
-    border: 1px solid
-        color-mix(
-            in srgb,
-            var(--xfact-semantic-text-secondary) 25%,
-            transparent
-        );
-    color: var(--xfact-semantic-text-secondary);
-    background: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-secondary) 5%,
-        transparent
-    );
-    backdrop-filter: var(--xfact-glass-blur);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.xfact-admin-settings .button-secondary:hover {
-    background: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-secondary) 10%,
-        transparent
-    );
-    border-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-secondary) 40%,
-        transparent
-    );
-    color: var(--xfact-semantic-text-primary);
-    transform: translateY(-1px);
-}
-
-.xfact-btn-danger {
-    color: var(--xfact-semantic-danger);
-    border: 1px solid var(--xfact-semantic-danger);
-    background: var(--xfact-semantic-surface);
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.xfact-btn-danger:hover {
-    background: var(--xfact-semantic-danger);
-    color: var(--xfact-semantic-text-primary);
-}
-
 .xfact-custom-font-row {
     display: flex;
     flex-wrap: wrap;
@@ -283,6 +193,107 @@
 .xfact-custom-font-row input[type="text"] {
     flex: 1;
     min-width: 150px;
+}
+
+/* Unified Inputs */
+.xfact-admin-settings input[type="text"],
+.xfact-admin-settings input[type="url"],
+.xfact-admin-settings input[type="number"],
+.xfact-admin-settings select {
+    height: 36px !important;
+    line-height: normal !important;
+    padding: 0 12px !important;
+    border-radius: var(--xfact-glass-radius) !important;
+    box-sizing: border-box !important;
+}
+
+.xfact-admin-settings select {
+    min-width: 200px !important;
+}
+
+/* WP Color Picker Hex Input Override */
+.xfact-admin-settings .wp-picker-container input[type="text"] {
+    min-width: 80px !important;
+    width: 80px !important;
+}
+
+.xfact-admin-settings .wp-picker-container .wp-picker-default {
+    height: 36px !important;
+    line-height: normal !important;
+    padding: 0 12px !important;
+    border-radius: var(--xfact-glass-radius) !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: top !important;
+    margin-left: 6px !important;
+}
+
+/* Custom Color Swatcher */
+.xfact-swatch-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--xfact-semantic-surface);
+    border: 1px solid var(--xfact-semantic-surface-alt);
+    border-radius: var(--xfact-glass-radius) !important;
+    cursor: pointer;
+    width: 140px;
+    justify-content: flex-start;
+    height: 36px !important;
+    padding: 0 12px !important;
+    transition: all 0.2s ease;
+}
+
+.xfact-swatch-trigger:hover,
+.xfact-swatch-trigger:focus {
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface) 90%,
+        var(--xfact-semantic-text-primary)
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface-alt) 80%,
+        var(--xfact-semantic-text-primary)
+    );
+}
+
+.xfact-swatch-popover-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    flex: 0 0 auto;
+    width: 68px;
+    transition: all 0.2s ease;
+}
+
+.xfact-swatch-popover-item:hover,
+.xfact-swatch-popover-item:focus {
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface-alt) 50%,
+        transparent
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-primary) 10%,
+        transparent
+    );
+}
+
+.xfact-swatch-popover-item.active {
+    background: var(--xfact-semantic-surface);
+    border-color: var(--xfact-semantic-text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Unified Layout */
@@ -359,7 +370,7 @@
 
 .xfact-tabs {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     background: color-mix(
         in srgb,
         var(--xfact-semantic-text-secondary) 8%,
@@ -374,31 +385,23 @@
 .xfact-tab {
     display: flex;
     align-items: center;
-    padding: 8px 20px;
+    padding: 6px 16px;
+    border-radius: 8px;
     text-decoration: none;
     color: var(--xfact-semantic-text-secondary);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
-    border: none;
-    border-radius: 8px;
     transition: all 0.2s ease;
-    white-space: nowrap;
-    margin-bottom: 0;
 }
 
 .xfact-tab:hover {
     color: var(--xfact-semantic-text-primary);
-    background: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-primary) 5%,
-        transparent
-    );
 }
 
-.xfact-tab:focus {
-    outline: none;
-    box-shadow: none;
+.xfact-tab.active {
+    background: var(--xfact-semantic-surface);
     color: var(--xfact-semantic-text-primary);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .xfact-tab.xfact-active-tab {
@@ -486,7 +489,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 24px;
+    padding: 0 32px;
     background: color-mix(
         in srgb,
         var(--xfact-semantic-surface) 60%,
@@ -494,7 +497,7 @@
     );
     border-bottom: 1px solid
         color-mix(in srgb, var(--xfact-semantic-text-primary) 20%, transparent);
-    height: 60px;
+    height: 72px;
 }
 
 .xfact-preview-header h2 {
@@ -524,17 +527,17 @@
         var(--xfact-semantic-text-secondary) 8%,
         transparent
     );
-    border-radius: 8px;
-    padding: 4px;
+    border-radius: 12px;
+    padding: 6px;
     gap: 4px;
 }
 
 .xfact-theme-btn {
     border: none;
     background: transparent;
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--xfact-semantic-text-secondary);
     cursor: pointer;
@@ -544,7 +547,7 @@
 .xfact-theme-btn.active {
     background: var(--xfact-semantic-surface);
     color: var(--xfact-semantic-text-primary);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .xfact-preview-canvas {
@@ -623,146 +626,4 @@
     background: var(--xfact-semantic-surface-alt);
     border-color: var(--xfact-semantic-text-secondary);
     box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
-}
-
-/* Alert Notification */
-.xfact-alert {
-    display: none;
-    margin: 0 0 24px 0;
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.xfact-alert p {
-    margin: 0 !important;
-    padding: 0 !important;
-    color: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.xfact-alert.xfact-alert-success {
-    display: flex !important;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-success) 10%,
-        transparent
-    );
-    border: 1px solid var(--xfact-semantic-success);
-    border-left: 4px solid var(--xfact-semantic-success);
-    color: var(--xfact-semantic-success);
-}
-
-.xfact-alert.xfact-alert-success::before {
-    content: "";
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    background-color: var(--xfact-semantic-success);
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'%3E%3C/path%3E%3Cpolyline points='22 4 12 14.01 9 11.01'%3E%3C/polyline%3E%3C/svg%3E");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'%3E%3C/path%3E%3Cpolyline points='22 4 12 14.01 9 11.01'%3E%3C/polyline%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-}
-
-.xfact-alert.xfact-alert-danger {
-    display: flex !important;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-danger) 10%,
-        transparent
-    );
-    border: 1px solid var(--xfact-semantic-danger);
-    border-left: 4px solid var(--xfact-semantic-danger);
-    color: var(--xfact-semantic-danger);
-}
-
-.xfact-alert.xfact-alert-danger::before {
-    content: "";
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    background-color: var(--xfact-semantic-danger);
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-}
-
-.xfact-alert.xfact-alert-info {
-    display: flex !important;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-primary) 10%,
-        transparent
-    );
-    border: 1px solid var(--xfact-semantic-primary);
-    border-left: 4px solid var(--xfact-semantic-primary);
-    color: var(--xfact-semantic-primary);
-}
-
-.xfact-alert.xfact-alert-info::before {
-    content: "";
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    background-color: var(--xfact-semantic-primary);
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='16' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'%3E%3C/line%3E%3C/svg%3E");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='16' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'%3E%3C/line%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-}
-
-.xfact-alert.xfact-alert-warning {
-    display: flex !important;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-warning) 10%,
-        transparent
-    );
-    border: 1px solid var(--xfact-semantic-warning);
-    border-left: 4px solid var(--xfact-semantic-warning);
-    color: var(--xfact-semantic-warning);
-}
-
-.xfact-alert.xfact-alert-warning::before {
-    content: "";
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    background-color: var(--xfact-semantic-warning);
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'%3E%3C/path%3E%3Cline x1='12' y1='9' x2='12' y2='13'%3E%3C/line%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'%3E%3C/line%3E%3C/svg%3E");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'%3E%3C/path%3E%3Cline x1='12' y1='9' x2='12' y2='13'%3E%3C/line%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'%3E%3C/line%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
 }

@@ -99,8 +99,13 @@ img.xfact-cta-section__watermark {
     color: var(--xfact-semantic-text-secondary);
 }
 
+html[data-theme="dark"] .xfact-cta-section__subtitle,
 .xfact-dark-section .xfact-cta-section__subtitle {
-    color: var(--xfact-semantic-text-secondary);
+    color: color-mix(
+        in srgb,
+        var(--xfact-semantic-text-primary) 60%,
+        transparent
+    );
 }
 
 .xfact-cta-section__buttons {

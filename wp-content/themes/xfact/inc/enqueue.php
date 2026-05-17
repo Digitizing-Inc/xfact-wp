@@ -25,11 +25,19 @@ function xfact_enqueue_assets(): void {
 		$theme_version
 	);
 
-	/* Global custom styles — animations, utilities, buttons */
+	/* Typography utilities */
+	wp_enqueue_style(
+		'xfact-typography',
+		get_theme_file_uri( 'assets/css/typography.css' ),
+		array(),
+		$theme_version
+	);
+
+	/* Global custom styles — animations, utilities */
 	wp_enqueue_style(
 		'xfact-global',
 		get_theme_file_uri( 'assets/css/global.css' ),
-		array(),
+		array( 'xfact-typography' ),
 		$theme_version
 	);
 
@@ -48,10 +56,38 @@ function xfact_enqueue_assets(): void {
 		$theme_version
 	);
 
-	/* Button styles (used by core/button and custom blocks like cta-section). */
+	/* Component styles */
 	wp_enqueue_style(
-		'xfact-core-button',
-		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
+		'xfact-components-buttons',
+		get_theme_file_uri( 'assets/css/components/buttons.css' ),
+		array( 'xfact-global' ),
+		$theme_version
+	);
+
+	wp_enqueue_style(
+		'xfact-components-alerts',
+		get_theme_file_uri( 'assets/css/components/alerts.css' ),
+		array( 'xfact-global' ),
+		$theme_version
+	);
+
+	wp_enqueue_style(
+		'xfact-components-cards',
+		get_theme_file_uri( 'assets/css/components/cards.css' ),
+		array( 'xfact-global' ),
+		$theme_version
+	);
+
+	wp_enqueue_style(
+		'xfact-components-badges',
+		get_theme_file_uri( 'assets/css/components/badges.css' ),
+		array( 'xfact-global' ),
+		$theme_version
+	);
+
+	wp_enqueue_style(
+		'xfact-components-theme-toggle',
+		get_theme_file_uri( 'assets/css/components/theme-toggle.css' ),
 		array( 'xfact-global' ),
 		$theme_version
 	);
@@ -142,8 +178,6 @@ if ( isset( $_GET['xfact_preview'] ) ) { // phpcs:ignore WordPress.Security.Nonc
 	add_filter( 'show_admin_bar', '__return_false' );
 }
 
-
-
 /**
  * Register shared editor helpers script early so blocks can declare
  * it as a dependency in their index.asset.php manifests.
@@ -176,14 +210,6 @@ function xfact_enqueue_editor_assets(): void {
 	$theme_version = wp_get_theme()->get( 'Version' );
 
 	wp_enqueue_script( 'xfact-editor-helpers' );
-
-	wp_enqueue_style(
-		'xfact-core-button-editor',
-		get_theme_file_uri( 'assets/css/blocks/core-button.css' ),
-		array(),
-		$theme_version
-	);
-
 	/* Settings sidebar — global theme options panel in the Editor. */
 	wp_enqueue_script(
 		'xfact-editor-settings-sidebar',

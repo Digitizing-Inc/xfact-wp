@@ -306,6 +306,11 @@ form.submitting .xfact-contact-form__form p:has(input[type="submit"])::after {
     color: var(--xfact-semantic-primary);
 }
 
+.xfact-dark-section .xfact-contact-form__check-icon,
+html[data-theme="dark"] .xfact-contact-form__check-icon {
+    color: var(--xfact-semantic-primary-light);
+}
+
 .xfact-contact-form__checklist-item span {
     font-size: 0.875rem;
 }

@@ -209,11 +209,25 @@ function xfact_admin_settings_enqueue( string $hook ): void {
 	wp_enqueue_media();
 	wp_enqueue_style( 'wp-color-picker' );
 	xfact_enqueue_dynamic_fonts();
+	$theme_version = wp_get_theme()->get( 'Version' );
+
+	wp_enqueue_style( 'xfact-typography', get_theme_file_uri( 'assets/css/typography.css' ), array(), $theme_version );
+	wp_enqueue_style( 'xfact-components-buttons', get_theme_file_uri( 'assets/css/components/buttons.css' ), array(), $theme_version );
+	wp_enqueue_style( 'xfact-components-alerts', get_theme_file_uri( 'assets/css/components/alerts.css' ), array(), $theme_version );
+	wp_enqueue_style( 'xfact-components-cards', get_theme_file_uri( 'assets/css/components/cards.css' ), array(), $theme_version );
+	wp_enqueue_style( 'xfact-components-badges', get_theme_file_uri( 'assets/css/components/badges.css' ), array(), $theme_version );
+
 	wp_enqueue_style(
 		'xfact-admin-settings',
 		get_theme_file_uri( 'assets/css/admin-settings.css' ),
-		array(),
-		wp_get_theme()->get( 'Version' ),
+		array(
+			'xfact-typography',
+			'xfact-components-buttons',
+			'xfact-components-alerts',
+			'xfact-components-cards',
+			'xfact-components-badges',
+		),
+		$theme_version,
 	);
 	wp_enqueue_script(
 		'xfact-admin-settings',
@@ -263,7 +277,7 @@ function xfact_render_swatch_picker(
 	$current_hex = isset( $primitives[ $current_val ] )
 		? $primitives[ $current_val ]
 		: '#000000';
-	echo '<button type="button" class="xfact-swatch-trigger" style="display: flex; align-items: center; gap: 8px; padding: 4px 10px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; cursor: pointer; height: 32px; width: 140px; justify-content: flex-start;">';
+	echo '<button type="button" class="xfact-swatch-trigger">';
 	echo '<span class="xfact-swatch-preview" style="width: 16px; height: 16px; border-radius: 50%; background-color: ' .
 		esc_attr( $current_hex ) .
 		'; border: 1px solid #cbd5e1; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex-shrink: 0;"></span>';
@@ -283,7 +297,7 @@ function xfact_render_swatch_picker(
 			esc_attr( $slug ) .
 			'" data-hex="' .
 			esc_attr( $hex ) .
-			'" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border: 1px solid transparent; background: transparent; cursor: pointer; padding: 4px; border-radius: 6px; flex: 0 0 auto; width: 68px;">';
+			'">';
 		echo '<span style="width: 24px; height: 24px; border-radius: 50%; background-color: ' .
 			esc_attr( $hex ) .
 			'; border: 1px solid #cbd5e1; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);"></span>';
@@ -297,7 +311,7 @@ function xfact_render_swatch_picker(
 		esc_attr( $name ) .
 		'" data-default="' .
 		esc_attr( $default_val ) .
-		'" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 32px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>';
+		'" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-reset-color-btn" style="display: flex; align-items: center; justify-content: center;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>';
 	echo '</div>';
 }
 
@@ -426,18 +440,8 @@ function xfact_render_admin_settings_page(): void {
 						<a href="#tab-tools" class="xfact-tab">Tools</a>
 					</div>
 					<div class="xfact-save-actions">
-						<button type="button" class="button button-secondary" id="xfact-jump-to-preview" style="margin-right: 12px;">Jump to Live Preview ↓</button>
-						<?php
-						submit_button(
-							'Save Settings',
-							'primary',
-							'submit',
-							false,
-							array(
-								'class' => 'button-primary',
-							)
-						);
-						?>
+						<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm" id="xfact-jump-to-preview" style="margin-right: 12px;">Jump to Live Preview ↓</button>
+						<input type="submit" name="submit" id="submit" class="xfact-btn xfact-btn-primary xfact-btn-sm" value="Save Settings">
 					</div>
 				</div>
 				<div class="xfact-settings-body">
@@ -470,10 +474,10 @@ function xfact_render_admin_settings_page(): void {
 								?>
 		" />
 								<div class="xfact-btn-group" style="margin-top: 12px;">
-									<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img">
+									<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-upload-btn" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img">
 										Replace Primary Logo
 									</button>
-									<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img" data-default="
+									<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-reset-btn" style="display: inline-flex; align-items: center; justify-content: center;" data-target="#xfact_primary_logo_url" data-preview="#xfact-primary-logo-preview img" data-default="
 									<?php
 									echo esc_url(
 										$default_primary_logo,
@@ -505,10 +509,10 @@ function xfact_render_admin_settings_page(): void {
 								?>
 		" />
 								<div class="xfact-btn-group" style="margin-top: 12px;">
-									<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img">
+									<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-upload-btn" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img">
 										Replace Favicon
 									</button>
-									<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img" data-default="
+									<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-reset-btn" style="display: inline-flex; align-items: center; justify-content: center;" data-target="#xfact_favicon_url" data-preview="#xfact-favicon-preview img" data-default="
 									<?php
 									echo esc_url(
 										$default_favicon,
@@ -557,10 +561,10 @@ function xfact_render_admin_settings_page(): void {
 							?>
 		" />
 							<div class="xfact-btn-group">
-								<button type="button" class="button button-secondary xfact-admin-upload-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img">
+								<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-upload-btn" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img">
 									Replace Floating Logo
 								</button>
-								<button type="button" class="button button-secondary xfact-admin-reset-btn" style="padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; height: 30px;" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img" data-default="
+								<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-admin-reset-btn" style="display: inline-flex; align-items: center; justify-content: center;" data-target="#xfact_floating_logo_url" data-preview="#xfact-floating-logo-preview img" data-default="
 								<?php
 								echo esc_url(
 									$default_float_logo,
@@ -690,7 +694,7 @@ function xfact_render_admin_settings_page(): void {
 													</strong></label>
 										<div style="display: flex; align-items: center; gap: 8px;">
 											<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $val ); ?>" class="xfact-color-picker xfact-primitive-input" data-default-color="<?php echo esc_attr( $default_hex ); ?>" data-slug="<?php echo esc_attr( $slug ); ?>" />
-											<button type="button" data-target="<?php echo esc_attr( $key ); ?>" data-default="<?php echo esc_attr( $default_hex ); ?>" class="button button-secondary xfact-reset-color-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+											<button type="button" data-target="<?php echo esc_attr( $key ); ?>" data-default="<?php echo esc_attr( $default_hex ); ?>" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-reset-color-btn" style="display: flex; align-items: center; justify-content: center;" title="Reset to Default" aria-label="Reset to Default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
 										</div>
 									</div>
 									<?php
@@ -785,7 +789,7 @@ function xfact_render_admin_settings_page(): void {
 														'inter',
 													);
 													?>
-			>Inter (Default)</option>
+			>Inter</option>
 													<option value="ibm-plex-mono" 
 													<?php
 													selected(
@@ -805,7 +809,7 @@ function xfact_render_admin_settings_page(): void {
 																		><?php echo esc_html( $font['name'] ); ?></option>
 													<?php endforeach; ?>
 												</select>
-												<button type="button" class="button button-secondary xfact-reset-font-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_heading" data-default="inter"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+												<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-reset-font-btn" style="display: flex; align-items: center; justify-content: center;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_heading" data-default="inter"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
 											</div>
 										</td>
 									</tr>
@@ -822,7 +826,7 @@ function xfact_render_admin_settings_page(): void {
 														'ibm-plex-mono',
 													);
 													?>
-			>IBM Plex Mono (Default)</option>
+			>IBM Plex Mono</option>
 													<?php foreach ( $custom_fonts as $font ) : ?>
 														<option value="<?php echo esc_attr( $font['slug'] ); ?>" 
 														<?php
@@ -834,7 +838,7 @@ function xfact_render_admin_settings_page(): void {
 																		><?php echo esc_html( $font['name'] ); ?></option>
 													<?php endforeach; ?>
 												</select>
-												<button type="button" class="button button-secondary xfact-reset-font-btn" style="padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 30px;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_body" data-default="ibm-plex-mono"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+												<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-reset-font-btn" style="display: flex; align-items: center; justify-content: center;" title="Reset to Default" aria-label="Reset to Default" data-target="xfact_font_body" data-default="ibm-plex-mono"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
 											</div>
 										</td>
 									</tr>
@@ -906,12 +910,12 @@ function xfact_render_admin_settings_page(): void {
 									);
 									?>
 			" placeholder="URL to .woff2 file" required readonly style="width: 300px;" />
-										<button type="button" class="button button-secondary xfact-upload-font-btn">Upload .woff2</button>
-										<button type="button" class="button xfact-btn-danger xfact-remove-font-btn">Remove</button>
+										<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm xfact-upload-font-btn">Upload .woff2</button>
+										<button type="button" class="xfact-btn xfact-btn-danger xfact-btn-sm xfact-remove-font-btn">Remove</button>
 									</div>
 								<?php endforeach; ?>
 							</div>
-							<button type="button" class="button button-secondary" id="xfact-add-font-btn" style="margin-top: 12px;">+ Add Custom Font</button>
+							<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm" id="xfact-add-font-btn" style="margin-top: 12px;">+ Add Custom Font</button>
 						</div> <!-- End Typography Settings -->
 					</div> <!-- End TAB: TYPOGRAPHY -->
 
@@ -928,14 +932,14 @@ function xfact_render_admin_settings_page(): void {
 									$edit_header_url,
 								);
 								?>
-		" class="button button-secondary">Edit Header</a>
+		" class="xfact-btn xfact-btn-secondary xfact-btn-sm">Edit Header</a>
 								<a href="
 								<?php
 								echo esc_url(
 									$edit_footer_url,
 								);
 								?>
-		" class="button button-secondary">Edit Footer</a>
+		" class="xfact-btn xfact-btn-secondary xfact-btn-sm">Edit Footer</a>
 							</div>
 						</div> <!-- End Quick Links -->
 
@@ -947,7 +951,7 @@ function xfact_render_admin_settings_page(): void {
 							<p class="description">Revert <strong>all</strong> Gutenberg Site Editor customizations (colors, typography, spacing) back to the theme defaults defined in <code>theme.json</code>. This cannot be undone.</p>
 							<div style="margin-top: 12px;">
 								<input type="hidden" name="xfact_reset_global_styles" value="1" id="xfact_reset_global_styles_input" disabled />
-								<button type="submit" class="xfact-btn-danger" onclick="if(confirm('Are you sure? This will reset ALL customizations. This action cannot be undone.')){ document.getElementById('xfact_reset_global_styles_input').disabled = false; return true; } return false;">Reset to Theme Defaults</button>
+								<button type="submit" class="xfact-btn xfact-btn-danger xfact-btn-sm" onclick="if(confirm('Are you sure? This will reset ALL customizations. This action cannot be undone.')){ document.getElementById('xfact_reset_global_styles_input').disabled = false; return true; } return false;">Reset to Theme Defaults</button>
 							</div>
 						</div> <!-- End Reset Theme Styles -->
 					</div> <!-- End TAB: TOOLS -->
@@ -960,7 +964,7 @@ function xfact_render_admin_settings_page(): void {
 				<div class="xfact-preview-header">
 					<h2>Live Preview</h2>
 					<div class="xfact-preview-controls">
-						<button type="button" class="button button-secondary" id="xfact-back-to-settings" style="margin-right: 12px;">Back to Settings ↑</button>
+						<button type="button" class="xfact-btn xfact-btn-secondary xfact-btn-sm" id="xfact-back-to-settings" style="margin-right: 12px;">Back to Settings ↑</button>
 						<div class="xfact-preview-theme-toggle">
 							<button type="button" class="xfact-theme-btn" data-theme="light">Light</button>
 							<button type="button" class="xfact-theme-btn" data-theme="dark">Dark</button>

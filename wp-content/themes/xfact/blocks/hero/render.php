@@ -216,7 +216,9 @@ if ( 'media' === $hero_variant || 'front-page' === $hero_variant ) {
 				<?php endif; ?>
 
 				<?php if ( $badge_text ) : ?>
-					<span class="xfact-hero-badge"><?php echo esc_html( $badge_text ); ?></span>
+					<div class="xfact-badge" style="margin-top: 0; margin-bottom: 1rem;">
+						<span><?php echo esc_html( $badge_text ); ?></span>
+					</div>
 				<?php endif; ?>
 				<?php
 				$display_heading = $heading;

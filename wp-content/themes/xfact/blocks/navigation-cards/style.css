@@ -25,7 +25,6 @@
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem;
-    border-radius: 1rem;
     position: relative;
     isolation: isolate;
 }
@@ -69,6 +68,7 @@
 html[data-theme="dark"] .xfact-nav-card__icon {
     background: var(--xfact-glass-bg);
     border-color: var(--xfact-glass-border);
+    color: var(--xfact-semantic-primary-light);
 }
 
 .xfact-nav-card__content {

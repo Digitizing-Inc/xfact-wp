@@ -21,10 +21,14 @@ function xfact_setup(): void {
 
 	/* Enqueue editor styles to match the frontend. */
 	add_editor_style( 'style.css' );
+	add_editor_style( 'assets/css/typography.css' );
 	add_editor_style( 'assets/css/global.css' );
 	add_editor_style( 'assets/css/parts/header.css' );
 	add_editor_style( 'assets/css/parts/footer.css' );
-	add_editor_style( 'assets/css/blocks/core-button.css' );
+	add_editor_style( 'assets/css/components/buttons.css' );
+	add_editor_style( 'assets/css/components/alerts.css' );
+	add_editor_style( 'assets/css/components/cards.css' );
+	add_editor_style( 'assets/css/components/badges.css' );
 	add_editor_style( 'assets/css/dark-mode.css' );
 }
 add_action( 'after_setup_theme', 'xfact_setup' );

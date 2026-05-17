@@ -9,36 +9,9 @@
     stroke-width: 1.5;
 }
 
-.xfact-text-section__badge {
-    margin-top: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 9999px !important;
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-primary) 20%, transparent);
-    background: color-mix(
-        in srgb,
-        var(--xfact-semantic-primary) 10%,
-        transparent
-    );
-    padding: 0.375rem 1rem;
-}
-
-html[data-theme="dark"] .xfact-text-section__badge {
-    background: var(--xfact-glass-bg);
-    backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid var(--xfact-glass-border);
-}
-
-html[data-theme="dark"] .xfact-text-section__badge span {
-    color: var(--xfact-semantic-text-primary);
-}
-
-.xfact-text-section__badge span {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--xfact-semantic-primary);
+.xfact-dark-section .xfact-text-section__section-icon,
+html[data-theme="dark"] .xfact-text-section__section-icon {
+    color: var(--xfact-semantic-primary-light);
 }
 
 .xfact-text-section__body {
@@ -53,42 +26,6 @@ html[data-theme="dark"] .xfact-text-section__badge span {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-}
-
-.xfact-text-section__tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 9999px !important;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    background: var(--xfact-semantic-surface);
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
-    transition: all 0.2s;
-}
-
-.xfact-text-section__tag:hover {
-    border-color: rgb(92 138 230 / 30%);
-}
-
-html[data-theme="dark"] .xfact-text-section__tag {
-    background: var(--xfact-glass-bg);
-    backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid var(--xfact-glass-border);
-    color: var(--xfact-semantic-text-primary) !important;
-}
-
-html[data-theme="dark"] .xfact-text-section__tag:hover {
-    background: var(--xfact-glass-bg-hover);
-    border-color: var(--xfact-glass-border-hover);
-}
-
-.xfact-text-section__tag-icon {
-    width: 1rem;
-    height: 1rem;
-    color: var(--xfact-semantic-primary);
-    flex-shrink: 0;
 }
 
 .xfact-text-section__action {

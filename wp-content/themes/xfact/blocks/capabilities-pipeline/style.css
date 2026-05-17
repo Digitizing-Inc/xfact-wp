@@ -38,6 +38,7 @@
 html[data-theme="dark"] .xfact-capabilities__icon {
     background: var(--xfact-glass-bg);
     border-color: var(--xfact-glass-border);
+    color: var(--xfact-semantic-primary-light);
 }
 
 .xfact-capabilities__title {

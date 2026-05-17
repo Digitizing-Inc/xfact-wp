@@ -127,8 +127,10 @@
 /* ── Migrated from global.css ─────────────────────── */
 
 [data-theme="dark"] .xfact-section-label,
-[data-theme="dark"] .xfact-capability-area__services-label {
-    color: var(--xfact-semantic-text-primary);
+[data-theme="dark"] .xfact-capability-area__services-label,
+.xfact-dark-section .xfact-section-label,
+.xfact-dark-section .xfact-capability-area__services-label {
+    color: var(--xfact-semantic-primary-light);
 }
 
 /* ── Global Dark Mode Glassmorphism ─────────────────── */
@@ -146,8 +148,7 @@ html[data-theme="dark"] .xfact-text-section__badge,
 html[data-theme="dark"] .xfact-text-section__tag,
 html[data-theme="dark"] .xfact-solutions-grid__badge,
 html[data-theme="dark"] .xfact-hero-badge,
-html[data-theme="dark"] .xfact-support-channels__icon-badge,
-html[data-theme="dark"] .xfact-solutions-grid__icon {
+html[data-theme="dark"] .xfact-support-channels__icon-badge {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border: 1px solid var(--xfact-glass-border) !important;
@@ -197,8 +198,7 @@ html[data-theme="dark"] svg.xfact-theme-toggle__icon-sun {
 html[data-theme="dark"] .xfact-text-section__badge,
 html[data-theme="dark"] .xfact-solutions-grid__badge,
 html[data-theme="dark"] .xfact-hero-badge,
-html[data-theme="dark"] .xfact-support-channels__icon-badge,
-html[data-theme="dark"] .xfact-solutions-grid__icon {
+html[data-theme="dark"] .xfact-support-channels__icon-badge {
     color: var(--xfact-semantic-text-primary);
 }
 

@@ -12,7 +12,6 @@
 }
 
 .xfact-feature-cards__card {
-    border-radius: 0.75rem;
     padding: 1.5rem 2rem;
 }
 
@@ -32,6 +31,7 @@
 html[data-theme="dark"] .xfact-feature-cards__icon {
     background: var(--xfact-glass-bg);
     border-color: var(--xfact-glass-border);
+    color: var(--xfact-semantic-primary-light);
 }
 
 .xfact-feature-cards__title {

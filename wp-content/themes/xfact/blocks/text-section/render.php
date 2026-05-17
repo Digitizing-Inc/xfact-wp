@@ -53,7 +53,7 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 					<?php endif; ?>
 
 					<?php if ( $badge_text ) : ?>
-						<div class="xfact-text-section__badge">
+						<div class="xfact-badge">
 							<span><?php echo esc_html( $badge_text ); ?></span>
 						</div>
 					<?php endif; ?>
@@ -65,12 +65,12 @@ $wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 					<?php if ( ! empty( $tags ) ) : ?>
 						<div class="xfact-text-section__tags">
 							<?php foreach ( $tags as $tag_item ) : ?>
-								<span class="xfact-text-section__tag">
+								<span class="xfact-tag">
 									<?php
 									$tag_icon = $tag_item['iconName'] ?? '';
 									if ( $tag_icon ) {
 										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG is hardcoded in icons.php.
-										echo xfact_get_icon( $tag_icon, 'xfact-text-section__tag-icon' );
+										echo xfact_get_icon( $tag_icon, 'xfact-tag-icon' );
 									}
 									?>
 									<?php echo esc_html( $tag_item['label'] ?? '' ); ?>

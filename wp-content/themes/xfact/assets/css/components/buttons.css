@@ -3,6 +3,7 @@
 /* Apply styles directly to standard elements, or to the inner link of a Gutenberg block */
 a.xfact-btn-primary,
 button.xfact-btn-primary,
+input.xfact-btn-primary,
 .wp-block-button.xfact-btn-primary .wp-element-button,
 .wp-block-button .wp-block-button__link.wp-element-button,
 .wp-element-button {
@@ -27,6 +28,7 @@ button.xfact-btn-primary,
 /* Hover States */
 a.xfact-btn-primary:hover,
 button.xfact-btn-primary:hover,
+input.xfact-btn-primary:hover,
 .wp-block-button.xfact-btn-primary .wp-element-button:hover,
 .wp-block-button .wp-block-button__link.wp-element-button:hover,
 .wp-element-button:hover {
@@ -53,16 +55,25 @@ div.wp-block-button.xfact-btn-primary {
     box-shadow: none !important;
 }
 
+.xfact-btn-sm {
+    height: 36px !important;
+    line-height: 36px !important;
+    padding: 0 16px !important;
+    font-size: 14px !important;
+}
+
 .xfact-btn-default {
-    height: 2.75rem;
-    padding: 0 1.25rem;
-    font-size: 0.875rem;
+    height: 2.75rem !important;
+    line-height: 2.75rem !important;
+    padding: 0 1.25rem !important;
+    font-size: 0.875rem !important;
 }
 
 .xfact-btn-lg {
-    height: 3rem;
-    padding: 0 1.5rem;
-    font-size: 0.875rem;
+    height: 3rem !important;
+    line-height: 3rem !important;
+    padding: 0 1.5rem !important;
+    font-size: 0.875rem !important;
 }
 
 /* ── Secondary Button ──────────────────────────────────── */
@@ -73,22 +84,22 @@ div.wp-block-button.xfact-btn-primary {
     justify-content: center;
     font-weight: 500;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: var(--xfact-glass-radius);
+    border-radius: var(--xfact-glass-radius) !important;
     border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-primary) 25%, transparent);
-    color: var(--xfact-semantic-primary);
+        color-mix(in srgb, var(--xfact-semantic-primary) 25%, transparent) !important;
+    color: var(--xfact-semantic-primary) !important;
     background: color-mix(
         in srgb,
         var(--xfact-semantic-primary) 10%,
         transparent
-    );
+    ) !important;
     backdrop-filter: var(--xfact-glass-blur);
     text-decoration: none;
     box-shadow:
         inset 0 1px 0
         color-mix(in srgb, var(--xfact-semantic-surface) 10%, transparent),
         0 2px 4px
-        color-mix(in srgb, var(--xfact-semantic-text-primary) 5%, transparent);
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 5%, transparent) !important;
 }
 
 .xfact-btn-secondary:hover {
@@ -96,19 +107,66 @@ div.wp-block-button.xfact-btn-primary {
         in srgb,
         var(--xfact-semantic-primary) 15%,
         transparent
-    );
+    ) !important;
     border-color: color-mix(
         in srgb,
         var(--xfact-semantic-primary) 40%,
         transparent
-    );
-    color: var(--xfact-semantic-primary-dark);
+    ) !important;
+    color: var(--xfact-semantic-primary-dark) !important;
     box-shadow:
         inset 0 1px 0
         color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent),
         0 4px 12px
-        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent);
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent) !important;
     transform: translateY(-1px);
+}
+
+/* ── Danger Button ─────────────────────────────────────── */
+
+.xfact-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--xfact-semantic-danger) !important;
+    border: 1px solid var(--xfact-semantic-danger) !important;
+    background: var(--xfact-semantic-surface) !important;
+    border-radius: var(--xfact-glass-radius) !important;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.xfact-btn-danger:hover {
+    background: var(--xfact-semantic-danger);
+    color: var(--xfact-semantic-text-primary);
+}
+
+/* ── Dark Section Context ──────────────────────────────── */
+
+.xfact-dark-section a.xfact-btn-primary,
+.xfact-dark-section button.xfact-btn-primary,
+.xfact-dark-section input.xfact-btn-primary,
+.xfact-dark-section .wp-block-button.xfact-btn-primary .wp-element-button,
+.xfact-dark-section .wp-block-button .wp-block-button__link.wp-element-button,
+.xfact-dark-section .wp-element-button {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border-color: var(--xfact-glass-border) !important;
+    color: var(--xfact-semantic-text-primary) !important;
+}
+
+.xfact-dark-section a.xfact-btn-primary:hover,
+.xfact-dark-section button.xfact-btn-primary:hover,
+.xfact-dark-section input.xfact-btn-primary:hover,
+.xfact-dark-section .wp-block-button.xfact-btn-primary .wp-element-button:hover,
+.xfact-dark-section
+    .wp-block-button
+    .wp-block-button__link.wp-element-button:hover,
+.xfact-dark-section .wp-element-button:hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    border-color: var(--xfact-glass-border-hover) !important;
 }
 
 /* ── Mobile Responsive Buttons ─────────────────────────── */

@@ -45,6 +45,11 @@ html[data-theme="dark"] .xfact-support-channels__icon-badge {
     color: var(--xfact-semantic-primary);
 }
 
+.xfact-dark-section .xfact-support-channels__icon,
+html[data-theme="dark"] .xfact-support-channels__icon {
+    color: var(--xfact-semantic-primary-light);
+}
+
 .xfact-support-channels__title {
     font-size: 1rem;
     font-weight: 600;

@@ -46,7 +46,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 								<h3 class="xfact-capability-area__services-label xfact-section-label"><?php esc_html_e( 'Services', 'xfact' ); ?></h3>
 								<ul class="xfact-capability-area__services-list">
 									<?php foreach ( $area['services'] as $service ) : ?>
-										<li class="xfact-capability-area__service-tag xfact-text-secondary"><?php echo esc_html( $service ); ?></li>
+										<li class="xfact-tag"><?php echo esc_html( $service ); ?></li>
 									<?php endforeach; ?>
 								</ul>
 							</div>

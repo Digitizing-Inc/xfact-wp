@@ -72,7 +72,7 @@ if ( ! function_exists( 'xfact_render_case_study_section' ) ) {
 			
 			<div class="xfact-case-study-details__main">
 				<?php if ( $client ) : ?>
-					<div class="xfact-case-study-details__client-box">
+					<div class="xfact-case-study-details__client-box xfact-card">
 						<span class="xfact-case-study-details__client-label xfact-section-label">
 							Client
 						</span>

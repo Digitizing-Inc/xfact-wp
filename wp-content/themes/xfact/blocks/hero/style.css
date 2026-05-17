@@ -483,34 +483,3 @@ html[data-theme="dark"] .xfact-page-hero__text-gradient {
 .xfact-breadcrumb li[aria-current="page"] {
     color: var(--xfact-semantic-text-primary);
 }
-
-.xfact-hero-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 9999px !important;
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-primary) 20%, transparent);
-    background-color: color-mix(
-        in srgb,
-        var(--xfact-semantic-primary) 10%,
-        transparent
-    );
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--xfact-semantic-primary);
-    margin-top: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-html[data-theme="dark"] .xfact-hero-badge {
-    background: var(--xfact-glass-bg);
-    backdrop-filter: var(--xfact-glass-blur);
-    border: 1px solid var(--xfact-glass-border);
-    color: var(--xfact-semantic-text-primary);
-}
-
-/* Ensure proper spacing when following breadcrumb */
-.xfact-breadcrumb + .xfact-hero-badge {
-    margin-top: -0.25rem;
-}

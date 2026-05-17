@@ -21,10 +21,6 @@
 /* Client Box */
 .xfact-case-study-details__client-box {
     padding: 2rem;
-    border: 1px solid
-        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
-    border-radius: 1rem;
-    background-color: var(--has-surface-background-color-card);
     margin-bottom: 3rem;
 }
 

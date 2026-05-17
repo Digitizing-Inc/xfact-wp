@@ -1,0 +1,91 @@
+/* ── Badge & Tag Components ───────────────────────────── */
+
+.xfact-badge {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px !important;
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-primary) 20%, transparent);
+    background: color-mix(
+        in srgb,
+        var(--xfact-semantic-primary) 10%,
+        transparent
+    );
+    padding: 0.375rem 1rem;
+}
+
+.xfact-badge span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--xfact-semantic-primary);
+}
+
+.xfact-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px !important;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    background: var(--xfact-semantic-surface);
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
+    transition: all 0.2s;
+}
+
+.xfact-tag:hover {
+    border-color: rgb(92 138 230 / 30%);
+}
+
+.xfact-tag-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--xfact-semantic-primary);
+    flex-shrink: 0;
+}
+
+/* Glassmorphism Context in Dark Theme / Dark Sections */
+
+html[data-theme="dark"] .xfact-badge,
+.xfact-dark-section .xfact-badge {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border: 1px solid var(--xfact-glass-border) !important;
+}
+
+html[data-theme="dark"] .xfact-badge span,
+.xfact-dark-section .xfact-badge span {
+    color: var(--xfact-semantic-text-primary) !important;
+}
+
+html[data-theme="dark"] .xfact-tag,
+.xfact-dark-section .xfact-tag {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border: 1px solid var(--xfact-glass-border) !important;
+    color: var(--xfact-semantic-text-primary) !important;
+}
+
+html[data-theme="dark"] .xfact-tag:hover,
+.xfact-dark-section .xfact-tag:hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    border-color: var(--xfact-glass-border-hover) !important;
+}
+
+/* Temporary compatibility for other blocks that had hardcoded tag names in global.css */
+.xfact-dark-section .xfact-solutions-grid__badge,
+.xfact-dark-section .xfact-hero-badge,
+.xfact-dark-section .xfact-support-channels__icon-badge,
+.xfact-dark-section .xfact-capability-area__service-tag {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border: 1px solid var(--xfact-glass-border) !important;
+    color: var(--xfact-semantic-text-primary) !important;
+}
+
+.xfact-dark-section .xfact-capability-area__service-tag:hover {
+    background: var(--xfact-glass-bg-hover);
+    border-color: var(--xfact-glass-border-hover);
+}
