@@ -72,12 +72,12 @@ function scanForTokens(
 
 function existsFile(p) {
     const st = statSafe(p);
-    return Boolean(st?.isFile());
+    return Boolean(st && st.isFile());
 }
 
 function existsDir(p) {
     const st = statSafe(p);
-    return Boolean(st?.isDirectory());
+    return Boolean(st && st.isDirectory());
 }
 
 function detectPackageManager(repoRoot) {
@@ -259,7 +259,7 @@ function detectConfigConstants(repoRoot) {
     };
 }
 
-function detectKinds(_repoRoot, signals) {
+function detectKinds(repoRoot, signals) {
     const kinds = new Set();
 
     if (signals.isGutenbergRepo) kinds.add('gutenberg');
@@ -296,6 +296,7 @@ function detectKinds(_repoRoot, signals) {
 }
 
 function buildRecommendations({
+    repoRoot,
     primaryKind,
     packageManager,
     packageJson,

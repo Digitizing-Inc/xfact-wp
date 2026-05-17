@@ -20,9 +20,9 @@ function statSafe(p) {
     }
 }
 
-function _existsDir(p) {
+function existsDir(p) {
     const st = statSafe(p);
-    return Boolean(st?.isDirectory());
+    return Boolean(st && st.isDirectory());
 }
 
 function readJsonSafe(p) {

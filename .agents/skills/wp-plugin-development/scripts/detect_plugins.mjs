@@ -12,7 +12,7 @@ const DEFAULT_IGNORES = new Set([
     '.turbo',
 ]);
 
-function _statSafe(p) {
+function statSafe(p) {
     try {
         return fs.statSync(p);
     } catch {
