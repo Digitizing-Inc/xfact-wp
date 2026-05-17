@@ -16,11 +16,6 @@
         var(--xfact-semantic-surface) 75%,
         transparent
     );
-    --xfact-dark-section-muted: color-mix(
-        in srgb,
-        var(--xfact-semantic-surface) 55%,
-        transparent
-    );
 
     --xfact-spacing-section: 5.625rem;
     --xfact-spacing-section-lg: 7rem;
@@ -237,14 +232,6 @@ footer.xfact-dark-section {
     color: var(--xfact-dark-section-text);
 }
 
-.xfact-dark-section-secondary {
-    color: var(--xfact-dark-section-secondary);
-}
-
-.xfact-dark-section-muted {
-    color: var(--xfact-dark-section-muted);
-}
-
 /* ── Separator Utilities ───────────────────────────────── */
 
 hr.xfact-separator {
@@ -330,7 +317,6 @@ div.xfact-separator {
 .xfact-dark-section .xfact-case-study-card__link-text,
 .xfact-dark-section .xfact-case-study-card__source,
 .xfact-dark-section .xfact-solutions-grid__icon,
-.xfact-dark-section .xfact-capability-areas__icon,
 .xfact-dark-section .xfact-hero__accent {
     color: var(--xfact-semantic-primary-light) !important;
 }

@@ -9,11 +9,6 @@
         var(--xfact-semantic-text-primary) 60%,
         transparent
     );
-    --xfact-dark-section-muted: color-mix(
-        in srgb,
-        var(--xfact-semantic-text-primary) 45%,
-        transparent
-    );
 
     background-color: var(--has-surface-background-color);
     color: var(--xfact-semantic-text-primary);

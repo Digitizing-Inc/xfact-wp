@@ -201,7 +201,14 @@ if ( 'media' === $hero_variant || 'front-page' === $hero_variant ) {
 								</li>
 								<li aria-hidden="true" class="xfact-breadcrumb-separator">/</li>
 							<?php endif; ?>
-							<li aria-current="page"><?php echo esc_html( get_the_title() ); ?></li>
+							<?php
+							$current_title = get_the_title();
+							if ( 'auto-draft' === get_post_status() && ( empty( $current_title ) || 'Auto Draft' === $current_title ) ) {
+								$pt_obj        = get_post_type_object( get_post_type() );
+								$current_title = 'New ' . ( $pt_obj ? $pt_obj->labels->singular_name : 'Post' );
+							}
+							?>
+							<li aria-current="page"><?php echo esc_html( $current_title ); ?></li>
 						</ol>
 					</nav>
 				<?php elseif ( $section_label ) : ?>
@@ -212,13 +219,34 @@ if ( 'media' === $hero_variant || 'front-page' === $hero_variant ) {
 					<span class="xfact-hero-badge"><?php echo esc_html( $badge_text ); ?></span>
 				<?php endif; ?>
 				<?php
-				if ( $heading ) :
-					$rendered_heading = wp_kses_post( preg_replace( '/\*(.*?)\*/', '<span class="xfact-hero__accent">$1</span>', $heading ) );
+				$display_heading = $heading;
+				if ( ! $display_heading ) {
+					if ( ! isset( $current_title ) ) {
+						$current_title = get_the_title();
+						if ( 'auto-draft' === get_post_status() && ( empty( $current_title ) || 'Auto Draft' === $current_title ) ) {
+							$pt_obj        = get_post_type_object( get_post_type() );
+							$current_title = 'New ' . ( $pt_obj ? $pt_obj->labels->singular_name : 'Post' );
+						}
+					}
+					$display_heading = $current_title;
+				}
+				if ( $display_heading ) :
+					$rendered_heading = wp_kses_post( preg_replace( '/\*(.*?)\*/', '<span class="xfact-hero__accent">$1</span>', $display_heading ) );
 					?>
 					<h1 class="xfact-page-hero__heading"><?php echo wp_kses_post( $rendered_heading ); ?></h1>
 				<?php endif; ?>
-				<?php if ( $subtitle ) : ?>
-					<p class="xfact-page-hero__subtitle"><?php echo esc_html( $subtitle ); ?></p>
+				<?php
+				$display_subtitle = $subtitle;
+				if ( ! $display_subtitle && 'auto-draft' === get_post_status() ) {
+					if ( 'case_study' === get_post_type() ) {
+						$display_subtitle = 'Optional subtitle. Select the Case Study Details block below and use the settings sidebar to enter your content.';
+					} else {
+						$display_subtitle = 'Optional subtitle. Tip: Custom theme blocks are prefixed with "xfact" (type /xfact to find them). Select this Hero block and use the Block Settings sidebar to configure it.';
+					}
+				}
+				if ( $display_subtitle ) :
+					?>
+					<p class="xfact-page-hero__subtitle"><?php echo esc_html( $display_subtitle ); ?></p>
 				<?php endif; ?>
 				<?php if ( $body_text ) : ?>
 					<p class="xfact-page-hero__body"><?php echo esc_html( $body_text ); ?></p>

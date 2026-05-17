@@ -206,3 +206,17 @@ function xfact_enqueue_editor_assets(): void {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'xfact_enqueue_editor_assets' );
+
+/**
+ * Enqueue scripts in the WordPress Admin dashboard.
+ */
+function xfact_admin_enqueue_scripts(): void {
+	wp_enqueue_script(
+		'xfact-admin-title-prompt',
+		get_theme_file_uri( 'assets/js/admin-title-prompt.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
+}
+add_action( 'admin_enqueue_scripts', 'xfact_admin_enqueue_scripts' );

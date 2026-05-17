@@ -32,6 +32,8 @@ function xfact_register_post_types(): void {
 		'not_found_in_trash' => __( 'No case studies found in Trash.', 'xfact' ),
 	);
 
+	$requested_title = isset( $_REQUEST['post_title'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['post_title'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
 	$args = array(
 		'labels'             => $labels,
 		'public'             => true,
@@ -47,8 +49,87 @@ function xfact_register_post_types(): void {
 		'menu_icon'          => 'dashicons-portfolio',
 		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'revisions' ),
 		'show_in_rest'       => true, // Essential for Gutenberg.
+		'template'           => array(
+			array(
+				'xfact/hero',
+				array(
+					'sectionLabel' => 'Case Studies',
+					'title'        => $requested_title,
+					'subtitle'     => 'Optional subtitle. Select the Case Study Details block below and use the settings sidebar to enter your content.',
+					'align'        => 'full',
+				),
+			),
+			array( 'xfact/case-study-details' ),
+			array(
+				'xfact/cta-section',
+				array(
+					'align'    => 'full',
+					'title'    => 'Ready to strengthen your systems?',
+					'subtitle' => 'Schedule an assessment to understand your current environment and identify a path forward.',
+					'buttons'  => array(
+						array(
+							'label'   => 'Contact Us',
+							'url'     => '/contact',
+							'variant' => 'primary',
+						),
+					),
+				),
+			),
+		),
 	);
 
 	register_post_type( 'case_study', $args );
 }
 add_action( 'init', 'xfact_register_post_types' );
+
+/**
+ * Assign default block templates to core post types.
+ */
+function xfact_add_page_template(): void {
+	$page_object = get_post_type_object( 'page' );
+	if ( $page_object ) {
+		$requested_title = isset( $_REQUEST['post_title'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['post_title'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$page_object->template = array(
+			array(
+				'xfact/hero',
+				array(
+					'title'    => $requested_title,
+					'subtitle' => 'Select this block and use the Block Settings sidebar to configure the title, subtitle, and layout.',
+					'align'    => 'full',
+				),
+			),
+			array( 'core/paragraph' ),
+		);
+	}
+}
+add_action( 'init', 'xfact_add_page_template', 20 );
+
+/**
+ * Force save the requested title to the auto-draft in the database.
+ * This ensures that ServerSideRender blocks (like Hero) can read the correct title
+ * via the REST API before the user manually saves the draft.
+ *
+ * @param string  $title The post title.
+ * @param WP_Post $post  The post object.
+ * @return string The modified or original title.
+ */
+function xfact_persist_auto_draft_title( string $title, WP_Post $post ): string {
+	if ( 'auto-draft' === $post->post_status && isset( $_REQUEST['post_title'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$requested_title = sanitize_text_field( wp_unslash( $_REQUEST['post_title'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $requested_title ) {
+			// Unhook to prevent infinite loops during wp_update_post.
+			remove_filter( 'default_title', 'xfact_persist_auto_draft_title', 10 );
+			wp_update_post(
+				array(
+					'ID'         => $post->ID,
+					'post_title' => $requested_title,
+				)
+			);
+			add_filter( 'default_title', 'xfact_persist_auto_draft_title', 10, 2 );
+			return $requested_title;
+		}
+	}
+	return $title;
+}
+add_filter( 'default_title', 'xfact_persist_auto_draft_title', 10, 2 );
