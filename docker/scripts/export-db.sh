@@ -28,7 +28,16 @@ echo "=========================================="
 # Ensure backup directory exists
 mkdir -p "$BACKUP_DIR"
 
-echo "1) Exporting database and replacing URLs..."
+echo "1) Cleaning up local database clutter before export..."
+docker compose exec -T -u www-data wordpress bash -c '
+    wp db query "DELETE FROM wp_posts WHERE post_type IN (\"flamingo_inbound\", \"flamingo_contact\", \"revision\");" --quiet
+    wp db query "DELETE FROM wp_posts WHERE post_status IN (\"auto-draft\", \"trash\");" --quiet
+    wp db query "DELETE FROM wp_postmeta WHERE meta_key IN (\"_edit_lock\", \"_edit_last\", \"_wp_trash_meta_status\", \"_wp_trash_meta_time\", \"_wp_desired_post_slug\");" --quiet
+    wp db query "DELETE FROM wp_options WHERE option_name LIKE \"_transient_%\" OR option_name LIKE \"_site_transient_%\";" --quiet
+    wp db query "DELETE FROM wp_postmeta WHERE post_id NOT IN (SELECT ID FROM wp_posts);" --quiet
+'
+
+echo "2) Exporting database and replacing URLs..."
 # We replace http://localhost:8080 with https://TARGET_DOMAIN and export the result.
 # The --export flag ensures the local database is NOT modified.
 docker compose exec -T -u www-data wordpress wp search-replace "http://${LOCAL_DOMAIN}" "https://${TARGET_DOMAIN}" --export="/tmp/db_backup.sql" --quiet
