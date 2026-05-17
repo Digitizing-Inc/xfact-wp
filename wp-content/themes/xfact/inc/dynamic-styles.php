@@ -40,8 +40,11 @@ function xfact_get_dynamic_css(): string {
 		'blue-300'   => '#83CBFF',
 		'navy-900'   => '#182849',
 		'red-500'    => '#CD163F',
+		'red-300'    => '#FF85A1',
 		'orange-500' => '#FF9300',
+		'orange-300' => '#FFC885',
 		'green-500'  => '#379B53',
+		'green-300'  => '#85FFB0',
 		'black'      => '#000000',
 		'white'      => '#ffffff',
 	);
@@ -80,9 +83,9 @@ function xfact_get_dynamic_css(): string {
 		'text-secondary' => 'white',
 		'surface'        => 'black',
 		'surface-alt'    => 'black',
-		'success'        => 'green-500',
-		'warning'        => 'orange-500',
-		'danger'         => 'red-500',
+		'success'        => 'green-300',
+		'warning'        => 'orange-300',
+		'danger'         => 'red-300',
 	);
 	$dark_semantics = array();
 	foreach ( $dark_sem_defs as $k => $v ) {

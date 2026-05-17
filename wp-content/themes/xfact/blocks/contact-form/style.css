@@ -7,88 +7,243 @@
 @media (width >= 1024px) {
     .xfact-contact-form__layout {
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: 6rem;
     }
 }
 
 .xfact-contact-form__form {
     margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.xfact-contact-form__row {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
 }
 
 @media (width >= 640px) {
-    .xfact-contact-form__row {
-        grid-template-columns: repeat(2, 1fr);
+    .xfact-contact-form__form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .xfact-contact-form__form > * {
+        grid-column: span 2;
+    }
+
+    .xfact-contact-form__form > p:nth-of-type(1),
+    .xfact-contact-form__form > p:nth-of-type(2) {
+        grid-column: span 1;
     }
 }
 
-.xfact-contact-form__field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.xfact-contact-form__form p {
+    margin: 0;
 }
 
-.xfact-contact-form__label {
+.xfact-contact-form__form label {
+    display: block;
     font-size: 0.875rem;
     font-weight: 500;
 }
 
-.xfact-contact-form__required {
+.xfact-contact-form__form .wpcf7-form-control-wrap {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.xfact-contact-form__form label br {
+    display: none;
+}
+
+.xfact-contact-form__form .required {
     color: var(--xfact-semantic-primary);
 }
 
-.xfact-contact-form__input,
-.xfact-contact-form__textarea {
+.xfact-contact-form__form input[type="text"],
+.xfact-contact-form__form input[type="email"],
+.xfact-contact-form__form textarea {
     border: 1px solid
         color-mix(in srgb, var(--xfact-semantic-text-primary), transparent 80%);
-    border-radius: var(--xfact-glass-radius); /* Use global glass radius */
+    border-radius: var(--xfact-glass-radius);
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     transition: all 0.2s;
     font-family: inherit;
     color: inherit;
+    width: 100%;
+    background: transparent;
 }
 
-.xfact-contact-form__input:focus,
-.xfact-contact-form__textarea:focus {
+.xfact-contact-form__form input[type="text"]:focus,
+.xfact-contact-form__form input[type="email"]:focus,
+.xfact-contact-form__form textarea:focus {
     outline: none;
     border-color: var(--xfact-semantic-primary);
     box-shadow: 0 0 0 3px rgb(92 138 230 / 10%);
 }
 
+.xfact-contact-form__form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.xfact-contact-form__form input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: var(--xfact-glass-radius) !important;
+    border: 1px solid
+        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent) !important;
+    color: #ffffff !important;
+    background: var(--xfact-semantic-primary-dark) !important;
+    text-decoration: none;
+    box-shadow:
+        inset 0 1px 0
+        color-mix(in srgb, var(--xfact-semantic-surface) 10%, transparent),
+        0 2px 4px
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 10%, transparent) !important;
+    cursor: pointer;
+    width: max-content;
+    height: 2.75rem;
+    padding: 0 1.25rem;
+    font-size: 0.875rem;
+}
+
+form.submitting .xfact-contact-form__form input[type="submit"] {
+    color: transparent !important;
+    opacity: 0.8 !important;
+    pointer-events: none !important;
+    padding-left: 2.75rem !important; /* 1.25rem padding + 1rem spinner + 0.5rem gap */
+}
+
+.xfact-contact-form__form input[type="submit"]:hover {
+    background: var(--xfact-semantic-primary-dark) !important;
+    border-color: color-mix(
+        in srgb,
+        var(--xfact-semantic-surface) 40%,
+        transparent
+    ) !important;
+    color: #ffffff !important;
+    box-shadow:
+        inset 0 1px 0
+        color-mix(in srgb, var(--xfact-semantic-surface) 20%, transparent),
+        0 4px 12px
+        color-mix(in srgb, var(--xfact-semantic-text-primary) 15%, transparent) !important;
+    transform: translateY(-1px);
+}
+
 /* Glassmorphism Context for Inputs */
-html[data-theme="dark"] .xfact-contact-form__input,
-html[data-theme="dark"] .xfact-contact-form__textarea,
-.xfact-dark-section .xfact-contact-form__input,
-.xfact-dark-section .xfact-contact-form__textarea {
+html[data-theme="dark"] .xfact-contact-form__form input[type="text"],
+html[data-theme="dark"] .xfact-contact-form__form input[type="email"],
+html[data-theme="dark"] .xfact-contact-form__form textarea,
+.xfact-dark-section .xfact-contact-form__form input[type="text"],
+.xfact-dark-section .xfact-contact-form__form input[type="email"],
+.xfact-dark-section .xfact-contact-form__form textarea {
     background-color: var(--xfact-glass-bg);
     backdrop-filter: var(--xfact-glass-blur);
     border: 1px solid var(--xfact-glass-border);
 }
 
-html[data-theme="dark"] .xfact-contact-form__input:focus,
-html[data-theme="dark"] .xfact-contact-form__textarea:focus,
-.xfact-dark-section .xfact-contact-form__input:focus,
-.xfact-dark-section .xfact-contact-form__textarea:focus {
+html[data-theme="dark"] .xfact-contact-form__form input[type="text"]:focus,
+html[data-theme="dark"] .xfact-contact-form__form input[type="email"]:focus,
+html[data-theme="dark"] .xfact-contact-form__form textarea:focus,
+.xfact-dark-section .xfact-contact-form__form input[type="text"]:focus,
+.xfact-dark-section .xfact-contact-form__form input[type="email"]:focus,
+.xfact-dark-section .xfact-contact-form__form textarea:focus {
     background-color: var(--xfact-glass-bg-hover);
     border-color: var(--xfact-semantic-primary);
     box-shadow: 0 0 0 3px rgb(92 138 230 / 20%);
 }
 
-.xfact-contact-form__textarea {
-    resize: vertical;
+html[data-theme="dark"] .xfact-contact-form__form input[type="submit"],
+.xfact-dark-section .xfact-contact-form__form input[type="submit"] {
+    background: var(--xfact-glass-bg) !important;
+    backdrop-filter: var(--xfact-glass-blur) !important;
+    border-color: var(--xfact-glass-border) !important;
+    color: var(--xfact-semantic-text-primary) !important;
 }
 
-.xfact-contact-form__form button[type="submit"] {
-    align-self: flex-start;
+html[data-theme="dark"] .xfact-contact-form__form input[type="submit"]:hover,
+.xfact-dark-section .xfact-contact-form__form input[type="submit"]:hover {
+    background: var(--xfact-glass-bg-hover) !important;
+    border-color: var(--xfact-glass-border-hover) !important;
+}
+
+.xfact-contact-form__form p:has(input[type="submit"]) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    order: 99;
+}
+
+.xfact-contact-form__form p:has(input[type="submit"])::after {
+    content: "Loading...";
+    position: absolute;
+    left: 2.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.875rem;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+}
+
+form.submitting .xfact-contact-form__form p:has(input[type="submit"])::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.xfact-contact-form__form .wpcf7-spinner {
+    position: absolute !important;
+    left: 1.25rem !important;
+    top: calc(50% - 0.5rem) !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #ffffff !important;
+    border-radius: 50% !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    display: block !important;
+}
+
+.xfact-contact-form__form .wpcf7-spinner.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: xfact-submit-spin 0.8s linear infinite !important;
+}
+
+@keyframes xfact-submit-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.xfact-contact-form__form .wpcf7-response-output {
+    order: 98;
+    margin: 0 !important;
+}
+
+.xfact-contact-form__form .wpcf7-not-valid {
+    border-color: var(--xfact-semantic-danger) !important;
+}
+
+.xfact-contact-form__form .wpcf7-not-valid-tip {
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    color: var(--xfact-semantic-danger);
+    display: block;
 }
 
 /* Assessment sidebar */

@@ -102,7 +102,7 @@
                     }),
                     el(h.TextControl, {
                         key: 'formId',
-                        label: 'Gravity Form ID',
+                        label: 'Contact Form 7 ID',
                         value: attr.formId,
                         onChange: (v) => {
                             set({ formId: v });

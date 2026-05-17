@@ -309,18 +309,6 @@ function xfact_render_admin_settings_page(): void {
 		return;
 	}
 
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended
-	if ( isset( $_GET['settings-reset'] ) && 'true' === $_GET['settings-reset'] ) {
-		echo '<div class="xfact-toast xfact-toast-warning"><p>Theme configuration and styles reset to defaults. All custom colors, typography, and logos have been reverted.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
-	} elseif ( isset( $_GET['xfact-saved'] ) ) {
-		if ( 'true' === $_GET['xfact-saved'] ) {
-			echo '<div class="xfact-toast xfact-toast-success"><p>Settings saved.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
-		} else {
-			echo '<div class="xfact-toast xfact-toast-info"><p>No changes were made.</p><button type="button" class="xfact-toast-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
-		}
-	}
-	// phpcs:enable
-
 	// Fetch Primitives.
 	$prim_defs  = array(
 		'blue-900'   => '#14419F',
@@ -328,8 +316,11 @@ function xfact_render_admin_settings_page(): void {
 		'blue-300'   => '#83CBFF',
 		'navy-900'   => '#182849',
 		'red-500'    => '#CD163F',
+		'red-300'    => '#FF85A1',
 		'orange-500' => '#FF9300',
+		'orange-300' => '#FFC885',
 		'green-500'  => '#379B53',
+		'green-300'  => '#85FFB0',
 		'black'      => '#000000',
 		'white'      => '#ffffff',
 	);
@@ -368,9 +359,9 @@ function xfact_render_admin_settings_page(): void {
 		'text-secondary' => 'white',
 		'surface'        => 'black',
 		'surface-alt'    => 'black',
-		'success'        => 'green-500',
-		'warning'        => 'orange-500',
-		'danger'         => 'red-500',
+		'success'        => 'green-300',
+		'warning'        => 'orange-300',
+		'danger'         => 'red-300',
 	);
 	$dark_semantics = array();
 	foreach ( $dark_sem_defs as $k => $v ) {
@@ -408,6 +399,20 @@ function xfact_render_admin_settings_page(): void {
 	?>
 	<div class="wrap xfact-admin-settings">
 		<h1>xFact Branding & Settings</h1>
+
+		<?php
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['settings-reset'] ) && 'true' === $_GET['settings-reset'] ) {
+			echo '<div class="xfact-alert xfact-alert-warning"><p>Theme configuration and styles reset to defaults. All custom colors, typography, and logos have been reverted.</p></div>';
+		} elseif ( isset( $_GET['xfact-saved'] ) ) {
+			if ( 'true' === $_GET['xfact-saved'] ) {
+				echo '<div class="xfact-alert xfact-alert-success"><p>Settings saved.</p></div>';
+			} else {
+				echo '<div class="xfact-alert xfact-alert-info"><p>No changes were made.</p></div>';
+			}
+		}
+		// phpcs:enable
+		?>
 
 		<form method="post" id="xfact-settings-form">
 			<?php wp_nonce_field( 'xfact_save_settings', 'xfact_settings_nonce' ); ?>

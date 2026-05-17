@@ -34,13 +34,29 @@ $wrapper_attributes = get_block_wrapper_attributes(
 					<p class="xfact-section-subtitle"><?php echo esc_html( $subtitle ); ?></p>
 				<?php endif; ?>
 
-				<?php if ( class_exists( 'GFForms' ) ) : ?>
+				<?php if ( class_exists( 'WPCF7_ContactForm' ) ) : ?>
 					<?php
-					$form_id = $attributes['formId'] ?? '1';
-					echo do_shortcode( '[gravityform id="' . esc_attr( $form_id ) . '" title="false" description="false" ajax="true"]' );
+					$form_id = $attributes['formId'] ?? '';
+					if ( empty( $form_id ) || '1' === (string) $form_id ) {
+						$forms = get_posts(
+							array(
+								'post_type'   => 'wpcf7_contact_form',
+								'numberposts' => 1,
+							)
+						);
+						if ( ! empty( $forms ) ) {
+							$form_id = $forms[0]->ID;
+						}
+					}
+
+					if ( ! empty( $form_id ) ) {
+						echo do_shortcode( '[contact-form-7 id="' . esc_attr( $form_id ) . '" html_class="xfact-contact-form__form"]' );
+					} else {
+						echo '<p class="xfact-text">Error: Contact form not found.</p>';
+					}
 					?>
 				<?php else : ?>
-					<!-- Fallback form for environments where Gravity Forms is not installed -->
+					<!-- Fallback form for environments where Contact Form 7 is not installed -->
 					<form class="xfact-contact-form__form" action="mailto:<?php echo esc_attr( $recipient_email ); ?>" method="post" enctype="text/plain">
 						<div class="xfact-contact-form__row">
 							<div class="xfact-contact-form__field">

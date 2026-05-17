@@ -96,6 +96,23 @@ else
 fi
 echo "✅ Safe SVG configured."
 
+# Install and activate Contact Form 7
+echo "📧 Setting up Contact Form 7..."
+if ! wp plugin is-installed contact-form-7 2>/dev/null; then
+    wp plugin install contact-form-7 --activate
+else
+    wp plugin activate contact-form-7 2>/dev/null || true
+fi
+
+# Install Flamingo for CF7 Database Storage
+echo "🦩 Setting up Flamingo..."
+if ! wp plugin is-installed flamingo 2>/dev/null; then
+    wp plugin install flamingo --activate
+else
+    wp plugin activate flamingo 2>/dev/null || true
+fi
+
+
 # Install, activate, and configure Yoast SEO
 echo "🔍 Setting up Yoast SEO..."
 if ! wp plugin is-installed wordpress-seo 2>/dev/null; then

@@ -13,6 +13,59 @@ echo "📝 Seeding page content..."
 
 : "${WP_SITE_URL:?missing}"
 
+# Seed default Contact Form 7 if none exists
+echo "📧 Seeding Contact Form 7..."
+cat << 'EOF' > /tmp/seed-cf7.php
+<?php
+if ( class_exists( 'WPCF7_ContactForm' ) ) {
+    $forms = get_posts( ['post_type' => 'wpcf7_contact_form', 'numberposts' => 1] );
+    if ( empty( $forms ) ) {
+        $f = WPCF7_ContactForm::get_template();
+    } else {
+        $f = WPCF7_ContactForm::get_instance( $forms[0] );
+    }
+    $f->set_title('xFact Contact Form');
+    $props = $f->get_properties();
+    $props['form'] = <<<HTML
+<label> First Name <span class="required">*</span>
+    [text* firstName] </label>
+
+<label> Last Name <span class="required">*</span>
+    [text* lastName] </label>
+
+<label> Email <span class="required">*</span>
+    [email* email] </label>
+
+<label> Organization
+    [text organization] </label>
+
+<label> How can we help? <span class="required">*</span>
+    [textarea* message] </label>
+
+[submit "Send Message"]
+HTML;
+    
+    $props['mail'] = array(
+        'active' => true,
+        'subject' => 'Website Contact from [firstName] [lastName]',
+        'sender' => '[firstName] [lastName] <[email]>',
+        'recipient' => 'info@xfact.com',
+        'body' => "From: [firstName] [lastName] <[email]>\nOrganization: [organization]\n\nMessage:\n[message]",
+        'additional_headers' => 'Reply-To: [email]',
+        'attachments' => '',
+        'use_html' => false,
+        'exclude_blank' => false
+    );
+    
+    $props['additional_settings'] = "skip_mail: on\nflamingo_email: [email]\nflamingo_name: [firstName] [lastName]\nflamingo_subject: Website Contact from [firstName] [lastName]\n";
+    
+    $f->set_properties( $props );
+    $f->save();
+}
+EOF
+wp eval-file /tmp/seed-cf7.php 2>/dev/null || true
+
+
 # Theme assets base URL — used for image attributes.
 SITE_URL=$(wp option get siteurl 2>/dev/null || echo "$WP_SITE_URL")
 ASSETS="${SITE_URL}/wp-content/themes/xfact/assets/images"

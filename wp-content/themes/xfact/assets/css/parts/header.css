@@ -124,7 +124,9 @@ body.has-hero-header .wp-site-blocks,
 /* Header Nav Buttons - Exact Match to Hero Glassmorphism */
 .xfact-header .wp-block-button .wp-block-button__link.wp-element-button,
 .xfact-header .wp-element-button,
-.xfact-header .xfact-btn-primary {
+.xfact-header a.xfact-btn-primary,
+.xfact-header button.xfact-btn-primary,
+.xfact-header .wp-block-button.xfact-btn-primary .wp-element-button {
     background: var(--xfact-glass-bg) !important;
     backdrop-filter: var(--xfact-glass-blur) !important;
     border-color: var(--xfact-glass-border) !important;
@@ -139,7 +141,9 @@ body.has-hero-header .wp-site-blocks,
 
 .xfact-header .wp-block-button .wp-block-button__link.wp-element-button:hover,
 .xfact-header .wp-element-button:hover,
-.xfact-header .xfact-btn-primary:hover {
+.xfact-header a.xfact-btn-primary:hover,
+.xfact-header button.xfact-btn-primary:hover,
+.xfact-header .wp-block-button.xfact-btn-primary .wp-element-button:hover {
     background: var(--xfact-glass-bg-hover) !important;
     border-color: var(--xfact-glass-border-hover) !important;
 }
