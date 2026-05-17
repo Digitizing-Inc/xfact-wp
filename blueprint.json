@@ -49,6 +49,16 @@
       }
     },
     {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "flamingo"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
       "step": "setSiteOptions",
       "options": {
         "blogname": "xFact",
